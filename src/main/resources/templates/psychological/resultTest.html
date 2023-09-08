@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>resultTest</title>
+    <link rel="stylesheet" type="text/css" href="../css/common/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/psychological/icon.css">
+    <link rel="stylesheet" type="text/css" href="../css/psychological/resultTest.css">
+</head>
+<body>
+<th:block th:include="Components/PostLoginHeader.html"></th:block>
+<h1>메타님의 심리상태</h1><svg><th:block th:include="Components/manProfile"></th:block></svg>
+<footer><svg width="1912" height="500" viewBox="0 0 1912 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="z-index: 2">
+    <path d="M1912 129.769C1848.14 49.9006 1757.33 0 1656.59 0C1599.76 0 1546.09 15.8771 1498.64 44.0538C1449.52 73.2217 1396.59 73.2217 1347.47 44.0538C1300.02 15.8771 1246.36 0 1189.53 0C1132.7 0 1079.03 15.8771 1031.58 44.0538C982.464 73.2218 929.536 73.2218 880.416 44.0538C832.965 15.8771 779.3 0 722.472 0C665.643 0 611.978 15.8771 564.527 44.0538C515.408 73.2218 462.479 73.2218 413.359 44.0538C365.908 15.8771 312.243 0 255.415 0C154.668 0 63.862 49.9007 0 129.77V1246H1912V129.769Z" fill="#FFE7A4" fill-opacity="0.3"/>
+    <div class="showresult" style="z-index: 1"></div>
+</svg>
+</footer>
+</body>
+</html>

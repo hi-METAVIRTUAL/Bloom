@@ -1,0 +1,7 @@
+.icons{position: relative;width: 70px;height: 70px;top: 15%;bottom: 15%;}
+img{ width: 700px; height: 350px; border-radius: 30px;display: block;
+    margin-left: auto;margin-right: auto;}
+section {display: flex;justify-content: center;}
+section article {margin-left: 100px;margin-right: 100px;}
+span{color: white;}
+button{width: 150px;height: 40px;}

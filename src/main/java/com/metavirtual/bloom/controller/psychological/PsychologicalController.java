@@ -9,22 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PsychologicalController {
 
     @GetMapping("/test")
-    public String test(){
-
-        return "psychological/firstTest";
-    }
+    public String test(){ return "psychological/firstTest"; }
     @GetMapping("/start")
-    public String test1(){
-
-        return "psychological/testStart";
-    }
+    public String strartTestPage(){ return "psychological/startTest"; }
 
     @GetMapping("/last")
-    public String lastPage(){
+    public String lastTestPage(){
         return "psychological/lastTest";
     }
     @GetMapping("/match")
-    public String matching(){
-        return "psychological/match";
+    public String matchingPage(){
+        return "psychological/matchingPage";
+    }
+    @GetMapping("/result")
+    public String resultTestPage(){
+        return "psychological/resultTest";
     }
 }
