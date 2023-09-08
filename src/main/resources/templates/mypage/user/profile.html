@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:include="common/header.html"></div>
+<div class="profile">
+    <img src="">
+    <h3>username</h3>
+    <p>useremail</p>
+    <p>userphone</p>
+</div>
+<table>
+    <tr>
+        <th>상담사</th>
+        <th>예약일</th>
+        <th>연락처</th>
+        <th>예약상태</th>
+    </tr>
+    <tr th:each="menu : ${ menuList }">
+        <td th:text="${ 상담사이름 }"></td>
+        <td th:text="${ 예약일 }"></td>
+        <td th:text="${ 상담사전화번호 }"></td>
+        <td th:text="${ 예약상태 }"></td>
+    </tr>
+</table>
+
+</script>
+</body>
+</html>
+<!---->

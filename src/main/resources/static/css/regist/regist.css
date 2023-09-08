@@ -1,0 +1,55 @@
+body {
+    font-family: 'Noto Sans KR';
+    margin:0;
+    color: #3C5B4B;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    column-gap: 100px;
+    margin-top: 100px;
+    text-align: center;
+}
+/**/
+.image {
+    width: 200px;
+    height: 270px;
+}
+
+.maintxt {
+    font-size:27px;
+    margin-top: 20px;
+    margin-bottom: -35px;
+    font-weight: bold;
+}
+
+.smalltxt {
+    font-size: 18px;
+    padding-top: unset;
+    margin-top: 0;
+
+    margin:0;
+    padding:0;
+}
+
+.plants {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 700px;
+    height: 310px;
+    margin-top: -350px;
+    margin-left: 485px;
+}
+
+.icon1{
+    margin-top: -20px;
+    margin-left: -370px;
+}
+
+.grass {
+    display: flex;
+}
