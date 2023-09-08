@@ -3,12 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile Setting</title>
+    <style>
+        textarea {
+            width: 500px;
+            height: 80px;
+            resize: none;
+            color: #C09A81;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            border-color: #C09A81;
+            border-style: solid;
+            border-width: 2px;
+        }
+        textarea::placeholder {
+            color: #C09A81;
+        }
+    </style>
 </head>
 <body>
     <form align="center">
         <table align="center" style="color: #C09A81">
+            <tr>
+                <td>
+                    Q1. 상담사님 간단하게 자기소개 부탁드립니다.(한줄소개)
+                    <br><br>
+                    <textarea placeholder="50자 이내 작성"></textarea>
+                    <br><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Q2. 내담자에게 어떤 방식으로 다가가시나요?
+                    <br><br>
+                    <textarea placeholder="500자 이내 작성"></textarea>
+                    <br><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?
+                    <br><br>
+                    <textarea placeholder="500자 이내 작성"></textarea>
+                    <br><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    소속기관
+                    <br><br>
+                    <input style="width: 500px; height: 30px; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="organization" value="맑음 상담소"> <!--'맑음 상담소는 로그인한 유저의 소속기관으로 변경-->
+                    <br>
+                    최대 20자 공백 / 특수기호 불가 / 영문, 한글로 입력
+                    <br><br><br>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" style="border-color: #C09A81; background-color: #FFFFFF; color: #C09A81; border-radius: 10px; border-style: solid; width: 210px;" >
+                    전문 분야 선택
+                    <br><br>
+                    우울<input type="radio" name="special" value="우울">
+                    <br>
+                    불안<input type="radio" name="special" value="불안">
+                    <br>
+                    양극성<input type="radio" name="special" value="양극성">
+                    <br>
+                    강박성<input type="radio" name="special" value="강박성">
+                    <br>
+                    대인관계<input type="radio" name="special" value="대인관계">
+                </td>
 
+                <td align="right" style="border-color: #C09A81; background-color: #FFFFFF; color: #C09A81; border-radius: 10px; border-style: solid; width: 200px;">
+                    상담 방법 선택
+                    <br><br>
+                    화상상담(줌)<input type="checkbox" name="how" value="화상상담">
+                    <br><br>
+                    채팅상담(카카오톡)<input type="checkbox" name="how" value="채팅상담">
+                    <br><br>
+                    대면상담<input type="checkbox" name="how" value="대면상담">
+                </td>
+            </tr>
         </table>
+        <br><br>
+        <input type="button" value="수정 완료">
     </form>
 </body>
 </html>
