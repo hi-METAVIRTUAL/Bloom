@@ -1,0 +1,16 @@
+body {
+    font-family: 'Noto Sans KR';
+    margin:0;
+    color: #3C5B4B;
+}
+.review-button{
+    width:100px;
+    height:25px;
+    color:#C09A81;
+    background-color:#FFFFFF;
+}
+
+.search-group-inner{
+    width: 750px;
+    height: 35px;
+}
