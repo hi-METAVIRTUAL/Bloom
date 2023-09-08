@@ -3,22 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile Setting</title>
-    <style>
-        textarea {
-            width: 500px;
-            height: 80px;
-            resize: none;
-            color: #C09A81;
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            border-color: #C09A81;
-            border-style: solid;
-            border-width: 2px;
-        }
-        textarea::placeholder {
-            color: #C09A81;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="static/css/mypage/therapist/profileSetting.css">
 </head>
 <body>
     <form align="center">
@@ -58,7 +43,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="left" style="border-color: #C09A81; background-color: #FFFFFF; color: #C09A81; border-radius: 10px; border-style: solid; width: 210px;" >
+                <td align="left" class="profile-choice">
                     전문 분야 선택
                     <br><br>
                     우울<input type="radio" name="special" value="우울">
@@ -72,7 +57,7 @@
                     대인관계<input type="radio" name="special" value="대인관계">
                 </td>
 
-                <td align="right" style="border-color: #C09A81; background-color: #FFFFFF; color: #C09A81; border-radius: 10px; border-style: solid; width: 200px;">
+                <td align="right" class="profile-choice">
                     상담 방법 선택
                     <br><br>
                     화상상담(줌)<input type="checkbox" name="how" value="화상상담">
@@ -84,8 +69,7 @@
             </tr>
         </table>
         <br><br>
-        <input type="button" value="수정 완료">
+        <input type="submit" value="수정 완료" class="sub-btn">
     </form>
 </body>
 </html>
-<!---->

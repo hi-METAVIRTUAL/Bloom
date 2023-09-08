@@ -1,0 +1,31 @@
+textarea {
+    width: 500px;
+    height: 80px;
+    resize: none;
+    color: #C09A81;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border-color: #C09A81;
+    border-style: solid;
+    border-width: 2px;
+}
+
+textarea::placeholder {
+    color: #C09A81;
+}
+
+.sub-btn{
+    color: #FFFFFF;
+    background-color: #C09A81;
+    border: none;
+    border-radius: 30px;
+}
+
+.profile-choice{
+    border-color: #C09A81;
+    background-color: #FFFFFF;
+    color: #C09A81;
+    border-radius: 10px;
+    border-style: solid;
+    width: 200px;
+}
