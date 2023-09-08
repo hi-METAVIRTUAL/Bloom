@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>first</title>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/icon.css">
+
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/psy/icon.css">
     <style>
         .icons{position: relative;width: 70px;height: 70px;top: 15%;bottom: 15%;}
         img{ width: 700px; height: 350px; border-radius: 30px;display: block;
@@ -12,55 +13,45 @@
         section {display: flex;justify-content: center;}
         section article {margin-left: 100px;margin-right: 100px;}
         span{color: white;}
-        button{border-radius: 30px;width: 150px;height: 40px; color:#C09A81;border-color: white}
-
+        button{width: 150px;height: 40px;}
     </style>
 </head>
+<header>
+    <th:block th:include="Components/PostLoginHeader.html"></th:block>
+</header>
 <body class="BrownContainer">
-    <!-- 헤더 -->
-    <nav>
-        <h1>Bloom</h1>
-        <hr/>
-            <div>
-                메뉴
-            </div>
-        <hr/>
-    </nav>
-    <!-- 검사 멘트 -->
-    <main>
-        <h3>검증된 심리검사로 자신을 마주해보아요</h3>
-    </main>
-    <!-- 사진 -->
-    <img src="images/test.jpg" class="center" >
-    <div class="clear"></div>
-    <br>
-    <!-- 원모양 배경1-->
-    <section >
-        <article>
-            <div class="circle" ><img class="icons" src="images/bulb.png" alt="전구"></div><br>
-            <span>검사예상 소요시간<br>
+<!-- 헤더 -->
+<!-- 검사 멘트 -->
+<main>
+    <h3>검증된 심리검사로 자신을 마주해보아요</h3>
+</main>
+<!-- 사진 -->
+<img src="../images/test.jpg" class="center" >
+<div class="clear"></div>
+<br>
+<!-- 원모양 배경1-->
+<section >
+    <article>
+        <div class="circle" ><img class="icons" src="../images/bulb.png" alt="전구"></div><br>
+        <span>검사예상 소요시간<br>
             3분
         </span>
-        </article>
-        <!-- 원모양 배경2-->
-        <article>
-            <div class="circle"><img class="icons" src="images/hand.png" alt="전구"></div><br>
-            <span>총 검사 문항 수 <br>
+    </article>
+    <!-- 원모양 배경2-->
+    <article>
+        <div class="circle"><img class="icons" src="../images/hand.png" alt="손"></div><br>
+        <span>총 검사 문항 수 <br>
             32문항
         </span>
-        </article><br>
-    </section>
-    <br>
-    <!-- 검사하기 버튼 -->
-    <button onclick="location.href='/start'">검사하기</button>
-    <br><br><br>
-    <!-- 풋터 -->
-    <footer>
-        <hr>
-        메뉴
-        <hr>
-    </footer>
-
-
+    </article><br>
+</section>
+<br>
+<!-- 검사하기 버튼 -->
+<button class="roundbutton" onclick="location.href='/psy/start'">검사하기</button>
+<br><br><br>
+<!-- 풋터 -->
+<footer>
+    <th:block th:include="Components/Footer.html"></th:block>
+</footer>
 </body>
 </html>
