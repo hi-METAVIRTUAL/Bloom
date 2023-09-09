@@ -1,11 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>qna</title>
 </head>
 <body>
+<div>
+    <table>
+        <tr>
+            <th>No</th>
+            <th>문의내용</th>
+            <th>작성일</th>
+            <th>작성자</th>
+            <th>답변여부</th>
+        </tr>
 
+        <tr th:each="qna : ${ qnaList }">
+            <td th:text="${ qna.no }"></td>
+            <td th:text="${ qna.question }"></td>
+            <td th:text="${ qna.createDate }"></td>
+            <td th:text="${ qna.writer.id }"></td>
+            <td th:text="${ qna.answerStat }"></td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage) }">
+        <button
+                th:text="${ page }"
+                th:onclick="'location.href=\'/qna/list?currentPage='+ @{${page}} + '\''"
+                th:disabled="${ selectCriteria.pageNo eq page }">
+        </button>
+    </th:block>
+</div>
 </body>
 </html>
 <!---->
