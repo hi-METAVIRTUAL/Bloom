@@ -16,19 +16,26 @@ public class MainController {
     }
 
     @GetMapping("regist")
-    public String regist() {
-        return "regist/regist";
+    public String regist(){
+        return "regist/registCategory";
     }
 
 
-    @GetMapping("memberLogin")
-    public String memberLogin() {
-        return "regist/regist";
+    @GetMapping("regularRegist")
+    public String regularRegist(){
+        return "regist/regularRegist";
     }
 
-    /*@GetMapping("test")
+    @GetMapping("therapistRegist")
+    public String therapistRegist(){
+        return "regist/therapistRegist";
+    }
+
+    @GetMapping("test")
     public String test() {
-    }*/
+        return null;
+    }
+
 
     @GetMapping("review")
     public String review() {
