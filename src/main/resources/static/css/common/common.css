@@ -1,12 +1,23 @@
-.BrownContainer {
+/*.BrownContainer {
     font-family: 'Noto Sans KR';
     color: #FEEFCC;
     background: #C09A81;
     text-align: center;
+}*/
+body {
+    font-family: "Noto Sans KR";
+    color: #C09A81;
 }
 
-.greenContainer{}
-
-.whiteContainer{}
-
-/**/
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 200px;
+}
+.whiteButton {
+   block-size: 30px;
+    border: none;
+    background-color: #FFF;
+    color:#C09A81;
+    border-radius: 10px;
+}
