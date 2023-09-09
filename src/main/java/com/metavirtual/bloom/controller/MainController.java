@@ -14,7 +14,7 @@ public class MainController {
     public String defaultLocation() {
         return "index";
     }
-
+/*
     @GetMapping("regist")
     public String regist(){
         return "regist/registCategory";
@@ -30,6 +30,8 @@ public class MainController {
     public String therapistRegist(){
         return "regist/therapistRegist";
     }
+*/
+
 
     @GetMapping("test")
     public String test() {

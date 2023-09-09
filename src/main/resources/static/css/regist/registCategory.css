@@ -23,6 +23,7 @@ body {
     margin-top: 20px;
     margin-bottom: -35px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .smalltxt {
@@ -59,6 +60,7 @@ body {
     width: 230px; /* Adjust the desired width for the zoom effect */
     height: 230px; /* Adjust the desired height for the zoom effect */
     transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .image-zoom:hover {
