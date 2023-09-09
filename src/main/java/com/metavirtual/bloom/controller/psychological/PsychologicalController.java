@@ -25,4 +25,8 @@ public class PsychologicalController {
     public String resultTestPage(){
         return "psychological/resultTest";
     }
+    @GetMapping("/matchingResult")
+    public String matchingResultPage(){
+        return "psychological/matchingResult";
+    }
 }

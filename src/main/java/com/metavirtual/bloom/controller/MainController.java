@@ -36,10 +36,11 @@ public class MainController {
         return null;
     }
 
+
     @GetMapping("review")
     public String review() {
         return "reviewboard/reviewmain";
     }
 
-
 }
+
