@@ -21,14 +21,12 @@ public class MainController {
     }
 
 
-
-
-
-
-
-
-
-
+    @GetMapping("memberLogin")
+    public String memberLogin(){
+        return "regist/regist";
+    }
+    @GetMapping("test")
+    public String test(){
 
 
     @GetMapping("review")
