@@ -4,19 +4,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" type="text/css" href="css/regist/regist.css">
+    <link rel="stylesheet" type="text/css" href="css/regist/registCategory.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 
-<body class="beigeContainerBrownGrass.css">
+<body>
 <div th:include="Components/preLoginHeader.html"></div>
 <div class="container">
-    <a onclick="location.href='/memberLogin'">
-        <div class="image-zoom">
-            <img class="image" src="images/regist/일반회원.png">
-        </div>
-        <p class="maintxt">일반 회원 가입</p><br><p class="subtxt">만 18세 이상</p>
-    </a>
+    <div>
+        <a href="regularRegist.html">
+            <div class="image-zoom">
+                <img class="image" src="images/regist/일반회원.png">
+            </div>
+            <p class="maintxt">일반 회원 가입</p><br><p class="subtxt">만 18세 이상</p>
+        </a>
+    </div>
     <div>
         <a href="therapistRegist.html">
             <div class="image-zoom">
@@ -26,9 +28,10 @@
         </a>
     </div>
 </div>
-
 <div th:include="Components/beigeBackgroundBrownGrass.html"></div>
-<div style="color:#FFF6E2" th:include="Components/Footer.html">
-</div>
+<div style="color:#FEEFCC" th:include="Components/Footer.html"></div>
+
+
+
 </body>
 </html>
