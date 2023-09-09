@@ -27,6 +27,10 @@ public class MainController {
         return "regist/registCategory";
     }
 
+    @GetMapping("memberLogin")
+    public String memberLogin(){
+        return "regist/regist";
+    }
     @GetMapping("test")
     public String test(){
 

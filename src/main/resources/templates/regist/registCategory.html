@@ -11,16 +11,22 @@
 <body class="beigeContainerBrownGrass.css">
 <div th:include="Components/preLoginHeader.html"></div>
 <div class="container">
-
-    <div>
-        <img class="image" src="images/regist/일반회원.png">
+    <a onclick="location.href='/memberLogin'">
+        <div class="image-zoom">
+            <img class="image" src="images/regist/일반회원.png">
+        </div>
         <p class="maintxt">일반 회원 가입</p><br><p class="subtxt">만 18세 이상</p>
-    </div>
+    </a>
     <div>
-        <img class="image" src="images/regist/상담사.png">
-        <p class="maintxt">상담사 회원 가입</p>
+        <a href="therapistRegist.html">
+            <div class="image-zoom">
+                <img class="image" src="images/regist/상담사.png">
+            </div>
+            <p class="maintxt">상담사 회원 가입</p>
+        </a>
     </div>
 </div>
+
 <div th:include="Components/beigeBackgroundBrownGrass.html"></div>
 <div style="color:#FFF6E2" th:include="Components/Footer.html">
 </div>
