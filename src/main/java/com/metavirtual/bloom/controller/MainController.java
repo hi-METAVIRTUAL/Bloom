@@ -16,23 +16,24 @@ public class MainController {
     }
 
     @GetMapping("regist")
-    public String regist(){
+    public String regist() {
         return "regist/regist";
     }
 
 
     @GetMapping("memberLogin")
-    public String memberLogin(){
+    public String memberLogin() {
         return "regist/regist";
     }
-    @GetMapping("test")
-    public String test(){
 
+    /*@GetMapping("test")
+    public String test() {
+    }*/
 
     @GetMapping("review")
     public String review() {
         return "reviewboard/reviewmain";
     }
 
-
 }
+

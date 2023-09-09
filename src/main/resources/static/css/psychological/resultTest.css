@@ -6,20 +6,75 @@ body{
     font-family: 'Noto Sans KR';
     margin:0;
 }
-footer{
-    position: absolute;
-width: auto;
-height: auto;
+.widths{
+    width: 30%;
+    flex: 1;
 }
-.showresult{
-    position: relative;
-    width: 40px;
-    height: 500px;
-    left: auto;
-    top: auto;
-    background: linear-gradient(180deg, #F91C1C 0%, #E46069 25.87%, #BBE5FF 99.99%, rgba(217, 217, 217, 0) 100%, rgba(88, 73, 71, 0) 100%);
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+.matchingbutton{
+    width: 150px;
+    height: 50px;
+    color: #C09A81;
+    background: #FFFFFF;
+    border-color: #C09A81;
     border-radius: 30px;
-    transform: matrix(0, -1, -1, 0, 0, 0);
 
+}
+.parent{
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    text-align: center;
+}
+
+.first {
+    border: 3px solid #C09A81;
+    flex:1;
+    width:20%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.second{
+    border: 3px solid #C09A81;
+    flex:1;
+    margin: 0px 5%;
+    width:20%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.third{
+    flex:1;
+    width:20%;
+    border: 3px solid #C09A81;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px;
+}
+.fourth{
+    flex:1;
+    width:20%;
+    margin: 0px 5%;
+    border: 3px solid #C09A81;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px;
+}
+.explanation{
+    font-size: 20px;
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 30px;
+}
+
+.showresult{
+    position: absolute;
+    left: 50%;
+    top: 78px;
+    width: 440px;
+    height: 20px;
+    margin-left: -220px;
 }
