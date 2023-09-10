@@ -24,38 +24,34 @@
 <h1 class="title">회원가입</h1>
 <div class="RegisterForm">
     <form>
-        <div>
-            <span style="margin-left: 5px;">이름</span>&emsp;&emsp;*<input class="inputs" type="text" placeholder="최대 20자 / 공백 불가 / 영문만 가능">
-        </div>
-        <div>
-            <span>아이디</span>&emsp;*<input class="inputs" type="text" placeholder="최대 20자 / 공백 불가 / 영문만 가능"><button type="submit" style="width:70px;height:25px;color:#FFFFFF;background-color:#C09A81">중복체크</button></p>
-        </div>
-        <div>
-            <span>비밀번호</span>&emsp;*<input class="inputs" type="password" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가">
-        </div>
-        <div>
-            <span>닉네임</span>&emsp;*<input class="inputs" type="text" placeholder="대 20자 공백 / 특수기호 불가 / 영문/한글 가능"><button type="submit" style="width:70px;height:25px;color:#FFFFFF;background-color:#C09A81">중복체크</button></p>
-        </div>
-
-        <div>
-           <span class="phoneTag">전화번호</span>&emsp;*<input class="phone" type="text"> - <input class="phone" type="text"> - <input class="phone" type="text">
-            <span class="gender">&emsp;&emsp;&emsp;성별*</span>&emsp;<input type="radio">&emsp;&emsp;<input type="radio">
-        </div>
-
-        <div>
-        <span>이메일</span>&emsp;*<input type="email">&ensp;@&ensp;<input type="email">
-            <select>
+        <label style="margin-left: 5px;">이름</label>&emsp;
+        *<input class="inputs" type="text" placeholder="최대 20자 / 공백 불가 / 영문만 가능">
+        <br>
+        <label style="margin-left: 5px;">아이디</label>&emsp;
+        *<input class="inputs" type="text" placeholder="최대 20자 / 공백 불가 / 영문만 가능"><button type="submit" style="width:70px;height:25px;color:#FFFFFF;background-color:#C09A81">중복체크</button>
+        <br>
+        <label style="margin-left: 5px;">비밀번호</label>&emsp;
+        *<input class="inputs" type="password" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가">
+        <br>
+        <label style="margin-left: 5px;">닉네임</label>&emsp;
+        <input class="inputs" type="text" placeholder="대 20자 공백 / 특수기호 불가 / 영문/한글 가능"><button type="submit" style="width:70px;height:25px;color:#FFFFFF;background-color:#C09A81">중복체크</button>
+        <br>
+        <label style="margin-left: 5px;">전화번호</label>&emsp;
+        *<input class="phone" type="text"> - <input class="phone" type="text"> - <input class="phone" type="text">
+        <label style="margin-left: 5px;">성별</label>&emsp;
+        <input type="radio">&emsp;&emsp;<input type="radio">
+        <br>
+        <label style="margin-left: 5px;">이메일</label>&emsp;
+        *<input type="email">&ensp;@&ensp;<input type="email" value="">
+        <select>
             <option value="naver.com">naver.com</option>
             <option value="gmail.com">gmail.com</option>
             <option value="yahoo.com">yahoo.com</option>
             <option value="hotmail.com">hotmail.com</option>
-            </select>
-        </div>
-
+        </select>
     </form>
 </div>
-</span>
-</span>
+
 
 
     <!--<span class="labels">이름</span>&ensp;* <input type="text" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width:400px;font-size:15px;"></p>
@@ -77,8 +73,7 @@
 Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum</textarea></p>
     <button onclick="location.href='/'" type="submit" style="width:200px;" class="whiteButton">취소</button>&ensp;&ensp;<button onclick="location.href='memberRegistSuccess'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
-</label>
-<div style="color:#FEEFCC" th:include="Components/Footer.html"></div>
 
+<div style="color:#FEEFCC" th:include="Components/Footer.html"></div>
 </body>
 </html>
