@@ -11,8 +11,8 @@ body{
     flex: 1;
 }
 .matchingbutton{
-    width: 150px;
-    height: 50px;
+    width: 200px;
+    height: 40px;
     color: #C09A81;
     background: #FFFFFF;
     border-color: #C09A81;
@@ -20,10 +20,9 @@ body{
 
 }
 .parent{
-    width: 90%;
+    width: 80%;
     margin: 10px auto;
     display: flex;
-    text-align: center;
 }
 
 .first {
