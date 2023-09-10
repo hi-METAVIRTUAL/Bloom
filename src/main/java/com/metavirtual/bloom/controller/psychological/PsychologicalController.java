@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/psychological")
 public class PsychologicalController {
-
     @GetMapping("/test")
     public String test(){ return "psychological/firstTest"; }
     @GetMapping("/start")
@@ -28,5 +27,9 @@ public class PsychologicalController {
     @GetMapping("/matchingResult")
     public String matchingResultPage(){
         return "psychological/matchingResult";
+    }
+    @GetMapping("/introduceTherapy")
+    public String introduceTherapyPage(){
+        return "psychological/introduceTherapy";
     }
 }
