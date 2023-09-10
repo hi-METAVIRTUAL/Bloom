@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/regist/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<th:block th:include="/Components/PreLoginHeader.html"></th:block>
+
+<h1>LOGIN</h1>
+<form action="postLoginMain.html" method="post">
+    <input type="text" placeholder="아이디를 입력해주세요" name="ID"><br>
+    <input type="password" placeholder="비밀번호를 입력해주세요" name="password"><br>
+    <input type="checkbox" name="rememberMe" value="rememberMe">로그인 상태 유지
+    <button type="submit" name="login" value="login">LOGIN</button>
+</form>
+  <ul>
+    <li onclick="location.href='category'">회원가입</li>
+    <li onclick="location.href='findId'">아이디 찾기</li>
+    <li onclick="location.href='findPassword'">비밀번호 찾기</li>
+  </ul>
+
+<th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
+<th:block th:include="Components/Footer.html "></th:block>
+</body>
+</html>

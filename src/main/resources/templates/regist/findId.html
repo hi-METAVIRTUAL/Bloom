@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/regist/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #FFF6E2;">
+<th:block th:include="/Components/preLoginHeader"></th:block>
+
+<h1>아이디 찾기</h1>
+<form onsubmit="return false">
+    <label>이름</label>&emsp;
+    <input type="text" placeholder="가입 시 등록한 이름을 입력해 주세요">
+    <br>
+    <label>이메일</label>
+    <input type="text" placeholder="가입 시 등록한 이메일을 입력해 주세요">
+    <br>
+    <button onclick="location.href='verificationIdSent'">아이디 찾기</button>
+</form>
+
+</body>
+</html>
