@@ -1,0 +1,19 @@
+.boardcount {
+    float: left;
+    margin-left: 18px;
+    padding: 0;
+    background-color: #FEEFCC;
+    font-size: 18px;
+    list-style-type: none;
+}
+
+.boardnumber {
+    padding: 7px;
+    cursor: pointer;
+}
+
+.boardnumber a {
+    text-align: center;
+    text-decoration: none;
+    color: #C09A81;
+}
