@@ -13,11 +13,6 @@ public class ReviewController {
         return "reviewboard/reviewmain";
     }
 
-    @GetMapping("/board")
-    public String communityBoard() {
-        return "reviewboard/communityboard";
-    }
-
     /*
     public ModelAndView boardCount(ModelAndView mv) {
 
