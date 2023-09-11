@@ -53,3 +53,4 @@ public class RegistController {
     @GetMapping("verificationPasswordSent")
     public String passwordSentToEmail() { return "regist/verificationPasswordSent"; }
 }
+/**/
