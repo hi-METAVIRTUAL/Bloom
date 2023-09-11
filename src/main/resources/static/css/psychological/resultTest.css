@@ -1,3 +1,21 @@
+.wrap {
+    width: 100%;
+    margin: 10px auto;
+    position: relative;
+}
+.wrap img{
+    width: 99%;
+    vertical-align: middle;
+}
+.wraptext {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -60%);
+    font-size: 20px;
+    text-align: center;
+}
 body{
     font-family: 'Noto Sans KR';
     color: #C09A81;
@@ -8,8 +26,9 @@ body{
 }
 .widths{
     width: 30%;
-    flex: 1;
+    margin: auto;
 }
+
 .matchingbutton{
     width: 200px;
     height: 40px;

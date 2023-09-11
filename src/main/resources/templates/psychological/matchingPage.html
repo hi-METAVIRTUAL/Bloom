@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>matching</title>
     <style>
-        .div1{  line-height: 100px;
-            text-align: center;
-            background-color: rgb(231, 103, 64);
-            border: 1px solid black;
-            width: 200px; height: 100px;
-            color: white;
-
+        body{
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+        }
+        .div1{
+            color: #C09A81;
+            width: 300px; /* 원하는 너비로 설정 */
+            margin: 0 auto; /* 가로 가운데 정렬 */
         }
     </style>
 </head>
@@ -19,13 +20,11 @@
     <th:block th:include="Components/PostLoginHeader.html"></th:block>
     </header>
     <div class="div1">
-        00님의 결과를 측정중...
-
+        <h2> 00님의 결과를 측정중...</h2>
     </div>
-
-
-    <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
-
-<meta http-equiv="refresh" content="5;url=/psychological/result">
+    <footer>
+        <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
+    </footer>
+<meta http-equiv="refresh" content="3;url=/psychological/result">
 </body>
 </html>
