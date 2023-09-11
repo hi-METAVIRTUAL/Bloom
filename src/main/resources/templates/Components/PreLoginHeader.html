@@ -34,6 +34,40 @@
             text-decoration: none;
             color: inherit;
         }
+
+        .section1 {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .mainPhoto1 {
+            width: 450px;
+            height: 230px;
+        }
+
+        .introSection {
+            flex-direction: row;
+            margin-top: -20px;
+        }
+
+        .intro1 {
+            margin-bottom: -30px;
+        }
+
+        .intro1, .intro1-1, .intro1-2, .intro1-3 {
+            margin-top: 30px;
+            margin-left: 20px;
+        }
+
+        .intro1-2 {
+            margin-top: -15px;
+        }
+
+        .intro1-3 {
+            margin-top: 50px;
+        }
     </style>
 </head>
 <body>
@@ -51,6 +85,17 @@
     </ul>
 
 <hr class="line"/>
+    <div th:if="${includeSection1}">
+        <div class="section1">
+            <img class="mainPhoto1" src="/images/mainPage/mainPhoto1.png">
+            <div class="introSection">
+                <div class="intro1"><h2>맞춤형 상담사 매칭</h2><h3>으로</h3></div>
+                <div class="intro1-1"><h2>당신의 변화를 지원합니다</h2></div>
+                <div class="intro1-2"><h4>당신의 마음과 정신 건강을<br>우리와 함께 케어하세요</h4></div>
+                <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
+            </div>
+        </div>
+    </div>
 </header>
 </body>
 </html>
