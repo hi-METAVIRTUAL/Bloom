@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>커뮤니티</title>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/communityboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
@@ -24,16 +24,11 @@
         <span class="button-text">검색</span>
     </button>
 </div>
-<div class="blank"></div>
-<div class="boardnavi"></div>
-<div class="boardbar1"></div>
-<div class="boardbar2"></div>
-<div class="boardbar1"></div>
-<div class="boardbar2"></div>
-<div class="boardbar1"></div>
-<div class="boardbar2"></div>
+<div style="position: relative">
+    <div th:include="communityboard/paging.html"></div>
+</div>
 
+<th:block th:include="Components/Footer.html"></th:block>
 
-<th:block th:include="reviewboard/boardcount.html"></th:block>
 </body>
 </html>

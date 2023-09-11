@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>first</title>
-
-    <link rel="stylesheet" type="text/css" href="../css/common/common.css">
     <link rel="stylesheet" type="text/css" href="../css/psychological/icon.css">
     <link rel="stylesheet" type="text/css" href="../css/psychological/firstTest.css">
 </head>
-<body class="BrownContainer">
+<body>
 <!-- 헤더 -->
 <header>
-    <th:block th:include="Components/PostLoginHeader.html"></th:block>
-<!-- 검사 멘트 -->
+    <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
+    <!-- 검사 멘트 -->
     <h3>검증된 심리검사로 자신을 마주해보아요</h3>
 </header>
 <!-- 사진 -->
