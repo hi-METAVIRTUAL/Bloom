@@ -7,7 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div th:include="Components/postLoginHeader.html"></div>
+<div th:with="loggedIn=true, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
+</div>
 
 <h1>상담사로 가입이 완료되었습니다!</h1>
 <p>첨부 자료 검토 후<br>활동 승인이 이루어지오니<br>잠시만 기다려주세요</p>
