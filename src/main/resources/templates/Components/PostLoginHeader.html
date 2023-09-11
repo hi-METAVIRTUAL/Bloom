@@ -4,31 +4,38 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     <meta charset="UTF-8">
     <title>Post Login Header</title>
-    <style>
-        body {
+    <style th:inline="text">
+        /* Define a default color if textColor is not set */
+        [th:attr="style='color: ' + ${textColor} ?: '#C09A81'"] {
             text-align: center;
             width: 100%;
         }
-        ul#menu li {
-            display:inline;
-            color: #C09A81;
+        ul#menu {
+            text-align: center;
+            padding: 0;
         }
-        #title{
+        ul#menu li {
+            display: inline;
+            margin: 0 20px; /* Add spacing between menu items */
+            color: #[[${textColor} ?: 'C09A81']];
+        }
+        #title {
+            text-align: center;
             font-family: 'Raleway';
             font-size: 80px;
             font-weight: lighter;
             margin-bottom: unset;
-            color: #C09A81;
+            color: #[[${textColor} ?: 'C09A81']];
         }
 
         .line {
             width: 70%;
             margin-left: auto;
             margin-right: auto;
-            border-color:#C09A81;
+            border-color: #[[${textColor} ?: 'C09A81']];
             margin-top: -10px;
             margin-bottom: -10px;
-            color: #C09A81;
+            color: #[[${textColor} ?: 'C09A81']];
         }
     </style>
 </head>
@@ -38,17 +45,15 @@
     <hr class="line"/>
 
     <ul id="menu">
-
-        &emsp;&emsp;<li>소개</li>
-        &emsp;&emsp;<li>상담사</li>
-        &emsp;&emsp;<li>후기</li>
-        &emsp;&emsp;<li>FAQ</li>
-        &emsp;&emsp;<li>마이페이지</li>
-        &emsp;&emsp;<li><a href="/">로그아웃</a></li>
+        <li>소개</li>
+        <li>상담사</li>
+        <li>후기</li>
+        <li>FAQ</li>
+        <li>마이페이지</li>
+        <li><a href="/">로그아웃</a></li>
     </ul>
 
     <hr class="line"/>
 </header>
 </body>
 </html>
-<!---->
