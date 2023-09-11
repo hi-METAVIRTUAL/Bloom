@@ -1,11 +1,268 @@
-<%@ page contentType="text/html; charset=UTF-8 language="java" pageEncoding=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .section1{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .infoBox1, .infoBox2 {
+            flex-direction: row;
+        }
 
+        .info1-1, .info1-2, .info1-3 {
+            margin-bottom: 10px;
+        }
+
+        .box1 {
+            background-color: #FFFFFF;
+            width: auto;
+            height: 70px;
+            margin: 0 auto;
+            border-radius: 5px;
+            border: 2px solid #C09A81;
+            display: flex;
+            justify-content: flex-start;
+            gap: 350px;
+            padding-left: 10px;
+        }
+
+        /*#uploadedPosts {
+            background-color: #FFFFFF;
+            width: auto;
+            height: 70px;
+            margin: 0 auto;
+            border-radius: 5px;
+            border: 2px solid #C09A81;
+            display: flex;
+            justify-content: flex-start;
+            gap: 350px;
+            padding-left: 10px;
+        }
+
+        #uploadedPosts th {
+
+        }*/
+
+        #tableHeader {
+            background-color: #C09A81;
+            color: #FFFFFF;
+            width: auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 350px;
+            padding: 15px 20px;
+        }
+
+        #uploadedPosts tr:nth-child(even){background-color: #ffffff;}
+
+        #uploadedPosts tr:hover {background-color: #ddd;}
+
+        #tableRow {
+            width: 100%;
+            overflow-x: auto; /* Add horizontal scrolling if necessary */
+        }
+
+        #uploadedPosts {
+            width: 100%;
+            border-collapse: collapse; /* Optional: collapse table borders */
+
+        }
+
+        #tableHeader2 {
+            background-color: #C09A81;
+            color: #FFFFFF;
+            width: auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 350px;
+            padding: 15px 20px;
+        }
+
+        #uploadedPosts2 tr:nth-child(even){background-color: #ffffff;}
+
+        #uploadedPosts2 tr:hover {background-color: #ddd;}
+
+
+        #tableRow2 {
+            width: 100%;
+            overflow-x: auto; /* Add horizontal scrolling if necessary */
+        }
+
+        #uploadedPosts2 {
+            width: 100%;
+            border-collapse: collapse; /* Optional: collapse table borders */
+
+        }
+
+    </style>
+</head>
+
+<body style="background-color: #FFF6E2;">
+<th:block th:include="Components/postLoginHeader"></th:block>
+
+<h2>상담사 정보</h2>
+
+<!--임시로 보여지는용-->
+<div class="section1">
+    <div class="infoBox1">
+        <h3 class="info1-1">이름</h3>
+        <h3 class="info1-3">성별&nbsp; &nbsp; &nbsp; &nbsp;남<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;여<input type="checkbox"></h3>
+        <h3 class="info1-3">선택한강점분야&nbsp; &nbsp; &nbsp; &nbsp;우울<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;불안<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;양극성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;강박성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;대인관계<input type="checkbox"></h3>
+    </div>
+    <div class="infoBox2">
+        <h3 class="info2-1">아이디</h3>
+        <h3 class="info2-2">이메일</h3>
+        <h3 class="info2-3">전화번호</h3>
+    </div>
+</div>
+
+
+<div class="infoBox1">
+    <div th:if="${user}">
+        <div th:each="${ user }">
+            이름&emsp;<div th:text="${user.name ?: 'Default Name'}"></div>
+            닉네임&emsp;<div th:text="${user.nickName ?: 'Default Name'}"></div>
+            성별&emsp;<div th:text="${user.gender ?: 'Default Name'}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="infoBox2">
+    <div th:if="${user}">
+        <div th:each="${user}">
+            <div th:text="${user.id ?: 'Default Name'}"></div>
+            <div th:text="${user.email ?: 'Default Name'}"></div>
+            <div th:text="${user.phoneNumber ?: 'Default Name'}"></div>
+        </div>
+    </div>
+</div>
+
+<!--section2-->
+<h2>기타</h2>
+
+<div class="box1">
+    <div class="lastLogin"><h3>최근접속일</h3>
+        <!--<div th:if="${user}">
+        <div th:each="${user}">
+            <div th:text="${user.lastLoginTime ?: 'Default Name'}"></div>
+        </div>-->
+    </div>
+    <div class="registDate"><h3>회원가입일</h3>
+        <!--<div th:each="${user}">
+           <div th:text="${user.registDate ?: 'Default Name'}"></div>
+       </div>-->
+    </div>
+    <div class="reportedCount"><h3>누적 신고 건수</h3>
+        <!--<div th:if="${user}">
+       <div th:each="${user}">
+           <div th:text="${user.reportedCount ?: 'Default Name'}"></div>
+       </div>-->
+    </div>
+</div>
+
+<!--section3-->
+<h2>게시물 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
+<div id="tableHeader">
+    <div><input type="checkbox">No</div>
+    <div>제목</div>
+    <div>작성자</div>
+    <div>작성일</div>
+</div>
+<div id="tableRow">
+    <table id="uploadedPosts">
+        <tr>
+            <td>
+                <input type="checkbox">
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.nickName }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostDate }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<!--section3-->
+<h2>신고 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
+<div id="tableHeader2">
+    <div><input type="checkbox">No</div>
+    <div>제목</div>
+    <div>신고회원</div>
+    <div>신고일</div>
+</div>
+<div id="tableRow2">
+    <table id="uploadedPosts2">
+        <tr>
+            <td>
+                <input type="checkbox">
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ postReport }">
+                    <div th:each="${ postReport }">
+                        <div th:text="${ postReport.name }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ postReport }">
+                    <div th:each="${ postReport }">
+                        <div th:text="${ postReport.reportedDate }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

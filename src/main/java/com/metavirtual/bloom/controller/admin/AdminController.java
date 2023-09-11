@@ -20,4 +20,10 @@ public class AdminController {
         return "mypage/admin/editUserInfo";
 
     }
+
+    @GetMapping("/editTherapistInfo")
+    public String editTherapistInfo() {
+        return "mypage/admin/editTherapistInfo";
+
+    }
 }
