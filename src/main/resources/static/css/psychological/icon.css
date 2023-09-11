@@ -10,13 +10,3 @@
     color:#C09A81;
     border-color: white;
 }
-.box{
-    margin: 0 auto;
-    text-align: center;
-    box-sizing: border-box;
-    width: 500px;
-    height: 500px;
-    background: #FFFFFF;
-    border: 1px solid rgba(192, 154, 129, 0.8);
-    border-radius: 10px;
-}
