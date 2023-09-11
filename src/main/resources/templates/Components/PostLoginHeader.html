@@ -71,12 +71,17 @@
         .intro1-3 {
             margin-top: 50px;
         }
+        .titleLink {
+            text-decoration: none;
+            color: inherit;
+        }
+
     </style>
 </head>
 <body>
 <header th:with="textColor=${ textColor }">
 <div th:style="'color: ' + ${ textColor }">
-    <div id="title">Bloom</div>
+    <div id="title"><a class="titleLink" href="/">Bloom</a></div>
     <hr class="line"/>
 
     <ul id="menu">
