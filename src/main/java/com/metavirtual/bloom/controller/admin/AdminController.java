@@ -8,14 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-
-    @GetMapping("/qna")
-    public String qna(){
-        return "mypage/admin/qna";
+    @GetMapping("/customerService")
+    public String qna() {
+        return "mypage/admin/customerService";
+    }
 
     @GetMapping("/editUserInfo")
     public String editUserInfo() {
         return "mypage/admin/editUserInfo";
+    }
 
+    @GetMapping("/csAnswer")
+    public String csAnswer(){
+        return "mypage/admin/csAnswer";
     }
 }

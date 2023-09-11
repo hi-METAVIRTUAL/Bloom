@@ -1,4 +1,12 @@
-.beigeGrass {
+body {
+    margin: 0 auto;
+    width: 100%;
+    background-color: #FFF6E2;
+    align-content: center;
+    align-items: center;
+}
+
+.brownGrass {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -7,6 +15,7 @@
     margin-top: -300px;
     z-index: -1;
 }
+
 .qna-title {
     background-color: #C09A81;
     border-radius: 10px;
@@ -16,5 +25,25 @@
 .qna-list {
     background-color: #FFFFFF;
     border-radius: 10px;
+    color: #C09A81;
+}
+
+.footerMenuBar {
+    /* Add background color for better visibility */
+    color: #C09A81;
+    position: fixed; /* Change from sticky to fixed */
+    left: 0;
+    bottom: 10px; /* Stick to the bottom of the viewport */
+    width: 100%;
+    text-align: center;
+}
+
+.board {
+    width: 1000px;
+    height: 250px;
+    border-collapse: collapse;
+}
+
+textarea::placeholder {
     color: #C09A81;
 }
