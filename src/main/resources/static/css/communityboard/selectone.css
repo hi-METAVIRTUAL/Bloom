@@ -30,6 +30,32 @@
     color: #C09A81;
     font-size: 18px;
 }
+.search-bar {
+    border-radius: 10px;
+}
+.searchBox1 {
+    width: 70%;
+    margin-left: 15%;
+    justify-content: space-around;
+    display: flex;
+    gap: 30px;
+}
+
+.search-bar .searchBox1 input{
+    background: url("/images/review/search.png") no-repeat right center #FEEFCC;
+    width: 100%;
+    background-size: 30px;
+    border-color: #C09A81;
+    background-color: white;
+    z-index: 2;
+    color: #C09A81;
+    font-size: 18px;
+}
+
+.search-bar .searchBox1 input::placeholder{
+    text-indent: 10px;
+}
+
 
 .singobutton {
     margin-left: 15%;

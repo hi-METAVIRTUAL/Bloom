@@ -28,4 +28,18 @@ public class CommunityBoard {
         return "communityboard/singo";
     }
 
+    @GetMapping("/singojupsu")
+    public String singojupsu() {
+        return "communityboard/singgjubsu";
+    }
+
+    @GetMapping("/gomin")
+    public String gominSangdamSo() {
+        return "/communityboard/gominSangdamSo";
+    }
+
+    @GetMapping("gominSangdamInsert")
+    public String gominInsert() {
+        return "/communityboard/gominInsert";
+    }
 }
