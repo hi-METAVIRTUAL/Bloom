@@ -2,31 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .thprofile{
-            float:left;
-            margin-right:15px
-        }
-    </style>
+    <title>profile</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
 </head>
 <body>
-    <div th:include="Components/PostLoginHeader.html"></div>
-    <img th:src="${profilePath}" alt="상담사 사진" class="thprofile"/>
+<div th:include="Components/PostLoginHeader.html"></div>
+    <br><br>
+    <img src="../images/mypage/user/flower.png" alt="상담사 사진" class="dome" align="left"/>
     <br>
-    <input type="file" name="profileImage" accept="image/*"/>
+        <input type="file" id="profileImage" accept="image/*"/>
 
-    <div style="color: #C09A81;">
-        <p th:text="${therapistName}"/><br>
-        <p th:text="${therapistPhone}"/><br>
-        <input type="button" value="개인 정보 수정" onclick="location.href='infosetting.html'" ><br><br>
-        <h4>주요 경력</h4><br> <!--관리자가 작성-->
-        메타대 심리학과 박사
-        현) 메타심리상담소 원장
-        한국상담심리학회 상담심리사 1급
+    <div class="simple-info" align="center">
+        <p th:text="${therapistName}"/>
+        <p th:text="${therapistPhone}"/>
+        <input type="button" value="개인 정보 수정" onclick="location.href='infoSetting'" />
+        <p><b>주요 경력</b></p> <!--관리자가 작성-->
+        <p>메타대 심리학과 박사</P>
+        <P>현) 메타심리상담소 원장</P>
+        <P>한국상담심리학회 상담심리사 1급</P>
     </div>
-    <input type="button" onclick="updateTherapistOnwork('Y')" value="프로필 올리기"/>
-    <input type="button" onclick="updateTherapistOnwork('N')" value="프로필 내리기"/>
+
+    <input type="button" onclick="updateTherapistOnwork('Y')" value="프로필 올리기" style="margin: 20% 30% 0;"/>
+    <input type="button" onclick="updateTherapistOnwork('N')" value="프로필 내리기" style="margin: 20% 60% 0;"/>
     <script>
         function updateTherapistOnwork(status) {
             $.ajax({
@@ -43,7 +40,7 @@
         }
     </script>
     <br>
-    <input type="button" onclick="location.href='reservManage.html'"/>
+    <input type="button" onclick="location.href='reservManage'" />
 
     <div>
         <h4>전문 분야</h4>
@@ -71,8 +68,11 @@
         <p>Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?</p>
         <p th:text="${therapistQna3}"></p>
     </div>
-    <footer>
-        <div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
-    </footer>
+<br><br>
+<footer>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
+<img class="greenGrass" src="/images/common/GreenGrass.png" alt="greenGrass">
 </body>
 </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReservationManage</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
+</head>
+<body>
+<div th:include="Components/PostLoginHeader.html"></div>
+<br><br>
+<h2 style="text-align: center">예약 관리</h2>
+<br>
+<div style="float:left; margin-left: 400px;">
+    <p>예약 정보 조회</p>
+    <div class="wrapper">
+        <div class="nav">
+            <button class="materialIcons"><</button>
+            <p class="currentDate">2023년 10월</p>
+            <button class="materialIcons">></button>
+        </div>
+        <div class="calendar">
+            <ul class="weeks">
+                <li>SUN</li>
+                <li>MON</li>
+                <li>TUE</li>
+                <li>WED</li>
+                <li>THU</li>
+                <li>FRI</li>
+                <li>SAT</li>
+            </ul>
+            <ul class="days">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+                <li>17</li>
+                <li>18</li>
+                <li>19</li>
+                <li>20</li>
+                <li>21</li>
+                <li>22</li>
+                <li>23</li>
+                <li>24</li>
+                <li>25</li>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li>30</li>
+                <li>31</li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <p>예약된 일자는 <span style="color: red">빨간색</span>으로 표시됩니다</p>
+</div>
+
+<div>
+    <p>예약 신청 내역</p>
+    <div>
+        <table>
+            <tr>
+                <th>No</th>
+                <th>이름</th>
+                <th>닉네임</th>
+                <th>희망에약일</th>
+                <th>전화번호</th>
+                <th></th>
+            </tr>
+            <tr th:each="reservation:${reservationList}">
+                <td th:text="${ user }"></td>
+                <td th:text="${ userName }"></td>
+                <td th:text="${ userNickname }"></td>
+                <td th:text="${ reservationDate }"></td>
+                <td th:text="${ userPhone }"></td>
+                <td>
+                    <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;">
+                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<br><br>
+<footer>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
+<img class="greenGrass" src="/images/common/GreenGrass.png" alt="greenGrass">
+</body>
+</html>

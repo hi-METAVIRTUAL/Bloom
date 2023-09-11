@@ -1,3 +1,9 @@
+body {
+    margin: 0 auto;
+    width: 100%;
+    background-color: #FFF6E2;
+}
+
 .fixed-textarea {
     width: 330px;
     height: 30px;
@@ -28,26 +34,39 @@
     text-align: center;
 }
 
-table {
+.info-table {
     border-collapse: separate;
     border-spacing: 0 20px;
-}
-
-.image-center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    border-radius: 100%;
-}
-
-table, th, td {
-    border: 1px solid #C09A81;
+    border: none;
     border-collapse: collapse;
     text-align: center;
     color: #C09A81;
 }
 
-th, td{
+.image-center {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 55%;
+    height: 50%;
+    border-radius: 100%;
+}
+
+.info-table tr td {
+    border: none;
+    border-collapse: collapse;
+    text-align: center;
+    color: #C09A81;
     padding: 15px;
+}
+
+.footerMenuBar {
+    /* Add background color for better visibility */
+    color: #C09A81;
+    position: fixed; /* Change from sticky to fixed */
+    left: 0;
+    bottom: 10px; /* Stick to the bottom of the viewport */
+    width: 100%;
+    text-align: center;
 }

@@ -6,37 +6,73 @@
 <head>
     <meta charset="UTF-8">
     <title>qna</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/admin/adminPage.css">
 </head>
 <body>
+<div th:include="Components/PostLoginHeader.html"></div>
+<br><br>
 <div>
-    <table>
-        <tr>
-            <th>No</th>
-            <th>문의내용</th>
-            <th>작성일</th>
-            <th>작성자</th>
-            <th>답변여부</th>
+    <table align="center">
+        <tr class="qna-title">
+            <th>&nbsp;No&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;문의내용&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;작성일&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;작성자&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;답변여부&nbsp;</th>
         </tr>
 
-        <tr th:each="qna : ${ qnaList }">
-            <td th:text="${ qna.no }"></td>
-            <td th:text="${ qna.question }"></td>
-            <td th:text="${ qna.createDate }"></td>
-            <td th:text="${ qna.writer.id }"></td>
-            <td th:text="${ qna.answerStat }"></td>
+        <tr>
+            <td>1&nbsp;</td>
+            <td>&nbsp;비밀번호가 찾아지지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;hdd***&nbsp;</td>
+            <td>&nbsp;답변대기</td>
+        </tr>
+        <tr class="qna-list">
+            <td>2&nbsp;</td>
+            <td>&nbsp;글이 지워지지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;jrt***&nbsp;</td>
+            <td>&nbsp;답변대기</td>
+        </tr>
+        <tr>
+            <td>3&nbsp;</td>
+            <td>&nbsp;아이디가 찾아지지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;wqh***&nbsp;</td>
+            <td>&nbsp;답변완료</td>
+        </tr>
+        <tr class="qna-list">
+            <td>4&nbsp;</td>
+            <td>&nbsp;글이 검색되지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;kyd***&nbsp;</td>
+            <td>&nbsp;답변완료</td>
+        </tr>
+        <tr>
+            <td>5&nbsp;</td>
+            <td>&nbsp;예약이 되지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;mnd***&nbsp;</td>
+            <td>&nbsp;답변완료</td>
         </tr>
     </table>
 </div>
 
-<div>
-    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage) }">
-        <button
-                th:text="${ page }"
-                th:onclick="'location.href=\'/qna/list?currentPage='+ @{${page}} + '\''"
-                th:disabled="${ selectCriteria.pageNo eq page }">
-        </button>
-    </th:block>
-</div>
+<!--<div>-->
+<!--    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage) }">-->
+<!--        <button-->
+<!--                th:text="${ page }"-->
+<!--                th:onclick="'location.href=\'/qna/list?currentPage='+ @{${page}} + '\''"-->
+<!--                th:disabled="${ selectCriteria.pageNo eq page }">-->
+<!--        </button>-->
+<!--    </th:block>-->
+<!--</div>-->
+<br><br>
+<footer>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
+<img class="beigeGrass" src="/images/common/BeigeGrass.png" alt="beigeGrass">
 </body>
 </html>
-<!---->

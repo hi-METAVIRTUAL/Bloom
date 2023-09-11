@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile Setting</title>
-    <link rel="stylesheet" type="text/css" href="static/css/mypage/therapist/profileSetting.css">
+    <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
+<br><br>
     <form align="center">
         <table align="center" style="color: #C09A81">
             <tr>
                 <td>
                     Q1. 상담사님 간단하게 자기소개 부탁드립니다.(한줄소개)
                     <br><br>
-                    <textarea th:text="${therapistQna1}"></textarea>
-                    <br><br>
+                    <textarea class="therapist-q" th:text="${therapistQna1}"></textarea>
+                    <p>50자 이내 작성</p>
+                    <br>
                 </td>
             </tr>
             <tr>
                 <td>
                     Q2. 내담자에게 어떤 방식으로 다가가시나요?
                     <br><br>
-                    <textarea th:text="${therapistQna2}"></textarea>
-                    <br><br>
+                    <textarea class="therapist-q" th:text="${therapistQna2}"></textarea>
+                    <p>500자 이내 작성</p>
+                    <br>
                 </td>
             </tr>
             <tr>
                 <td>
                     Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?
                     <br><br>
-                    <textarea th:text="${therapistQna3}"></textarea>
-                    <br><br>
+                    <textarea class="therapist-q" th:text="${therapistQna3}"></textarea>
+                    <p>500자 이내 작성</p>
+                    <br>
                 </td>
             </tr>
             <tr>
@@ -43,8 +47,9 @@
                     <br><br><br>
                 </td>
             </tr>
-            <tr>
-                <td align="left" class="profile-choice">
+            <tbody>
+            <tr style="width: 500px">
+                <td align="center" class="profile-choice" style="float: left;">
                     전문 분야 선택
                     <br><br>
                     우울<input type="radio" name="special" value="우울">
@@ -58,7 +63,7 @@
                     대인관계<input type="radio" name="special" value="대인관계">
                 </td>
 
-                <td align="right" class="profile-choice">
+                <td align="center" class="profile-choice" style="float:right;">
                     상담 방법 선택
                     <br><br>
                     화상상담(줌)<input type="checkbox" name="how" value="화상상담">
@@ -68,12 +73,16 @@
                     대면상담<input type="checkbox" name="how" value="대면상담">
                 </td>
             </tr>
+            </tbody>
         </table>
-        <br><br>
+        <br>
         <input type="submit" value="수정 완료" class="sub-btn">
     </form>
+<br><br>
 <footer>
-    <div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
 </footer>
+<img class="greenGrass" src="/images/common/GreenGrass.png" alt="greenGrass">
 </body>
 </html>
