@@ -11,28 +11,36 @@
         <h1>메타님의 심리상태</h1><th:block th:include="Components/manProfile"></th:block>
         <br>
     </header>
-    <div class="widths">
-        <div style="float: left">
-            <span>안정적인</span><br>
-            <span>편안한</span><br>
-            <span>무던한</span>
+    <div class="wrap">
+        <div class="wrap img">
+            <img class="grass" src="/images/common/Background Shape.png" alt="grass">
         </div>
-        <div style="float: right">
-            <span>변덕스러운</span><br>
-            <span>불안한</span><br>
-            <span>예민한</span>
-        </div>
-        <div class="showresult"></div>
-        결과 <br>
-        내점수  50<br>
-        평균<br>
-    </div>
-    <div class="explanation">'신경증'은 당신이 얼마나 민감한지 보여주는 성격 요소입니다.
-        '신경증' 점수가 높은 사람일수록 주변 변화에 예민하게 반응해서
-        감정 기복이 심하고 스트레스를 많이 받지만,
-        그만큼 위험과 불행을 빠르게 감지하고 위기 대처 능력이 크기도 합니다.
-    </div><br>
-    <div class="parent">
+            <div class="wraptext">
+            <div>
+                <div class="widths">
+                    <div style="float: left">
+                        <span>안정적인</span><br>
+                        <span>편안한</span><br>
+                        <span>무던한</span>
+                    </div>
+                    <div style="float: right">
+                        <span>변덕스러운</span><br>
+                        <span>불안한</span><br>
+                        <span>예민한</span>
+                    </div>
+                    <div class="showresult"></div>
+                    결과 <br>
+                    내점수 50<br>
+                    평균<br>
+                </div>
+            </div>
+            <div class="explanation">'신경증'은 당신이 얼마나 민감한지 보여주는 성격 요소입니다.
+                '신경증' 점수가 높은 사람일수록 주변 변화에 예민하게 반응해서
+                감정 기복이 심하고 스트레스를 많이 받지만,
+                그만큼 위험과 불행을 빠르게 감지하고 위기 대처 능력이 크기도 합니다.
+            </div>
+            <br>
+            <div class="parent">
                 <div class="first">
                     <h3>강박</h3>
                     <div>
@@ -84,18 +92,21 @@
                         높은 '우울' 점수를 가진 사람들은 작은 상실이나
                         어려움에도 예민하게 반응할 수 있어
                         일상적인 상황에서도 쉽게 우울해질 수
-                        있습니다.  반면에 '우울' 점수가 낮은 사람들은
+                        있습니다. 반면에 '우울' 점수가 낮은 사람들은
                         더 강한 정서적 내구성을 갖춰 있어,
                         슬픔을 경험하더라도 비교적 빠르게 회복하고
                         긍정적으로 대처하는 경향을 보입니다.
                     </div>
                 </div>
-    </div><br>
-    <button class="matchingbutton" onclick="location.href='/psychological/matchingResult'"> 매칭 결과 보러가기</button>
-    <br><br><br>
-    <footer>
-        <th:block th:include="Components/Footer.html"></th:block>
-    </footer>
+            </div>
+            <br>
+            <button class="matchingbutton" onclick="location.href='/psychological/therapyRecommend'"> 매칭 결과 보러가기</button>
+            <br><br><br>
+                <footer>
+                    <th:block th:include="Components/Footer.html"></th:block>
+                </footer>
+            </div>
+    </div>
 </body>
 </html>
 
