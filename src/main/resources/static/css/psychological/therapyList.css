@@ -1,0 +1,41 @@
+body{
+    font-family: 'Noto Sans KR';
+    color: #C09A81;
+    margin:0;
+
+}
+.checkbox{
+    font-size: 23px;
+    word-spacing:20px;
+}
+
+.search-bar * {
+    position: relative;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.select-option {
+    color: #C09A81;
+    border-color: #C09A81;
+    font-size: 18px;
+
+}
+
+.search-input {
+    border: none;
+    width: 750px;
+}
+
+.search-button {
+    position: absolute;
+    width: 270px;
+    background: #C09A81;
+    border: none;
+}
+.button-text {
+    color: #FFFFFF;
+    font-size: 25px;
+}
+
+

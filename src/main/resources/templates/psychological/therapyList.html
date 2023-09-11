@@ -1,12 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List</title>
+    <link rel="stylesheet" type="text/css" href="../css/psychological/therapyList.css">
 </head>
 <body>
+
+<th:block th:include="Components/PostLoginHeader.html"></th:block>
 <th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
-asdasd
+<h1>00님 이런 상담사들은 어떠세요?</h1>
+<div style="position:fixed; bottom: 5px; right: 5px;">
+    <a href="#header"><img src="/images/review/search.png" title="위로가기"></a>
+<div>
+    <form class="checkbox">
+        <input type="checkbox" name="우울" value="우울"> 우울
+        <input type="checkbox" name="불안" value="불안"> 불안
+        <input type="checkbox" name="양극성" value="양극성"> 양극성
+        <input type="checkbox" name="강박성" value="강박성"> 강박성
+        <input type="checkbox" name="대인관계" value="대인관계"> 대인관계
+    </form>
+    <hr>
+    <div class="search-bar">
+
+        <select class="select-option">
+            <option value="전체">전체</option>
+            <option value="제목">제목</option>
+            <option value="상담사">상담사</option>
+            <option value="작성자">작성자</option>
+        </select>
+        <input type="search" placeholder="검색어를 입력해 주세요." class="search-input"/>
+        <div class="search-icon"><img src="../images/review/search.png"></div>
+        <button type="submit" class="search-button" onclick="">
+            <span class="button-text">검색</span>
+        </button>
+    </div>
+</div>
 
 </body>
 </html>
