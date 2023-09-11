@@ -23,4 +23,9 @@ public class CommunityBoard {
         return "communityboard/boardselectone";
     }
 
+    @GetMapping("/singo")
+    public String singo() {
+        return "communityboard/singo";
+    }
+
 }

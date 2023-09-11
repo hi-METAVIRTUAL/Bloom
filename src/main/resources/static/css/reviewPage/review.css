@@ -5,7 +5,6 @@ body {
 }
 .title {
     margin-top: 5%;
-    margin-left: -60%;
     font-size: 40px;
     color: #C09A81;
 }
@@ -85,16 +84,16 @@ body {
 }
 
 .search-input {
-    height: 40px;
     width: 50%;
+    height: 40px;
     border-radius: 10px;
     border: none;
 }
 
 .button {
+    width: 220px;
     height: 40px;
     border-radius: 10px;
-    width: 200px;
     background: #C09A81;
     border: none;
 }

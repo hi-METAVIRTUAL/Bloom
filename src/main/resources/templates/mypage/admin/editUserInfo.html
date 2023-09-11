@@ -256,6 +256,42 @@
                 <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
             </td>
         </tr>
+        <tr>
+            <td>
+                <input type="checkbox">
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ postReport }">
+                    <div th:each="${ postReport }">
+                        <div th:text="${ postReport.name }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ postReport }">
+                    <div th:each="${ postReport }">
+                        <div th:text="${ postReport.reportedDate }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            </td>
+        </tr>
     </table>
 </div>
 </body>
