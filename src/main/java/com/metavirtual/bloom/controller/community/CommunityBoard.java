@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/communityboard")
 public class CommunityBoard {
 
-    @GetMapping("/communityboard")
+    @GetMapping("/board")
     public String community() {
         return "communityboard/communityboard";
     }
