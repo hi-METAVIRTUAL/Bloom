@@ -1,13 +1,21 @@
 <style>
+    body {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+    }
+
     .footerMenuBar {
+   /* Add background color for better visibility */
         color: #FEEFCC;
-        position: fixed;
+        position: fixed; /* Change from sticky to fixed */
         left: 0;
-        bottom: 2%;
+        bottom: 10px; /* Stick to the bottom of the viewport */
         width: 100%;
         text-align: center;
     }
 </style>
-<footer>
-<div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
-</footer>
+<body>
+<div th:with="textColor=${ textColor }">
+    <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</body>
+<!---->

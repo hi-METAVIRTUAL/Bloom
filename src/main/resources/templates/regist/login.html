@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<th:block th:include="/Components/PreLoginHeader.html"></th:block>
+<div th:include="Components/PreLoginHeader.html"></div>
 
 <h1>LOGIN</h1>
 <form action="postLoginMain.html" method="post">
@@ -23,7 +23,7 @@
     <li onclick="location.href='findPassword'">비밀번호 찾기</li>
   </ul>
 
-<th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
-<th:block th:include="Components/Footer.html "></th:block>
+<th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
+<th:block th:include="Components/Footer"></th:block>
 </body>
 </html>
