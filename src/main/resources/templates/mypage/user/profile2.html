@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>profile</title>
+    <link rel="stylesheet" type="text/css" href="static/css/mypage/user/userinfo.css">
+</head>
+<body style="margin: 0 auto; width: 480px;">
+<div th:include="Components/PostLoginHeader.html"></div>
+<div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 180px; height: 200px; border-radius: 30px;">
+    <img src="static/images/mypage/user/flower.png" class="image-center">
+    <h3 th:text="${userName}"></h3>
+    <p th:text="${userEmail}"></p>
+    <p th:text="${userPhone}"></p>
+</div>
+<br><br>
+<input type="button" value="내 정보 수정하기" onclick="location.href='infoSetting.html'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 24px;">
+<br><br>
+<h4 style="color: #C09A81">나의 예약 내역</h4>
+<table>
+    <tr>
+        <th>상담사</th>
+        <th>예약일</th>
+        <th>연락처</th>
+        <th>예약상태</th>
+    </tr>
+    <tr th:each="therapist : ${ therapistList }">
+        <td th:text="${ therapistName }"></td>
+        <td th:text="${ reserveDate }"></td>
+        <td th:text="${ therapistPhone }"></td>
+        <td th:text="${ reserveStatus }"></td>
+    </tr>
+</table>
+<br><br>
+<input type="button" value="예약된 상담사 보기" onclick="location.href=''" style="width: 200px; height: 24px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid;"><br><br>
+<input type="button" value="내 검사 결과 조회" onclick="location.href='templates/psychological/resultTest.html'" style="width: 200px; height: 24px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid;">
+
+</script>
+<footer>
+    <div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
+</body>
+</html>

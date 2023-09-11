@@ -1,0 +1,53 @@
+.fixed-textarea {
+    width: 330px;
+    height: 30px;
+    resize: none;
+    background-color: #E9E9E9;
+    color: #C09A81;
+    border-radius: 10px;
+    border-color: #C09A81;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.round-input {
+    width: 330px;
+    height: 30px;
+    border-color: #C09A81;
+    border-radius: 10px;
+    border-style: solid;
+}
+
+.info-bt {
+    width: 100px;
+    height: 25px;
+    background-color: #C09A81;
+    border-radius: 30px;
+    color: #FFFFFF;
+    border: none;
+    text-align: center;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0 20px;
+}
+
+.image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 100%;
+}
+
+table, th, td {
+    border: 1px solid #C09A81;
+    border-collapse: collapse;
+    text-align: center;
+    color: #C09A81;
+}
+
+th, td{
+    padding: 15px;
+}
