@@ -9,7 +9,6 @@
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
 
-
 <p class="title">커뮤니티</p>
 
 <div class="search-bar">
@@ -20,14 +19,14 @@
     </select>
     <input type="search" placeholder="검색어를 입력해 주세요." class="search-input"/>
     <div class="search-icon"><img src="../images/review/search.png"></div>
-    <button type="submit" class="search-button" onclick="">
-        <span class="button-text">검색</span>
+    <button type="submit" class="insert-button" onclick="">
+        <span>검색</span>
+    </button>
+    <button type="submit" class="insert-button" onclick="location.href='/board/communityinsert'">
+        <span>글등록</span>
     </button>
 </div>
-<div style="position: relative">
-    <div th:include="communityboard/paging.html"></div>
-</div>
-
+<div th:include="communityboard/paging.html"></div>
 <th:block th:include="Components/Footer.html"></th:block>
 
 </body>

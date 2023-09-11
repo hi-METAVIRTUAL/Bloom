@@ -1,22 +1,68 @@
 body {
     font-family: 'Noto Sans KR';
-    margin:0;
     color: #C09A81;
     background-color: #FEEFCC;
 }
 .title {
+    margin-top: 5%;
+    margin-left: -60%;
     font-size: 40px;
     color: #C09A81;
 }
 .review-text-box-container1 {
-    margin: auto;
-    align-items: center;
+    width: 1450px;
+    margin-top: 5%;
+    margin-left: 10%;
 }
 .review-text-box-container2 {
-    margin: auto;
-    align-items: center;
+    width: 1450px;
+    margin-top: 2%;
+    margin-left: 10%;
 }
-.review-text-box {
+.review-text-box1 {
+    width: 450px;
+    height: 200px;
+    font-size: 23px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.review-text-box2 {
+    width: 450px;
+    height: 200px;
+    font-size: 23px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.review-text-box3 {
+
+    width: 450px;
+    height: 200px;
+    font-size: 23px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.review-text-box4 {
+
+    width: 450px;
+    height: 200px;
+    font-size: 23px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.review-text-box5 {
+
+    width: 450px;
+    height: 200px;
+    font-size: 23px;
+    background-color: white;
+    border-radius: 10px;
+
+}
+.review-text-box6 {
 
     width: 450px;
     height: 200px;
@@ -26,13 +72,12 @@ body {
 
 }
 
-.search-bar * {
-    position: relative;
-    height: 40px;
-    border-radius: 10px;
-}
+
 
 .select-option {
+    height: 40px;
+    border-radius: 10px;
+    width: 10%;
     color: #C09A81;
     border-color: #C09A81;
     font-size: 18px;
@@ -40,19 +85,27 @@ body {
 }
 
 .search-input {
+    height: 40px;
+    width: 50%;
+    border-radius: 10px;
     border: none;
-    width: 750px;
 }
 
-.search-button {
-    position: absolute;
-    width: 270px;
+.button {
+    height: 40px;
+    border-radius: 10px;
+    width: 200px;
     background: #C09A81;
     border: none;
 }
-.button-text {
+
+.button span {
     color: #FFFFFF;
     font-size: 25px;
+}
+.search-icon {
+    width: 23px;
+    height: 23px;
 }
 .star-icon{
     width: 23px;
@@ -63,14 +116,15 @@ body {
     flex-direction: row;
     width: 400px;
     height: 50px;
-    margin: 0;
+    margin-left: 160%;
+    margin-top: 5%;
     padding: 0;
     background-color: #FEEFCC;
     list-style-type: none;
 
 }
 .li-items {
-    padding: 15px;
+    padding: 6px;
     cursor: pointer;
 
 }
@@ -78,5 +132,6 @@ body {
     text-decoration: none;
     text-align: center;
     color: #C09A81;
+    font-size: 18px;
 }
 

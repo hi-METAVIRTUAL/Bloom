@@ -6,20 +6,34 @@
 </head>
 <body>
 <div id="app">
-    <table>
+    <table class="table-item">
         <caption></caption>
         <colgroup>
-            <col style="width: 7%" />
-            <col style="width: 63%" />
-            <col style="width: 30%" />
-            <col style="width: 30%" />
+            <col style="width: 100px" />
+            <col style="width: 800px" />
+            <col style="width: 150px" />
+            <col style="width: 150px" />
         </colgroup>
         <thead>
-        <tr class="tr-article">
+        <tr>
             <th>No</th>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
+        </tr>
+        <!--게시글 1번 -->
+        <tr class="row1">
+            <td>1</td><!--시퀀스 줘야함-->
+            <td><a href="/board/communityboardselectone">가족상담</a></td><!--제목 끌어오기-->
+            <td>이효진</td><!--작성자 ID 끌어오기-->
+            <td>2023-09-11 14:31:33</td> <!--글등록일 끌어오기-->
+        </tr>
+        <!--게시글 2번-->
+        <tr class="row2">
+            <td>2</td>
+            <td><a href="/board/communityboardselectone">연애상담</a></td>
+            <td>이효진</td>
+            <td>2023-09-11 14:31:33</td>
         </tr>
         </thead>
         <tbody></tbody>
@@ -32,7 +46,6 @@
             <option value="20">20</option>
         </select>
         <div style="display: flex; align-items: center;">
-            <!-- Fontawesome Icon -->
             <i class="fa-solid fa-angles-left" id="first_page"></i>
             <i class="fa-solid fa-angle-left" id="prev_page"></i>
             <!--  -->
@@ -81,7 +94,6 @@
             }
         });
 
-        // 페이징 Icon(<<, <, >, >>) 클릭
         $(document).on('click', 'div.paging>div>i', function() {
             const totalCnt = parseInt($('span.total').text());
             const countPerPage = $('#countPerPage').val() || 10;
@@ -121,10 +133,6 @@
         });
     });
 
-    /**
-     * 페이지별 데이터를 조회합니다.
-     * @param {int} pageNum - Page Number
-     */
     function searchPosts(pageNum) {
         const countPerPage = $('#countPerPage').val() || 10;
         const start = (pageNum - 1) * countPerPage;
@@ -157,10 +165,6 @@
             }).then($.unblockUI);
     }
 
-    /**
-     * 페이징 정보를 세팅합니다.
-     * @param {int} pageNum - Page Number
-     */
     function setPaging(pageNum) {
         const totalCnt = parseInt($('span.total').text());
         const countPerPage = $('#countPerPage').val() || 10;
@@ -191,9 +195,6 @@
         $('div.paging>div>div.pages').html(sPagesHtml);
     }
 
-    /**
-     * Icon(<<, <, >, >>)을 모두 보여줍니다.
-     */
     function showAllIcon() {
         $('#first_page').show();
         $('#prev_page').show();
