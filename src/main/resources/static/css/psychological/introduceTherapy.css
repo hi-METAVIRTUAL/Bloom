@@ -5,38 +5,46 @@ body{
     text-align: center;
     margin:0;
 }
-.smallsize{
-    width: 200px;
-    height: 200px;
-}
-.mainbox{
+
+.mainbox {
     width: 90%;
     margin: 10px auto;
     display: flex;
+    justify-content: space-between; /* 3칸으로 나눔 */
+    align-items: stretch; /* 높이를 맞출려면 stretch 사용 */
 }
 
-.profilebox{
+.profilebox {
     width: 30%;
+    color: #C09A81; /* 글자 색상 */
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.careerbox {
+    width: 69%; /* 나머지 2칸을 차지 */
     display: flex;
-    flex: 1;
+    flex-direction: column; /* 세로로 2칸으로 나눔 */
 }
-.introducebox{
-    width: 60%;
-    display: flex;
-    flex: 1;
-
-
+.career-section {
+    display: flex; /* 가로로 나누기 위해 Flexbox 사용 */
+    flex-direction: row; /* 가로로 나눔 */
 }
 
-.flex{
-
+.career-subsection {
+    flex: 1; /* 가로로 동일한 너비로 나누기 */
+    padding: 10px;
+    margin: 5px;
+    border: #C09A81;
 }
-.sectionbox{
-    width: 90%;
-}
-.child1{
-    right: 50%;
-}
-.child2{
-    left: 50%;
+.roundbutton{
+    border-radius: 30px;
+    color:#C09A81;
+    background: #FFFFFF;
+    border-color: #C09A81;
+    width: 200px;
+    height: 40px;
+    font-family: 'Noto Sans KR';
+    font-size: 23px;
 }
