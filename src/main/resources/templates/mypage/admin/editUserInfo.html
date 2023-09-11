@@ -59,7 +59,7 @@
             padding: 15px 20px;
         }
 
-        #uploadedPosts tr:nth-child(even){background-color: #f2f2f2;}
+        #uploadedPosts tr:nth-child(even){background-color: #ffffff;}
 
         #uploadedPosts tr:hover {background-color: #ddd;}
 
@@ -69,6 +69,33 @@
         }
 
         #uploadedPosts {
+            width: 100%;
+            border-collapse: collapse; /* Optional: collapse table borders */
+
+        }
+
+        #tableHeader2 {
+            background-color: #C09A81;
+            color: #FFFFFF;
+            width: auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 350px;
+            padding: 15px 20px;
+        }
+
+        #uploadedPosts2 tr:nth-child(even){background-color: #ffffff;}
+
+        #uploadedPosts2 tr:hover {background-color: #ddd;}
+
+
+        #tableRow2 {
+            width: 100%;
+            overflow-x: auto; /* Add horizontal scrolling if necessary */
+        }
+
+        #uploadedPosts2 {
             width: 100%;
             border-collapse: collapse; /* Optional: collapse table borders */
 
@@ -183,11 +210,59 @@
             </td>
 
             <td>
-            <button onclick="location.href='viewPost'"></button>&emsp;&emsp;<button onclick="location.href='deletePost'"></button>
+            <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
             </td>
     </tr>
-    </div>
-</table>
 
+</table>
+</div>
+<!--section3-->
+<h2>신고 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
+<div id="tableHeader2">
+    <div><input type="checkbox">No</div>
+    <div>제목</div>
+    <div>신고회원</div>
+    <div>신고일</div>
+</div>
+<div id="tableRow2">
+    <table id="uploadedPosts2">
+        <tr>
+            <td>
+                <input type="checkbox">
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ postReport }">
+                    <div th:each="${ postReport }">
+                        <div th:text="${ postReport.name }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ postReport }">
+                    <div th:each="${ postReport }">
+                        <div th:text="${ postReport.reportedDate }"></div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
