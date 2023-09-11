@@ -3,13 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <title>Bloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <style>
+        body {
+            background-image: url("/images/mainPage/beigeWaveTop.png");
+            background-position: top center;
+            background-size: 1900px 540px;
+            background-repeat: no-repeat; /* Prevent image from repeating */
+            margin: 0;
+            padding: 0;
+        }
+
+        /*div header {
+            z-index: 1;
+        }*/
+        .section1 {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            text-align: left;
+        }
+
+        .mainPhoto1 {
+            width: 450px;
+            height: 230px;
+        }
+
+        .introSection {
+            flex-direction: row;
+            margin-top: -20px;
+        }
+
+        .intro1 {
+            margin-bottom: -30px;
+        }
+
+        .intro1, .intro1-1, .intro1-2, .intro1-3 {
+            margin-top: 30px;
+            margin-left: 20px;
+        }
+
+        .intro1 h2, .intro1 h3 {
+            display: inline;
+        }
+
+        .intro1-2 {
+            margin-top: -15px;
+        }
+
+        .intro1-3 {
+            margin-top: 50px;
+        }
+
+        .section2 {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+
+        #scroll1 {
+            background-image: url("/images/mainPage/brownWaveMid.png");
+            background-repeat: no-repeat;
+            background-size: cover; /* Ensure the image covers the entire container */
+            z-index: 1;
+            min-height: 730px; /* Set a fixed height for the container */
+       }
+
+        .section3 {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .mainPhoto2 {
+            width:700px;
+            height: 350px;
+            margin-top: 200px;
+        }
+       .introSection2 {
+           color: #FFF6E2;
+           margin-top: 250px;
+           margin-right: 20px;
+       }
+
+
+    </style>
 </head>
 <body>
+<div class="header" th:include="Components/preLoginHeader.html"></div>
+<!--첫번쨰 섹션-->
+<div class="section1">
+    <img class="mainPhoto1" src="/images/mainPage/mainPhoto1.png">
+    <div class="introSection">
+        <div class="intro1"><h2>맞춤형 상담사 매칭</h2><h3>으로</h3></div>
+        <div class="intro1-1"><h2>당신의 변화를 지원합니다</h2></div>
+        <div class="intro1-2"><h4>당신의 마음과 정신 건강을<br>우리와 함께 케어하세요</h4></div>
+        <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
+    </div>
+</div>
+<!--두번쨰 섹션-->
+<div class="section2">
+    <div class="section2-1">
+        <h2>당신의 선택권을 존중</h2>
+        <h4>선택권의 폭을 넓혀드려<br>다양한 상담사들과 매칭 해드립니다</h4><br>
+        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90" fill="none">
+            <path d="M22.5 75.3272H32.2886C33.5649 75.3272 34.8333 75.479 36.0705 75.7828L46.4133 78.2961C48.6575 78.8429 50.9954 78.896 53.263 78.4556L64.6987 76.2308C67.7195 75.6423 70.4984 74.1958 72.6763 72.0772L80.7671 64.2068C83.0776 61.9629 83.0776 58.3219 80.7671 56.0743C78.6868 54.0507 75.3927 53.8229 73.0392 55.539L63.6097 62.4185C62.2593 63.4057 60.6162 63.9372 58.9262 63.9372H49.8206L55.6165 63.9369C58.8833 63.9369 61.5295 61.3628 61.5295 58.185V57.0346C61.5295 54.396 59.6834 52.0952 57.0528 51.4574L48.1072 49.2819C46.6514 48.9288 45.1605 48.7503 43.6618 48.7503C40.0437 48.7503 33.4946 51.7459 33.4946 51.7459L22.5 56.3436M7.5 54.7503L7.5 76.5003C7.5 78.6005 7.5 79.6506 7.90873 80.4528C8.26825 81.1584 8.84193 81.7321 9.54753 82.0916C10.3497 82.5003 11.3998 82.5003 13.5 82.5003H16.5C18.6002 82.5003 19.6503 82.5003 20.4525 82.0916C21.1581 81.7321 21.7317 81.1584 22.0913 80.4528C22.5 79.6506 22.5 78.6005 22.5 76.5003V54.7503C22.5 52.6501 22.5 51.6 22.0913 50.7979C21.7317 50.0923 21.1581 49.5186 20.4525 49.1591C19.6503 48.7503 18.6002 48.7503 16.5 48.7503H13.5C11.3998 48.7503 10.3497 48.7503 9.54754 49.1591C8.84193 49.5186 8.26825 50.0923 7.90873 50.7979C7.5 51.6 7.5 52.6501 7.5 54.7503ZM64.4676 13.4713C62.2296 8.78808 57.0697 6.30703 52.0516 8.70174C47.0336 11.0964 44.8957 16.7755 46.9967 21.7609C48.2952 24.8421 52.0153 30.8253 54.6678 34.9467C55.6479 36.4695 56.138 37.2309 56.8537 37.6763C57.4677 38.0584 58.2362 38.2643 58.959 38.2404C59.8015 38.2126 60.6066 37.7982 62.2168 36.9694C66.5747 34.7265 72.788 31.4049 75.4531 29.3858C79.7653 26.1188 80.8334 20.1137 77.605 15.5487C74.3766 10.9837 68.7475 10.5345 64.4676 13.4713Z" stroke="#C09A81" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <section class="section2-2">
+        <h2>100% 맞춤 매칭</h2>
+        <h4>전문 인증된 설문을 통해 나에 대해 알아가며<br>최적의 상담사를 맞춤 연결해 드립니다</h4><br>
+        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90" fill="none">
+            <path d="M22.5 22.5L39.375 39.375M22.5 22.5H11.25L7.5 11.25L11.25 7.5L22.5 11.25V22.5ZM72.2212 10.2788L62.3676 20.1324C60.8826 21.6174 60.14 22.36 59.8618 23.2162C59.6171 23.9693 59.6171 24.7807 59.8618 25.5338C60.14 26.39 60.8826 27.1326 62.3676 28.6176L63.2574 29.5074C64.7424 30.9924 65.485 31.735 66.3412 32.0132C67.0943 32.2579 67.9057 32.2579 68.6588 32.0132C69.515 31.735 70.2576 30.9924 71.7426 29.5074L80.9598 20.2902C81.9526 22.7058 82.5 25.3515 82.5 28.125C82.5 39.5159 73.2659 48.75 61.875 48.75C60.5017 48.75 59.1598 48.6158 57.8616 48.3598C56.0386 48.0002 55.127 47.8204 54.5744 47.8755C53.987 47.934 53.6974 48.0221 53.1769 48.3007C52.6873 48.5627 52.1961 49.0538 51.2139 50.0361L24.375 76.8749C21.2684 79.9815 16.2316 79.9815 13.125 76.8749C10.0184 73.7683 10.0184 68.7315 13.125 65.6249L39.9639 38.7861C40.9461 37.8038 41.4373 37.3127 41.6993 36.8231C41.9779 36.3025 42.066 36.013 42.1245 35.4255C42.1796 34.873 41.9998 33.9614 41.6402 32.1384C41.3842 30.8402 41.25 29.4983 41.25 28.125C41.25 16.7341 50.4841 7.5 61.875 7.5C65.6456 7.5 69.1799 8.51184 72.2212 10.2788ZM45.0002 56.2498L65.625 76.8746C68.7316 79.9812 73.7684 79.9812 76.8749 76.8746C79.9816 73.768 79.9815 68.7312 76.8749 65.6246L59.9074 48.6574C58.7063 48.5437 57.5352 48.327 56.4029 48.0162C54.944 47.6158 53.3435 47.9065 52.2737 48.9763L45.0002 56.2498Z" stroke="#C09A81" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </section>
+    <div class="section2-3">
+        <h2>신뢰할 수 있는 전문가</h2>
+        <h4>모든 상담사는 엄격한 검증과정을 거쳐 선별되며,<br>전체 자격 정보를 투명하게 제공합니다</h4><br>
+        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90" fill="none">
+            <path d="M45 54.3749V31.8749M33.75 43.1249H56.25M75 44.9999C75 63.4065 54.9226 76.7939 47.6175 81.0557C46.7872 81.54 46.3721 81.7822 45.7863 81.9078C45.3317 82.0053 44.6683 82.0053 44.2137 81.9078C43.6279 81.7822 43.2128 81.54 42.3825 81.0557C35.0774 76.7939 15 63.4065 15 44.9999V27.0659C15 24.0677 15 22.5686 15.4904 21.28C15.9235 20.1417 16.6274 19.1259 17.5412 18.3206C18.5756 17.409 19.9792 16.8827 22.7865 15.8299L42.8933 8.28991C43.6729 7.99756 44.0627 7.85138 44.4637 7.79343C44.8194 7.74203 45.1806 7.74203 45.5363 7.79343C45.9373 7.85138 46.3271 7.99756 47.1067 8.28991L67.2135 15.8299C70.0208 16.8827 71.4244 17.409 72.4588 18.3206C73.3726 19.1259 74.0765 20.1417 74.5096 21.28C75 22.5686 75 24.0677 75 27.0659V44.9999Z" stroke="#C09A81" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+</div>
+<br><br>
+<a href="#scroll1"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="14" viewBox="0 0 26 14" fill="none">
+    <path d="M24.6663 0.894531L12.9997 12.8244L1.33301 0.894531" stroke="#C09A81" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+<!--세번쨰 섹션-->
+<div id="scroll1">
+<div class="section3">
+    <!--<img class="brownWaveMid" src="/images/mainPage/brownWaveMid.png">-->
+    <div class="introSection2">
+        <div class="intro2"><h2>어려운 시기를 겪는 당신을 위한<br>의지를 주는 온라인 플랫폼입니다</h2></div>
+        <div class="intro2-2"><h4>저희 블룸은 세계에서 가장 큰 연결 플랫폼 중 하나로,  100% 온라인으로 운영됩니다.<br>
+            우리는 모두가 정신 건강에 접근하고 삶의 어려움에 대처하는 방식을 변화시키며, <br>접근성을 높여 심리적으로 부담 없이 나에게 꼭 맞는 상담사와의 연결선을 제공합니다. </h4></div>
+        <div class="intro2-3"><h4>당신의 고민과 어려움을 이해하며, 전문 상담사와 함께 <br>더 나은 삶을 찾는 여정을 시작하세요</h4></div>
+
+    </div>
+    <img class="mainPhoto2" src="/images/mainPage/mainPhoto2.png">
+</div>
+</div>
+
 
 <a href="test">클릭</a>
 <a href="/regist/category">register</a>
 <a href="/psychological/test">클릭</a>
 <a href="/review/reviewmain">후기</a>
+<a href="/admin/editUserInfo">관리자룰룰</a>
 <a href="/communityboard/board">커뮤니티게시판</a>
 </body>
 </html>
