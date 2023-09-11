@@ -4,6 +4,11 @@ body{
     background: #C09A81;
     text-align: center;
 }
+textarea {
+    width: 80%;
+    height: 100px;
+    resize: none;
+}
 .grass {
     position: fixed;
     left: 0;
@@ -22,4 +27,12 @@ body{
     border: 1px solid rgba(192, 154, 129, 0.8);
     border-radius: 10px;
     color: #C09A81;
+}
+.roundbutton{
+    margin-top: 10px;
+    font-size: 23px;
+    border-radius: 30px;
+    color:#C09A81;
+    background: #00ff0000;
+    border: none;
 }
