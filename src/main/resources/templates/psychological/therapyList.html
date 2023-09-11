@@ -10,8 +10,13 @@
 <th:block th:include="Components/PostLoginHeader.html"></th:block>
 <th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
 <h1>00님 이런 상담사들은 어떠세요?</h1>
-<div style="position:fixed; bottom: 5px; right: 5px;">
-    <a href="#header"><img src="/images/review/search.png" title="위로가기"></a>
+<div>
+    <div style="position:fixed; top: 200px; right: 5px;">
+        <a class="circle" href="#top"><img class="icons" src="../images/psychological/search.png" title="위로가기"></a><br>
+        <span>상담사 찾기</span>
+    </div>
+</div>
+
 <div>
     <form class="checkbox">
         <input type="checkbox" name="우울" value="우울"> 우울
@@ -36,6 +41,5 @@
         </button>
     </div>
 </div>
-
 </body>
 </html>
