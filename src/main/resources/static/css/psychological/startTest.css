@@ -6,14 +6,22 @@ body{
     margin: 0;
     padding: 0;
 }
+main {
+    margin-top: 40px;
+}
+span{
+    font-size: 23px;
+    font-weight: bold;
+    color: white;
+    margin: 15%;
+}
 .countbutton{
     width: 100px;
     height: 50px;
     color: #C09A81;
     background: #FFFFFF;
-    border-radius: 50px;
+    border-radius: 30px;
     border: none;
-
 }
 .grass {
     position: fixed;
@@ -23,6 +31,18 @@ body{
     height: 300px;
     margin-top: -300px;
 }
-main {
-    margin-top: 40px;
+.picture{
+    width: auto;
+    height: auto;
 }
+.whitrtext{ color: white;}
+
+.roundbutton{
+    width: 100px;
+    height: 50px;
+    color: #C09A81;
+    background: #FFFFFF;
+    border-radius: 30px;
+    border-color: white;
+}
+

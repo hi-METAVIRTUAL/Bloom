@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>last</title>
-    <link rel="stylesheet" type="text/css" href="../css/psychological/icon.css">
     <link rel="stylesheet" type="text/css" href="../css/psychological/lastTest.css">
 </head>
 <body>
@@ -28,8 +27,9 @@
     </form>
 </div>
 <footer>
-    <th:block th:include="Components/Footer.html"></th:block>
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+
 </footer>
 </body>
 </html>

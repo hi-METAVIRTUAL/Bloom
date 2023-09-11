@@ -11,32 +11,34 @@
 <header>
     <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
     <!-- 검사 멘트 -->
-    <h3>검증된 심리검사로 자신을 마주해보아요</h3>
 </header>
-<!-- 사진 -->
-<img src="../images/psychological/test.jpg" class="center" >
-<div class="clear"></div>
-<br>
-<!-- 원모양 배경1-->
-<section>
-    <article>
-        <div class="circle" ><img class="icons" src="../images/psychological/bulb.png" alt="전구"></div><br>
-        <span>검사예상 소요시간<br>
-            3분
-        </span>
-    </article>
-    <!-- 원모양 배경2-->
-    <article>
-        <div class="circle"><img class="icons" src="../images/psychological/hand.png" alt="손"></div><br>
-        <span>총 검사 문항 수 <br>
-            32문항
-        </span>
-    </article><br>
-</section>
-<br>
-<!-- 검사하기 버튼 -->
-<button class="roundbutton" onclick="location.href='/psychological/start'">검사하기</button>
-<br><br><br>
+<div style="margin-top: 30px; padding: 30px">
+    <h3>검증된 심리검사로 자신을 마주해보아요</h3>
+    <!-- 사진 -->
+    <img src="../images/psychological/test.jpg" class="center" >
+    <div class="clear"></div>
+    <br>
+    <!-- 원모양 배경1-->
+    <section>
+        <article>
+            <div class="circle" ><img class="icons" src="../images/psychological/bulb.png" alt="전구"></div><br>
+            <span>검사예상 소요시간<br>
+                3분
+            </span>
+        </article>
+        <!-- 원모양 배경2-->
+        <article>
+            <div class="circle"><img class="icons" src="../images/psychological/hand.png" alt="손"></div><br>
+            <span>총 검사 문항 수 <br>
+                32문항
+            </span>
+        </article><br>
+    </section>
+    <br>
+    <!-- 검사하기 버튼 -->
+    <button class="roundbutton" onclick="location.href='/psychological/start'">검사하기</button>
+    <br><br><br>
+</div>
 <!-- 풋터 -->
 <footer>
     <th:block th:include="Components/Footer.html"></th:block>
