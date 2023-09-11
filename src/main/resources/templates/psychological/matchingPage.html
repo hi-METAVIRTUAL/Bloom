@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>matching</title>
+    <style>
+        body{
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+        }
+        .div1{
+            color: #C09A81;
+            width: 300px; /* 원하는 너비로 설정 */
+            margin: 0 auto; /* 가로 가운데 정렬 */
+        }
+    </style>
 </head>
 <body class="">
-00님의 결과를 측정중...
-<th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
-
-<meta http-equiv="refresh" content="2;url=/psychological/result">
+    <header>
+    <th:block th:include="Components/PostLoginHeader.html"></th:block>
+    </header>
+    <div class="div1">
+        <h2> 00님의 결과를 측정중...</h2>
+    </div>
+    <footer>
+        <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
+    </footer>
+<meta http-equiv="refresh" content="3;url=/psychological/result">
 </body>
 </html>

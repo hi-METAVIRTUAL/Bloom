@@ -1,0 +1,80 @@
+#app {
+    padding: 20px;
+    border-radius: 10px;
+}
+.table-item {
+
+    background-color: #C09A81;
+    color: #FFFFFF;
+    border-radius: 10px;
+    width: 1300px;
+    margin-top: 1%;
+    margin-left: 12%;
+}
+
+.table-item a {
+    list-style-type: none;
+    text-decoration: none;
+    color: #C09A81;
+    font-size: 23px;
+}
+
+div.paging {
+    width: 74%;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+    margin-left: 14%;
+    justify-content: space-between;
+    border-radius: 10px;
+
+}
+
+#countPerPage {
+    width: 5%;
+    height: 40px;
+    color: #C09A81;
+    border-color: #C09A81;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+div.paging>div>i {
+    margin: 0 3px;
+}
+
+div.paging>div>div.pages {
+    margin: 0 5px;
+}
+
+div.paging>div>div.pages>span {
+    margin: 0 3px;
+}
+
+div.paging>div>i:hover,
+div.paging>div>div.pages>span:hover {
+    cursor: pointer;
+}
+
+span.active {
+    color: #C09A81;
+    font-weight: bold;
+}
+
+.row1 {
+    background-color: #FEEFCC;
+    border-radius: 10px;
+    border: #FEEFCC;
+    color: #C09A81;
+    font-size: 23px;
+}
+
+.row2 {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border: #FFFFFF;
+    color: #C09A81;
+    font-size: 23px;
+}

@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>커뮤니티</title>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/communityboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
-
 
 <p class="title">커뮤니티</p>
 
@@ -20,20 +19,15 @@
     </select>
     <input type="search" placeholder="검색어를 입력해 주세요." class="search-input"/>
     <div class="search-icon"><img src="../images/review/search.png"></div>
-    <button type="submit" class="search-button" onclick="">
-        <span class="button-text">검색</span>
+    <button type="submit" class="insert-button" onclick="">
+        <span>검색</span>
+    </button>
+    <button type="submit" class="insert-button" onclick="location.href='/board/communityinsert'">
+        <span>글등록</span>
     </button>
 </div>
-<div class="blank"></div>
-<div class="boardnavi"></div>
-<div class="boardbar1"></div>
-<div class="boardbar2"></div>
-<div class="boardbar1"></div>
-<div class="boardbar2"></div>
-<div class="boardbar1"></div>
-<div class="boardbar2"></div>
+<div th:include="communityboard/paging.html"></div>
+<th:block th:include="Components/Footer.html"></th:block>
 
-
-<th:block th:include="reviewboard/boardcount.html"></th:block>
 </body>
 </html>

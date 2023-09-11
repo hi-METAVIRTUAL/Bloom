@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>start</title>
-    <link rel="stylesheet" type="text/css" href="../css/common/common.css">
     <link rel="stylesheet" type="text/css" href="../css/psychological/icon.css">
     <link rel="stylesheet" type="text/css" href="../css/psychological/startTest.css">
     <style>
         .whitrtext{ color: white;}
     </style>
-    <th:block th:include="Components/PostLoginHeader.html"></th:block>
+    <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
 </head>
 <body class="BrownContainer">
 <main>
@@ -50,12 +49,8 @@
 
 
 <footer>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1912 211" fill="none" margin-top="auto" >
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0L105.787 21.641C211.574 43.2821 425.107 87.4658 636.68 87.4658C850.213 87.4658 1061.79 43.2821 1275.32 35.1667C1486.89 26.1496 1700.43 52.2991 1806.21 65.8248L1912 79.3504V211H1806.21C1700.43 211 1486.89 211 1275.32 211C1061.79 211 850.213 211 636.68 211C425.107 211 211.574 211 105.787 211H0V0Z" fill="#FEEFCC">
-            <th:block th:include="Components/Footer.html"></th:block>
-        </path>
-
-    </svg>
+    <th:block th:include="Components/Footer.html"></th:block>
+    <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
 
 </footer>
 </body>
