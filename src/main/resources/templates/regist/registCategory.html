@@ -10,7 +10,12 @@
 </head>
 
 <body>
-<div th:include="Components/preLoginHeader.html"></div>
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
+</div>
+
 <div class="container">
     <div>
             <div onclick="location.href='memberRegist'" class="image-zoom">
