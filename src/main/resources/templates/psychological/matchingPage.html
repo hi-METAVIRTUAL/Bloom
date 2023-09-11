@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>matching</title>
+    <style>
+        .div1{  line-height: 100px;
+            text-align: center;
+            background-color: rgb(231, 103, 64);
+            border: 1px solid black;
+            width: 200px; height: 100px;
+            color: white;
+
+        }
+    </style>
 </head>
 <body class="">
-00님의 결과를 측정중...
-<th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
+    <header>
+    <th:block th:include="Components/PostLoginHeader.html"></th:block>
+    </header>
+    <div class="div1">
+        00님의 결과를 측정중...
 
-<meta http-equiv="refresh" content="2;url=/psychological/result">
+    </div>
+
+
+    <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
+
+<meta http-equiv="refresh" content="5;url=/psychological/result">
 </body>
 </html>
