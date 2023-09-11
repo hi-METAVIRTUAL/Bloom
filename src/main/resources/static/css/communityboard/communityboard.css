@@ -1,0 +1,25 @@
+body {
+    font-family: 'Noto Sans KR';
+    color: #C09A81;
+    background-color: #FEEFCC;
+}
+.insert-input {
+    margin-left: 5%;
+    width: 20%;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    border-color: #C09A81;
+}
+.title-insert {
+    font-size: 23px;
+}
+.textarea-field {
+    margin-top: 1%;
+    font-size: 18px;
+    border-radius: 10px;
+    border-color: #C09A81;
+}
+.insert-button {
+
+}

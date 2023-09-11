@@ -13,4 +13,14 @@ public class CommunityBoard {
         return "communityboard/communityboard";
     }
 
+    @GetMapping("/communityinsert")
+    public String communityInsert() {
+        return "communityboard/communityinsert";
+    }
+
+    @GetMapping("communityboardselectone")
+    public String selectOne() {
+        return "communityboard/boardselectone";
+    }
+
 }
