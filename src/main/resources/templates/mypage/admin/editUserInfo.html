@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .section1{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .infoBox1, .infoBox2 {
+            flex-direction: row;
+        }
+
+        .info1-1, .info1-2, .info1-3 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #FFF6E2;">
+<th:block th:include="Components/postLoginHeader"></th:block>
+
+<h1>회원정보</h1>
+<div class="section1">
+<div class="infoBox1">
+    <h3 class="info1-1">이름</h3>
+    <h3 class="info1-2">닉네임</h3>
+    <h3 class="info1-3">성별</h3>
+</div>
+    <div class="infoBox2">
+        <h3 class="info2-1">아이디</h3>
+        <h3 class="info2-2">이메일</h3>
+        <h3 class="info2-3">전화번호</h3>
+    </div>
+</div>
+
+
+<!--
+<div class="infoBox1">
+    <div th:if="${user}">
+        <div th:each="${ user }">
+        이름&emsp;<div th:text="${user.name ?: 'Default Name'}"></div>
+        닉네임&emsp;<div th:text="${user.nickName ?: 'Default Name'}"></div>
+        성별&emsp;<div th:text="${user.gender ?: 'Default Name'}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="infoBox2">
+    <div th:if="${user}">
+    <div th:each="${user}">
+        <div th:text="${user.id ?: 'Default Name'}"></div>
+        <div th:text="${user.email ?: 'Default Name'}"></div>
+        <div th:text="${user.phoneNumber ?: 'Default Name'}"></div>
+    </div>
+    </div>
+</div>
+-->
+
+<h1>기타</h1>
+<div class="box1">
+    <div class="lastLogin"><h3>최근접속일</h3>
+        <!--<div th:if="${user}">
+        <div th:each="${user}">
+            <div th:text="${user.lastLoginTime ?: 'Default Name'}"></div>
+        </div>-->
+    </div>
+    <div class="lastLogin"><h3>회원가입일</h3>
+        <!--<div th:each="${user}">
+           <div th:text="${user.registDate ?: 'Default Name'}"></div>
+       </div>-->
+    </div>
+    <div class="lastLogin"><h3>누적 신고 건수</h3>
+        <!--<div th:if="${user}">
+       <div th:each="${user}">
+           <div th:text="${user.reportedCount ?: 'Default Name'}"></div>
+       </div>-->
+    </div>
+</div>
+</body>
+</html>
