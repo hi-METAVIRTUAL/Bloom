@@ -14,31 +14,27 @@ public class MainController {
     public String defaultLocation() {
         return "index";
     }
-/*
+
     @GetMapping("regist")
     public String regist(){
-        return "regist/registCategory";
+        return "regist/regist";
     }
 
 
-    @GetMapping("regularRegist")
-    public String regularRegist(){
-        return "regist/regularRegist";
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("review")
+    public String review() {
+        return "reviewboard/reviewmain";
     }
-
-    @GetMapping("therapistRegist")
-    public String therapistRegist(){
-        return "regist/therapistRegist";
-    }
-*/
-
-
-    @GetMapping("test")
-    public String test() {
-        return null;
-    }
-
 
 
 }
-
