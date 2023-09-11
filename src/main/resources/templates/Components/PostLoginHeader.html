@@ -40,7 +40,8 @@
     </style>
 </head>
 <body>
-<header>
+<div th:with="textColor=${ textColor }">
+<header th:style="'color: ' + ${ textColor }">
     <div id="title">Bloom</div>
     <hr class="line"/>
 
@@ -55,5 +56,6 @@
 
     <hr class="line"/>
 </header>
+</div>
 </body>
 </html>

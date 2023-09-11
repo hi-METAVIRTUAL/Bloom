@@ -8,9 +8,12 @@
     <style>
         .whitrtext{ color: white;}
     </style>
-    <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
+
 </head>
 <body class="BrownContainer">
+<header>
+    <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
+</header>
 <main>
     <!-- 카운트 -->
     <button class="countbutton"><h3>1/32</h3></button>
@@ -46,12 +49,9 @@
     });
 </script>
 
-
-
 <footer>
     <th:block th:include="Components/Footer.html"></th:block>
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
-
 </footer>
 </body>
 </html>
