@@ -37,5 +37,18 @@ body{
     color: #FFFFFF;
     font-size: 25px;
 }
-
+.circle {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-color : #C09A81;
+    border-radius: 50%;
+}
+.icons{
+    position: relative;
+    width: 50px;
+    height: 50px;
+    top: 15%;
+    bottom: 15%;
+}
 

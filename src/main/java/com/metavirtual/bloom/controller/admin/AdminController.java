@@ -11,7 +11,7 @@ public class AdminController {
 
     @GetMapping("/qna")
     public String qna(){
-        return "mypage/admin/qna";
+        return "mypage/admin/qna";}
 
     @GetMapping("/editUserInfo")
     public String editUserInfo() {
