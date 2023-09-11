@@ -3,44 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>profile</title>
-    <link rel="stylesheet" type="text/css" href="static/css/mypage/user/userinfo.css">
+    <link rel="stylesheet" type="text/css" href="../css/mypage/user/userInfo.css">
 </head>
-<body style="margin: 0 auto; width: 480px;">
+
+<body>
 <div th:include="Components/PostLoginHeader.html"></div>
-<div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 180px; height: 200px; border-radius: 30px;">
-    <img src="static/images/mypage/user/flower.png" class="image-center">
+<br><br>
+<div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 180px; height: 210px; border-radius: 30px; margin: auto;">
+    <img src="../images/mypage/user/flower.png" class="image-center">
     <h3 th:text="${userName}"></h3>
     <p th:text="${userEmail}"></p>
     <p th:text="${userPhone}"></p>
 </div>
 <br><br>
-<input type="button" value="내 정보 수정하기" onclick="location.href='infoSetting.html'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 24px;">
+<input type="button" value="내 정보 수정하기" onclick="location.href='infoSetting'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 33px; cursor: pointer;">
 <br><br>
-<h4 style="color: #C09A81">나의 예약 내역</h4>
-<table>
+<h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>
+<table style="margin-left:auto;margin-right:auto; color: #C09A81;">
     <tr>
-        <th>상담사</th>
-        <th>예약일</th>
-        <th>연락처</th>
-        <th>예약상태</th>
+        <th><hr style="border-color: #C09A81;">상담사<hr style="border-color: #C09A81;"></th>
+        <th><hr style="border-color: #C09A81;">예약일<hr style="border-color: #C09A81;"></th>
+        <th><hr style="border-color: #C09A81;">연락처<hr style="border-color: #C09A81;"></th>
+        <th><hr style="border-color: #C09A81;">예약상태<hr style="border-color: #C09A81;"></th>
     </tr>
     <tr>
         <td colspan="4">예약된 내역이 없습니다</td>
     </tr>
-<!--    <tr th:each="menu : ${ menuList }">-->
-<!--        <td th:text="${ 상담사이름 }"></td>-->
-<!--        <td th:text="${ 예약일 }"></td>-->
-<!--        <td th:text="${ 상담사전화번호 }"></td>-->
-<!--        <td th:text="${ 예약상태 }"></td>-->
-<!--    </tr>-->
 </table>
 <br><br>
-<input type="button" value="상담사 보기" onclick="location.href=''" style="width: 200px; height: 24px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid;"><br><br>
-<input type="button" value="검사 하러 가기" onclick="location.href='templates/psychological/firstTest.html'" style="width: 200px; height: 24px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid;">
+<input type="button" value="상담사 보기" onclick="location.href=''" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;"><br><br>
+<input type="button" value="검사 하러 가기" onclick="location.href='../psychological/test'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
 
 </script>
+<br><br>
 <footer>
-    <div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
 </footer>
 </body>
 </html>
