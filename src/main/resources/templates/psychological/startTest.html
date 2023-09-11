@@ -10,7 +10,7 @@
     </style>
 
 </head>
-<body class="BrownContainer">
+<body>
 <header>
     <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
 </header>
@@ -29,7 +29,7 @@
         <button onclick="">4</button>
         <button onclick="">5</button>
     </article>
-    <span style="margin: 50px">전혀그렇지않다</span> <span style="margin: 50px">매우그렇다</span>
+    <span class="mar" style="margin: 50px">전혀그렇지않다</span> <span style="margin: 50px">매우그렇다</span>
 
 </section><br>
 <button onclick="location='/psychological/last'">다음</button>
@@ -50,8 +50,9 @@
 </script>
 
 <footer>
-    <th:block th:include="Components/Footer.html"></th:block>
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
+    <th:block th:include="Components/Footer.html"></th:block>
+
 </footer>
 </body>
 </html>
