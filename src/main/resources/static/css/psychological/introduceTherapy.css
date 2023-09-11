@@ -1,0 +1,42 @@
+body{
+    font-family: 'Noto Sans KR';
+    color: #C09A81;
+    background: #FFF6E2;
+    text-align: center;
+    margin:0;
+}
+.smallsize{
+    width: 200px;
+    height: 200px;
+}
+.mainbox{
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+}
+
+.profilebox{
+    width: 30%;
+    display: flex;
+    flex: 1;
+}
+.introducebox{
+    width: 60%;
+    display: flex;
+    flex: 1;
+
+
+}
+
+.flex{
+
+}
+.sectionbox{
+    width: 90%;
+}
+.child1{
+    right: 50%;
+}
+.child2{
+    left: 50%;
+}

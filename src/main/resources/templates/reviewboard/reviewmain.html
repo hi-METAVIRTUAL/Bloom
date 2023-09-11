@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
 </head>
 <body>
-<div class="review-header" th:include="Components/PostLoginHeader.html"></div>
+<div th:include="Components/PostLoginHeader.html"></div>
 
 
-<p class="review-title">후기</p>
+<p class="title">후기</p>
 
 <!--<div id="search-bar" class="search-bar">
     <div class="search-group">
@@ -36,39 +36,52 @@
     <option value="상담사">상담사</option>
     <option value="작성자">작성자</option>
 </select>
-    <input type="search" placeholder="검색어를 입력해 주세요." class="search-input">
-    <button type="button" class="btn_arrow" data-atcmp-element="" aria-pressed="false"></button>
+    <input type="search" placeholder="검색어를 입력해 주세요." class="search-input"/>
+    <div class="search-icon"><img src="../images/review/search.png"></div>
     <button type="submit" class="search-button" onclick="">
         <span class="button-text">검색</span>
     </button>
-
-
-
 </div>
+
+
+<div class="review-text-box-container1">
+    <div class="review-text-box">
+        <img src="../images/review/yellowstar.png" class="star-icon">&nbsp;오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+    </div>
+    <div class="review-text-box">
+        <img src="../images/review/yellowstar.png" class="star-icon">&nbsp;오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+    </div>
+    <div class="review-text-box">
+        <img src="../images/review/yellowstar.png" class="star-icon">&nbsp;오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+    </div>
+</div>
+<div class="review-text-box-container2">
+    <div class="review-text-box">
+        <img src="../images/review/yellowstar.png" class="star-icon">&nbsp;오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+    </div>
+    <div class="review-text-box">
+        <img src="../images/review/yellowstar.png" class="star-icon">&nbsp;오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+    </div>
+    <div class="review-text-box">
+        <img src="../images/review/yellowstar.png" class="star-icon">&nbsp;오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+    </div>
+</div>
+
+
+
+
+
+
+
 
 
 <!--
 <p>
-    <select class="review-select">
-        <option value="전체">전체</option>
-        <option value="제목">제목</option>
-        <option value="상담사">상담사</option>
-        <option value="작성자">작성자</option>
-    </select>
     <input type="text" value=""><img src="images/bulb.png" class="review-search-icon"/><button type="submit" value="검색" class="review-button">검색</button>
 </p>
 -->
 
-
-
-    <!--
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1912 211">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0L105.787 21.641C211.574 43.2821 425.107 87.4658 636.68 87.4658C850.213 87.4658 1061.79 43.2821 1275.32 35.1667C1486.89 26.1496 1700.43 52.2991 1806.21 65.8248L1912 79.3504V211H1806.21C1700.43 211 1486.89 211 1275.32 211C1061.79 211 850.213 211 636.68 211C425.107 211 211.574 211 105.787 211H0V0Z" fill="#C09A81"><
-        </path>
-    </svg>
-    -->
-
-    <!--<footer class="review-footer" th:include="Components/Footer.html"/>-->
-
+<th:block th:include="reviewboard/boardcount.html"></th:block>
+<th:block th:include="Components/Footer.html"></th:block>
 </body>
 </html>

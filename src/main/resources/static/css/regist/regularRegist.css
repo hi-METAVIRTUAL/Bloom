@@ -1,0 +1,31 @@
+
+body {
+    font-family: 'Noto Sans KR';
+    margin:0;
+    text-align: center;
+}
+
+.RegisterForm {
+
+}
+
+.form1 {
+    display: flex;
+    justify-content: center;
+    block-size: 70%;
+}
+
+.phoneTag {
+    text-align: left;
+}
+.inputs {
+    width: 400px;
+}
+
+.phone {
+    width: 50px;
+}
+span {
+
+}
+/**/

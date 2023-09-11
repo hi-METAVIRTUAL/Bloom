@@ -3,6 +3,8 @@ body {
     margin:0;
     color: #3C5B4B;
     display: flex;
+    flex-direction: column;
+
 }
 
 .container {
@@ -11,18 +13,17 @@ body {
     column-gap: 100px;
     margin-top: 100px;
     text-align: center;
+    margin-left: 400px;
+    margin-right: 400px;
 }
-/**/
-.image {
-    width: 200px;
-    height: 270px;
-}
+
 
 .maintxt {
     font-size:27px;
     margin-top: 20px;
     margin-bottom: -35px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .smalltxt {
@@ -45,11 +46,34 @@ body {
     margin-left: 485px;
 }
 
-.icon1{
-    margin-top: -20px;
-    margin-left: -370px;
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.grass {
-    display: flex;
+.image-zoom {
+    overflow: hidden;
+    position: relative;
+    width: 230px; /* Adjust the desired width for the zoom effect */
+    height: 230px; /* Adjust the desired height for the zoom effect */
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }
+
+.image-zoom:hover {
+    transform: scale(1.1); /* Adjust the zoom factor as needed */
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/**/

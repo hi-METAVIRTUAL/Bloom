@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Info Setting</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/user/userinfo.css">
+</head>
+<body class="beigeContainer">
+<div th:include="Components/PostLoginHeader.html"></div>
+    <form align="center">
+        <table align="center" style="color: #C09A81">
+            <tr>
+                <td>이름</td>
+                <td>&nbsp;&nbsp;<textarea th:text="${userName}" class="fixed-textarea" readonly="readonly">
+개명 회원은 고객센터로 문의 바랍니다.</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td>&nbsp;&nbsp;<textarea th:text="${userId}" class="fixed-textarea" readonly="readonly">
+아이디는 변경 불가능합니다.</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td>
+                    * <input class="round-input" type="password" name="pass" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" >
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>
+                    * <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailid" th:value="${emailId}">
+                    @ <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailaddress" th:value="${emailAddress}">
+                </td>
+                <td>
+                    <button class="info-bt" onclick="" >본인인증하기</button>
+                </td>
+            </tr>
+            <tr>
+                <td>인증번호입력</td>
+                <td>
+                    * <input class="round-input" type="text" name="cernum" value="">
+                </td>
+                <td>
+                    <button class="info-bt" onclick="" >인증번호확인</button>
+                </td>
+            </tr>
+            <tr>
+                <td>닉네임</td>
+                <td>
+                    * <input class="round-input" type="text" name="nickname" th:value="${userNickname}">
+                </td>
+                <td>
+                    <button class="info-bt" onclick="" >중복 체크</button>
+                </td>
+            </tr>
+           <tr>
+               <td>전화번호</td>
+               <td>
+                   * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" th:value="${phoneFront}">
+                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" th:value="${phoneMiddle}">
+                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" th:value="${phoneEnd}">
+               </td>
+           </tr>
+           <tr>
+               <td>성별</td>
+               <td align="left">
+                   &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${userGender}"></textarea>
+               </td>
+           </tr>
+        </table>
+
+        <input style="width: 200px; height: 28px; border-radius: 30px; background-color: #C09A81; color: #FFFFFF; border: none" type="submit" value="수정 완료">
+    </form>
+    <footer>
+        <div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    </footer>
+</body>
+</html>

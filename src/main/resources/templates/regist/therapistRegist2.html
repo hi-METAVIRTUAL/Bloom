@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상담사 회원가입</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">
+    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <style>
+        /* Set the size and position for your background component */
+        .background-component {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure it's behind other content */
+        }
+    </style>
+</head>
+<body>
+<th:block th:include="Components/preLoginHeader.html"></th:block>
+<div class="background-component" th:include="Components/beigeBackgroundGreenGrass.html"></div>
+<h1 class="title">상담사 회원가입</h1>
+<form action="/regist/therapistRegistSuccess" method="get">
+    <div>Q1. 상담사님 간단한 자기소개 부탁드려요(한줄소개)</div>
+    <textarea placeholder="50자 이내 작성"></textarea>
+    <br><br>
+    <div>Q2. 내담자에게 어떤 방식으로 다가가시나요?</div>
+    <textarea placeholder="500자 이내 작성"></textarea>
+    <br><br>
+    <div>Q3. 상담사에게 있어서 중요하게 생각하는 가치관이 어떻게 되나요?</div>
+    <textarea placeholder="500자 이내 작성"></textarea>
+    <br><br>
+
+    <hr>
+
+    <h5>경력사항</h5>
+    소속기관 <textarea placeholder="20자 이내 작성"></textarea>
+    <br><br>
+    <div class="checkBox1">
+        <h3>전문 분야 선책</h3>
+        <br><br>
+        <input type="checkbox" name="depression" value="우울">
+        <input type="checkbox" name="anxiety" value="불안">
+        <input type="checkbox" name="bipolar" value="양극성">
+        <input type="checkbox" name="ocd" value="강박성">
+        <input type="checkbox" name="relationships" value="대인관계">
+    </div>
+    <div class="checkBox2">
+        <h3>전문 분야 선책</h3>
+        <br><br>
+        <input type="checkbox" name="videoChat" value="화상상담(줌)">
+        <input type="checkbox" name="texting" value="채팅상담(카카오톡)">
+        <input type="checkbox" name="inPerson" value="대면상담">
+    </div>
+
+    <h4>첨부파일</h4>
+    <form action="">
+        <input type="file" id="myFile" name="filename">
+        <input type="submit">
+    </form>
+    <button onclick="location.href='/'" type="submit" style="width:200px;" class="whiteButton">취소</button>&ensp;&ensp;<button onclick="location.href='therapistRegistSuccess'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
+</form>
+<th:block style="color:#FFF6E2" th:include="Components/Footer.html"></th:block>
+</body>
+</html>
+<!---->

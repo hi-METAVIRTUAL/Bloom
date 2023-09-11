@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     <meta charset="UTF-8">
     <title>Post Login Header</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        ul#menu li {
+            display:inline;
+            color: #C09A81;
+        }
+        #title{
+            font-family: 'Raleway';
+            font-size: 80px;
+            font-weight: lighter;
+            margin-bottom: unset;
+            color: #C09A81;
+        }
+
+        .line {
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            border-color:#C09A81;
+            margin-top: -10px;
+            margin-bottom: -10px;
+            color: #C09A81;
+        }
+    </style>
 </head>
 <body>
-<p style="font-size:100px;margin-bottom: unset;">Bloom</p>
-<hr class="solid" style="width:1000px;">
-<div>소개&emsp;&emsp;상담사&emsp;&emsp;후기&emsp;&emsp;FAQ&emsp;&emsp;마이페이지&emsp;&emsp;로그아웃</div>
-<hr class="solid" style="width:1000px;">
+<header>
+    <div id="title">Bloom</div>
+    <hr class="line"/>
+
+    <ul id="menu">
+        <li>소개</li>
+        &emsp;&emsp;<li>상담사</li>
+        &emsp;&emsp;<li>후기</li>
+        &emsp;&emsp;<li>FAQ</li>
+        &emsp;&emsp;<li>마이페이지</li>
+        &emsp;&emsp;<li><a href="/regist/">로그아웃</a></li>
+    </ul>
+
+    <hr class="line"/>
+</header>
 </body>
 </html>
 <!---->

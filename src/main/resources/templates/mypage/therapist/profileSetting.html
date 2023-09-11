@@ -3,31 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>My Profile Setting</title>
-    <style>
-        textarea {
-            width: 500px;
-            height: 80px;
-            resize: none;
-            color: #C09A81;
-            background-color: #FFFFFF;
-            border-radius: 10px;
-            border-color: #C09A81;
-            border-style: solid;
-            border-width: 2px;
-        }
-        textarea::placeholder {
-            color: #C09A81;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="static/css/mypage/therapist/profileSetting.css">
 </head>
 <body>
+<div th:include="Components/PostLoginHeader.html"></div>
     <form align="center">
         <table align="center" style="color: #C09A81">
             <tr>
                 <td>
                     Q1. 상담사님 간단하게 자기소개 부탁드립니다.(한줄소개)
                     <br><br>
-                    <textarea placeholder="50자 이내 작성"></textarea>
+                    <textarea th:text="${therapistQna1}"></textarea>
                     <br><br>
                 </td>
             </tr>
@@ -35,7 +21,7 @@
                 <td>
                     Q2. 내담자에게 어떤 방식으로 다가가시나요?
                     <br><br>
-                    <textarea placeholder="500자 이내 작성"></textarea>
+                    <textarea th:text="${therapistQna2}"></textarea>
                     <br><br>
                 </td>
             </tr>
@@ -43,7 +29,7 @@
                 <td>
                     Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?
                     <br><br>
-                    <textarea placeholder="500자 이내 작성"></textarea>
+                    <textarea th:text="${therapistQna3}"></textarea>
                     <br><br>
                 </td>
             </tr>
@@ -51,14 +37,14 @@
                 <td>
                     소속기관
                     <br><br>
-                    <input style="width: 500px; height: 30px; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="organization" value="맑음 상담소"> <!--'맑음 상담소는 로그인한 유저의 소속기관으로 변경-->
+                    <input style="width: 500px; height: 30px; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="organization" th:value="${therapistOffice}"> <!--'맑음 상담소는 로그인한 유저의 소속기관으로 변경-->
                     <br>
                     최대 20자 공백 / 특수기호 불가 / 영문, 한글로 입력
                     <br><br><br>
                 </td>
             </tr>
             <tr>
-                <td align="left" style="border-color: #C09A81; background-color: #FFFFFF; color: #C09A81; border-radius: 10px; border-style: solid; width: 210px;" >
+                <td align="left" class="profile-choice">
                     전문 분야 선택
                     <br><br>
                     우울<input type="radio" name="special" value="우울">
@@ -72,7 +58,7 @@
                     대인관계<input type="radio" name="special" value="대인관계">
                 </td>
 
-                <td align="right" style="border-color: #C09A81; background-color: #FFFFFF; color: #C09A81; border-radius: 10px; border-style: solid; width: 200px;">
+                <td align="right" class="profile-choice">
                     상담 방법 선택
                     <br><br>
                     화상상담(줌)<input type="checkbox" name="how" value="화상상담">
@@ -84,8 +70,10 @@
             </tr>
         </table>
         <br><br>
-        <input type="button" value="수정 완료">
+        <input type="submit" value="수정 완료" class="sub-btn">
     </form>
+<footer>
+    <div class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
 </body>
 </html>
-<!---->
