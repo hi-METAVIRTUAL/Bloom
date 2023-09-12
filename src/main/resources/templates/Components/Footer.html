@@ -1,42 +1,59 @@
 <style>
 
-    body {
-        margin: 0; /* Remove default margin */
-        padding: 0; /* Remove default padding */
-        height: 100%;
-    }
-    .footerMenuBar {
-   !* Add background color for better visibility *!
-        color: #FEEFCC;
-        position: sticky; !* Change from sticky to fixed *!
-        left: 0;
-        bottom: 0; !* Stick to the bottom of the viewport *!
-        width: 100%;
-        text-align: center;
-        }*/
-    body {
+    /* .footerMenuBar {
+    !* Add background color for better visibility *!
+         color: #FEEFCC;
+         position: sticky; !* Change from sticky to fixed *!
+         left: 0;
+         bottom: 0; !* Stick to the bottom of the viewport *!
+         width: 100%;
+         text-align: center;
+         }*!*/
+/*    body {
         margin: 0;
         padding: 0;
-        min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+        min-height: 100vh; !* Ensure the body takes up at least the full viewport height *!
         display: flex;
         flex-direction: column;
-    }
-
-    .content {
-        flex: 1; /* Grow to fill available space */
-        /* Add your styles for the main content here */
-    }
+    }*/
 
     .footer {
         /* Your footer styles */
         padding: 10px;
         text-align: center;
+        display: flex;
+        justify-content: center;
         /*position: fixed;*/
+    }
+
+    div ul{
+        text-align: center;
+        padding: 0;
+        list-style:none;
+        flex-direction: row;
+    }
+    .center{
+        float: left;
+
+    }
+
+    .titleLink {
+        text-decoration: none;
+        color: inherit;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
 </style>
 <body>
 <div th:with="textColor=${ textColor }">
-    <p th:style="'color: ' + ${ textColor }" class="footer" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    <div th:style="'color: ' + ${ textColor }" class="footer">
+        <ul>
+            <li class="center"><a class="titleLink" href="/terms/termsOfService">운영정책</a></li>
+            <li class="center"><a class="titleLink" href="/">상담사지원</a></li>
+            <li class="center"><a class="titleLink" href="/faq/faqMain">FAQ</a></li>
+            <li class="center"><a class="titleLink" href="/communityboard/center">고객센터</a></li>
+        </ul>
+    </div>
+</div>
 </body>
-<!---->
