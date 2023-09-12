@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/gominSangdamSo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
+</head>
+<body>
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
+</div>
+
+<p class="title">고객센터 문의</p>
+<div class="selectone-title">제목</div>
+<div class="view-id-date"><span style="float: left">작성자 : asdf****</span><span style="float: right">작성일시 : 0000-00-00 11:11:11</span></div>
+<div class="view-select-board">문의내용22222222222222222</div>
+<!--상담사답변-->
+<div class="view-datgul-board">답변 상세222222222222222222222222222222221</div>
+<div class="datgul-view"></div>
+
+
+<div style="width: 80%; margin: auto">
+    <span class="center-title">고객센터</span>
+    <span style="float: right"><button onclick="location.href='/communityboard/centerInsert'">고객센터문의</button></span>
+</div>
+<div style="margin-top: -5%" th:include="communityboard/centerPaging.html"></div>
+<th:block th:include="Components/Footer.html"></th:block>
+
+</body>
+</html>

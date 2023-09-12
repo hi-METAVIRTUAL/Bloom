@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>고민상담</title>
+    <title>Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
 </head>
 <body>
 <div th:with="loggedIn=false, reservationMade=false">
@@ -14,28 +15,9 @@
 </div>
 
 <p class="title">고민상담</p>
-
-<div class="gomin-input">
-    <span>제목</span>
-    <input type="text" placeholder="글제목을 입력해 주세요." class="insert-input">
-    <label><input type="radio" name="공개여부">공개</label>
-    <label><input type="radio" name="공개여부">비공개</label>
-</div>
-<div>
-    <textarea rows="22" cols="115" placeholder="글을 작성해주세요." class="textarea-field">
-    </textarea>
-</div>
-<div>
-    <button type="submit" class="button" onclick="">
-        <span>등록하기</span>
-    </button>
-    <button type="submit" class="button" onclick="location.href='/communityboard/gomin'">
-        <span>돌아가기</span>
-    </button>
-</div>
-
-
-<th:block th:include="Components/Footer.html"></th:block>
+<div class="selectone-title">제목</div>
+<div class="view-id-date"><span style="float: left">작성자 : asdf****</span><span style="float: right">작성일시 : 0000-00-00 11:11:11</span></div>
+<div class="view-select-board">글 상세내용1111111111111111111111111111111111111111111111</div>
 
 </body>
 </html>

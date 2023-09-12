@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
+</head>
+<body>
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
+</div>
+
+<p class="title">고민상담</p>
+<div class="selectone-title">제목</div>
+<div class="view-id-date"><span style="float: left">작성자 : asdf****</span><span style="float: right">작성일시 : 0000-00-00 11:11:11</span></div>
+<div class="view-select-board">글 상세내용1111111111111111111111111111111111111111111111</div>
+<!--상담사답변-->
+<div class="view-datgul-board">답변 상세222222222222222222222222222222221</div>
+<div class="datgul-view"><span class="datgul-view-id-date" style="float: right">0000-00-00 11:11:11 ohgi상담사님의 답변</span></div>
+
+
+
+<p class="title">고민상담</p>
+<div class="search-bar">
+    <div class="searchBox1">
+        <select class="select-option">
+            <option value="전체">전체</option>
+            <option value="제목">제목</option>
+            <option value="작성자">작성자</option>
+        </select>
+
+        <input type="search" placeholder="검색어를 입력해 주세요." class="searchBar"/>
+
+        <button type="submit" class="insert-button" onclick="">
+            <span>검색</span>
+        </button>
+        <button type="submit" class="insert-button" onclick="location.href='/communityboard/gominSangdamInsert'">
+            <span>글등록</span>
+        </button>
+    </div>
+</div>
+<div th:include="communityboard/gominSangdamPaging.html"></div>
+<th:block th:include="Components/Footer.html"></th:block>
+
+</body>
+</html>
