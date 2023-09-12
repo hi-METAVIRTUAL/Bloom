@@ -21,6 +21,7 @@
                 <option value="전체">전체</option>
                 <option value="제목">아이디</option>
                 <option value="작성자">이름</option>
+                <option value="작성자">승인 여부</option>
             </select>
 
             <input type="search" style="width: 500px; border-color: #C09A81; border-style: solid;"/>
@@ -38,14 +39,16 @@
                 <th>&nbsp;&nbsp;아이디&nbsp;&nbsp;</th>
                 <th>&nbsp;&nbsp;이름&nbsp;&nbsp;</th>
                 <th>&nbsp;&nbsp;가입일&nbsp;&nbsp;</th>
+                <th>&nbsp;&nbsp;승인 여부&nbsp;&nbsp;</th>
                 <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;&nbsp;계정탈퇴&nbsp;&nbsp;</th>
             </tr>
 
             <tr style="color: #C09A81" align="center">
                 <td>1</td>
                 <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td>
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -56,6 +59,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 대기</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -66,6 +70,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 대기</td>
                 <td>
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -76,6 +81,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -86,6 +92,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td>
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -96,6 +103,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -106,6 +114,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td>
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -116,6 +125,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -126,6 +136,7 @@
                 <td>apple</td>
                 <td>김사과</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td>
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
@@ -136,14 +147,27 @@
                 <td>cherry</td>
                 <td>김체리</td>
                 <td>2023/04/24</td>
+                <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
                     <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">
                 </td>
             </tr>
 
+<!--            <tr style="color: #C09A81" align="center">-->
+<!--                <td>1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'" th:text="${ therapistId }"></td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'" th:text="${ therapistName }"></td>-->
+<!--                <td th:text="${ therapistRegistDate }"></td>-->
+<!--                <td th:text="${ approvalStatus }"></td>-->
+<!--                <td>-->
+<!--                    <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
+
         </table>
+
         <br>
-        <a style="color: #C09A81;">이름, 아이디 클릭 시 상담사 정보 조회</a>
+        <a style="color: #C09A81;">아이디 클릭 시 상담사 정보 조회 / 이름 클릭 시 상담사 정보 조회</a>
         <br><br>
         <table align="center" style="color: #C09A81;">
             <td style="cursor: pointer"><&nbsp;</td>
