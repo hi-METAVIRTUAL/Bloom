@@ -3,17 +3,7 @@ body {
     color: #C09A81;
     background-color: #FFF6E2;
 }
-.selectone-title {
-    margin-left: 15%;
-    margin-right: 15%;
-    width: 70%;
-    height: 40px;
-    font-size: 23px;
-    color: white;
-    background-color: #C09A81;
-    border-radius: 10px;
-    border: none;
-}
+
 
 .view-id-date {
     width: 68%;

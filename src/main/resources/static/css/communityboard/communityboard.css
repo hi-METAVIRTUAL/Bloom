@@ -3,6 +3,7 @@ body {
     color: #C09A81;
     background-color: #FFF6E2;
 }
+/* 게시판 h1 공통 */
 .title {
     font-size: 32px;
     width: 80%;
@@ -10,21 +11,8 @@ body {
     margin-top: 5%;
     margin-left: 10%;
 }
-.insert-input {
-    width: 20%;
-    height: 30px;
-    font-size: 18px;
-    border-radius: 10px;
-    border-color: #C09A81;
-}
-.title-insert {
-    font-size: 23px;
-}
-.textarea-field {
-    font-size: 18px;
-    border-radius: 10px;
-    border-color: #C09A81;
-}
+
+/* 게시판 공통 페이지 버튼 */
 .insert-button {
     height: 30px;
     border-radius: 10px;
@@ -37,6 +25,7 @@ body {
     font-size: 18px;
 }
 
+/* 게시판 검색 박스 공통 */
 .search-icon{
     width: 23px;
     height: 23px;
@@ -69,7 +58,54 @@ body {
     border-radius: 10px;
 }
 
-.searchBox1 input::placeholder{
+.searchBox1 input::placeholder {
     text-indent: 10px;
 }
 
+/* 글 등록 페이지 공통 */
+
+.title-box {
+    margin: auto;
+    width: 80%;
+    display: flex;
+}
+
+.insert-input {
+    margin-left: 5%;
+    margin-right: 27%;
+    width: 50%;
+    height: 30px;
+    font-size: 18px;
+    color: #C09A81;
+    border-radius: 10px;
+    border-color: #C09A81;
+}
+
+.title-insert {
+    font-size: 23px;
+}
+
+.textarea-field textarea{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 18px;
+    border-radius: 10px;
+    border-color: #C09A81;
+}
+
+/* 고객센터 메인페이지 */
+.center-insert-box {
+    width: 80%;
+    margin: auto;
+}
+.center-insert-button {
+    height: 30px;
+    border-radius: 10px;
+    width: 180px;
+    background: #C09A81;
+    border: none;
+}
+.center-insert-button span {
+    color: #FFFFFF;
+    font-size: 18px;
+}

@@ -198,3 +198,9 @@ body{
     background-color: #C09A81;
     border-radius: 10px;
 }
+.footer-bar-test {
+    position: relative;
+}
+.footer-bar-test img {
+    position: absolute;
+}
