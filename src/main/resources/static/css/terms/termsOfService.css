@@ -15,3 +15,7 @@ body{
     word-break:normal;
     word-break:keep-all;
 }
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+}

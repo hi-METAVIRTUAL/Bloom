@@ -1,0 +1,95 @@
+body{
+    font-family: 'Noto Sans KR';
+    color: #C09A81;
+    background: #FFF6E2;
+    text-align: center;
+    margin:0;
+}
+.wrapper{
+    width: 400px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    border-style: solid;
+    padding: 25px;
+}
+
+.wrapper .nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.wrapper .nav .currentDate{
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.wrapper .nav button{
+    width: 33px;
+    height: 33px;
+    font-size: 23px;
+    color: #EFEBE2;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.calendar ul{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar .weeks li{
+    font-weight: 400;
+    text-align: center;
+}
+
+.calendar .days{
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.calendar ul li{
+    width: calc(100% / 7);
+    position: relative;
+    text-align: center;
+}
+
+.calendar .days li{
+    z-index: 1;
+    margin-top: 23px;
+    cursor: pointer;
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+.days li:hover::before{
+    cursor: pointer;
+    text-align: center;
+}
+.calendarbox{
+    border-radius: 10px;
+    border: 1px solid #EFEBE2;
+}
+.fullbox{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+}
+.roundbutton{
+    border-radius: 30px;
+    color:#C09A81;
+    background: #FFFFFF;
+    border-color: #C09A81;
+    width: 150px;
+    height: 30px;
+    font-family: 'Noto Sans KR';
+    font-size: 20px;
+}
