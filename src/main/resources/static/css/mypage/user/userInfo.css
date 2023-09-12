@@ -71,3 +71,13 @@ body {
     width: 100%;
     text-align: center;
 }
+
+input[type=button] {
+    cursor: pointer;
+}
+input[type=submit] {
+    cursor: pointer;
+}
+button {
+    cursor: pointer;
+}

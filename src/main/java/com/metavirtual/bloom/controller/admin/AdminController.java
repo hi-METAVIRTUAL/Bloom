@@ -49,6 +49,11 @@ public class AdminController {
     public String inqTheraProfile(){
         return "mypage/admin/inqTheraProfile";
     }
+
+    @GetMapping("/therapistProfile")
+    public String therapistProfile(){
+        return "mypage/admin/therapistProfile";
+    }
 }
 
 
