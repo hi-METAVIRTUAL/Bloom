@@ -4,8 +4,66 @@
     <meta charset="UTF-8">
     <title>start</title>
     <link rel="stylesheet" type="text/css" href="../css/psychological/startTest.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
 </head>
+<body>
+<header>
+    <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
+</header>
+
+<main>
+    <button id="countBoutton" class="countbutton"><h2 id='result' style="display: flex; justify-content: center;"> 1 /
+        32</h2></button>
+    <!-- 질문지 db로 --><!--th:text=""-->
+    <h3 class="whitrtext">Q1</h3>
+</main>
+
+<script>
+    function count() {
+        // 결과를 표시할 element
+        const resultElement = document.getElementById('result');
+
+        // 현재 화면에 표시된 값
+        let number = resultElement.innerText;
+
+        number = parseInt(number) + 1;
+        /*for(number = 1;  number< 32; number++){
+            /!* 나중에 db 저장 *!/
+        }*/
+        if (number == 5) {
+
+            window.location.href = '/psychological/last'
+        }
+        // 결과 출력
+        resultElement.innerText = number + " / 32";
+    }
+</script>
+<div>
+    <form action="/psychological/last" method="get">
+        <article>
+            <!-- 점수 db저장 -->
+            <div>
+                <img class="picture" src="../images/psychological/graph.png" alt="그래프">
+            </div>
+            <input type="radio" name="number" value="1"/><label>1</label>
+            <input type="radio" name="number" value="2"/><label>2</label>
+            <input type="radio" name="number" value="3"/><label>3</label>
+            <input type="radio" name="number" value="4"/><label>4</label>
+            <input type="radio" name="number" value="5"/><label>5</label>
+        </article>
+        <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
+    </form>
+    <input class="roundbutton" type="submit" value="다음" onclick="count()">
+</div>
+<footer style=" position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
+    <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+</footer>
+</body>
+</html>
+
+
 <!--
 <script>
     function loadFn() {
@@ -36,61 +94,11 @@
 </script>
 -->
 
-<body>
-<header>
-    <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
-</header>
 
-<main>
-    <button id="countBoutton" class="countbutton"><h2 id='result' style="display: flex; justify-content: center;"> 1 / 32</h2></button>
-    <!-- 질문지 db로 --><!--th:text=""-->
-    <h3 class="whitrtext" >Q1</h3>
-</main>
-
+<!--
+<button type="submit" id="next" onclick="location='/psychological/last'" >다음</button>
 <script>
-
-
-    function count()  {
-        // 결과를 표시할 element
-        const resultElement = document.getElementById('result');
-
-        // 현재 화면에 표시된 값
-        let number = resultElement.innerText;
-
-            number = parseInt(number) + 1;
-            /*for(number = 1;  number< 32; number++){
-                /!* 나중에 db 저장 *!/
-            }*/
-            if(number == 5){
-
-                window.location.href = '/psychological/last'
-            }
-        // 결과 출력
-        resultElement.innerText = number + " / 32";
-    }
-</script>
-
-<section>
-    <form action="/psychological/last" method="get">
-    <article>
-        <!-- 점수 db저장 -->
-        <div>
-            <img class="picture" src="../images/psychological/graph.png" alt="그래프">
-        </div>
-        <input type="radio" name="number" value="1"/><label>1</label>
-        <input type="radio" name="number" value="2"/><label>2</label>
-        <input type="radio" name="number" value="3"/><label>3</label>
-        <input type="radio" name="number" value="4"/><label>4</label>
-        <input type="radio" name="number" value="5"/><label>5</label>
-    </article>
-    <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
-    </form>
-    <input class="roundbutton" type="submit" value="다음" onclick="count()">
-</section>
-
-<!--<button type="submit" id="next" onclick="location='/psychological/last'" >다음</button>-->
-<script>
-/*    $(function() {
+    $(function() {
         let next = $('#save_bt'); // 저장할 버튼을 변수에 선언
         next.click(function() {
             var title = $('#title').html(); // 전송할 타이틀이 있는 요소
@@ -108,8 +116,8 @@
                 }
             });
         });
-    });*/
-    /*$("#next").onclick(function (){
+    });
+    $("#next").onclick(function (){
         /!* 추후 수정 for 문으로 질문 끝날때까지 반복 *!/
         const answer1 = document.getElementById("answer1").value;
         $.ajax({
@@ -121,12 +129,6 @@
                 console.log(error);
             }
         });
-    });*/
+    });
 </script>
-
-<footer>
-    <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
-    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
-</footer>
-</body>
-</html>
+-->
