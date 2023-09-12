@@ -5,8 +5,15 @@
     <title>회원가입</title>
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        footer {
+            z-index: 2;
+        }
+    </style>
 </head>
+
 <body>
+<div class="content">
 <div th:with="loggedIn=true, reservationMade=false">
     <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
     <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=false, includeSection2=false"></div>
@@ -18,8 +25,11 @@
 <div class="buttons">
 <button onclick="location.href='postLoginMain'" class="whiteButton">구경하러 가기</button><button onclick="location.href='사용자 프로필로 가야함'" class="whiteButton">내 프로필 수정하기</button>
 </div>
-<th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
-<th:block th:include="Components/Footer.html"></th:block>
+</div>
+<th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
+<footer>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
+</footer>
 </body>
 </html>
 <!---->
