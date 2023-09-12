@@ -10,29 +10,33 @@
 <br><br>
     <form align="center">
         <table align="center" style="color: #C09A81">
+            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
             <tr>
                 <td>
-                    Q1. 상담사님 간단하게 자기소개 부탁드립니다.(한줄소개)
+                    Q1. 상담사님 간단하게 자기소개 부탁드립니다.(한줄소개) *
                     <br><br>
-                    <textarea class="therapist-q" th:text="${therapistQna1}"></textarea>
+                    <textarea class="therapist-q">상담사 인터뷰 1번 질문에 대한 답변입니다.</textarea>
+<!--                    <textarea class="therapist-q" th:text="${therapistQna1}"></textarea>-->
                     <p>50자 이내 작성</p>
                     <br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Q2. 내담자에게 어떤 방식으로 다가가시나요?
+                    Q2. 내담자에게 어떤 방식으로 다가가시나요? *
                     <br><br>
-                    <textarea class="therapist-q" th:text="${therapistQna2}"></textarea>
+                    <textarea class="therapist-q">상담사 인터뷰 2번 질문에 대한 답변입니다. 이건 좀 더 길어야 합니다. 한 문장 더 쓰겠습니다.</textarea>
+<!--                    <textarea class="therapist-q" th:text="${therapistQna2}"></textarea>-->
                     <p>500자 이내 작성</p>
                     <br>
                 </td>
             </tr>
             <tr>
                 <td>
-                    Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?
+                    Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요? *
                     <br><br>
-                    <textarea class="therapist-q" th:text="${therapistQna3}"></textarea>
+                    <textarea class="therapist-q">상담사 인터뷰 3번 질문에 대한 답변입니다. 이건 좀 더 길어야 합니다. 한 문장 더 쓰겠습니다.</textarea>
+<!--                    <textarea class="therapist-q" th:text="${therapistQna3}"></textarea>-->
                     <p>500자 이내 작성</p>
                     <br>
                 </td>
@@ -41,7 +45,8 @@
                 <td>
                     소속기관
                     <br><br>
-                    <input style="width: 500px; height: 30px; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="organization" th:value="${therapistOffice}"> <!--'맑음 상담소는 로그인한 유저의 소속기관으로 변경-->
+                    <input style="width: 500px; height: 30px; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="organization" value="맑음 상담소">
+<!--                    <input style="width: 500px; height: 30px; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="organization" th:value="${therapistOffice}">-->
                     <br>
                     최대 20자 공백 / 특수기호 불가 / 영문, 한글로 입력
                     <br><br><br>

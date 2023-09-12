@@ -10,13 +10,16 @@
 <br><br>
     <form align="center">
         <table align="center" class="info-table">
+            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
             <tr>
                 <td>이름</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" th:text="${therapistName}"></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly">김철수</textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+<!--                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" th:text="${therapistName}"></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
             </tr>
             <tr>
                 <td>아이디</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" th:text="${therapistId}"></textarea><br>아이디는 변경 불가능합니다.</td>
+                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly">chalse</textarea><br>아이디는 변경 불가능합니다.</td>
+<!--                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" th:text="${therapistId}"></textarea><br>아이디는 변경 불가능합니다.</td>-->
             </tr>
             <tr>
                 <td>비밀번호</td>
@@ -42,7 +45,8 @@
             <tr>
                 <td>성별</td>
                 <td align="left">
-                    &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${therapistGender}"></textarea>
+                    &nbsp;&nbsp;<textarea style=" text-align: center; width: 50px; height: 30px; line-height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly">남성</textarea>
+<!--                    &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${therapistGender}"></textarea>-->
                 </td>
             </tr>
         </table>

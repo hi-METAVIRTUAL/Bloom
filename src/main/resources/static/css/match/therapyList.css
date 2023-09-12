@@ -20,7 +20,7 @@ body{
     color: #fff;
     background-color: #C09A81;
     position: fixed;
-    top: 10%;
+    top: 30%;
     right: 7%;
     border: 2px solid #fff;
     border-radius: 50%;
@@ -87,6 +87,15 @@ body{
     height: 50px;
     top: 15%;
     bottom: 15%;
+}
+.grass {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    margin-top: -300px;
+    z-index: -1;
 }
 
 /* 프로필 */

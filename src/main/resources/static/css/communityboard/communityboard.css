@@ -26,10 +26,16 @@ body {
 }
 
 /* 게시판 검색 박스 공통 */
+.search-bar {
+     border-radius: 10px;
+ }
+
+
 .search-icon{
     width: 23px;
     height: 23px;
 }
+
 
 .searchBox1 {
     width: 70%;
