@@ -1,26 +1,42 @@
 body {
-    background-color: #FEEFCC;
+    background-color: #FFF6E2;
     font-family: 'Noto Sans KR';
     color: #C09A81;
 }
 
-details {
+.faq-list-title {
+    margin: auto;
     width: 80%;
-    background-color: #FEEFCC;
+    height: 50px;
+    background-color: #C09A81;
+    border-radius: 10px;
+}
+.detailsBox {
+    display: flex;
+    flex-wrap: wrap;
+}
+details {
+    margin: auto;
+    width: 80%;
 
 }
 
 details summary {
     display: flex;
     align-items: center;
-    border-radius: 10px;
-    height: 40px;
+    height: 50px;
     cursor:pointer;
     transition:background 0.5s;
     box-shadow: 1px 1px 2px #C09A81;
-    background-color: #FFFFFF;
-
+    background-color: #FFF6E2;
+    color: #C09A81;
+    border-radius: 10px;
+    border-color: #C09A81;
+    font-size: 23px;
 }
 details p {
-
+    border-radius: 3px;
+    background-color: #FFF6E2;
+    color: #C09A81;
+    font-size: 18px;
 }
