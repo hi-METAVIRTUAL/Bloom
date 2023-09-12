@@ -9,12 +9,23 @@
 <header>
     <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
 </header>
+
 <main>
-    <!-- 카운트 -->
-    <button class="countbutton"><h3>1/32</h3></button>
+    <!-- 카운트 --><input type="text" id="test_obj"/>
+    <button id="countBoutton" class="countbutton"><h3> 1/32</h3></button>
     <!-- 질문지 db로 --><!--th:text=""-->
     <h3 class="whitrtext" >Q1</h3>
 </main>
+
+<script>
+    function count() {
+        var tmp = document.getElementById("countBoutton").value;
+        tmp++;
+
+        document.getElementById("countBoutton").value = tmp;
+    }
+</script>
+
 <section>
     <form action="/psychological/last" method="get">
     <article>
@@ -29,16 +40,35 @@
         <input type="radio" name="number" value="5"/><label>5</label>
     </article>
     <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
-        <input class="roundbutton" type="submit" value="다음">
+
    <!-- <button class="roundbutton" onclick="location='/psychological/last'">다음</button>-->
     </form>
-</section><br>
-
-
-<!-- 다음 클릭시 ajax
- <button type="submit" id="next" onclick="location='/psychological/last'" >다음</button>
+</section>
+<input class="roundbutton" type="submit" value="다음" onclick="count()">
+<!--<button type="submit" id="next" onclick="location='/psychological/last'" >다음</button>-->
 <script>
-    $("#next").click(function (){
+/*    $(function() {
+        let next = $('#save_bt'); // 저장할 버튼을 변수에 선언
+        next.click(function() {
+            var title = $('#title').html(); // 전송할 타이틀이 있는 요소
+            var text = $('#text').html(); // 전송할 내용이 있는 요소
+            $.ajax({
+                url: '/senddata.php', // 서버에 전달할 파일명
+                dataType: 'text',
+                type: 'post',
+                data: {
+                    'title': idVal, // 전송할 파라미터 1
+                    'text': setTitle // 전송할 파라미터 2
+                },
+                success: function() {
+                    alert('Success'); // 성공시 코드
+                }
+            });
+        });
+    });*/
+    /*$("#next").onclick(function (){
+        /!* 추후 수정 for 문으로 질문 끝날때까지 반복 *!/
+        const answer1 = document.getElementById("answer1").value;
         $.ajax({
             url:"",
             success: function (data, status, xhr){
@@ -48,8 +78,8 @@
                 console.log(error);
             }
         });
-    });
-</script>-->
+    });*/
+</script>
 
 <footer>
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
