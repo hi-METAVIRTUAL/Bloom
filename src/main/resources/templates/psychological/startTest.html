@@ -4,25 +4,69 @@
     <meta charset="UTF-8">
     <title>start</title>
     <link rel="stylesheet" type="text/css" href="../css/psychological/startTest.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
+<!--
+<script>
+    function loadFn() {
+        alert("데이터 요청");
+
+        $.ajax({
+            url: "ajax/db.jsp",		// 데이터를 가져올 경로 설정
+            type: "get",		// 데이터를 가져오는 방식
+            success: function(data){	// 데이터를 가져왔을때 동작. 매개변수로 data 입력
+                alert("연결성공");
+                var json = JSON.parse(data.trim());	// 가져온 데이터를 자바스크립트 객체로 변환해주는 작업이 필요
+                // trim()을 통해 불필요한 여백 제거
+                for (var i = 0; i < json.length; i++) {
+                    bidx = json[i].BIDX;
+                    subject = json[i].SUBJECT;
+                    content = json[i].CONTENT;
+                    writer = json[i].WRITER;
+                    $("tbody").append("<tr>"+		// append: 셀렉터 안에 요소를 추가
+                        "<td>"+bidx+"</td>"+
+                        "<td>"+subject+"</td>"+
+                        "<td>"+content+"</td>"+
+                        "<td>"+writer+"</td>"+
+                        "</tr>");
+                }
+            }
+        })
+    }
+</script>
+-->
+
 <body>
 <header>
     <th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#FEEFCC'"></th:block>
 </header>
 
 <main>
-    <!-- 카운트 --><input type="text" id="test_obj"/>
-    <button id="countBoutton" class="countbutton"><h3> 1/32</h3></button>
+    <button id="countBoutton" class="countbutton"><h2 id='result' style="display: flex; justify-content: center;"> 1 / 32</h2></button>
     <!-- 질문지 db로 --><!--th:text=""-->
     <h3 class="whitrtext" >Q1</h3>
 </main>
 
 <script>
-    function count() {
-        var tmp = document.getElementById("countBoutton").value;
-        tmp++;
 
-        document.getElementById("countBoutton").value = tmp;
+
+    function count()  {
+        // 결과를 표시할 element
+        const resultElement = document.getElementById('result');
+
+        // 현재 화면에 표시된 값
+        let number = resultElement.innerText;
+
+            number = parseInt(number) + 1;
+            /*for(number = 1;  number< 32; number++){
+                /!* 나중에 db 저장 *!/
+            }*/
+            if(number == 5){
+
+                window.location.href = '/psychological/last'
+            }
+        // 결과 출력
+        resultElement.innerText = number + " / 32";
     }
 </script>
 
@@ -40,11 +84,10 @@
         <input type="radio" name="number" value="5"/><label>5</label>
     </article>
     <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
-
-   <!-- <button class="roundbutton" onclick="location='/psychological/last'">다음</button>-->
     </form>
+    <input class="roundbutton" type="submit" value="다음" onclick="count()">
 </section>
-<input class="roundbutton" type="submit" value="다음" onclick="count()">
+
 <!--<button type="submit" id="next" onclick="location='/psychological/last'" >다음</button>-->
 <script>
 /*    $(function() {
