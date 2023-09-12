@@ -55,3 +55,8 @@ body {
     text-indent: 10px;
 }
 
+.center-title {
+    font-size: 23px;
+    float: left;
+}
+

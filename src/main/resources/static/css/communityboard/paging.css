@@ -1,7 +1,4 @@
-#app {
-    padding: 20px;
-    border-radius: 10px;
-}
+
 .table-item {
     width: 80%;
     height: 40px;
@@ -81,3 +78,5 @@ span.active {
     color: #C09A81;
     font-size: 23px;
 }
+
+

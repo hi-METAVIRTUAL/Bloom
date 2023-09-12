@@ -72,7 +72,13 @@ body {
 }
 
 
+.search-bar * {
+    display: flex;
+    height: 40px;
+    border-radius: 10px;
+    float: left;
 
+}
 .select-option {
     height: 40px;
     border-radius: 10px;
@@ -82,7 +88,6 @@ body {
     font-size: 18px;
 
 }
-
 .search-input {
     width: 50%;
     height: 40px;

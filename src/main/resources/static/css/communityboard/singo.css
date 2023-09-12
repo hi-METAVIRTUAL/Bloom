@@ -22,15 +22,19 @@ body {
     font-size: 18px;
     color: #C08181;
 }
+.singo-box form input {
+    width: 150px;
+    height: 30px;
+    color: #C09A81;
+    background-color: white;
+    border-color: #C09A81;
+    border-radius: 10px;
+}
 .singo-textarea-field {
     border-radius: 10px;
     border-color: #C09A81;
 }
-.singo-button {
-    /*width: 80%;*/
-    /*margin-left: 10%;*/
-    /*margin-left: 10%;*/
-}
+
 .singo-button * {
     width: 150px;
     height: 30px;
