@@ -16,24 +16,25 @@
     <p th:text="${userPhone}"></p>
 </div>
 <br><br>
-<input type="button" value="내 정보 수정하기" onclick="location.href='infoSetting'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 33px; cursor: pointer;">
-<br><br>
-<h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>
-<table style="margin-left:auto;margin-right:auto; color: #C09A81;">
-    <tr>
-        <th><hr style="border-color: #C09A81;">상담사<hr style="border-color: #C09A81;"></th>
-        <th><hr style="border-color: #C09A81;">예약일<hr style="border-color: #C09A81;"></th>
-        <th><hr style="border-color: #C09A81;">연락처<hr style="border-color: #C09A81;"></th>
-        <th><hr style="border-color: #C09A81;">예약상태<hr style="border-color: #C09A81;"></th>
-    </tr>
-    <tr>
-        <td colspan="4">예약된 내역이 없습니다</td>
-    </tr>
-</table>
-<br><br>
-<input type="button" value="상담사 보기" onclick="location.href=''" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;"><br><br>
-<input type="button" value="검사 하러 가기" onclick="location.href='../psychological/test'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
-
+<div align="center">
+    <input type="button" value="내 정보 수정하기" onclick="location.href='infoSetting'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 33px; cursor: pointer;">
+    <br><br>
+    <h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>
+    <table style="margin-left:auto;margin-right:auto; color: #C09A81;">
+        <tr>
+            <th><hr style="border-color: #C09A81;">상담사<hr style="border-color: #C09A81;"></th>
+            <th><hr style="border-color: #C09A81;">예약일<hr style="border-color: #C09A81;"></th>
+            <th><hr style="border-color: #C09A81;">연락처<hr style="border-color: #C09A81;"></th>
+            <th><hr style="border-color: #C09A81;">예약상태<hr style="border-color: #C09A81;"></th>
+        </tr>
+        <tr>
+            <td colspan="4">예약된 내역이 없습니다</td>
+        </tr>
+    </table>
+    <br><br>
+    <input type="button" value="상담사 보기" onclick="location.href='../psychological/therapylist'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;"><br><br>
+    <input type="button" value="검사 하러 가기" onclick="location.href='../psychological/test'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+</div>
 </script>
 <br><br>
 <footer>
