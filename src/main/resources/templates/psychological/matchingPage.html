@@ -8,10 +8,53 @@
             justify-content: center; /* 가로 중앙 정렬 */
             align-items: center; /* 세로 중앙 정렬 */
         }
-        .div1{
+        .div1 {
             color: #C09A81;
             width: 300px; /* 원하는 너비로 설정 */
             margin: 0 auto; /* 가로 가운데 정렬 */
+            display: flex;
+            margin-top: 10%;
+        }
+        .loading {
+            width: 100vw;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: gray;
+            border-radius: 50%;
+            animation: loading 1s linear infinite;
+            background-color: black;
+        }
+
+        .loading span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .loading span:nth-child(2) {
+            animation-delay: 0.2s;
+            margin: 0px 10px
+        }
+
+        .loading span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes loading {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
     </style>
 </head>
@@ -20,7 +63,12 @@
     <th:block th:include="Components/PostLoginHeader.html"></th:block>
     </header>
     <div class="div1">
-        <h2> 00님의 결과를 측정중...</h2>
+           <div class="loading">
+                 <h2>00님의 결과를 측정중</h2>
+                 <span></span>
+                 <span></span>
+                 <span></span>
+           </div>
     </div>
     <footer>
         <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
