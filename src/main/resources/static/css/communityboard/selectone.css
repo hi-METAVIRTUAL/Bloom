@@ -1,0 +1,97 @@
+.selectone-title {
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 40px;
+    font-size: 23px;
+    color: white;
+    background-color: #C09A81;
+    border-radius: 10px;
+    border: none;
+}
+
+.view-id-date {
+    width: 68%;
+    height: 40px;
+    text-align: center;
+    margin-left: 16%;
+    margin-right: 16%;
+    font-size: 18px;
+}
+
+.view-select-board {
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 250px;
+    border-radius: 10px;
+    border: #C09A81;
+    background: #ffffff;
+    color: #C09A81;
+    font-size: 18px;
+}
+
+.singobutton {
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 40px;
+}
+.singobutton button {
+    margin-top: 1%;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    border: #C09A81;
+    background: #ffffff;
+    color: #C09A81;
+    font-size: 18px;
+}
+.datgul-title {
+    margin-top: 4%;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 40px;
+    font-size: 23px;
+    color: #C09A81;
+    background-color: #FEEFCC;
+    border-radius: 10px;
+    border: none;
+}
+.view-datgul-board {
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 100px;
+    border-radius: 10px;
+    border: #C09A81;
+    background: #ffffff;
+    color: #C09A81;
+    font-size: 18px;
+}
+.datgul-view {
+    margin-top: 1%;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 40px;
+}
+.datgul-view-id-date {
+    margin-top: 1%;
+    font-size: 18px;
+}
+
+.insert-datgul-board {
+    margin-top: 4%;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    height: 150px;
+    border-radius: 10px;
+    border: #C09A81;
+    background: #ffffff;
+    color: #C09A81;
+    font-size: 18px;
+}
+

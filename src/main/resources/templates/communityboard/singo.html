@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/singo.css}">
+</head>
+<body>
+<div>
+    <div class="singo-box">
+        <br>
+        <h1>신고</h1>
+        <hr>
+        <h2> 제목 : 오늘 있었던 일;</h2>
+        <h2> 작성자 : hio****</h2>
+        <hr>
+        <h3>신고사유</h3>
+        <hr>
+        <form action="/communityboard/singojupsu" method="get">
+            <input type="checkbox" name="singossayou" value="영리목적/홍보">영리목적/홍보<br>
+            <input type="checkbox" name="singossayou" value="개인정보노출">개인정보노출<br>
+            <input type="checkbox" name="singossayou" value="음란성/선정성">음란성/선정성<br>
+            <input type="checkbox" name="singossayou" value="불법적인정보">불법적인정보<br>
+            <input type="checkbox" name="singossayou" value="욕설/인신공격">욕설/인신공격<br>
+            <input type="checkbox" name="singossayou" value="같은내용도배">같은내용도배<br> <br>
+                <div>신고 기능 악용 시 활동이 제재될 수 있습니다.</div>
+            <br>
+            <textarea rows="3" cols="50" placeholder="기타내용작성 50자 이내" class="singo-textarea-field"></textarea> <br>
+                <div class="test1">
+                <input type="submit" value="신고하기">
+                    </form>
+                <div class="singo-button"><button type="text" onclick="location.href='/communityboard/communityboardselectone'">돌아가기</button>
+                </div>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>

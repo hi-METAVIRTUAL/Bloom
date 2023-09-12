@@ -3,15 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
 
 <p class="title">커뮤니티</p>
-
+<!--게시글 상세-->
 <div class="selectone-title">제목</div>
+<div class="view-id-date"><span style="float: left">작성자 : asdf****</span><span style="float: right">작성일시 : 0000-00-00 11:11:11</span></div>
+<div class="view-select-board">글 상세내용1111111111111111111111111111111111111111111111</div>
+<div class="singobutton"><button type="text" onclick="location.href='/communityboard/singo'" style="float: right">신고하기</button></div>
 
-<div class="search-bar">
+<!--댓글상세1-->
+<div class="datgul-title">댓글</div>
+<div class="datgul-view"><span class="datgul-view-id-date" style="float: right">0000-00-00 11:11:11 asdf****</span></div>
+<div class="view-datgul-board">댓글 상세222222222222222222222222222222221</div>
+<div class="singobutton"><button type="text" onclick="location.href='/communityboard/singo'" style="float: right">신고하기</button></div>
+<!--댓글상세2-->
+<div class="datgul-view"><span class="datgul-view-id-date" style="float: right">0000-00-00 11:11:11 asdf****</span></div>
+<div class="view-datgul-board">댓글 상세222222222222222222222222222222221</div>
+<div class="singobutton"><button type="text" onclick="location.href='/communityboard/singo'" style="float: right">신고하기</button></div>
+<!--댓글작성-->
+
+
+<div><textarea rows="22" cols="100" placeholder="댓글을 작성해주세요." class="insert-datgul-board"></textarea></div>
+<div class="singobutton"><button type="text" onclick="location.href='/communityboard/communityinsert'" style="float: right">댓글쓰기</button><button type="text" onclick="location.href='/communityboard/board'" style="float: right; margin-left: 3%; margin-right: 2%">목록으로</button></div>
+
+
+
+
+<p class="title">커뮤니티</p>
+<div class="board-search-bar1">
     <select class="select-option">
         <option value="전체">전체</option>
         <option value="제목">제목</option>
@@ -22,7 +47,7 @@
     <button type="submit" class="insert-button" onclick="">
         <span>검색</span>
     </button>
-    <button type="submit" class="insert-button" onclick="location.href='/board/communityinsert'">
+    <button type="submit" class="insert-button" onclick="location.href='/communityboard/communityinsert'">
         <span>글등록</span>
     </button>
 </div>

@@ -12,14 +12,34 @@ body {
     border-color: #C09A81;
 }
 .title-insert {
+    margin-left: 20%;
+    margin-right: 20%;
     font-size: 23px;
 }
 .textarea-field {
     margin-top: 1%;
+    margin-left: 20%;
+    margin-right: 20%;
     font-size: 18px;
     border-radius: 10px;
     border-color: #C09A81;
 }
 .insert-button {
+    height: 40px;
+    border-radius: 10px;
+    width: 220px;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: #C09A81;
+    border: none;
+}
+.insert-button span {
+    color: #FFFFFF;
+    font-size: 25px;
+}
 
+.board-search-bar1 {
+    width: 80%;
+    height: 40px;
+    position: relative;
 }
