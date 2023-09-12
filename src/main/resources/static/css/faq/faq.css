@@ -1,0 +1,26 @@
+body {
+    background-color: #FEEFCC;
+    font-family: 'Noto Sans KR';
+    color: #C09A81;
+}
+
+details {
+    width: 80%;
+    background-color: #FEEFCC;
+
+}
+
+details summary {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    height: 40px;
+    cursor:pointer;
+    transition:background 0.5s;
+    box-shadow: 1px 1px 2px #C09A81;
+    background-color: #FFFFFF;
+
+}
+details p {
+
+}

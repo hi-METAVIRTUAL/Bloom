@@ -12,7 +12,7 @@
     <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
     <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
 </div>
-<div class="content">
+
 <p class="title">커뮤니티</p>
 <div class="search-bar">
     <div class="searchBox1">
@@ -31,7 +31,6 @@
             <span>글등록</span>
         </button>
     </div>
-</div>
 </div>
 <div th:include="communityboard/paging.html"></div>
 <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
