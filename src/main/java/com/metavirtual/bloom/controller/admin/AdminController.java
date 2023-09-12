@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     @GetMapping("/customerService")
-    public String qna() {
+    public String customerService() {
         return "mypage/admin/customerService";
     }
 
