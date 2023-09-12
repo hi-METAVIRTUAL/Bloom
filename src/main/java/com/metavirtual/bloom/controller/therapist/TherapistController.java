@@ -27,4 +27,11 @@ public class TherapistController {
     public String reservManage(){
         return "mypage/therapist/reservManage";
     }
+
+    @GetMapping("/reservPopup")
+    public String reservPopup() {
+        return "mypage/therapist/reservPopup";
+    }
 }
+
+//push용 주석

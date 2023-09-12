@@ -26,4 +26,11 @@ public class AdminController {
         return "mypage/admin/editTherapistInfo";
 
     }
+
+    @GetMapping("/csAnswer")
+    public String csAnswer(){
+        return "mypage/admin/csAnswer";
+    }
 }
+
+//push용 주석

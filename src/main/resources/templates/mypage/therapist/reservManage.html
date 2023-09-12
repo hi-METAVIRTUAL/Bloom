@@ -4,136 +4,145 @@
     <meta charset="UTF-8">
     <title>ReservationManage</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
+    <script language="javascript">
+        function showPopup() { window.open("reservPopup", "a", "width=420, height=600, left=350, top=210" ); }
+    </script>
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
 <br><br>
-<h2 style="text-align: center">예약 관리</h2>
+<h2 style="text-align: center; color: #C09A81;">예약 관리</h2>
 <br>
-<div style="float:left; margin-left: 300px; color: #C09A81; width: 500px;" align="center">
-    <p>예약 정보 조회</p>
-    <div class="wrapper">
-        <div class="nav">
-            <button class="materialIcons"><</button>
-            <p class="currentDate">2023년 10월</p>
-            <button class="materialIcons">></button>
+<div style="display: inline-block;">
+    <div style="color: #C09A81; width: 500px;" align="center">
+        <p>예약 정보 조회</p>
+        <div class="wrapper">
+            <div class="nav">
+                <button class="materialIcons"><</button>
+                <p class="currentDate">2023년 10월</p>
+                <button class="materialIcons">></button>
+            </div>
+            <div class="calendar">
+                <ul class="weeks">
+                    <li>SUN</li>
+                    <li>MON</li>
+                    <li>TUE</li>
+                    <li>WED</li>
+                    <li>THU</li>
+                    <li>FRI</li>
+                    <li>SAT</li>
+                </ul>
+                <ul class="days">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                    <li>13</li>
+                    <li>14</li>
+                    <li>15</li>
+                    <li>16</li>
+                    <li>17</li>
+                    <li>18</li>&nbsp;
+                    <li onclick="showPopup();" style="border-radius: 100%; background-color: red; color: #FFFFFF; width: 25px; height: 25px;">19</li>
+                    &nbsp;<li>20</li>
+                    <li>21</li>
+                    <li>22</li>
+                    <li>23</li>
+                    <li>24</li>
+                    <li>25</li>
+                    <li>26</li>
+                    <li>27</li>
+                    <li>28</li>
+                    <li>29</li>
+                    <li>30</li>
+                    <li>31</li>
+                </ul>
+            </div>
         </div>
-        <div class="calendar">
-            <ul class="weeks">
-                <li>SUN</li>
-                <li>MON</li>
-                <li>TUE</li>
-                <li>WED</li>
-                <li>THU</li>
-                <li>FRI</li>
-                <li>SAT</li>
-            </ul>
-            <ul class="days">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <li>6</li>
-                <li>7</li>
-                <li>8</li>
-                <li>9</li>
-                <li>10</li>
-                <li>11</li>
-                <li>12</li>
-                <li>13</li>
-                <li>14</li>
-                <li>15</li>
-                <li>16</li>
-                <li>17</li>
-                <li>18</li>
-                <li onclick="openModal();">19</li>
-                <li>20</li>
-                <li>21</li>
-                <li>22</li>
-                <li>23</li>
-                <li>24</li>
-                <li>25</li>
-                <li>26</li>
-                <li>27</li>
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>31</li>
-            </ul>
-        </div>
+        <br>
+        <p>예약된 일자는 <span style="color: red">빨간색</span>으로 표시됩니다</p>
     </div>
-    <br>
-    <p>예약된 일자는 <span style="color: red">빨간색</span>으로 표시됩니다</p>
 </div>
 
-<div style="margin-right: 300px; width: 800px; float: right;">
-    <p>예약 신청 내역</p>
-    <div>
-        <table align="center" style="border-collapse: collapse;">
-            <tr style="border-radius: 10px; background-color: #C09A81; color: #FFFFFF;">
-                <th>&nbsp;No&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;이름&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;닉네임&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;희망에약일&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;전화번호&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;&nbsp;</th>
-            </tr>
-            <tr style="color: #C09A81" align="center">
-                <td>1</td>
-                <td>홍길동</td>
-                <td>메타</td>
-                <td>2023.04.24.</td>
-                <td>010-1234-5678</td>
-                <td>
-                    <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
-                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
-                </td>
-            </tr>
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td>2</td>
-                <td>홍길동</td>
-                <td>메타</td>
-                <td>2023.04.24.</td>
-                <td>010-1234-5678</td>
-                <td>
-                    <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
-                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
-                </td>
-            </tr>
-            <tr style="color: #C09A81" align="center">
-                <td>3</td>
-                <td>홍길동</td>
-                <td>메타</td>
-                <td>2023.04.24.</td>
-                <td>010-1234-5678</td>
-                <td>
-                    <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
-                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
-                </td>
-            </tr>
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td>4</td>
-                <td>홍길동</td>
-                <td>메타</td>
-                <td>2023.04.24.</td>
-                <td>010-1234-5678</td>
-                <td>
-                    <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
-                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
-                </td>
-            </tr>
-            <tr style="color: #C09A81" align="center">
-                <td>5</td>
-                <td>홍길동</td>
-                <td>메타</td>
-                <td>2023.04.24.</td>
-                <td>010-1234-5678</td>
-                <td>
-                    <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
-                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
-                </td>
-            </tr>
+<div style="display: inline-block;">
+    <div style="width: 800px; float: right;">
+        <p>예약 신청 내역</p>
+        <br>
+        <div>
+            <table align="center" style="border-collapse: collapse;">
+                <tr style="border-radius: 10px; background-color: #C09A81; color: #FFFFFF;">
+                    <th>&nbsp;No&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;이름&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;닉네임&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;희망에약일&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;전화번호&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;</th>
+                </tr>
+
+                <tr style="color: #C09A81" align="center">
+                    <td>1</td>
+                    <td>홍길동</td>
+                    <td>메타</td>
+                    <td>2023.04.24.</td>
+                    <td>010-1234-5678</td>
+                    <td>
+                        <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
+                        <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
+                    </td>
+                </tr>
+                <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
+                    <td>2</td>
+                    <td>홍길동</td>
+                    <td>메타</td>
+                    <td>2023.04.24.</td>
+                    <td>010-1234-5678</td>
+                    <td>
+                        <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
+                        <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
+                    </td>
+                </tr>
+                <tr style="color: #C09A81" align="center">
+                    <td>3</td>
+                    <td>홍길동</td>
+                    <td>메타</td>
+                    <td>2023.04.24.</td>
+                    <td>010-1234-5678</td>
+                    <td>
+                        <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
+                        <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
+                    </td>
+                </tr>
+                <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
+                    <td>4</td>
+                    <td>홍길동</td>
+                    <td>메타</td>
+                    <td>2023.04.24.</td>
+                    <td>010-1234-5678</td>
+                    <td>
+                        <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
+                        <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
+                    </td>
+                </tr>
+                <tr style="color: #C09A81" align="center">
+                    <td>5</td>
+                    <td>홍길동</td>
+                    <td>메타</td>
+                    <td>2023.04.24.</td>
+                    <td>010-1234-5678</td>
+                    <td>
+                        <input type="button" value="수락" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 49px;" onclick="">
+                        <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">
+                    </td>
+                </tr>
+            </table>
             <!--            <tr th:each="reservation:${reservationList}">-->
             <!--                <td th:text="${ no }"></td>-->
             <!--                <td th:text="${ userName }"></td>-->
@@ -145,7 +154,7 @@
             <!--                    <input type="button" value="거절" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 49px;" onclick="">-->
             <!--                </td>-->
             <!--            </tr>-->
-            <br>
+            <br><br><br>
             <table align="center" style="color: #C09A81;">
                 <td style="cursor: pointer"><&nbsp;</td>
                 <td>&nbsp;1&nbsp;</td>
@@ -155,7 +164,8 @@
                 <td>&nbsp;5&nbsp;</td>
                 <td style="cursor: pointer">&nbsp;></td>
             </table>
-        </table>
+            <br><br><br>
+        </div>
     </div>
 </div>
 <br><br>
@@ -166,3 +176,5 @@
 <img class="greenGrass" src="/images/common/GreenGrass.png" alt="greenGrass">
 </body>
 </html>
+
+<!--push용 주석-->
