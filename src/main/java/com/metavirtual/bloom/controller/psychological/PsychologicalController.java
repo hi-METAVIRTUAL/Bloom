@@ -16,25 +16,12 @@ public class PsychologicalController {
     public String lastTestPage(){
         return "psychological/lastTest";
     }
-    @GetMapping("/match")
+    @GetMapping("/loding")
     public String matchingPage(){
-        return "psychological/matchingPage";
+        return "psychological/lodingPage";
     }
     @GetMapping("/result")
     public String resultTestPage(){
         return "psychological/resultTest";
-    }
-    @GetMapping("/therapyRecommend")
-    public String matchingResultPage(){
-        return "psychological/therapyRecommend";
-    }
-    @GetMapping("/introduceTherapy")
-    public String introduceTherapyPage(){
-        return "psychological/introduceTherapy";
-    }
-
-    @GetMapping("/therapylist")
-    public String AlltherapyList(){
-        return "psychological/therapyList";
     }
 }

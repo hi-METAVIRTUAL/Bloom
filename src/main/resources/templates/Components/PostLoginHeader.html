@@ -84,17 +84,17 @@
     <div id="title"><a class="titleLink" href="/">Bloom</a></div>
     <hr class="line"/>
     <!--1 유저 2 상담사-->
-    <ul id="menu" th:with="userCode='2'">
-        <li>소개</li>
-
-        <li><a class="titleLink" href="/psychological/therapylist">상담사</a></li>
+    <ul id="menu" th:with="userCode='1'">
+        <li><a class="titleLink" href="/introduction/introduction">소개</a></li>
+        <li><a class="titleLink" href="/match/therapyList">상담사</a></li>
         <li><a class="titleLink" href="/review/reviewmain">후기</a></li>
-        <li><a class="titleLink" href="/terms/termsOfService">FAQ</a></li>
+        <li><a class="titleLink" href="/terms/">FAQ</a></li>
         <li th:if="${userCode == '1'}"><a class="titleLink" href="/user/profile1">마이페이지</a></li>
         <li th:if="${userCode == '2'}"><a class="titleLink" href="/therapist/profile">마이페이지</a></li>
         <li><a class="titleLink" href="/">로그아웃</a></li>
     </ul>
-
+    <hr class="line"/>
+</div>
     <!--section1-->
     <div th:if="${includeSection1}">
         <div class="section1">
