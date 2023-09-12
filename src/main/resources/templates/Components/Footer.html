@@ -47,13 +47,6 @@
 </style>
 <body>
 <div th:with="textColor=${ textColor }">
-    <div th:style="'color: ' + ${ textColor }" class="footer">
-        <ul>
-            <li class="center"><a class="titleLink" href="/terms/termsOfService">운영정책</a></li>
-            <li class="center"><a class="titleLink" href="/">상담사지원</a></li>
-            <li class="center"><a class="titleLink" href="/faq/faqMain">FAQ</a></li>
-            <li class="center"><a class="titleLink" href="/communityboard/center">고객센터</a></li>
-        </ul>
-    </div>
-</div>
+    <p th:style="'color: ' + ${ textColor }" class="footer" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
 </body>
+<!---->

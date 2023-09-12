@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <title>My Info Setting</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/user/userInfo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
 <br><br>
     <form align="center">
-        <table align="center" class="info-table" >
+        <table align="center" class="info-table" style="vertical-align: central;">
+            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
             <tr>
                 <td>이름</td>
-                <td>&nbsp;&nbsp;<textarea th:text="${userName}" class="fixed-textarea" readonly="readonly"></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" >이메다</textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+<!--                <td>&nbsp;&nbsp;<textarea th:text="${userName}" class="fixed-textarea" readonly="readonly"></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+
 
             </tr>
             <tr>
                 <td>아이디</td>
-                <td>&nbsp;&nbsp;<textarea th:text="${userId}" class="fixed-textarea" readonly="readonly"></textarea><br>아이디는 변경 불가능합니다.</td>
+                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly">metamong</textarea><br>아이디는 변경 불가능합니다.</td>
+<!--                <td>&nbsp;&nbsp;<textarea th:text="${userId}" class="fixed-textarea" readonly="readonly"></textarea><br>아이디는 변경 불가능합니다.</td>-->
             </tr>
             <tr>
                 <td>비밀번호</td>
@@ -64,8 +69,11 @@
            <tr>
                <td>성별</td>
                <td align="left">
-                   &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${userGender}"></textarea>
+                   &nbsp;&nbsp;<textarea style="width: 50px; text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly">여성</textarea>
                </td>
+<!--               <td align="left">-->
+<!--                   &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${userGender}"></textarea>-->
+<!--               </td>-->
            </tr>
         </table>
 <br>

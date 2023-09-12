@@ -5,27 +5,9 @@ body {
     text-align: center;
 }
 
-.RegisterForm {
-
+.row{
+    width: 20px;
+    height: auto;
 }
 
-.form1 {
-    display: flex;
-    justify-content: center;
-    block-size: 70%;
-}
-
-.phoneTag {
-    text-align: left;
-}
-.inputs {
-    width: 400px;
-}
-
-.phone {
-    width: 50px;
-}
-span {
-
-}
 /**/

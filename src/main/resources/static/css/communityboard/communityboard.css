@@ -37,10 +37,16 @@ body {
     font-size: 18px;
 }
 
+.search-bar {
+     border-radius: 10px;
+ }
+
+
 .search-icon{
     width: 23px;
     height: 23px;
 }
+
 
 .searchBox1 {
     width: 70%;
