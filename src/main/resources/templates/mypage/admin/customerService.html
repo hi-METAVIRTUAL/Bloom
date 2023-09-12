@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>customerService</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/admin/adminPage.css">
+</head>
+<body>
+<div th:include="Components/PostLoginHeader.html"></div>
+<br><br>
+<div>
+    <table align="center" class="board">
+        <tr class="qna-title">
+            <th>&nbsp;No&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;문의내용&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;작성일&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;작성자&nbsp;&nbsp;</th>
+            <th>&nbsp;&nbsp;답변여부&nbsp;</th>
+        </tr>
+
+        <tr style="color: #C09A81">
+            <td>1&nbsp;</td>
+            <td style="cursor: pointer" onclick="location.href='csAnswer'">&nbsp;비밀번호가 찾아지지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;hdd***&nbsp;</td>
+            <td>&nbsp;답변대기</td>
+        </tr>
+        <tr class="qna-list">
+            <td>2&nbsp;</td>
+            <td style="cursor: pointer">&nbsp;글이 지워지지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;jrt***&nbsp;</td>
+            <td>&nbsp;답변대기</td>
+        </tr>
+        <tr style="color: #C09A81">
+            <td>3&nbsp;</td>
+            <td style="cursor: pointer">&nbsp;아이디가 찾아지지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;wqh***&nbsp;</td>
+            <td>&nbsp;답변완료</td>
+        </tr>
+        <tr class="qna-list">
+            <td>4&nbsp;</td>
+            <td style="cursor: pointer">&nbsp;글이 검색되지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;kyd***&nbsp;</td>
+            <td>&nbsp;답변완료</td>
+        </tr>
+        <tr style="color: #C09A81">
+            <td>5&nbsp;</td>
+            <td style="cursor: pointer">예약이 되지 않습니다!&nbsp;</td>
+            <td>&nbsp;2023-09-04&nbsp;</td>
+            <td>&nbsp;mnd***&nbsp;</td>
+            <td>&nbsp;답변완료</td>
+        </tr>
+
+        <!--        <tr style="color: #C09A81">-->
+        <!--            <td th:text="${boardNo}"></td>-->
+        <!--            <td th:text="${boardTitle}" style="cursor: pointer" onclick=""></td>-->
+        <!--            <td th:text="${writeDate}"></td>-->
+        <!--            <td th:text="${userId}"></td>-->
+        <!--            <td th:text="${answerStatus}"></td>-->
+        <!--        </tr>-->
+        <!--        <tr class="qna-list">-->
+        <!--            <td th:text="${boardNo}"></td>-->
+        <!--            <td th:text="${boardTitle}" style="cursor: pointer" onclick=""></td>-->
+        <!--            <td th:text="${writeDate}"></td>-->
+        <!--            <td th:text="${userId}"></td>-->
+        <!--            <td th:text="${answerStatus}"></td>-->
+        <!--        </tr>-->
+        <!--        <tr style="color: #C09A81">-->
+        <!--            <td th:text="${boardNo}"></td>-->
+        <!--            <td th:text="${boardTitle}" style="cursor: pointer" onclick=""></td>-->
+        <!--            <td th:text="${writeDate}"></td>-->
+        <!--            <td th:text="${userId}"></td>-->
+        <!--            <td th:text="${answerStatus}"></td>-->
+        <!--        </tr>-->
+        <!--        <tr class="qna-list">-->
+        <!--            <td th:text="${boardNo}"></td>-->
+        <!--            <td th:text="${boardTitle}" style="cursor: pointer" onclick=""></td>-->
+        <!--            <td th:text="${writeDate}"></td>-->
+        <!--            <td th:text="${userId}"></td>-->
+        <!--            <td th:text="${answerStatus}"></td>-->
+        <!--        </tr>-->
+        <!--        <tr style="color: #C09A81">-->
+        <!--            <td th:text="${boardNo}"></td>-->
+        <!--            <td th:text="${boardTitle}" style="cursor: pointer" onclick=""></td>-->
+        <!--            <td th:text="${writeDate}"></td>-->
+        <!--            <td th:text="${userId}"></td>-->
+        <!--            <td th:text="${answerStatus}"></td>-->
+        <!--        </tr>-->
+
+    </table>
+    <br>
+    <table align="center" style="color: #C09A81;">
+        <td style="cursor: pointer"><&nbsp;</td>
+        <td>&nbsp;1&nbsp;</td>
+        <td>&nbsp;2&nbsp;</td>
+        <td>&nbsp;3&nbsp;</td>
+        <td>&nbsp;4&nbsp;</td>
+        <td>&nbsp;5&nbsp;</td>
+        <td style="cursor: pointer">&nbsp;></td>
+    </table>
+</div>
+
+
+<!--<div>-->
+<!--    <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage) }">-->
+<!--        <button-->
+<!--                th:text="${ page }"-->
+<!--                th:onclick="'location.href=\'/qna/list?currentPage='+ @{${page}} + '\''"-->
+<!--                th:disabled="${ selectCriteria.pageNo eq page }">-->
+<!--        </button>-->
+<!--    </th:block>-->
+<!--</div>-->
+<br><br>
+<footer>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
+<img class="brownGrass" src="/images/common/BrownGrass.png" alt="brownGrass">
+</body>
+</html>

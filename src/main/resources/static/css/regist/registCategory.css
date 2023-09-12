@@ -48,17 +48,20 @@ body {
 
 
 .container {
+    margin-top: 50px;
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: space-evenly;
+
 }
 
+.member {
+    flex-direction: row;
+}
 .image-zoom {
     overflow: hidden;
     position: relative;
-    width: 230px; /* Adjust the desired width for the zoom effect */
-    height: 230px; /* Adjust the desired height for the zoom effect */
+    width: 200px; /* Adjust the desired width for the zoom effect */
+    height: 200px; /* Adjust the desired height for the zoom effect */
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
 }

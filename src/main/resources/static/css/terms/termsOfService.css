@@ -1,0 +1,17 @@
+body{
+    font-family: 'Noto Sans KR';
+    background: #FFF6E2;
+    color: #C09A81;
+    margin:0;
+    text-align: center;
+}
+.whitebox{
+    margin: 0 auto;
+    display: flex;
+    width: 1000px;
+    height: 700px;
+    overflow:scroll;
+    text-align: center;
+    word-break:normal;
+    word-break:keep-all;
+}
