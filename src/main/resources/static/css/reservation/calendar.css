@@ -93,3 +93,13 @@ p{
     font-family: 'Noto Sans KR';
     font-size: 20px;
 }
+
+.grass {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    margin-top: -300px;
+    z-index: -1;
+}
