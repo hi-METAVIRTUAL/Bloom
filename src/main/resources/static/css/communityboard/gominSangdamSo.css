@@ -1,7 +1,7 @@
 body {
     font-family: 'Noto Sans KR';
     color: #C09A81;
-    background-color: #FEEFCC;
+    background-color: #FFF6E2;
 }
 .insert-input {
     width: 20%;
@@ -19,7 +19,7 @@ body {
     border-color: #C09A81;
 }
 .insert-button {
-    height: 40px;
+    height: 30px;
     border-radius: 10px;
     width: 220px;
     background: #C09A81;
@@ -27,36 +27,10 @@ body {
 }
 .insert-button span {
     color: #FFFFFF;
-    font-size: 25px;
-}
-.search-bar {
-    border-radius: 10px;
-}
-.searchBox1 {
-    width: 70%;
-    margin-left: 15%;
-    justify-content: space-around;
-    display: flex;
-    gap: 30px;
-}
-
-.search-bar .searchBox1 input{
-    background: url("/images/review/search.png") no-repeat right center #FEEFCC;
-    width: 100%;
-    background-size: 30px;
-    border-color: #C09A81;
-    background-color: white;
-    z-index: 2;
-    color: #C09A81;
     font-size: 18px;
-}
-
-.search-bar .searchBox1 input::placeholder{
-    text-indent: 10px;
 }
 
 .center-title {
     font-size: 23px;
     float: left;
 }
-
