@@ -12,8 +12,8 @@ body{
     bottom: 15%;
 }
 img{
-    width: 700px;
-    height: 350px;
+    width: 600px;
+    height: 250px;
     border-radius: 30px;
     display: block;
     margin-left: auto;
@@ -31,3 +31,7 @@ span{
 button{
     width: 150px;
     height: 40px;}
+
+h3 {
+    margin: 1;
+}
