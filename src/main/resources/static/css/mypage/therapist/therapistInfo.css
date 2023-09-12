@@ -61,6 +61,7 @@ body {
 .fixed-textarea {
     width: 330px;
     height: 30px;
+    line-height: 30px;
     resize: none;
     background-color: #E9E9E9;
     color: #C09A81;
@@ -199,6 +200,16 @@ input[type=submit] {
     cursor: pointer;
 }
 input[type=file] {
+    cursor: pointer;
+}
+
+.btn-upload {
+    background-color: #C09A81;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    height: 21px;
+    width: 120px;
     cursor: pointer;
 }
 

@@ -1,11 +1,18 @@
 body {
     font-family: 'Noto Sans KR';
     color: #C09A81;
-    background-color: #FEEFCC;
+    background-color: #FFF6E2;
+}
+.title {
+    font-size: 32px;
+    width: 80%;
+    text-align: left;
+    margin-top: 5%;
+    margin-left: 10%;
 }
 .insert-input {
     width: 20%;
-    height: 40px;
+    height: 30px;
     font-size: 18px;
     border-radius: 10px;
     border-color: #C09A81;
@@ -19,7 +26,7 @@ body {
     border-color: #C09A81;
 }
 .insert-button {
-    height: 40px;
+    height: 30px;
     border-radius: 10px;
     width: 220px;
     background: #C09A81;
@@ -27,31 +34,48 @@ body {
 }
 .insert-button span {
     color: #FFFFFF;
-    font-size: 25px;
+    font-size: 18px;
 }
+
 .search-bar {
-    border-radius: 10px;
+     border-radius: 10px;
+ }
+
+
+.search-icon{
+    width: 23px;
+    height: 23px;
 }
+
+
 .searchBox1 {
     width: 70%;
+    height: 30px;
+    margin-top: 5%;
     margin-left: 15%;
     justify-content: space-around;
     display: flex;
     gap: 30px;
 }
+.searchBox1 select {
+    border-radius: 10px;
+    border-color: #C09A81;
+    color: #C09A81;
+}
 
-.search-bar .searchBox1 input{
-    background: url("/images/review/search.png") no-repeat right center #FEEFCC;
+.searchBox1 input{
+    background: url("/images/review/search.png") no-repeat right center #FFF6E2;
     width: 100%;
-    background-size: 30px;
+    background-size: 23px;
     border-color: #C09A81;
     background-color: white;
     z-index: 2;
     color: #C09A81;
-    font-size: 18px;
+    font-size: 15px;
+    border-radius: 10px;
 }
 
-.search-bar .searchBox1 input::placeholder{
+.searchBox1 input::placeholder{
     text-indent: 10px;
 }
 

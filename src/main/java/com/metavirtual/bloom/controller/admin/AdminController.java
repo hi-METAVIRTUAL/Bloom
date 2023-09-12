@@ -31,6 +31,25 @@ public class AdminController {
     public String csAnswer(){
         return "mypage/admin/csAnswer";
     }
+
+    @GetMapping("/inquireUser")
+    public String inquireUser(){
+        return "mypage/admin/inquireUser";}
+
+    @GetMapping("/inquireTherapist")
+    public String inquireTherapist(){
+        return "mypage/admin/inquireTherapist";}
+
+    @GetMapping("/reservePopup")
+    public String reservePopup() {
+        return "mypage/admin/reservePopup";
+    }
+
+    @GetMapping("/inqTheraProfile")
+    public String inqTheraProfile(){
+        return "mypage/admin/inqTheraProfile";
+    }
 }
+
 
 //push용 주석

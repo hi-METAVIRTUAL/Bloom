@@ -3,19 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>List</title>
-    <link rel="stylesheet" type="text/css" href="../css/psychological/therapyList.css">
+    <link rel="stylesheet" type="text/css" href="../css/match/therapyList.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-
 <th:block th:include="Components/PostLoginHeader.html"></th:block>
+
+
 <h1>00님 이런 상담사들은 어떠세요?</h1>
-<!-- 상담사 찾기 버튼-->
+<!-- 상담사 찾기 버튼
 <div>
     <div style="position:fixed; top: 200px; right: 5px;">
-        <a class="circle" href="#top"><img class="icons" src="../images/psychological/search.png" title="위로가기"></a><br>
-        <span>상담사 찾기</span>
+        <a id="toTop" href="#" ><img class="icons" src="../images/psychological/search.png" title="위로가기"></a><br>
     </div>
-</div>
+</div>-->
+<script>
+    const scrollTop = function () {
+        // create HTML button element
+        const scrollBtn = document.createElement("button");
+        scrollBtn.innerHTML = "&uarr;";
+        scrollBtn.setAttribute("id", "scroll-btn");
+        document.body.appendChild(scrollBtn);
+        // hide/show button based on scroll distance
+        const scrollBtnDisplay = function () {
+            window.scrollY > window.innerHeight
+                ? scrollBtn.classList.add("show")
+                : scrollBtn.classList.remove("show");
+        };
+        window.addEventListener("scroll", scrollBtnDisplay);
+        // scroll to top when button clicked
+        const scrollWindow = function () {
+            if (window.scrollY != 0) {
+                setTimeout(function () {
+                    window.scrollTo(0, window.scrollY - 50);
+                    scrollWindow();
+                }, 10);
+            }
+        };
+        scrollBtn.addEventListener("click", scrollWindow);
+    };
+    scrollTop();
+</script>
 <!-- 상담사 검색 카테고리-->
 <div>
     <form class="checkbox">
@@ -25,8 +53,9 @@
         <input type="checkbox" name="강박성" value="강박성"> 강박성
         <input type="checkbox" name="대인관계" value="대인관계"> 대인관계
     </form>
-    <hr style="width: 70%">
+    <hr style="border: 1px solid #C09A81; width: 70%;">
 </div>
+<!-- 검색 -->
 <div style="margin: 0 auto; width: 70%">
     <div>
         <div class="search-bar">
@@ -36,8 +65,7 @@
             </button>
         </div>
     </div>
-
-
+<!--프로필 -->
     <div class="parent">
         <div class="our-team">
             <div class="picture">
@@ -48,7 +76,7 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
         <div class="our-team">
@@ -61,7 +89,19 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+            </ul>
+        </div>
+        <div class="our-team">
+            <div class="picture">
+                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
+            </div>
+            <div class="team-content">
+                <h3>상담사 이름</h3>
+                <h4>전문 분야</h4>
+            </div>
+            <ul class="social">
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
         <div class="our-team">
@@ -74,7 +114,19 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+            </ul>
+        </div>
+        <div class="our-team">
+            <div class="picture">
+                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
+            </div>
+            <div class="team-content">
+                <h3>상담사 이름</h3>
+                <h4>전문 분야</h4>
+            </div>
+            <ul class="social">
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
         <div class="our-team">
@@ -87,7 +139,19 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+            </ul>
+        </div>
+        <div class="our-team">
+            <div class="picture">
+                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
+            </div>
+            <div class="team-content">
+                <h3>상담사 이름</h3>
+                <h4>전문 분야</h4>
+            </div>
+            <ul class="social">
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
         <div class="our-team">
@@ -100,7 +164,19 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+            </ul>
+        </div>
+        <div class="our-team">
+            <div class="picture">
+                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
+            </div>
+            <div class="team-content">
+                <h3>상담사 이름</h3>
+                <h4>전문 분야</h4>
+            </div>
+            <ul class="social">
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
         <div class="our-team">
@@ -113,80 +189,17 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="../images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
+
     </div>
 
 </div>
 <footer>
-    <img src="/images/common/PlantGrass.png" alt="grass">
+    <img class="grass" src="/images/common/PlantGrass.png" alt="grass">
     <th:block th:include="Components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
+
 </footer>
 </body>
 </html>
