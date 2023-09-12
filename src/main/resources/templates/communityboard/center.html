@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>커뮤니티</title>
+    <title>고객센터</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/gominSangdamSo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 </head>
 <body>
 <div th:with="loggedIn=false, reservationMade=false">
@@ -12,9 +12,9 @@
     <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
     <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
 </div>
-<div style="width: 80%; margin: auto">
-    <span class="center-title">고객센터</span>
-    <span style="float: right"><button onclick="location.href='/communityboard/centerInsert'">고객센터문의</button></span>
+<h1 class="title">고객센터</h1>
+<div class="center-insert-box">
+    <span style="float: right"><button onclick="location.href='/communityboard/centerInsert'" class="center-insert-button"><span>고객센터문의</span></button></span>
 </div>
 
 
