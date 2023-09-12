@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reservation</title>
+    <link rel="stylesheet" type="text/css" href="../css/reservation/calendar.css">
+</head>
+<body>
+<div th:include="Components/PostLoginHeader.html"></div>
+<div class="fullbox">
+    <p>예약하기</p>
+    <div class="wrapper">
+        <span style="color: #C08181; font-size: 12px;">*상담자와 상의 후 예약 바랍니다*</span>
+        <h3 style="color: #C09A81;">상담 예약하기</h3>
+        <h4 style="color: #C09A81;">김철수</h4>
+        <div class="calendarbox">
+            <div class="nav">
+                <button class="materialIcons"><</button>
+                <p class="currentDate">2023년 10월</p>
+                <button class="materialIcons">></button>
+            </div>
+            <div class="calendar">
+                <ul class="weeks">
+                    <li>SUN</li>
+                    <li>MON</li>
+                    <li>TUE</li>
+                    <li>WED</li>
+                    <li>THU</li>
+                    <li>FRI</li>
+                    <li>SAT</li>
+                </ul>
+                <ul class="days">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                    <li>13</li>
+                    <li>14</li>
+                    <li>15</li>
+                    <li>16</li>
+                    <li>17</li>
+                    <li>18</li>
+                    <li>19</li>
+                    <li>20</li>
+                    <li>21</li>
+                    <li>22</li>
+                    <li>23</li>
+                    <li>24</li>
+                    <li>25</li>
+                    <li>26</li>
+                    <li>27</li>
+                    <li>28</li>
+                    <li>29</li>
+                    <li>30</li>
+                    <li>31</li>
+                </ul>
+            </div>
+        </div>
+        <form action="" method="get"
+                style="font-size: 20px; word-spacing:20px; line-height: 200%">
+            <div>
+                <input type="checkbox" name="time" value="9">09시
+                <input type="checkbox" name="time" value="10">10시
+                <input type="checkbox" name="time" value="11">11시
+                <input type="checkbox" name="time" value="12">12시
+            </div>
+            <div>
+                <input type="checkbox" name="time" value="13">13시
+                <input type="checkbox" name="time" value="14">14시
+                <input type="checkbox" name="time" value="15">15시
+                <input type="checkbox" name="time" value="16">16시
+            </div>
+            <div>
+                <input type="checkbox" name="time" value="17">17시
+                <input type="checkbox" name="time" value="18">18시
+                <input type="checkbox" name="time" value="19">19시
+                <input type="checkbox" name="time" value="20">20시
+            </div>
+            <input class="roundbutton" type="submit" value="상담예약">
+        </form>
+        <button class="roundbutton" onclick="location.href='/psychological/introduceTherapy'">돌아가기</button>
+    </div>
+    <br>
+
+</div>
+<footer>
+    <img class="grass" src="/images/common/PlantGrass.png" alt="grass">
+</footer>
+</body>
+</html>
