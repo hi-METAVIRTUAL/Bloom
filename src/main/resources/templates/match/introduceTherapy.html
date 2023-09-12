@@ -18,7 +18,6 @@
             }
         </style>
     </header>
-
     <div class="mainbox">
         <div class="profilebox">
             <!-- 프로필 사진 및 간단한 소개 내용 -->
@@ -135,6 +134,7 @@
     </div>
 <button class="roundbutton">후기 더보기</button>
     <footer>
+        <th:block th:include="Components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
         <img class="grass" src="/images/common/PlantGrass.png" alt="grass">
     </footer>
 </body>
