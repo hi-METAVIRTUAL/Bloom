@@ -6,15 +6,34 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">
   <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <style>
+
+        .content {
+            flex: 1; /* Grow to fill available space */
+            /* Add your styles for the main content here */
+        }
+        footer{
+            z-index: 2;
+        }
+    </style>
 </head>
 <body>
-<th:block th:include="Components/preLoginHeader.html"></th:block>
+<div class="content">
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
+</div>
+
 <h1>아이디가 이메일로 전송 되었습니다 </h1>
 <h5>전송된 아이디 확인 후 로그인 해주세요</h5>
 <button onclick="location.href='login'">로그인 하러 가기</button>
 <button onclick="location.href='findPassword'">비밀번호 찾기</button>
+</div>
 <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
-<th:block style="color:#FEEFCC" th:include="Components/Footer.html"></th:block>
+<footer>
+<th:block th:include="Components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
+</footer>
 </body>
 </html>
 <!---->

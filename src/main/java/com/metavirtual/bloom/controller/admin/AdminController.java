@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 
-    @GetMapping("/qna")
-    public String qna() {
-        return "mypage/admin/qna";
+    @GetMapping("/customerService")
+    public String customerService() {
+        return "mypage/admin/customerService";
     }
 
 

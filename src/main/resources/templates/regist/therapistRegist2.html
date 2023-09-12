@@ -19,7 +19,12 @@
     </style>
 </head>
 <body>
-<th:block th:include="Components/preLoginHeader.html"></th:block>
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
+</div>
+
 <div class="background-component" th:include="Components/beigeBackgroundGreenGrass.html"></div>
 <h1 class="title">상담사 회원가입</h1>
 <form action="/regist/therapistRegistSuccess" method="get">
@@ -60,8 +65,11 @@
         <input type="file" id="myFile" name="filename">
         <input type="submit">
     </form>
+    <div class="buttons" style="display: flex; justify-content: center;">
     <button onclick="location.href='/'" type="submit" style="width:200px;" class="whiteButton">취소</button>&ensp;&ensp;<button onclick="location.href='therapistRegistSuccess'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
+    </div>
 </form>
+</label>
 <th:block style="color:#FFF6E2" th:include="Components/Footer.html"></th:block>
 </body>
 </html>

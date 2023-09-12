@@ -6,10 +6,20 @@
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <link rel="stylesheet" type="text/css" href="/css/regist/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+
+        footer{
+            z-index: 2;
+        }
+    </style>
 </head>
 <body>
-<div th:include="Components/PreLoginHeader.html"></div>
-
+<div class="content">
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
+</div>
 <h1>LOGIN</h1>
 <form action="postLoginMain.html" method="post">
     <input type="text" placeholder="아이디를 입력해주세요" name="ID"><br>
@@ -22,8 +32,10 @@
     <li onclick="location.href='findId'">아이디 찾기</li>
     <li onclick="location.href='findPassword'">비밀번호 찾기</li>
   </ul>
-
+</div>
 <th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
-<th:block th:include="Components/Footer"></th:block>
+<footer>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
+</footer>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>커뮤니티</title>
+    <title>고민상담</title>
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 </head>
@@ -13,11 +13,13 @@
     <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
 </div>
 
-<p class="title">커뮤니티</p>
+<p class="title">고민상담</p>
 
-<div>
-    <span class="title-insert">제목</span>
+<div class="gomin-input">
+    <span>제목</span>
     <input type="text" placeholder="글제목을 입력해 주세요." class="insert-input">
+    <label><input type="radio" name="공개여부">공개</label>
+    <label><input type="radio" name="공개여부">비공개</label>
 </div>
 <div>
     <textarea rows="22" cols="115" placeholder="글을 작성해주세요." class="textarea-field">
@@ -27,7 +29,7 @@
     <button type="submit" class="button" onclick="">
         <span>등록하기</span>
     </button>
-    <button type="submit" class="button" onclick="location.href='/communityboard/board'">
+    <button type="submit" class="button" onclick="location.href='/communityboard/gomin'">
         <span>돌아가기</span>
     </button>
 </div>

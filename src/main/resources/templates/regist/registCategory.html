@@ -6,28 +6,33 @@
     <title>회원가입</title>
     <link rel="stylesheet" type="text/css" href="/css/regist/registCategory.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
-<div th:include="Components/preLoginHeader.html"></div>
+<div class="content">
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
+</div>
+
 <div class="container">
-    <div>
+    <div class="member">
             <div onclick="location.href='memberRegist'" class="image-zoom">
                 <img class="image" src="../images/regist/일반회원.png">
             </div>
             <p onclick="location.href='memberRegist'" class="maintxt">일반 회원 가입</p><br><p class="subtxt">만 18세 이상</p>
     </div>
-    <div>
+    <div clss="therapist">
             <div onclick="location.href='therapistRegist'" class="image-zoom">
                 <img class="image" src="../images/regist/상담사.png">
             </div>
             <p onclick="location.href='therapistRegist'" class="maintxt">상담사 회원 가입</p>
         </div>
     </div>
-
+</div>
 <th:block th:include="Components/beigeBackgroundBrownGrass.html"></th:block>
-<th:block style="color:#FEEFCC" th:include="Components/Footer.html"></th:block>
+<th:block th:include="Components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
 
 </body>
 </html>
