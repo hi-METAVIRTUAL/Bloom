@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 </head>
 <body>
+<div class="content">
 <div th:include="Components/PostLoginHeader.html"></div>
 
 <p class="title">커뮤니티</p>
@@ -26,8 +27,9 @@
         <span>글등록</span>
     </button>
 </div>
+</div>
 <div th:include="communityboard/paging.html"></div>
-<th:block th:include="Components/Footer.html"></th:block>
+<th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 
 </body>
 </html>

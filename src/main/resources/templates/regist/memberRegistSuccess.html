@@ -9,8 +9,8 @@
 <body>
 <div th:with="loggedIn=true, reservationMade=false">
     <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
-    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=false, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
 </div>
 <h1>회원가입이 완료되었습니다!</h1>
 <p>맞춤 상담사 추천을 위해서는 심리 검사가 필요합니다</p>
@@ -18,6 +18,6 @@
     <button onclick="location.href='/psychological/test'" class="whiteButton">지금 할래요</button><button onclick="location.href='/'" class="whiteButton">나중에 할래요</button>
 </div>
 <th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
-<th:block th:include="Components/Footer.html"></th:block>
+<th:block th:include="Components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
 </body>
 </html>
