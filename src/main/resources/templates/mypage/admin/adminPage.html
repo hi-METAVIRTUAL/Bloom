@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/admin/adminPage.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:include="Components/PostLoginHeader.html"></div>
+<br><br>
+
+<div style="width: 80%; color: #C09A81;">
+    <div style="display: inline-block; padding-right: 210px; vertical-align: middle; float: left;" align="center">
+        <div onclick="location.href='inquireUser'">
+            <img src="../images/mypage/admin/userManage.jpg" style="cursor: pointer; width: 15%; height: 10%; border-radius: 100%;">
+        </div>
+        <p onclick="location.href='inquireUser'" style="cursor: pointer;">회원 관리</p><br>
+    </div>
+    <div style="display: inline-block; padding-left: 210px; vertical-align: middle; float: right;" align="center">
+        <div onclick="location.href='customerService'">
+            <img src="../images/mypage/admin/customerService.jpg" style="cursor: pointer; width: 15%; height: 10%; border-radius: 100%;">
+        </div>
+        <p onclick="location.href='customerService'" style="cursor: pointer;">1:1 문의 관리</p>
+    </div>
+</div>
+</div>
+
+<br><br>
+<footer>
+    <div th:with="textColor=${ textColor }">
+        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+</footer>
+<img class="brownGrass" src="/images/common/BrownGrass.png" alt="brownGrass">
+</body>
+</html>

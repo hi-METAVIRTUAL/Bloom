@@ -31,7 +31,7 @@
         /*for(number = 1;  number< 32; number++){
             /!* 나중에 db 저장 *!/
         }*/
-        if (number == 5) {
+        if (number > 5) {
 
             window.location.href = '/psychological/last'
         }
@@ -40,20 +40,20 @@
     }
 </script>
 <div>
-    <form action="/psychological/last" method="get">
-        <article>
-            <!-- 점수 db저장 -->
-            <div>
-                <img class="picture" src="../images/psychological/graph.png" alt="그래프">
-            </div>
-            <input type="radio" name="number" value="1"/><label>1</label>
-            <input type="radio" name="number" value="2"/><label>2</label>
-            <input type="radio" name="number" value="3"/><label>3</label>
-            <input type="radio" name="number" value="4"/><label>4</label>
-            <input type="radio" name="number" value="5"/><label>5</label>
-        </article>
-        <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
-    </form>
+    <article>
+        <!-- 점수 db저장 -->
+        <div>
+            <img class="picture" src="../images/psychological/graph.png" alt="그래프">
+        </div>
+        <form class="theme-checker">
+            <input type="radio" name="theme" id="one" />
+            <input type="radio" name="theme" id="two"/>
+            <input type="radio" name="theme" id="three"/>
+            <input type="radio" name="theme" id="four"/>
+            <input type="radio" name="theme" id="five"/>
+        </form>
+    </article>
+    <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
     <input class="roundbutton" type="submit" value="다음" onclick="count()">
 </div>
 <footer style=" position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">

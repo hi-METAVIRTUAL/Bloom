@@ -30,7 +30,7 @@
             <p>김철수</p>
             <p>010-1111-9999</p>
             <input type="button" value="개인 정보 수정" onclick="location.href='infoSetting'" style="background-color: #C09A81; border: none; border-radius: 10px; color: #FFFFFF; width: 180px; height: 30px; cursor: pointer;"/>
-            <p><b>주요 경력</b></p> <!--관리자가 작성-->
+            <p><a style="font-size: 19px; font-weight: bold">주요 경력</a></p> <!--관리자가 작성-->
             <p>메타대 심리학과 박사</P>
             <P>현) 메타심리상담소 원장</P>
             <P>한국상담심리학회 상담심리사 1급</P>
@@ -47,8 +47,8 @@
         <!--    </div>-->
         <br><br>
         <div align="center">
-        <input type="button" onclick="updateTherapistOnwork('Y')" value="일할래요" style="background-color: #C09A81; border-radius: 10px; border: none; color: #FFFFFF; height: 21px; width: 100px;"/>
-        <input type="button" onclick="updateTherapistOnwork('N')" value="쉴래요" style="background-color: #FFFFFF; border-radius: 10px; border: none; color: #C09A81; height: 21px; width: 100px;"/>
+        <input type="button" onclick="updateTherapistOnwork('Y')" value="예약 활성화" style="background-color: #C09A81; border-radius: 10px; border: none; color: #FFFFFF; height: 27px; width: 100px;"/>
+        <input type="button" onclick="updateTherapistOnwork('N')" value="예약 비활성" style="background-color: #FFFFFF; border-radius: 10px; border: none; color: #C09A81; height: 27px; width: 100px;"/>
         <script>
             function updateTherapistOnwork(status) {
                 $.ajax({
@@ -73,14 +73,14 @@
 
         <div style="color: #C09A81;">
             <div style="width: 230px; height: 100px; border: none; float: left; background-color: #FFFFFF; border-radius: 10px;">
-                <br><b>전문 분야</b>
+                <br><a style="font-size: 19px; font-weight: bold;">전문 분야</a>
                 <br>
                 <hr class="profile-hr">
                 우울 불안
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div style="width: 230px; height: 100px; border: none; float: right; background-color: #FFFFFF; border-radius: 10px;">
-                <br><b>상담 방법</b>
+                <br><a style="font-size: 19px; font-weight: bold;">상담 방법</a>
                 <br>
                 <hr class="profile-hr">
                 화상 대면
