@@ -6,7 +6,7 @@ public class SelectCriteria {
     private int totalBoardCount; // 전체 게시물 갯수
     private int limitPerPage; // 페이지 내 보여지는 게시물 갯수
     private int buttonAmount; // 한번에 보여줄 페이징 버튼 갯수
-    private int lastPage; // 마지막 페이지
+    private int lastPage; // 마지막 페이지 숫자
     private int startPage; // 버튼 어마운트 시작 페이지
     private int endPage; // 버튼 어마운트 끝 페이지
     private int startRow; // 조회 해야하는 시작 행의 숫자

@@ -1,3 +1,54 @@
 body {
     font-family: 'Noto Sans KR';
 }
+.table {
+    border-collapse: collapse;
+}
+.boardListBox {
+    border-radius: 10px;
+    background-color: #C09A81;
+    margin: auto;
+}
+.table-th th {
+    background-color: #C09A81;
+    text-align: center;
+    height: 70px;
+    color: #FFFFFF;
+}
+.table-td td {
+    text-align: center;
+    height: 70px;
+    color: #C09A81;
+}
+
+
+.paging {
+    width: 70%;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.paging select {
+    width: 50px;
+    border-radius: 10px;
+    border-color: #C09A81;
+    background-color: #FFF6E2;
+    color: #C09A81;
+}
+
+.paging button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.paging button img {
+    width: 25px;
+    height: 25px;
+}
+
