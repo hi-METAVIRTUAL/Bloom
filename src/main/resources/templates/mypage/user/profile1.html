@@ -42,8 +42,7 @@
 </script>
 <br><br>
 <footer>
-    <div th:with="textColor=${ textColor }">
-        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 </body>
 </html>

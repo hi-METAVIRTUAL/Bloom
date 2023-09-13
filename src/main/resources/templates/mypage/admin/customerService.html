@@ -31,28 +31,28 @@
         </tr>
         <tr class="qna-list" align="center">
             <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">2&nbsp;</td>
-            <td style="cursor: pointer">&nbsp;글이 지워지지 않습니다!&nbsp;</td>
+            <td style="cursor: pointer" onclick="location.href='csAnswer'">&nbsp;글이 지워지지 않습니다!&nbsp;</td>
             <td>&nbsp;2023-09-04&nbsp;</td>
             <td>&nbsp;jrt***&nbsp;</td>
             <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;답변대기</td>
         </tr>
         <tr style="color: #C09A81" align="center">
             <td>3&nbsp;</td>
-            <td style="cursor: pointer">&nbsp;아이디가 찾아지지 않습니다!&nbsp;</td>
+            <td style="cursor: pointer" onclick="location.href='csAnswer'">&nbsp;아이디가 찾아지지 않습니다!&nbsp;</td>
             <td>&nbsp;2023-09-04&nbsp;</td>
             <td>&nbsp;wqh***&nbsp;</td>
             <td>&nbsp;답변완료</td>
         </tr>
         <tr class="qna-list" align="center">
             <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">4&nbsp;</td>
-            <td style="cursor: pointer">&nbsp;글이 검색되지 않습니다!&nbsp;</td>
+            <td style="cursor: pointer" onclick="location.href='csAnswer'">&nbsp;글이 검색되지 않습니다!&nbsp;</td>
             <td>&nbsp;2023-09-04&nbsp;</td>
             <td>&nbsp;kyd***&nbsp;</td>
             <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;답변완료</td>
         </tr>
         <tr style="color: #C09A81" align="center">
             <td>5&nbsp;</td>
-            <td style="cursor: pointer">예약이 되지 않습니다!&nbsp;</td>
+            <td style="cursor: pointer" onclick="location.href='csAnswer'">예약이 되지 않습니다!&nbsp;</td>
             <td>&nbsp;2023-09-04&nbsp;</td>
             <td>&nbsp;mnd***&nbsp;</td>
             <td>&nbsp;답변완료</td>
@@ -119,10 +119,9 @@
 <!--</div>-->
 <br><br>
 <footer>
-    <div th:with="textColor=${ textColor }">
-        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+    <img class="brownGrass" src="/images/common/BrownGrass.png" alt="brownGrass">
 </footer>
-<img class="brownGrass" src="/images/common/BrownGrass.png" alt="brownGrass">
 </body>
 </html>
 
