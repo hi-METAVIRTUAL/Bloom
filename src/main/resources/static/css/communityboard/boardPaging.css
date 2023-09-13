@@ -1,21 +1,26 @@
 body {
     font-family: 'Noto Sans KR';
 }
-.table {
+.table * {
     border-collapse: collapse;
 }
 .boardListBox {
-    border-radius: 10px;
-    background-color: #C09A81;
     margin: auto;
 }
-.table-th th {
+.table-th {
     background-color: #C09A81;
     text-align: center;
     height: 70px;
     color: #FFFFFF;
 }
-.table-td td {
+.table-td1 {
+    background-color: #FFF6E2;
+    text-align: center;
+    height: 70px;
+    color: #C09A81;
+}
+.table-td2 {
+    background-color: #FFFFFF;
     text-align: center;
     height: 70px;
     color: #C09A81;

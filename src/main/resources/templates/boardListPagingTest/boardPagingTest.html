@@ -10,17 +10,24 @@
     <div class="table">
         <table style="align: center" class="boardListBox">
             <tr class="table-th">
-                <th style="width: 100px">No</th>
+                <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
                 <th style="width: 700px">제목</th>
                 <th style="width: 250px">작성자</th>
-                <th style="width: 250px">작성일</th>
+                <th style="width: 250px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">작성일</th>
             </tr>
 
-            <tr class="table-td"> <!--th:each="board : ${ boardList }"-->
-                <td>1</td> <!--BoardDTO 글번호 th:text="${ board.no }" -->
+            <tr class="table-td1"> <!--th:each="board : ${ boardList }"-->
+                <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">1</td> <!--BoardDTO 글번호 th:text="${ board.no }" -->
                 <td>제목1</td> <!--BoardDTO 글제목 th:text="${ board.title }" -->
                 <td>ohgi</td> <!-- BoardDTO writer. writer는 MemberDTO의 nickname을 가리킴 th:text="${ board.writer.nickname }" -->
-                <td>2023-09-13 11:11:11</td> <!--BoardDTO 작성일 th:text="${ board.writedDate }" -->
+                <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">2023-09-13 11:11:11</td> <!--BoardDTO 작성일 th:text="${ board.writedDate }" -->
+            </tr>
+
+            <tr class="table-td2">
+                <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">2</td>
+                <td>제목2</td>
+                <td>ohgi</td>
+                <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">2023-09-13 11:11:11</td>
             </tr>
         </table>
     </div>
