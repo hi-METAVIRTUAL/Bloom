@@ -40,8 +40,7 @@ body {
 .searchBox1 {
     width: 70%;
     height: 30px;
-    margin-top: 5%;
-    margin-left: 15%;
+    margin: auto;
     justify-content: space-around;
     display: flex;
     gap: 30px;

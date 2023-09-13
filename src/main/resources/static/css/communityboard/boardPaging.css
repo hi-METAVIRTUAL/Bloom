@@ -1,3 +1,59 @@
 body {
     font-family: 'Noto Sans KR';
 }
+.table * {
+    border-collapse: collapse;
+}
+.boardListBox {
+    margin: auto;
+}
+.table-th {
+    background-color: #C09A81;
+    text-align: center;
+    height: 70px;
+    color: #FFFFFF;
+}
+.table-td1 {
+    background-color: #FFF6E2;
+    text-align: center;
+    height: 70px;
+    color: #C09A81;
+}
+.table-td2 {
+    background-color: #FFFFFF;
+    text-align: center;
+    height: 70px;
+    color: #C09A81;
+}
+
+
+.paging {
+    width: 70%;
+    height: 40px;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.paging select {
+    width: 50px;
+    border-radius: 10px;
+    border-color: #C09A81;
+    background-color: #FFF6E2;
+    color: #C09A81;
+}
+
+.paging button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.paging button img {
+    width: 25px;
+    height: 25px;
+}
+

@@ -6,57 +6,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 
+    <!-- 게시글 보드 테이블 -->
     <div class="table">
-        <table style="align: center" id="boardListBox">
-            <tr>
-                <th style="width: 100px">No</th>
-                <th style="width: 800px">제목</th>
-                <th style="width: 150px">작성자</th>
-                <th style="width: 150px">작성일</th>
+        <table style="align: center" class="boardListBox">
+            <tr class="table-th">
+                <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
+                <th style="width: 700px">제목</th>
+                <th style="width: 250px">작성자</th>
+                <th style="width: 250px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">작성일</th>
             </tr>
 
-            <tr th:each="board : ${ boardList }">
-                <td th:text="${ board.no }"></td> <!--BoardDTO 글번호-->
-                <td th:text="${ board.title }"></td> <!--BoardDTO 글제목-->
-                <td th:text="${ board.writer.nickname }"></td> <!-- BoardDTO writer. writer는 MemberDTO의 nickname을 가리킴 -->
-                <td th:text="${ board.writedDate }"></td> <!--BoardDTO 작성일-->
+            <tr class="table-td1"> <!--th:each="board : ${ boardList }"-->
+                <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">1</td> <!--BoardDTO 글번호 th:text="${ board.no }" -->
+                <td>제목1</td> <!--BoardDTO 글제목 th:text="${ board.title }" -->
+                <td>ohgi</td> <!-- BoardDTO writer. writer는 MemberDTO의 nickname을 가리킴 th:text="${ board.writer.nickname }" -->
+                <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">2023-09-13 11:11:11</td> <!--BoardDTO 작성일 th:text="${ board.writedDate }" -->
+            </tr>
+
+            <tr class="table-td2">
+                <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">2</td>
+                <td>제목2</td>
+                <td>ohgi</td>
+                <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">2023-09-13 11:11:11</td>
             </tr>
         </table>
     </div>
 
     <!--페이징 처리-->
     <div class="paging">
-        <!-- 맨 앞으로 이동 -->
-        <!-- th:disabled = 1 페이지일 경우 버튼 안보이게 -->
-        <button th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
-                th:disabled="${selectCriteria.pageNo == 1}"> <img src="/static/images/board/previousfirst.png"> </button>
+        <!-- 화면에 보여질 게시글 갯수 선택 -->
+        <div>
+            <select>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </div>
 
-        <!-- 이전 페이지로 이동 -->
-        <button th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
-                th:disabled="${selectCriteria.pageNo == 1}"><img src="/static/images/board/previous.png"></button>
+        <div style="display: flex;">
+            <!-- 맨 앞으로 이동 -->
+            <!-- th:disabled = 1 페이지일 경우 버튼 안보이게 -->
+            <button><img src="../images/board/previousfirst.png"></button> <!-- 버튼속성 th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}" -->
 
-        <!-- 숫자 버튼 -->
-        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-            <button
-                    th:text="${ page }"
+            <!-- 이전 페이지로 이동 -->
+            <button><img src="../images/board/previous.png"></button> <!-- 버튼속성 th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}" -->
+
+            <!-- 숫자 버튼 -->
+            <th:block> <!-- th:block버튼 = th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}" -->
+                <button style="color: #C09A81;">1 <!-- 버튼속성 th:text="${ page }"
                     th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"
-                    th:disabled="${ selectCriteria.pageNo eq page }">
-            </button>
-        </th:block>
+                    th:disabled="${ selectCriteria.pageNo eq page }" -->
+                </button>
+            </th:block>
 
-        <!-- 다음 페이지로 이동 -->
-        <button th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
-                th:disabled="${selectCriteria.pageNo == selectCriteria.maxPage}"><img src="/static/images/board/next.png"></button>
+            <!-- 다음 페이지로 이동 -->
+            <button><img src="../images/board/next.png"></button> <!-- 버튼속성 th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}"-->
 
-
-
-
-
-
-
+            <!-- 마지막 페이지로 이동 -->
+            <button><img src="../images/board/nextlist.png"></button> <!-- th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.lastPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}" -->
+        </div>
+        <div>
+            Total: : <span class="total">0</span>
+        </div>
     </div>
-
-
-
-
 </html>
