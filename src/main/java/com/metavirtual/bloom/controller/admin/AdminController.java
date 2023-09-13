@@ -19,9 +19,9 @@ public class AdminController {
     }
 
 
-    @GetMapping("/editUserInfo")
-    public String editUserInfo() {
-        return "mypage/admin/editUserInfo";
+    @GetMapping("/editMemberInfo")
+    public String editMemberInfo() {
+        return "mypage/admin/editMemberInfo";
 
     }
 
@@ -36,9 +36,9 @@ public class AdminController {
         return "mypage/admin/csAnswer";
     }
 
-    @GetMapping("/inquireUser")
-    public String inquireUser(){
-        return "mypage/admin/inquireUser";}
+    @GetMapping("/inquireMember")
+    public String inquireMember(){
+        return "mypage/admin/inquireMember";}
 
     @GetMapping("/inquireTherapist")
     public String inquireTherapist(){
