@@ -2,27 +2,28 @@ package com.metavirtual.bloom.common.paging;
 
 public class SelectCriteria {
 
-    private int pageNo;					//요청한 페이지 번호
-    private int totalCount;				//전체 게시물 수
-    private int limit;					//한 페이지에 보여줄 게시물 수
-    private int buttonAmount;			//한 번에 보여줄 페이징 버튼의 갯수
-    private int maxPage;				//가장 마지막 페이지
-    private int startPage;				//한 번에 보여줄 페이징 버튼의 시작하는 페이지 수
-    private int endPage;				//한 번에 보여줄 페이징 버튼의 마지막 페이지 수
-    private int startRow;				//DB 조회 시 최신글부터 조회해야 하는 행의 시작 수
-    private int endRow;					//DB 조회 시 최신글부터 조회해야 하는 행의 마지막 수
-    private String searchCondition;		//검색 조건
-    private String searchValue;			//검색어
+    private int pageNo; // 선택한 페이지 번호
+    private int totalBoardCount; // 전체 게시물 갯수
+    private int limitPerPage; // 페이지 내 보여지는 게시물 갯수
+    private int buttonAmount; // 한번에 보여줄 페이징 버튼 갯수
+    private int lastPage; // 마지막 페이지
+    private int startPage; // 버튼 어마운트 시작 페이지
+    private int endPage; // 버튼 어마운트 끝 페이지
+    private int startRow; // 조회 해야하는 시작 행의 숫자
+    private int endRow; // 조회 해야하는 마지막 행의 숫자
+    /* 검색 창 */
+    private String searchCondition; // 검색조건
+    private String searchValue; // 검색 텍스트
 
     public SelectCriteria() {
     }
 
-    public SelectCriteria(int pageNo, int totalCount, int limit, int buttonAmount, int maxPage, int startPage, int endPage, int startRow, int endRow, String searchCondition, String searchValue) {
+    public SelectCriteria(int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount, int lastPage, int startPage, int endPage, int startRow, int endRow, String searchCondition, String searchValue) {
         this.pageNo = pageNo;
-        this.totalCount = totalCount;
-        this.limit = limit;
+        this.totalBoardCount = totalBoardCount;
+        this.limitPerPage = limitPerPage;
         this.buttonAmount = buttonAmount;
-        this.maxPage = maxPage;
+        this.lastPage = lastPage;
         this.startPage = startPage;
         this.endPage = endPage;
         this.startRow = startRow;
@@ -39,20 +40,20 @@ public class SelectCriteria {
         this.pageNo = pageNo;
     }
 
-    public int getTotalCount() {
-        return totalCount;
+    public int getTotalBoardCount() {
+        return totalBoardCount;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
+    public void setTotalBoardCount(int totalBoardCount) {
+        this.totalBoardCount = totalBoardCount;
     }
 
-    public int getLimit() {
-        return limit;
+    public int getLimitPerPage() {
+        return limitPerPage;
     }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public void setLimitPerPage(int limitPerPage) {
+        this.limitPerPage = limitPerPage;
     }
 
     public int getButtonAmount() {
@@ -63,12 +64,12 @@ public class SelectCriteria {
         this.buttonAmount = buttonAmount;
     }
 
-    public int getMaxPage() {
-        return maxPage;
+    public int getLastPage() {
+        return lastPage;
     }
 
-    public void setMaxPage(int maxPage) {
-        this.maxPage = maxPage;
+    public void setLastPage(int lastPage) {
+        this.lastPage = lastPage;
     }
 
     public int getStartPage() {
@@ -123,10 +124,10 @@ public class SelectCriteria {
     public String toString() {
         return "SelectCriteria{" +
                 "pageNo=" + pageNo +
-                ", totalCount=" + totalCount +
-                ", limit=" + limit +
+                ", totalBoardCount=" + totalBoardCount +
+                ", limitPerPage=" + limitPerPage +
                 ", buttonAmount=" + buttonAmount +
-                ", maxPage=" + maxPage +
+                ", lastPage=" + lastPage +
                 ", startPage=" + startPage +
                 ", endPage=" + endPage +
                 ", startRow=" + startRow +
