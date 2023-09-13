@@ -14,47 +14,145 @@
 
 <main>
     <button id="countBoutton" class="countbutton"><h2 id='result' style="display: flex; justify-content: center;"> 1 /
-        32</h2></button>
+        4</h2></button>
     <!-- 질문지 db로 --><!--th:text=""-->
-    <h3 class="whitrtext">Q1</h3>
+
 </main>
 
 <script>
-    function count() {
+    let count = 1;
+
+    function countAndScroll() {
         // 결과를 표시할 element
         const resultElement = document.getElementById('result');
 
         // 현재 화면에 표시된 값
-        let number = resultElement.innerText;
+        let number = parseInt(resultElement.innerText);
 
-        number = parseInt(number) + 1;
-        /*for(number = 1;  number< 32; number++){
-            /!* 나중에 db 저장 *!/
-        }*/
-        if (number > 5) {
+        number += 1;
 
-            window.location.href = '/psychological/last'
+        if (number > 4) {
+            window.location.href = '/psychological/last';
+            return; // 리디렉션 후 함수 종료
         }
-        // 결과 출력
-        resultElement.innerText = number + " / 32";
+
+        resultElement.innerText = number + " / 4";
+
+        // 화면을 최상단으로 스크롤
+        window.scrollTo(0, 0);
     }
+    // 다음 버튼 클릭 시 countAndScroll 함수 호출
+    document.getElementById('countButton').addEventListener('click', countAndScroll);
 </script>
 <div>
     <article>
         <!-- 점수 db저장 -->
         <div>
-            <img class="picture" src="../images/psychological/graph.png" alt="그래프">
         </div>
-        <form class="theme-checker">
-            <input type="radio" name="theme" id="one" />
-            <input type="radio" name="theme" id="two"/>
-            <input type="radio" name="theme" id="three"/>
-            <input type="radio" name="theme" id="four"/>
-            <input type="radio" name="theme" id="five"/>
+        <form action="" method="post" class="theme-checker">
+            <div>
+                <h1 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h1>
+                <input type="radio" name="a" class="one"/>
+                <input type="radio" name="a" class="two"/>
+                <input type="radio" name="a" class="three"/>
+                <input type="radio" name="a" class="four"/>
+                <input type="radio" name="a" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q2</h3>
+                <input type="radio" name="b" class="one"/>
+                <input type="radio" name="b" class="two"/>
+                <input type="radio" name="b" class="three"/>
+                <input type="radio" name="b" class="four"/>
+                <input type="radio" name="b" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q3</h3>
+                <input type="radio" name="c" class="one"/>
+                <input type="radio" name="c" class="two"/>
+                <input type="radio" name="c" class="three"/>
+                <input type="radio" name="c" class="four"/>
+                <input type="radio" name="c" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q4</h3>
+                <input type="radio" name="d" class="one"/>
+                <input type="radio" name="d" class="two"/>
+                <input type="radio" name="d" class="three"/>
+                <input type="radio" name="d" class="four"/>
+                <input type="radio" name="d" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q5</h3>
+                <input type="radio" name="e" class="one"/>
+                <input type="radio" name="e" class="two"/>
+                <input type="radio" name="e" class="three"/>
+                <input type="radio" name="e" class="four"/>
+                <input type="radio" name="e" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q6</h3>
+                <input type="radio" name="f" class="one"/>
+                <input type="radio" name="f" class="two"/>
+                <input type="radio" name="f" class="three"/>
+                <input type="radio" name="f" class="four"/>
+                <input type="radio" name="f" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q7</h3>
+                <input type="radio" name="g" class="one"/>
+                <input type="radio" name="g" class="two"/>
+                <input type="radio" name="g" class="three"/>
+                <input type="radio" name="g" class="four"/>
+                <input type="radio" name="g" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
+            <div>
+                <h3 class="whitrtext">Q8</h3>
+                <input type="radio" name="h" class="one"/>
+                <input type="radio" name="h" class="two"/>
+                <input type="radio" name="h" class="three"/>
+                <input type="radio" name="h" class="four"/>
+                <input type="radio" name="h" class="five"/>
+                <br><span>전혀그렇지않다</span> <span>매우그렇다</span>
+            </div>
         </form>
-    </article>
-    <span>전혀그렇지않다</span> <span>매우그렇다</span><br>
-    <input class="roundbutton" type="submit" value="다음" onclick="count()">
+        <input id="next" class="roundbutton" type="button" value="다음" onclick="countAndScroll()">
+    </article><br><br><br><br><br><br><br><br><br><br><br><br>
+    <script>
+            const a = document.getElementById("a").value;
+            const b = document.getElementById("b").value;
+            const c = document.getElementById("c").value;
+            const d = parseInt(document.getElementById("d").value);
+            const e = document.getElementById("e").value;
+
+            const member = {
+                a: memberCode,
+                b: firstName,
+                c: lastName,
+                d: age,
+                e: enrollDate
+            };
+            $.ajax({
+                url:"",
+                type:"post",
+                data:"",
+                success: function (data, status, xhr){
+
+                },
+                error: function (xhr, status, error){
+
+                }
+            });
+        });
+    </script>
+
 </div>
 <footer style=" position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
@@ -62,73 +160,3 @@
 </footer>
 </body>
 </html>
-
-
-<!--
-<script>
-    function loadFn() {
-        alert("데이터 요청");
-
-        $.ajax({
-            url: "ajax/db.jsp",		// 데이터를 가져올 경로 설정
-            type: "get",		// 데이터를 가져오는 방식
-            success: function(data){	// 데이터를 가져왔을때 동작. 매개변수로 data 입력
-                alert("연결성공");
-                var json = JSON.parse(data.trim());	// 가져온 데이터를 자바스크립트 객체로 변환해주는 작업이 필요
-                // trim()을 통해 불필요한 여백 제거
-                for (var i = 0; i < json.length; i++) {
-                    bidx = json[i].BIDX;
-                    subject = json[i].SUBJECT;
-                    content = json[i].CONTENT;
-                    writer = json[i].WRITER;
-                    $("tbody").append("<tr>"+		// append: 셀렉터 안에 요소를 추가
-                        "<td>"+bidx+"</td>"+
-                        "<td>"+subject+"</td>"+
-                        "<td>"+content+"</td>"+
-                        "<td>"+writer+"</td>"+
-                        "</tr>");
-                }
-            }
-        })
-    }
-</script>
--->
-
-
-<!--
-<button type="submit" id="next" onclick="location='/psychological/last'" >다음</button>
-<script>
-    $(function() {
-        let next = $('#save_bt'); // 저장할 버튼을 변수에 선언
-        next.click(function() {
-            var title = $('#title').html(); // 전송할 타이틀이 있는 요소
-            var text = $('#text').html(); // 전송할 내용이 있는 요소
-            $.ajax({
-                url: '/senddata.php', // 서버에 전달할 파일명
-                dataType: 'text',
-                type: 'post',
-                data: {
-                    'title': idVal, // 전송할 파라미터 1
-                    'text': setTitle // 전송할 파라미터 2
-                },
-                success: function() {
-                    alert('Success'); // 성공시 코드
-                }
-            });
-        });
-    });
-    $("#next").onclick(function (){
-        /!* 추후 수정 for 문으로 질문 끝날때까지 반복 *!/
-        const answer1 = document.getElementById("answer1").value;
-        $.ajax({
-            url:"",
-            success: function (data, status, xhr){
-                console.log(data);
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-    });
-</script>
--->

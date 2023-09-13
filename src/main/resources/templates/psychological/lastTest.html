@@ -15,15 +15,16 @@
     해당사항이 있으면 체크해주세요.<br><br>
     <h3>희망 상담사 성별</h3>
     <form action="/psychological/loding" method="get"><br>
-        <input type="checkbox" name="gender" value="남">남자<br>
-        <input type="checkbox" name="gender" value="여">여자<br><br>
+        <input type="radio" name="gender" value="남">남자<br>
+        <input type="radio" name="gender" value="여">여자<br>
+        <input type="radio" name="gender" value="무관">무관<br><br>
     <h3>최근고민분야</h3><br>
     <input type="checkbox" name="family" value="가족관계">가족관계
     <input type="checkbox" name="couple" value="연인관계">연인관계
     <input type="checkbox" name="colleague" value="동료관계">동료관계
     <input type="checkbox" name="alone" value="소외감">소외감
     <input type="checkbox" name="etc" value="기타">기타 <br><br>
-        <textarea placeholder="기타내용작성 50장 이내" style="border-radius: 10px; border-color: #C09A81"></textarea> <br>
+        <input placeholder="기타내용작성 50자 이내" class="textBox"/> <br>
         <input class="roundbutton" type="submit" value="제출하기"><br>
     </form>
 </div>

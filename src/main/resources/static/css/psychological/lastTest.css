@@ -4,7 +4,9 @@ body{
     background: #C09A81;
     text-align: center;
 }
-textarea {
+.textBox {
+    border-radius: 10px;
+    border-color: #C09A81;
     width: 80%;
     height: 100px;
     resize: none;
