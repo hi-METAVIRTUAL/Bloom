@@ -83,7 +83,7 @@
 <div th:style="'color: ' + ${ textColor }">
     <div id="title"><a class="titleLink" href="/">Bloom</a></div>
     <hr class="line"/>
-    <!--1 유저 2 상담사-->
+    <!--1 유저 2 상담사 3 관리자-->
     <ul id="menu" th:with="userCode='1'">
         <li><a class="titleLink" href="/introduction/introduction">소개</a></li>
         <li><a class="titleLink" href="/match/therapyList">상담사</a></li>
@@ -91,6 +91,7 @@
         <li><a class="titleLink" href="/communityboard/board">커뮤니티</a></li>
         <li th:if="${userCode == '1'}"><a class="titleLink" href="/user/profile1">마이페이지</a></li>
         <li th:if="${userCode == '2'}"><a class="titleLink" href="/therapist/profile">마이페이지</a></li>
+        <li th:if="${userCode == '3'}"><a class="titleLink" href="/admin/">관리자페이지</a></li>
         <li><a class="titleLink" href="/">로그아웃</a></li>
     </ul>
     <hr class="line"/>
