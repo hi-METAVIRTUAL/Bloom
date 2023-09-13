@@ -5,6 +5,9 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script language="javascript">
+        function showPopup() { window.open("report", "c", "width=420, height=600, left=350, top=210" ); }
+    </script>
     <style>
         .section1{
             display: flex;
@@ -253,7 +256,7 @@
             </td>
 
             <td>
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+                <button onclick="showPopup();">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
             </td>
         </tr>
         <tr>
@@ -289,7 +292,7 @@
             </td>
 
             <td>
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+                <button onclick="showPopup();">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
             </td>
         </tr>
     </table>

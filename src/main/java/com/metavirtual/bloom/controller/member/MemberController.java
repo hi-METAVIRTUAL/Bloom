@@ -22,4 +22,9 @@ public class MemberController {
     public String infoSetting(){
         return "mypage/member/infoSetting";
     }
+
+    @GetMapping("/postList")
+    public String postList(){
+        return "mypage/member/postList";
+    }
 }

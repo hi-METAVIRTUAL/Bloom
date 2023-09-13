@@ -58,6 +58,11 @@ public class AdminController {
     public String therapistProfile(){
         return "mypage/admin/therapistProfile";
     }
+
+    @GetMapping("/report")
+    public String report(){
+        return "mypage/admin/report";
+    }
 }
 
 

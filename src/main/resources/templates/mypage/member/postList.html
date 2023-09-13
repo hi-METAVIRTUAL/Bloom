@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>작성 글 댓글 목록</title>
+    <link rel="stylesheet" type="text/css" href="../css/mypage/member/memberInfo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            color: #C09A81;
+        }
+        table{
+            width: 60%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div th:include="Components/PostLoginHeader.html"></div>
+<br>
+<br>
+<div align="center">
+    <div>
+        <h2>작성한 글</h2>
+    </div>
+    <div>
+        <table class="tbl">
+            <tr>
+                <th></th> <!--체크박스 만들기(선택삭제) 글, 댓글, 후기 모두-->
+                <th>게시판</th>
+                <th>제목</th>
+                <th>작성일시</th>
+            </tr>
+            <tr>
+                <td></td> <!--체크박스-->
+                <td>커뮤니티</td>
+                <td>코딩 배워보신 분 있나요?</td>
+                <td>2023-09-13 17:54</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>고민상담</td>
+                <td>진로 문제로 고민 중입니다.</td>
+                <td>2023-09-13 17:56</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br><br>
+<div align="center">
+    <div>
+        <h2>작성한 댓글</h2>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th></th>
+                <th>글제목</th>
+                <th>미리보기</th>
+                <th>작성일시</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>오늘 있었던 일</td>
+                <td>여기가 님 일기장인가요? 이런 글은 ...</td>
+                <td>2023-09-13 18:00</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>오늘의 나를 사랑합시다</td>
+                <td>어제의 나랑 내일의 나는요? 지금 차별...</td>
+                <td>2023-09-13 18:02</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br><br>
+<div align="center">
+    <div>
+        <h2>작성한 후기</h2>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th></th>
+                <th>상담사</th>
+                <th>상담일시</th>
+                <th>평점</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>김철수</td>
+                <td>2023-09-13 18시</td>
+                <td>4점</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>김영희</td>
+                <td>2023-08-08 20시</td>
+                <td>5점</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br><br>
+<div align="center">
+    <button onclick="history.back(-1);">마이페이지로 돌아가기</button>
+</div>
+<br>
+<br>
+<footer>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+</footer>
+</body>
+</html>
