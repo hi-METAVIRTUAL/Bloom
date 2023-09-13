@@ -15,22 +15,22 @@
 </head>
 <body>
 <div class="content">
-<div th:with="loggedIn=false, reservationMade=false">
-    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
-    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
-</div>
-<h1>LOGIN</h1>
-<form action="postLoginMain.html" method="post">
-    <input type="text" placeholder="아이디를 입력해주세요" name="ID" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid; margin-bottom: 10px;"><br>
-    <input type="password" placeholder="비밀번호를 입력해주세요" name="password" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid;"><br>
-    <div style="margin-left: -400px;"><input type="checkbox" name="rememberMe" value="rememberMe"><span style="font-size: 13px;">로그인 상태 유지</span></div>
-    <button type="submit" name="login" value="login" style="width: 500px; height: 40px; margin-top: 10px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">LOGIN</span></button>
-</form>
-  <ul>
-    <li onclick="location.href='category'">회원가입</li>
-    &nbsp;&nbsp;|&nbsp;&nbsp;<li onclick="location.href='findId'">아이디 찾기</li>&nbsp;&nbsp;|&nbsp;&nbsp;<li onclick="location.href='findPassword'">비밀번호 찾기</li>
-  </ul>
+    <div th:with="loggedIn=false, reservationMade=false">
+        <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+        <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+        <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
+    </div>
+    <h1>LOGIN</h1>
+    <form action="postLoginMain.html" method="post">
+        <input type="text" placeholder="아이디를 입력해주세요" name="ID" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid; margin-bottom: 10px;"><br>
+        <input type="password" placeholder="비밀번호를 입력해주세요" name="password" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid;"><br>
+        <div style="margin-left: -400px;"><input type="checkbox" name="rememberMe" value="rememberMe"><span style="font-size: 13px;">로그인 상태 유지</span></div>
+        <button type="submit" name="login" value="login" style="width: 500px; height: 40px; margin-top: 10px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">LOGIN</span></button>
+    </form>
+    <ul>
+        <li onclick="location.href='category'">회원가입</li>
+        &nbsp;&nbsp;|&nbsp;&nbsp;<li onclick="location.href='findId'">아이디 찾기</li>&nbsp;&nbsp;|&nbsp;&nbsp;<li onclick="location.href='findPassword'">비밀번호 찾기</li>
+    </ul>
 </div>
 <th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
 <footer>
