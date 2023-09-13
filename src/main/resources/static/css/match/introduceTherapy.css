@@ -2,7 +2,6 @@ body{
     font-family: 'Noto Sans KR';
     color: #C09A81;
     background: #FFF6E2;
-    text-align: center;
     margin:0;
 }
 .grass {
@@ -14,12 +13,18 @@ body{
     margin-top: -300px;
     z-index: -1;
 }
+.profilebox h2 {
+    display: flex; /* Flexbox를 사용하여 가로로 나열 */
+    align-items: center; /* 텍스트를 세로 가운데로 정렬 */
+}
+.picture{
+    width: 80%;
+}
 
 .mainbox {
-    width: 70%;
+    width: 75%;
     margin: 10px auto;
     display: flex;
-    justify-content: space-between; /* 3칸으로 나눔 */
     align-items: stretch; /* 높이를 맞출려면 stretch 사용 */
 }
 
@@ -28,7 +33,6 @@ body{
     color: #C09A81; /* 글자 색상 */
     padding: 20px;
     text-align: center;
-    box-sizing: border-box;
 }
 
 .careerbox {

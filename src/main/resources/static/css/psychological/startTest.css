@@ -46,4 +46,62 @@ span{
     border-radius: 30px;
     border-color: white;
 }
+.btn span.glyphicon {
+    opacity: 0;
+}
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+:root {
+    --radio-color: rgb(55, 55, 55);
+}
+.container{
+    height:100vh;
+    display:grid;
+    place-items:center;
+    background-color:rgb(0,0,0,0.9)
+}
+.theme-checker {
+    display: flex;
+    gap: 3rem;
+    padding: 1rem;
+    border-top: none;
+    border-radius: 10px;
+    justify-content: center;
+}
 
+.theme-checker input[type="radio"] {
+    appearance: none;
+    width: 2rem;
+    height: 2rem;
+    outline: 2px solid var(--radio-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+    transition:all 0.5s ease-in-out
+}
+
+.theme-checker input[type="radio"]:checked {
+    background: var(--radio-color);
+    transform:rotateZ(180deg);
+    border-radius:50%;
+}
+
+.theme-checker input[type="radio"]#one {
+    --radio-color: #FFE0A3;
+}
+
+.theme-checker input[type="radio"]#two {
+    --radio-color: #FFCFA3;
+}
+
+.theme-checker input[type="radio"]#three {
+    --radio-color: #FFBBB1;
+}
+
+.theme-checker input[type="radio"]#four {
+    --radio-color: #F3A58C;
+}
+
+.theme-checker input[type="radio"]#five {
+    --radio-color: #E99B82;
+}
