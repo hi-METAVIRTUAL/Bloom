@@ -8,10 +8,11 @@
     <style>
         .section1{
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             gap: 200px;
         }
-        .infoBox1, .infoBox2 {
+
+        .infoBox1 {
             flex-direction: row;
         }
 
@@ -110,37 +111,56 @@
 
 <h2>상담사 정보</h2>
 
-<!--임시로 보여지는용-->
+<!--&lt;!&ndash;임시로 보여지는용&ndash;&gt;-->
+<!--<div class="section1">-->
+<!--    <div class="infoBox1">-->
+<!--        <h3 class="info1-1">이름</h3>-->
+<!--        <h3 class="info1-3">성별&nbsp; &nbsp; &nbsp; &nbsp;남<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;여<input type="checkbox"></h3>-->
+<!--        <h3 class="info1-3">선택한강점분야&nbsp; &nbsp; &nbsp; &nbsp;우울<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;불안<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;양극성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;강박성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;대인관계<input type="checkbox"></h3>-->
+<!--    </div>-->
+<!--    <div class="infoBox2">-->
+<!--        <h3 class="info2-1">아이디</h3>-->
+<!--        <h3 class="info2-2">이메일</h3>-->
+<!--        <h3 class="info2-3">전화번호</h3>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<!--임시로 보여지는 용-->
 <div class="section1">
     <div class="infoBox1">
-        <h3 class="info1-1">이름</h3>
-        <h3 class="info1-3">성별&nbsp; &nbsp; &nbsp; &nbsp;남<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;여<input type="checkbox"></h3>
-        <h3 class="info1-3">선택한강점분야&nbsp; &nbsp; &nbsp; &nbsp;우울<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;불안<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;양극성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;강박성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;대인관계<input type="checkbox"></h3>
+        <h3>이름&emsp;<span th:text="${ 'hello' }"></span></h3>
+        <h3>성별&emsp;<span th:text="${'hello'}"></span></h3>
+        <h3>선택 강점 분야&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>
     </div>
-    <div class="infoBox2">
-        <h3 class="info2-1">아이디</h3>
-        <h3 class="info2-2">이메일</h3>
-        <h3 class="info2-3">전화번호</h3>
+    <div class="infoBox1">
+        <h3>아이디&emsp;<span th:text="${ 'hello' }"></span></h3>
+        <h3>이메일&emsp;<span th:text="${'hello'}"></span></h3>
+        <h3>전회번야&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>
     </div>
 </div>
+<!--임시로 보여지는용-->
 
 
-<div class="infoBox1">
-    <div th:if="${user}">
-        <div th:each="${ user }">
-            이름&emsp;<div th:text="${user.name ?: 'Default Name'}"></div>
-            닉네임&emsp;<div th:text="${user.nickName ?: 'Default Name'}"></div>
-            성별&emsp;<div th:text="${user.gender ?: 'Default Name'}"></div>
+<div class="section1">
+    <div class="infoBox1">
+        <div th:if="${user}">
+            <div th:each="${ user }">
+                <h3>이름&emsp;&emsp;<span th:text="${user.name ?: 'Default Name'}"></span></h3>
+                <h3>닉네임&emsp;&emsp;<span th:text="${user.nickName ?: 'Default Name'}"></span></h3>
+                <h3>성별&emsp;&emsp;<span th:text="${user.gender ?: 'Default Name'}"></span></h3>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="infoBox2">
-    <div th:if="${user}">
-        <div th:each="${user}">
-            <div th:text="${user.id ?: 'Default Name'}"></div>
-            <div th:text="${user.email ?: 'Default Name'}"></div>
-            <div th:text="${user.phoneNumber ?: 'Default Name'}"></div>
+    <div class="infoBox1">
+        <div th:if="${user}">
+            <div th:each="${user}">
+               <h3>아이디&emsp;&emsp;<div th:text="${user.id ?: 'Default Name'}"></div></h3>
+                <h3>이메일&emsp;&emsp;<div th:text="${user.email ?: 'Default Name'}"></div></h3>
+                <h3>전회번호&emsp;&emsp;<div th:text="${user.phoneNumber ?: 'Default Name'}"></div></h3>
+            </div>
         </div>
     </div>
 </div>
@@ -158,12 +178,6 @@
     <div class="registDate"><h3>회원가입일</h3>
         <!--<div th:each="${user}">
            <div th:text="${user.registDate ?: 'Default Name'}"></div>
-       </div>-->
-    </div>
-    <div class="reportedCount"><h3>누적 신고 건수</h3>
-        <!--<div th:if="${user}">
-       <div th:each="${user}">
-           <div th:text="${user.reportedCount ?: 'Default Name'}"></div>
        </div>-->
     </div>
 </div>
@@ -210,11 +224,10 @@
                 </div>
             </td>
 
-            <td>
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            <td style="text-align: right">
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">삭제</button>&emsp;&emsp;
             </td>
         </tr>
-
     </table>
 </div>
 <!--section3-->
@@ -259,8 +272,8 @@
                 </div>
             </td>
 
-            <td>
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            <td style="text-align: right">
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">삭제</button>&emsp;&emsp;
             </td>
         </tr>
     </table>

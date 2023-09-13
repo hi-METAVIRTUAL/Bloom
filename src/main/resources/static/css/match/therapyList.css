@@ -1,7 +1,8 @@
 body{
     font-family: 'Noto Sans KR';
     color: #C09A81;
-    margin:0;
+    margin: 0;
+    padding: 0;
     text-align: center;
     background-color: #FFF6E2;
 }
