@@ -13,7 +13,7 @@ span{
     font-size: 23px;
     font-weight: bold;
     color: white;
-    margin: 7%;
+    margin: 12%;
 }
 .countbutton{
     width: 110px;
@@ -55,28 +55,30 @@ span{
 :root {
     --radio-color: rgb(55, 55, 55);
 }
-.container{
+/*.container{
     height:100vh;
     display:grid;
     place-items:center;
     background-color:rgb(0,0,0,0.9)
-}
+}*/
 .theme-checker {
     display: flex;
-    gap: 3rem;
+    /*gap: 3rem;*/
     padding: 1rem;
     border-top: none;
     border-radius: 10px;
-    justify-content: center;
+    flex-direction: column
 }
 
 .theme-checker input[type="radio"] {
     appearance: none;
-    width: 2rem;
-    height: 2rem;
-    outline: 2px solid var(--radio-color);
+    width: 5rem;
+    height: 5rem;
+    margin-right: 2%;
+    margin-left: 2%;
+    outline: 5px solid var(--radio-color);
     outline-offset: 2px;
-    border-radius: 2px;
+    border-radius: 50px;
     transition:all 0.5s ease-in-out
 }
 
@@ -86,22 +88,30 @@ span{
     border-radius:50%;
 }
 
-.theme-checker input[type="radio"]#one {
-    --radio-color: #FFE0A3;
+.theme-checker input[type="radio"].one {
+    border: 10px;
+    --radio-color: #FFE0A3 ;
 }
 
-.theme-checker input[type="radio"]#two {
+.theme-checker input[type="radio"].two {
     --radio-color: #FFCFA3;
+    width: 4rem;
+    height: 4rem;
 }
 
-.theme-checker input[type="radio"]#three {
+.theme-checker input[type="radio"].three {
     --radio-color: #FFBBB1;
+    width: 3.5rem;
+    height: 3.5rem;
 }
 
-.theme-checker input[type="radio"]#four {
+.theme-checker input[type="radio"].four {
     --radio-color: #F3A58C;
+    width: 4rem;
+    height: 4rem;
 }
 
-.theme-checker input[type="radio"]#five {
+.theme-checker input[type="radio"].five {
     --radio-color: #E99B82;
 }
+.gotop{width:200px;height:40px;line-height:40px;display:inline-block;margin-right:10px;background:blue;text-align:center;color:#fff;}
