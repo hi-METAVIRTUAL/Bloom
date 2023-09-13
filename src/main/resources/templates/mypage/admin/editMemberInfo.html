@@ -26,7 +26,7 @@
             border-radius: 5px;
             border: 2px solid #C09A81;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             gap: 350px;
             padding-left: 10px;
         }
@@ -125,21 +125,21 @@
 
 
 <div class="infoBox1">
-    <div th:if="${user}">
-        <div th:each="${ user }">
-        이름&emsp;<div th:text="${user.name ?: 'Default Name'}"></div>
-        닉네임&emsp;<div th:text="${user.nickName ?: 'Default Name'}"></div>
-        성별&emsp;<div th:text="${user.gender ?: 'Default Name'}"></div>
+    <div th:if="${member}">
+        <div th:each="${ member }">
+        이름&emsp;<div th:text="${member.name ?: 'Default Name'}"></div>
+        닉네임&emsp;<div th:text="${member.nickName ?: 'Default Name'}"></div>
+        성별&emsp;<div th:text="${member.gender ?: 'Default Name'}"></div>
         </div>
     </div>
 </div>
 
 <div class="infoBox2">
-    <div th:if="${user}">
-    <div th:each="${user}">
-        <div th:text="${user.id ?: 'Default Name'}"></div>
-        <div th:text="${user.email ?: 'Default Name'}"></div>
-        <div th:text="${user.phoneNumber ?: 'Default Name'}"></div>
+    <div th:if="${member}">
+    <div th:each="${member}">
+        <div th:text="${member.id ?: 'Default Name'}"></div>
+        <div th:text="${member.email ?: 'Default Name'}"></div>
+        <div th:text="${member.phoneNumber ?: 'Default Name'}"></div>
     </div>
     </div>
 </div>
@@ -147,16 +147,16 @@
 <!--section2-->
 <h2>기타</h2>
 
-<div class="box1">
-    <div class="lastLogin"><h3>최근접속일</h3>
-        <!--<div th:if="${user}">
-        <div th:each="${user}">
-            <div th:text="${user.lastLoginTime ?: 'Default Name'}"></div>
-        </div>-->
+<div class="box1" align="center">
+    <div class="registDate" ><h3>회원가입일</h3>
+        <!--<div th:each="${member}">
+           <div th:text="${member.registDate ?: 'Default Name'}"></div>
+       </div>-->
     </div>
-    <div class="registDate"><h3>회원가입일</h3>
-        <!--<div th:each="${user}">
-           <div th:text="${user.registDate ?: 'Default Name'}"></div>
+    <div class="reportedCount"><h3>누적 신고 건수</h3>
+        <!--<div th:if="${member}">
+       <div th:each="${member}">
+           <div th:text="${member.reportedCount ?: 'Default Name'}"></div>
        </div>-->
     </div>
 </div>
@@ -174,31 +174,31 @@
     <tr>
             <td>
             <input type="checkbox">
-            <div th:if="${ user }">
-            <div th:each="${ user }">
-                <div th:text="${ user.uploadedPostCode }"></div>
+            <div th:if="${ member }">
+            <div th:each="${ member }">
+                <div th:text="${ member.uploadedPostCode }"></div>
             </div>
             </div>
             </td>
 
             <td>
-                <div th:if="${ user }">
-                <div th:each="${ user }">
-                    <div th:text="${ user.uploadedPostTitle }"></div>
+                <div th:if="${ member }">
+                <div th:each="${ member }">
+                    <div th:text="${ member.uploadedPostTitle }"></div>
                 </div>
                 </div>
             </td>
             <td>
-                <div th:if="${ user }">
-                <div th:each="${ user }">
-                    <div th:text="${ user.nickName }"></div>
+                <div th:if="${ member }">
+                <div th:each="${ member }">
+                    <div th:text="${ member.nickName }"></div>
                 </div>
                 </div>
             </td>
             <td>
-                <div th:if="${ user }">
-                <div th:each="${ user }">
-                    <div th:text="${ user.uploadedPostDate }"></div>
+                <div th:if="${ member }">
+                <div th:each="${ member }">
+                    <div th:text="${ member.uploadedPostDate }"></div>
                 </div>
                 </div>
             </td>
@@ -223,17 +223,17 @@
         <tr>
             <td>
                 <input type="checkbox">
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostCode }"></div>
+                <div th:if="${ member }">
+                    <div th:each="${ member }">
+                        <div th:text="${ member.uploadedPostCode }"></div>
                     </div>
                 </div>
             </td>
 
             <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostTitle }"></div>
+                <div th:if="${ member }">
+                    <div th:each="${ member }">
+                        <div th:text="${ member.uploadedPostTitle }"></div>
                     </div>
                 </div>
             </td>
@@ -259,17 +259,17 @@
         <tr>
             <td>
                 <input type="checkbox">
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostCode }"></div>
+                <div th:if="${ member }">
+                    <div th:each="${ member }">
+                        <div th:text="${ member.uploadedPostCode }"></div>
                     </div>
                 </div>
             </td>
 
             <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostTitle }"></div>
+                <div th:if="${ member }">
+                    <div th:each="${ member }">
+                        <div th:text="${ member.uploadedPostTitle }"></div>
                     </div>
                 </div>
             </td>

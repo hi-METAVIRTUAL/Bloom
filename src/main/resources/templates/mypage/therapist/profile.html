@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>profile</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
@@ -130,10 +131,9 @@
 </div>
 <br><br>
 <footer>
-    <div th:with="textColor=${ textColor }">
-        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터</div>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+    <img class="greenGrass" src="/images/common/GreenGrass.png" alt="greenGrass">
 </footer>
-<img class="greenGrass" src="/images/common/GreenGrass.png" alt="greenGrass">
 </body>
 </html>
 

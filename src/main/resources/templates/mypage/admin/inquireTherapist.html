@@ -13,10 +13,10 @@
 </head>
 <body>
 <div th:include="Components/PostLoginHeader.html"></div>
-<br>
+<br><br>
 <div align="center">
     <div align="center" style="color: #C09A81; width: 400px;">
-        <a style="float: left; cursor: pointer;" onclick="location.href='inquireUser'">회원 정보 조회</a>
+        <a style="float: left; cursor: pointer;" onclick="location.href='inquireMember'">회원 정보 조회</a>
         <a style="float: right; text-decoration: underline; text-decoration-color: #C09A81; cursor: pointer;">상담사 정보 조회</a>
     </div>
     <br><br>
@@ -37,7 +37,7 @@
         </div>
     </div>
     <br>
-    <a style="color: #C09A81;">아이디 클릭 시 상담사 정보 조회 / 이름 클릭 시 상담사 정보 조회</a>
+    <a style="color: red; font-size: 19px;">아이디 클릭 시 상담사 정보 조회 / 이름 클릭 시 상담사 프로필 조회</a>
     <br>
     <div>
         <table align="center" style="border-collapse: collapse; width: 800px;">
@@ -63,8 +63,8 @@
 
             <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
                 <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 대기</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
@@ -74,8 +74,8 @@
 
             <tr style="color: #C09A81" align="center">
                 <td>1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 대기</td>
                 <td>
@@ -85,8 +85,8 @@
 
             <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
                 <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
@@ -96,8 +96,8 @@
 
             <tr style="color: #C09A81" align="center">
                 <td>1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td>
@@ -107,8 +107,8 @@
 
             <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
                 <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
@@ -118,8 +118,8 @@
 
             <tr style="color: #C09A81" align="center">
                 <td>1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td>
@@ -129,8 +129,8 @@
 
             <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
                 <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
@@ -140,8 +140,8 @@
 
             <tr style="color: #C09A81" align="center">
                 <td>1</td>
-                <td>apple</td>
-                <td>김사과</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td>
@@ -151,8 +151,8 @@
 
             <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
                 <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">10</td>
-                <td>cherry</td>
-                <td>김체리</td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
                 <td>2023/04/24</td>
                 <td>승인 완료</td>
                 <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
@@ -191,9 +191,7 @@
     </div>
 </div>
 <footer>
-    <div th:with="textColor=${ textColor }">
-        <p th:style="'color: ' + ${ textColor }" class="footerMenuBar" style="display:flex; justify-content:center;">정책&emsp;&emsp;FAQ&emsp;&emsp;상담사지원&emsp;&emsp;FAQ&emsp;&emsp;고객센터
-    </div>
+    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 </body>
 </html>
