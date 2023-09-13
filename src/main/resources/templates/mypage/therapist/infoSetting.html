@@ -37,9 +37,9 @@
             <tr>
                 <td>전화번호</td>
                 <td>
-                    * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" th:value="${phoneFront}">
-                    - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" th:value="${phoneMiddle}">
-                    - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" th:value="${phoneEnd}">
+                    * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}">
+                    - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonem" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneMiddle}">
+                    - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonel" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneEnd}">
                 </td>
             </tr>
             <tr>
