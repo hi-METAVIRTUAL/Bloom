@@ -43,6 +43,7 @@
           <tr>
             <td>아이디</td>
             <td>*<input type="text" name="id" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+            <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">중복체크</span></button></td>
           </tr>
 
           <tr>
@@ -53,9 +54,9 @@
           <tr>
             <td>전화번호</td>
             <td style="text-align: left;" colspan="2">
-              *<input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" th:value="${phoneFront}">
-              - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" th:value="${phoneMiddle}">
-              - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" th:value="${phoneEnd}">
+              *<input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}">
+              - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneMiddle}">
+              - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneEnd}">
               &nbsp;&nbsp;성별
               <label for="male">남자</label>
               <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="male" value="male">
@@ -99,7 +100,7 @@
     </form>
     <hr class="solid" style="width:700px;">
     <h3>이용약관</h3>
-    <textarea rows="10" cols="80" id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    <textarea rows="10" cols="80" readonly id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum</textarea></p>
     <button onclick="location.href='/'" type="submit" style="width:200px;" class="whiteButton">취소</button>&ensp;&ensp;<button onclick="location.href='therapistRegist2'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
