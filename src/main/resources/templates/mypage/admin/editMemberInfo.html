@@ -9,10 +9,13 @@
         .section1{
             display: flex;
             justify-content: space-evenly;
+            gap: 200px;
         }
-        .infoBox1, .infoBox2 {
+
+        .infoBox1 {
             flex-direction: row;
         }
+
 
         .info1-1, .info1-2, .info1-3 {
             margin-bottom: 10px;
@@ -26,7 +29,7 @@
             border-radius: 5px;
             border: 2px solid #C09A81;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 350px;
             padding-left: 10px;
         }
@@ -57,6 +60,7 @@
             justify-content: flex-start;
             gap: 350px;
             padding: 15px 20px;
+            text-align: left;
         }
 
         #uploadedPosts tr:nth-child(even){background-color: #ffffff;}
@@ -69,9 +73,15 @@
         }
 
         #uploadedPosts {
-            width: 100%;
+            /* width: 100%;*/
             border-collapse: collapse; /* Optional: collapse table borders */
-
+            width: auto;
+            border-radius: 5px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 350px;
+            padding: 15px 20px;
+            text-align: left;
         }
 
         #tableHeader2 {
@@ -83,6 +93,7 @@
             justify-content: flex-start;
             gap: 350px;
             padding: 15px 20px;
+            text-align: left;
         }
 
         #uploadedPosts2 tr:nth-child(even){background-color: #ffffff;}
@@ -109,54 +120,67 @@
 
 <h2>회원정보</h2>
 
-<!--임시로 보여지는용-->
+
+<!--임시로 보여지는 용-->
+
 <div class="section1">
-<div class="infoBox1">
-    <h3 class="info1-1">이름</h3>
-    <h3 class="info1-2">닉네임</h3>
-    <h3 class="info1-3">성별&nbsp; &nbsp; &nbsp; &nbsp;남<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;여<input type="checkbox"></h3>
-</div>
-    <div class="infoBox2">
-        <h3 class="info2-1">아이디</h3>
-        <h3 class="info2-2">이메일</h3>
-        <h3 class="info2-3">전화번호</h3>
+
+    <div class="infoBox1">
+        <h3>이름&emsp;<span th:text="${ 'hello' }"></span></h3>
+        <h3>닉네임&emsp;<span th:text="${'hello'}"></span></h3>
+        <h3>성별&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>
     </div>
+    <div class="infoBox1">
+        <h3>아이디&emsp;<span th:text="${ 'hello' }"></span></h3>
+        <h3>이메일&emsp;<span th:text="${'hello'}"></span></h3>
+        <h3>전회번야&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>
+    </div>
+
 </div>
+<!--임시로 보여지는용-->
 
 
-<div class="infoBox1">
-    <div th:if="${member}">
-        <div th:each="${ member }">
-        이름&emsp;<div th:text="${member.name ?: 'Default Name'}"></div>
-        닉네임&emsp;<div th:text="${member.nickName ?: 'Default Name'}"></div>
-        성별&emsp;<div th:text="${member.gender ?: 'Default Name'}"></div>
+<div class="section1">
+    <div class="infoBox1">
+        <div th:if="${user}">
+            <div th:each="${ user }">
+                <h3>이름&emsp;<span th:text="${user.name ?: 'Default Name'}"></span></h3>
+                <h3>닉네임&emsp;<span th:text="${user.nickName ?: 'Default Name'}"></span></h3>
+                <h3>성별&emsp;<span th:text="${user.gender ?: 'Default Name'}"></span></h3>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="infoBox2">
-    <div th:if="${member}">
-    <div th:each="${member}">
-        <div th:text="${member.id ?: 'Default Name'}"></div>
-        <div th:text="${member.email ?: 'Default Name'}"></div>
-        <div th:text="${member.phoneNumber ?: 'Default Name'}"></div>
-    </div>
+    <div class="infoBox1">
+        <div th:if="${user}">
+            <div th:each="${user}">
+                <h3>아이디<span th:text="${user.id ?: 'Default Name'}"></span></h3>
+                <h3>이메일<span th:text="${user.email ?: 'Default Name'}"></span></h3>
+                <h3>전화번호<span th:text="${user.phoneNumber ?: 'Default Name'}"></span></h3>
+            </div>
+        </div>
     </div>
 </div>
 
 <!--section2-->
 <h2>기타</h2>
 
-<div class="box1" align="center">
-    <div class="registDate" ><h3>회원가입일</h3>
-        <!--<div th:each="${member}">
-           <div th:text="${member.registDate ?: 'Default Name'}"></div>
+<div class="box1">
+    <div class="lastLogin"><h3>최근접속일</h3>
+        <!--<div th:if="${user}">
+        <div th:each="${user}">
+            <div th:text="${user.lastLoginTime ?: 'Default Name'}"></div>
+        </div>-->
+    </div>
+    <div class="registDate"><h3>회원가입일</h3>
+        <!--<div th:each="${user}">
+           <div th:text="${user.registDate ?: 'Default Name'}"></div>
        </div>-->
     </div>
     <div class="reportedCount"><h3>누적 신고 건수</h3>
-        <!--<div th:if="${member}">
-       <div th:each="${member}">
-           <div th:text="${member.reportedCount ?: 'Default Name'}"></div>
+        <!--<div th:if="${user}">
+       <div th:each="${user}">
+           <div th:text="${user.reportedCount ?: 'Default Name'}"></div>
        </div>-->
     </div>
 </div>
@@ -164,51 +188,50 @@
 <!--section3-->
 <h2>게시물 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
 <div id="tableHeader">
-        <div><input type="checkbox">No</div>
-        <div>제목</div>
-        <div>작성자</div>
-        <div>작성일</div>
+    <div><input type="checkbox">No</div>
+    <div>제목</div>
+    <div>작성자</div>
+    <div>작성일</div>
 </div>
 <div id="tableRow">
     <table id="uploadedPosts">
-    <tr>
+        <tr>
             <td>
-            <input type="checkbox">
-            <div th:if="${ member }">
-            <div th:each="${ member }">
-                <div th:text="${ member.uploadedPostCode }"></div>
-            </div>
-            </div>
-            </td>
-
-            <td>
-                <div th:if="${ member }">
-                <div th:each="${ member }">
-                    <div th:text="${ member.uploadedPostTitle }"></div>
-                </div>
-                </div>
-            </td>
-            <td>
-                <div th:if="${ member }">
-                <div th:each="${ member }">
-                    <div th:text="${ member.nickName }"></div>
-                </div>
-                </div>
-            </td>
-            <td>
-                <div th:if="${ member }">
-                <div th:each="${ member }">
-                    <div th:text="${ member.uploadedPostDate }"></div>
-                </div>
+                <input type="checkbox">
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
+                    </div>
                 </div>
             </td>
 
             <td>
-            <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
+                    </div>
+                </div>
             </td>
-    </tr>
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.nickName }"></div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostDate }"></div>
+                    </div>
+                </div>
+            </td>
 
-</table>
+            <td style="text-align: right">
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">삭제</button>&emsp;&emsp;
+            </td>
+        </tr>
+    </table>
 </div>
 <!--section3-->
 <h2>신고 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
@@ -223,17 +246,17 @@
         <tr>
             <td>
                 <input type="checkbox">
-                <div th:if="${ member }">
-                    <div th:each="${ member }">
-                        <div th:text="${ member.uploadedPostCode }"></div>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
                     </div>
                 </div>
             </td>
 
             <td>
-                <div th:if="${ member }">
-                    <div th:each="${ member }">
-                        <div th:text="${ member.uploadedPostTitle }"></div>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
                     </div>
                 </div>
             </td>
@@ -252,24 +275,27 @@
                 </div>
             </td>
 
-            <td>
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            <td style="text-align: right">
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">삭제</button>&emsp;&emsp;
             </td>
+
+
+
         </tr>
         <tr>
             <td>
                 <input type="checkbox">
-                <div th:if="${ member }">
-                    <div th:each="${ member }">
-                        <div th:text="${ member.uploadedPostCode }"></div>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostCode }"></div>
                     </div>
                 </div>
             </td>
 
             <td>
-                <div th:if="${ member }">
-                    <div th:each="${ member }">
-                        <div th:text="${ member.uploadedPostTitle }"></div>
+                <div th:if="${ user }">
+                    <div th:each="${ user }">
+                        <div th:text="${ user.uploadedPostTitle }"></div>
                     </div>
                 </div>
             </td>
@@ -288,11 +314,12 @@
                 </div>
             </td>
 
-            <td>
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>
+            <td style="text-align: right">
+                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">삭제</button>&emsp;&emsp;
             </td>
         </tr>
     </table>
 </div>
 </body>
 </html>
+
