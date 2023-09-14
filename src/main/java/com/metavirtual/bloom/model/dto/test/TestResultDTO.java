@@ -1,6 +1,6 @@
 package com.metavirtual.bloom.model.dto.test;
 
-public class testResultDTO {
+public class TestResultDTO {
 
     private int answerCode;
     private int testCode;
