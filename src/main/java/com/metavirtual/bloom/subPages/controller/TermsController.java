@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.controller.terms;
+package com.metavirtual.bloom.subPages.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

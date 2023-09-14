@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.authority;
+package com.metavirtual.bloom.user.dto;
 
 public class MemberAuthorityDTO {
     private String userId;

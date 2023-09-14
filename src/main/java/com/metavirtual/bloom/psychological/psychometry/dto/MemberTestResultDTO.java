@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.user;
+package com.metavirtual.bloom.psychological.psychometry.dto;
 
 public class MemberTestResultDTO {
 
