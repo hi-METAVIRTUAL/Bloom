@@ -1,7 +1,5 @@
-package com.metavirtual.bloom.common.paging;
+package com.metavirtual.bloom.board.paging;
 
-
-import com.metavirtual.bloom.model.dto.community.SelectCriteria;
 
 public class Paging {
 /*

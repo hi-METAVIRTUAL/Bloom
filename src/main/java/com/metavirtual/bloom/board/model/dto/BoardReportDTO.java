@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.community;
+package com.metavirtual.bloom.board.model.dto;
 
 public class BoardReportDTO {
     private int reportCode;  // 게시글 신고코드 - auto increment

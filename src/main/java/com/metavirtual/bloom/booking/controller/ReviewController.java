@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.controller.review;
+package com.metavirtual.bloom.booking.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
