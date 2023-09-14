@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.user.model.service;
 
 import com.metavirtual.bloom.user.model.dao.UserDAO;
@@ -50,3 +51,4 @@ public class UserServiceImpl implements UserService {
         newUser.setDetails(user);
     }
 }
+*/
