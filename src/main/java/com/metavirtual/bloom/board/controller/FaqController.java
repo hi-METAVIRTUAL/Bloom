@@ -10,6 +10,6 @@ public class FaqController {
 
     @GetMapping("/faqMain")
     public String faqMain() {
-        return "faq/faqMain";
+        return "board/faqMain";
     }
 }

@@ -5,68 +5,68 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/communityboard")
+@RequestMapping("/board")
 public class CommunityBoard {
 
-    @GetMapping("/board")
+    @GetMapping("/boardMain")
     public String community() {
-        return "communityboard/communityboard";
+        return "board/boardMain";
     }
 
     @GetMapping("/communityinsert")
     public String communityInsert() {
-        return "communityboard/communityinsert";
+        return "board/boardInsert";
     }
 
     @GetMapping("communityboardselectone")
     public String selectOne() {
-        return "communityboard/boardselectone";
+        return "board/boardSelectOne";
     }
 
     @GetMapping("/singo")
     public String singo() {
-        return "communityboard/singo";
+        return "board/singoInsert";
     }
 
     @GetMapping("/singojupsu")
     public String singojupsu() {
-        return "communityboard/singgjubsu";
+        return "board/singoResult";
     }
 
     @GetMapping("/gomin")
     public String gominSangdamSo() {
-        return "/communityboard/gominSangdamSo";
+        return "/board/gominMain";
     }
 
     @GetMapping("/gominSangdamInsert")
     public String gominInsert() {
-        return "/communityboard/gominInsert";
+        return "/board/gominInsert";
     }
 
 
     @GetMapping("/gominselectone")
     public String gominselectone() {
-        return "/communityboard/gominselectone";
+        return "/board/gominSelectOne";
     }
 
     @GetMapping("/gominwait")
     public String gominwait() {
-        return "/communityboard/gominwait";
+        return "/board/gominSelectWait";
     }
 
     @GetMapping("/center")
     public String center() {
-        return "/communityboard/center";
+        return "/board/customerCenter";
     }
 
     @GetMapping("/centerInsert")
     public String centerInsert() {
-        return "/communityboard/centerInsert";
+        return "/board/customerCenterInsert";
     }
 
     @GetMapping("/centerSelectOne")
     public String centerSelectOne() {
-        return "/communityboard/centerSelectOne";
+        return "/board/customerCenterSelectOne";
     }
 
 }

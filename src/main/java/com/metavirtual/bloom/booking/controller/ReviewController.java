@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/review")
+@RequestMapping("/booking") /* /booking */
 public class ReviewController {
 
     @GetMapping("/reviewmain")
     public String review() {
-        return "reviewboard/reviewmain";
+        return "booking/reviewmain";
     }
 
     /*
