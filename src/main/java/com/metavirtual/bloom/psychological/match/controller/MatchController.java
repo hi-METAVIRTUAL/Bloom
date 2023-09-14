@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/match")
+@RequestMapping("/psychological/match")
 public class MatchController {
     @GetMapping("/match")
     public String matchingPage(){
-        return "match/matchingPage";
+        return "psychological/match/matchingPage";
     }
     @GetMapping("/therapyRecommend")
     public String matchingResultPage(){
-        return "match/therapyRecommend";
+        return "psychological/match/therapyRecommend";
     }
     @GetMapping("/introduceTherapy")
     public String introduceTherapyPage(){
-        return "match/introduceTherapy";
+        return "psychological/match/introduceTherapy";
     }
     @GetMapping("/therapyList")
     public String AlltherapyList(){
-        return "match/therapyList";
+        return "psychological/match/therapyList";
     }
 }

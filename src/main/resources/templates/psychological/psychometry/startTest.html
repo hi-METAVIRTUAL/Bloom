@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>start</title>
-    <link rel="stylesheet" type="text/css" href="../css/psychological/startTest.css">
+    <link rel="stylesheet" type="text/css" href="/css/psychological/startTest.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
 </head>
@@ -32,7 +32,7 @@
         number += 1;
 
         if (number > 4) {
-            window.location.href = '/psychological/last';
+            window.location.href = '/psychological/psychometry/last';
             return; // 리디렉션 후 함수 종료
         }
 
@@ -51,7 +51,7 @@
         </div>
         <form action="" method="get" class="theme-checker">
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whitrtext" th:if="${ q1 ==  }">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
                 <input type="radio" name="a" class="one" value="1"/>
                 <input type="radio" name="a" class="two" value="2"/>
                 <input type="radio" name="a" class="three" value="3"/>
