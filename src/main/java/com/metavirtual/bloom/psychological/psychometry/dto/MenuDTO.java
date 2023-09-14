@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.test;
+package com.metavirtual.bloom.psychological.psychometry.dto;
 
 public class MenuDTO {
     private int menuCode;
