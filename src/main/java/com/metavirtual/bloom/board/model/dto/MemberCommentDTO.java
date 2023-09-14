@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.community;
+package com.metavirtual.bloom.board.model.dto;
 
 public class MemberCommentDTO {
     private int commentCode;
