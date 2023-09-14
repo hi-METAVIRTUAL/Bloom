@@ -16,6 +16,92 @@
             height: 100%;
             z-index: -1; /* Ensure it's behind other content */
         }
+
+        textarea{
+            width: 500px;
+            border-radius: 20px;
+            height: 100px;
+            outline: none;
+            padding: 10px;
+            font-size: 1em;
+            transition: border 0.5s;
+            -webkit-transition: border 0.5s;
+            -moz-transition: border 0.5s;
+            -o-transition: border 0.5s;
+            border: solid 3px #C09A81;
+            box-sizing:border-box;
+            margin-top: 5px;
+
+        }
+
+        #association {
+            width: 800px;
+            height: 40px;
+            outline: none;
+            padding: 10px;
+            font-size: 1em;
+            transition: border 0.5s;
+            -webkit-transition: border 0.5s;
+            -moz-transition: border 0.5s;
+            -o-transition: border 0.5s;
+            border: solid 3px #C09A81;
+            box-sizing:border-box;
+        }
+        .sectionCheckBox {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .checkBox1, .checkBox2 {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 300px;
+            border-radius: 20px;
+            height: 300px;
+            font-size: 1em;
+            border: solid 3px #C09A81;
+            background-color: #ffffff;
+            box-sizing:border-box;
+        }
+
+        .sec {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .checkTitle {
+            margin-top: 10px;
+        }
+        .checkTitle1 {
+            margin-top: -40px;
+            margin-bottom: 50px;
+        }
+
+        .sec span {
+            display: flex;
+            align-items: center;
+            margin-bottom: -10px;
+        }
+
+        .fileSection {
+            width: 800px;
+            border-radius: 20px;
+            height: 150px;
+            font-size: 1em;
+            border: solid 3px #C09A81;
+            background-color: #ffffff;
+            box-sizing:border-box;
+            margin-top: 50px;
+        }
+
+        .sectionL {
+            display: flex;
+            justify-content: center;
+        }
+
     </style>
 </head>
 <body>
@@ -26,51 +112,62 @@
 </div>
 
 <div class="background-component" th:include="Components/beigeBackgroundGreenGrass.html"></div>
-<h1 class="title">상담사 회원가입</h1>
+
+<h1 class="title">상담사 회원가입</h1><br>
+
 <form action="/regist/therapistRegistSuccess" method="get">
-    <div>Q1. 상담사님 간단한 자기소개 부탁드려요(한줄소개)</div>
-    <textarea placeholder="50자 이내 작성"></textarea>
-    <br><br>
-    <div>Q2. 내담자에게 어떤 방식으로 다가가시나요?</div>
-    <textarea placeholder="500자 이내 작성"></textarea>
-    <br><br>
-    <div>Q3. 상담사에게 있어서 중요하게 생각하는 가치관이 어떻게 되나요?</div>
-    <textarea placeholder="500자 이내 작성"></textarea>
-    <br><br>
 
-    <hr>
-
-    <h5>경력사항</h5>
-    소속기관 <textarea placeholder="20자 이내 작성"></textarea>
-    <br><br>
-    <div class="checkBox1">
-        <h3>전문 분야 선책</h3>
+        <h3>Q1. 상담사님 간단한 자기소개 부탁드려요(한줄소개)</h3>
+        <textarea placeholder="50자 이내 작성" ></textarea>
         <br><br>
-        <input type="checkbox" name="depression" value="우울">
-        <input type="checkbox" name="anxiety" value="불안">
-        <input type="checkbox" name="bipolar" value="양극성">
-        <input type="checkbox" name="ocd" value="강박성">
-        <input type="checkbox" name="relationships" value="대인관계">
-    </div>
-    <div class="checkBox2">
-        <h3>전문 분야 선책</h3>
+        <h3>Q2. 내담자에게 어떤 방식으로 다가가시나요?</h3>
+        <textarea placeholder="500자 이내 작성"></textarea>
         <br><br>
-        <input type="checkbox" name="videoChat" value="화상상담(줌)">
-        <input type="checkbox" name="texting" value="채팅상담(카카오톡)">
-        <input type="checkbox" name="inPerson" value="대면상담">
-    </div>
+        <h3>Q3. 상담사에게 있어서 중요하게 생각하는 가치관이 어떻게 되나요?</h3>
+        <textarea placeholder="500자 이내 작성"></textarea>
+        <br><br>
 
-    <h4>첨부파일</h4>
-    <form action="">
-        <input type="file" id="myFile" name="filename">
-        <input type="submit">
+    <hr style="width: 800px;">
+
+    <h3>경력사항</h3>
+
+    <h2 style="margin-top: 10px;">소속기관</h2>
+    <textarea id="association" placeholder="20자 이내 작성"></textarea>
+    <br><br>
+        <div class="sectionCheckBox">
+
+             <div class="checkBox1">
+                 <h2 class="checkTitle">전문 분야 선책</h2><br>
+                  <div class="sec">
+                      <span>우울성&nbsp;<input type="checkbox" name="depression" value="우울"></span><br>
+                      <span>불안성&nbsp;<input type="checkbox" name="anxiety" value="불안"></span><br>
+                      <span>조울성&nbsp;<input type="checkbox" name="bipolar" value="양극성"></span><br>
+                      <span>강박성&nbsp;<input type="checkbox" name="ocd" value="강박성"></span><br>
+                      <span>대인관계&nbsp;<input type="checkbox" name="relationships" value="대인관계"></span><br>
+                  </div>
+             </div>
+             <div class="checkBox1">
+                <h2 class="checkTitle1">전문 분야 선책</h2><br>
+                    <div class="sec">
+                        <span>화상상담(Zoom)&nbsp;<input type="checkbox" name="videoChat" value="화상상담(줌)"></span><br>
+                        <span>채팅상담(카카오톡)&nbsp;<input type="checkbox" name="texting" value="채팅상담(카카오톡)"></span><br>
+                        <span>대면상담&nbsp;<input type="checkbox" name="inPerson" value="대면상담"></span><br>
+                    </div>
+             </div>
+        </div>
+    <div class="sectionL">
+        <div class="fileSection">
+            <h2>첨부파일</h2>
+            <input type="file" accept="image/*" multiple onchange="loadFiles(event)">
+            <div id="previews" style="height: auto; overflow: hidden;"></div>
+        </div>
+        </div>
+        <div class="buttons" style="display: flex; justify-content: center;">
+            <button onclick="location.href='/'" type="submit" style="width:200px;" class="whiteButton">취소</button>&ensp;&ensp;<button onclick="location.href='therapistRegistSuccess'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
+        </div>
     </form>
-    <div class="buttons" style="display: flex; justify-content: center;">
-        <button onclick="location.href='/'" type="submit" style="width:200px;" class="whiteButton">취소</button>&ensp;&ensp;<button onclick="location.href='therapistRegistSuccess'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
-    </div>
-</form>
 <footer>
-    <th:block style="color:#FFF6E2" th:include="Components/Footer.html"></th:block>
+    <th:block th:include="Components/Footer.html"></th:block>
 </footer>
 </body>
 </html>
