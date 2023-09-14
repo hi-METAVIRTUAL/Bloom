@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.test;
+package com.metavirtual.bloom.model.dto.user;
 
 public class MemberTestResultDTO {
 

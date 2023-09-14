@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.test;
+package com.metavirtual.bloom.model.dto.authority;
 
 public class AuthorityDTO {
     private int authorityCode;
