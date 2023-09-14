@@ -1,6 +1,6 @@
-package com.metavirtual.bloom.model.dto.user;
+package com.metavirtual.bloom.user.dto;
 
-public class Therapist {
+public class TherapistDTO {
     private String userId;
     private String therapistQ1;
     private String therapistQ2;
