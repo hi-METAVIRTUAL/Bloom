@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/psychological/psychometry")
 public class Psychometry {
-    @GetMapping("/test")
+    @GetMapping("/first")
     public String test(){ return "psychological/psychometry/firstTest"; }
     @GetMapping("/start")
     public String strartTestPage(){ return "psychological/psychometry/startTest"; }

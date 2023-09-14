@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>first</title>
-    <link rel="stylesheet" type="text/css" href="../css/psychological/icon.css">
+
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/psychological/icon.css}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/css/psychological/firstTest.css">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/psychological/firstTest.css}">
 </head>
 <body>
 <!-- 헤더 -->
@@ -16,19 +17,19 @@
 <div style="margin-top: -30px; padding: 30px">
     <h3>검증된 심리검사로 자신을 마주해보아요</h3>
     <!-- 사진 -->
-    <img src="../images/psychological/test.jpg">
+    <img src="/images/psychological/test.jpg">
     <br>
     <!-- 원모양 배경1-->
     <section>
         <article>
-            <div class="circle" ><img class="icons" src="../images/psychological/bulb.png" alt="전구"></div><br>
+            <div class="circle" ><img class="icons" src="/images/psychological/bulb.png" alt="전구"></div><br>
             <span>검사예상 소요시간<br>
                 3분
             </span>
         </article>
         <!-- 원모양 배경2-->
         <article>
-            <div class="circle"><img class="icons" src="../images/psychological/hand.png" alt="손"></div><br>
+            <div class="circle"><img class="icons" src="/images/psychological/hand.png" alt="손"></div><br>
             <span>총 검사 문항 수 <br>
                 32문항
             </span>
@@ -36,7 +37,7 @@
     </section>
     <br>
     <!-- 검사하기 버튼 -->
-    <button class="roundbutton" onclick="location.href='/psychological/start'">검사하기</button>
+    <button class="roundbutton" onclick="location.href='/psychological/psychometry/start'">검사하기</button>
     <br><br><br>
 </div>
 <!-- 풋터 -->

@@ -20,10 +20,7 @@ public class MainController {
         return "regist/regist";
     }
 
-    @GetMapping("reservation")
-    public String reservationPage(){
-        return "reservation/reservation";
-    }
+
 
 
 

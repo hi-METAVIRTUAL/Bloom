@@ -86,7 +86,7 @@
     <!--1 유저 2 상담사 3 관리자-->
     <ul id="menu" th:with="userCode='1'">
         <li><a class="titleLink" href="/introduction/introduction">소개</a></li>
-        <li><a class="titleLink" href="/match/therapyList">상담사</a></li>
+        <li><a class="titleLink" href="/psychological/match/therapyList">상담사</a></li>
         <li><a class="titleLink" href="/review/reviewmain">후기</a></li>
         <li><a class="titleLink" href="/communityboard/board">커뮤니티</a></li>
         <li th:if="${userCode == '1'}"><a class="titleLink" href="/member/profile1">마이페이지</a></li>
