@@ -1,6 +1,6 @@
-package com.metavirtual.bloom.model.dto.user;
+package com.metavirtual.bloom.user.dto;
 
-public class Member {
+public class MemberDTO {
     private String userId;
     private String etcContent;
     private char testStatus;

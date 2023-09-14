@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.model.dto.user;
+package com.metavirtual.bloom.user.dto;
 
 public class UserInfo_DTO {
 

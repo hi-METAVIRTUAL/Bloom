@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.controller.admin;
+package com.metavirtual.bloom.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
