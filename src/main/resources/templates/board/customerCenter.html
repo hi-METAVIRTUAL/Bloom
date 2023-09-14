@@ -14,11 +14,11 @@
 </div>
 <h1 class="title">고객센터</h1>
 <div class="center-insert-box">
-    <span style="float: right"><button onclick="location.href='/communityboard/centerInsert'" class="center-insert-button"><span>고객센터문의</span></button></span>
+    <span style="float: right"><button onclick="location.href='/board/customerCenterInsert'" class="center-insert-button"><span>고객센터문의</span></button></span>
 </div>
 
 
-<div style="margin-top: -5%" th:include="boardMain/centerPaging.html"></div>
+<div th:include="board/customerCenterPaging.html"></div>
 <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </body>
 </html>

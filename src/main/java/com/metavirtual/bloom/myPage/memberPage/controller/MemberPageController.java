@@ -1,4 +1,5 @@
 package com.metavirtual.bloom.myPage.memberPage.controller;
+/*
 
 import com.metavirtual.bloom.user.dto.MemberDTO;
 import com.metavirtual.bloom.user.dto.UserInfo_DTO;
@@ -50,3 +51,4 @@ public class MemberPageController {
         return "mypage/member/postList";
     }
 }
+*/

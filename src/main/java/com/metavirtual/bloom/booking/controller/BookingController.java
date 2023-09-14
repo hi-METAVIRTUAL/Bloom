@@ -10,7 +10,7 @@ public class BookingController {
 
     @GetMapping("/reviewmain")
     public String review() {
-        return "reviewboard/reviewmain";
+        return "booking/reviewmain";
     }
 
     @GetMapping("reservation")

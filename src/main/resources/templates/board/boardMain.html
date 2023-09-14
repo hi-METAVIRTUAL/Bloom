@@ -28,15 +28,14 @@
         <button type="submit" class="insert-button" onclick="">
             <span>검색</span>
         </button>
-        <button type="submit" class="insert-button" onclick="location.href='/communityboard/communityinsert'">
+        <button type="submit" class="insert-button" onclick="location.href='/board/boardInsert'">
             <span>글등록</span>
         </button>
     </div>
 </div>
 
 
-<div th:include="boardListPagingTest/boardPagingTest.html"></div>
-<div th:include="boardMain/paging.html"></div>
+<div th:include="board/boardPagingTest.html"></div>
 <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 
 </body>
