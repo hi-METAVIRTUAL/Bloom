@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.myPage.therapistmypage.controller;
+package com.metavirtual.bloom.myPage.therapistPage.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.myPage;
+package com.metavirtual.bloom.myPage.therapistPage.dto;
 
 public class DataFileDTO {
     private int fileNumber;
