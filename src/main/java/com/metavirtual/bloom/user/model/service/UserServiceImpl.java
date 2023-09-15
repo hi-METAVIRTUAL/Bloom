@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.user.model.service;
 
 import com.metavirtual.bloom.user.model.dao.UserMapper;
@@ -52,3 +53,4 @@ public class UserServiceImpl implements UserService {
         return userImpl;
     }
 }
+*/

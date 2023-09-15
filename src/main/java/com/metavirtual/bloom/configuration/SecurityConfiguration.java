@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.configuration;
 
 import com.metavirtual.bloom.application.controller.AuthFailHandler;
@@ -66,3 +67,4 @@ public class SecurityConfiguration {
     }
 
 }
+*/

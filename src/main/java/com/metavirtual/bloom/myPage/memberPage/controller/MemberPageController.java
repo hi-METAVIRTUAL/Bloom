@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.controller;
 
 
@@ -49,3 +50,4 @@ public class MemberPageController {
         return "mypage/member/postList";
     }
 }
+*/
