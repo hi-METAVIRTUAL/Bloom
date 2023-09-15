@@ -8,8 +8,8 @@
 </head>
 <body style="text-align: center">
     <header>
-        <header class="header" th:include="Components/Header.html"></header>
-        <h1>메타님의 심리상태</h1><th:block th:include="Components/manProfile"></th:block>
+        <header class="header" th:include="components/Header.html"></header>
+        <h1>메타님의 심리상태</h1><th:block th:include="components/manProfile"></th:block>
         <br>
     </header>
 
@@ -105,7 +105,7 @@
             <button class="matchingbutton" onclick="location.href='/psychological/match/therapyRecommend'"> 매칭 결과 보러가기</button>
             <br><br><br>
                 <footer>
-                    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+                    <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
                 </footer>
             </div>
     </div>

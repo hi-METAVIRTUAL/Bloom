@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="content">
-    <div class="header" th:include="Components/Header.html"></div>
+    <div class="header" th:include="components/Header.html"></div>
 
     <h1>LOGIN</h1>
     <form th:action="@{/templates/member/login}" method="post" id="loginForm">
@@ -31,9 +31,9 @@
     </ul>
 </div>
 
-<th:block th:include="/Components/beigeBackgroundBrownGrass.html"></th:block>
+<th:block th:include="/components/beigeBackgroundBrownGrass.html"></th:block>
 <footer>
-    <th:block th:include="Components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
+    <th:block th:include="components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
 </footer>
 </body>
 </html>

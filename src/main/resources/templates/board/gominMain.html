@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/gominSangdamSo.css}">
 </head>
 <body>
-<header class="header" th:include="Components/Header.html"></header>
+<header class="header" th:include="components/Header.html"></header>
 
 <h1 class="title">고민상담</h1>
 <div>
@@ -31,7 +31,7 @@
 </div>
 
 <div th:include="board/gominSangdamPaging.html"></div>
-<th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+<th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 
 </body>
 </html>

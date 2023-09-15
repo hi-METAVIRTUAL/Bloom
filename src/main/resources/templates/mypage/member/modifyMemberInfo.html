@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<header class="header" th:include="Components/Header.html"></header>
+<header class="header" th:include="components/Header.html"></header>
 <br><br>
     <form align="center" method="post" th:action="@{/member/infoSetting}">
         <table align="center" class="info-table" style="vertical-align: central;">
@@ -88,7 +88,7 @@
     </form>
 <br><br>
 <footer>
-    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+    <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 </body>
 </html>
