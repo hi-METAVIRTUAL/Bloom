@@ -14,11 +14,8 @@
 </head>
 <body>
 <div class="content">
-    <div th:with="loggedIn=true, reservationMade=false">
-        <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-        <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=false, includeSection2=false"></div>
-        <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
-    </div>
+    <div class="header" th:include="Components/Header.html"></div>
+
     <h1>회원가입이 완료되었습니다!</h1>
     <p>맞춤 상담사 추천을 위해서는 심리 검사가 필요합니다</p>
     <div class="buttons">

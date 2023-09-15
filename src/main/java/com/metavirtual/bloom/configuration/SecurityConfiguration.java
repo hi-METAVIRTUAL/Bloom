@@ -1,8 +1,6 @@
-/*
 package com.metavirtual.bloom.configuration;
 
 import com.metavirtual.bloom.application.controller.AuthFailHandler;
-import com.metavirtual.bloom.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,17 +33,18 @@ public class SecurityConfiguration {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .mvcMatchers("/**" /*,"/member/login" ,"/member/loginfail"*/)
+                .mvcMatchers("/**", "/introduction/**", "/terms/**", "/member/category", "member/registCategory"
+                        ,"member/memberRegist"/*,"/member/login" ,"/member/loginfail"*/)
                 .permitAll() // .denyAll(), rememberMe(), hasIpAddress()
                 .antMatchers("/employee/list")
                 .hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/employee/file")
                 .hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated(); // .anonymous()
-//                .and()
-//                .csrf().disable();
+//               .and()
+//               .csrf().disable();
 
-        http.formLogin()
+        /*http.formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
                 .failureHandler(authFailHandler)
@@ -53,7 +52,7 @@ public class SecurityConfiguration {
                 .passwordParameter("password")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/app/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/**"))
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/")
@@ -62,9 +61,8 @@ public class SecurityConfiguration {
                 .maximumSessions(1)
                 .expiredUrl("/")
                 .maxSessionsPreventsLogin(true); // false: 이전 사용자의 강제 로그아웃 / true: 신규 사용자의 로그인 실패
-
+*/
         return http.build();
     }
 
 }
-*/
