@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.myPage.memberPage.dao;
+package com.metavirtual.bloom.myPage.memberPage.model.dao;
 
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
