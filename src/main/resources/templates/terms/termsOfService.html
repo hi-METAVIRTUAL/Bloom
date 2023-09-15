@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<th:block th:include="Components/PostLoginHeader.html" th:with="textColor='#C09A81'"></th:block>
+<div class="header" th:include="Components/Header.html" th:with="textColor='white'"></div>
 <h2>회사 운영 정책</h2>
 <div>
-    <a class="titleLink" href="/terms/termsOfService">이용약관</a> /
+    <a class="titleLink" href="/terms/termsOfService">이용약관</a>
     <a class="titleLink" href="/terms/policy">개인정보처리방침</a>
 </div>
 <h3>이용약관</h3>

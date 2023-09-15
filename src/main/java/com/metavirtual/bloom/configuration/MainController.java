@@ -20,6 +20,4 @@ public class MainController {
     public String review() {
         return "reviewboard/reviewmain";
     }
-
-
 }
