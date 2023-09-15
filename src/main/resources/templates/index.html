@@ -141,12 +141,10 @@
     </style>
 </head>
 <body>
-<div th:with="loggedIn=false, reservationMade=false">
-<div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-<div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
-<div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=true"></div>
-</div>
-<!--<div class="header" th:include="Components/PreLoginHeader.html"></div>
+<div th:with="includeSection1=true" class="header" th:include="Components/Header.html"></div>
+
+
+<!--<div class="header" th:include="Components/Header.html"></div>
 &lt;!&ndash;첫번쨰 섹션&ndash;&gt;
 <div class="section1">
     <img class="mainPhoto1" src="/images/mainPage/mainPhoto1.png">
@@ -157,6 +155,7 @@
         <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
     </div>
 </div>-->
+
 <!--두번쨰 섹션-->
 <div class="section2">
     <div class="section2-1">

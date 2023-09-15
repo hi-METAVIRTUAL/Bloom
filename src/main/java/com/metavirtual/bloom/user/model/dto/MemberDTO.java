@@ -10,7 +10,6 @@ public class MemberDTO {
     private String nickname;
     private int reportCount;
     private char relationCK;
-
     private List<UserRoleDTO> userInfoRoleList;		// 회원별권한리스트
     public MemberDTO() {
     }
