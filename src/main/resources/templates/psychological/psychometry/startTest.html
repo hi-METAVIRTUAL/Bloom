@@ -43,26 +43,37 @@
     }
     // 다음 버튼 클릭 시 countAndScroll 함수 호출
     document.getElementById('countButton').addEventListener('click', countAndScroll);
+    const a = 1;
+    const b = 1;
+    const c = 1;
+    const d = 1;
+    const e = 1;
 </script>
 <div>
     <article>
-        <!-- 점수 db저장 -->
+         점수 db저장
+        <!--<tr th:each="test : ${ testQ }">
+            <td th:text="${ test.testCode }"></td>
+            <td th:text="${ test.testContent }"></td>
+            <td th:text="${ test.testCategory }"></td>
+        </tr>-->
         <div>
         </div>
-        <form action="" method="get" class="theme-checker">
-            <div>
-                <h2 class="whitrtext" th:if="${ q1 ==  }">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
-                <input type="radio" name="a" class="one" value="1"/>
-                <input type="radio" name="a" class="two" value="2"/>
-                <input type="radio" name="a" class="three" value="3"/>
-                <input type="radio" name="a" class="four" value="4"/>
-                <input type="radio" name="a" class="five" value="5"/>
+        <form action="/psychological/psychometry/last" method="get" class="theme-checker">
+            <div th:each="test : ${ testQ }">
+                <!-- 서비스 or 쿼리문으로 질문 식별 -->
+                <h2 class="whiteText" th:text="${ test.testContent }" >요즘 기분이 가라앉거나 우울해서 기운이 없다.</h2>
+                <input type="radio"  name="d" class="one" value="1"/>
+                <input type="radio"  name="" class="two" value="2"/>
+                <input type="radio"  name="" class="three" value="3"/>
+                <input type="radio"  name="" class="four" value="4"/>
+                <input type="radio"  name="" class="five" value="5"/>
                 <div class="testQ">
                     <div>전혀그렇지않다</div> <div>매우그렇다</div>
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="b" class="one" value="1"/>
                 <input type="radio" name="b" class="two" value="2"/>
                 <input type="radio" name="b" class="three" value="3"/>
@@ -73,7 +84,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="c" class="one" value="1"/>
                 <input type="radio" name="c" class="two" value="2"/>
                 <input type="radio" name="c" class="three" value="3"/>
@@ -84,7 +95,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="d" class="one" value="1"/>
                 <input type="radio" name="d" class="two" value="2"/>
                 <input type="radio" name="d" class="three" value="3"/>
@@ -95,7 +106,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="a" class="one" value="1"/>
                 <input type="radio" name="a" class="two" value="2"/>
                 <input type="radio" name="a" class="three" value="3"/>
@@ -106,7 +117,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="a" class="one" value="1"/>
                 <input type="radio" name="a" class="two" value="2"/>
                 <input type="radio" name="a" class="three" value="3"/>
@@ -117,7 +128,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="a" class="one" value="1"/>
                 <input type="radio" name="a" class="two" value="2"/>
                 <input type="radio" name="a" class="three" value="3"/>
@@ -128,7 +139,7 @@
                 </div>
             </div>
             <div>
-                <h2 class="whitrtext">요즘 기분이 가라앉거나 우울해서 기운이 없다</h2>
+                <h2 class="whiteText" ></h2>
                 <input type="radio" name="a" class="one" value="1"/>
                 <input type="radio" name="a" class="two" value="2"/>
                 <input type="radio" name="a" class="three" value="3"/>

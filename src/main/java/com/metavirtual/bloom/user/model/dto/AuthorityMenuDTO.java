@@ -7,13 +7,15 @@ public class AuthorityMenuDTO {
 
     private int authorityCode;  //권한코드
     private int menuCode;       //메뉴코드
+    private MenuDTO menu;       //메뉴상세정보
 
     public AuthorityMenuDTO() {
     }
 
-    public AuthorityMenuDTO(int authorityCode, int menuCode) {
+    public AuthorityMenuDTO(int authorityCode, int menuCode, MenuDTO menu) {
         this.authorityCode = authorityCode;
         this.menuCode = menuCode;
+        this.menu = menu;
     }
 
     public int getAuthorityCode() {
@@ -32,11 +34,20 @@ public class AuthorityMenuDTO {
         this.menuCode = menuCode;
     }
 
+    public MenuDTO getMenu() {
+        return menu;
+    }
+
+    public void setMenu(MenuDTO menu) {
+        this.menu = menu;
+    }
+
     @Override
     public String toString() {
         return "AuthorityMenuDTO{" +
                 "authorityCode=" + authorityCode +
                 ", menuCode=" + menuCode +
+                ", menu=" + menu +
                 '}';
     }
 }

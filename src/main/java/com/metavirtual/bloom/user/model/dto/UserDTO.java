@@ -5,26 +5,28 @@ import java.util.List;
 public class UserDTO {
 
     private String userId;
+    private String pwd;
     private String name;
     private char gender;
     private String email;
     private String phone;
     private String registDate;
     private String unregistDate;
-    private List<UserRoleDTO> userInfoRoleList;		// 회원별권한리스트
+    private List<UserRoleDTO> userRoleList;		// 회원별권한리스트
 
     public UserDTO() {
     }
 
-    public UserDTO(String userId, String name, char gender, String email, String phone, String registDate, String unregistDate, List<UserRoleDTO> userInfoRoleList) {
+    public UserDTO(String userId, String pwd, String name, char gender, String email, String phone, String registDate, String unregistDate, List<UserRoleDTO> userRoleList) {
         this.userId = userId;
+        this.pwd = pwd;
         this.name = name;
         this.gender = gender;
         this.email = email;
         this.phone = phone;
         this.registDate = registDate;
         this.unregistDate = unregistDate;
-        this.userInfoRoleList = userInfoRoleList;
+        this.userRoleList = userRoleList;
     }
 
     public String getUserId() {
@@ -33,6 +35,14 @@ public class UserDTO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getName() {
@@ -83,23 +93,26 @@ public class UserDTO {
         this.unregistDate = unregistDate;
     }
 
-    public List<UserRoleDTO> getUserInfoRoleList() {
-        return userInfoRoleList;
+    public List<UserRoleDTO> getUserRoleList() {
+        return userRoleList;
     }
-    public List<UserRoleDTO> setUserInfoRoleList() {
-        return userInfoRoleList;
+
+    public void setUserRoleList(List<UserRoleDTO> userRoleList) {
+        this.userRoleList = userRoleList;
     }
+
     @Override
     public String toString() {
         return "UserInfo_DTO{" +
                 "userId='" + userId + '\'' +
+                ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", registDate='" + registDate + '\'' +
                 ", unregistDate='" + unregistDate + '\'' +
-                ", userInfoRoleList=" + userInfoRoleList +
+                ", userRoleList=" + userRoleList +
                 '}';
     }
 

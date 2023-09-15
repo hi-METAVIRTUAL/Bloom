@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.controller;
 
 import org.springframework.stereotype.Controller;
@@ -41,3 +42,4 @@ public class MemberPageController {
         return "mypage/member/postList";
     }
 }
+*/

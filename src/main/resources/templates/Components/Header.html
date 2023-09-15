@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
     <meta charset="UTF-8">
@@ -8,7 +10,7 @@
         body {
             text-align: center;
         }
-        ul#menu li {
+        #menu {
             display:inline;
             color: #C09A81;
         }
@@ -25,8 +27,7 @@
             margin-left: auto;
             margin-right: auto;
             border-color:#C09A81;
-            margin-top: -10px;
-            margin-bottom: -10px;
+
             color: #C09A81;
         }
 
@@ -79,14 +80,30 @@
 <div id="title"><a class="titleLink" href="/">Bloom</a></div>
 <hr class="line"/>
 
-    <ul id="menu">
-        &emsp;&emsp;<li><a href="/introduction/introduction">소개</a></li>
-        &emsp;&emsp;<li><a href="/psychological/match/therapyList">상담사</a></li>
-        &emsp;&emsp;<li><a class="titleLink" href="/review/reviewmain">후기</a></li>
-        &emsp;&emsp;<li><a class="titleLink" href="/faq/faqMain">FAQ</a></li>
-        &emsp;&emsp;<li><a href="/regist/login">로그인</a></li>
-        &emsp;&emsp;<li><a href="/regist/category">회원가입</a></li>
-    </ul>
+    <div id="menu">
+        &emsp;&emsp;<span><a href="/introduction/introduction">소개</a></span>
+        &emsp;&emsp;<span><a href="/psychological/match/therapyList">상담사</a></span>
+        &emsp;&emsp;<span><a class="titleLink" href="/review/reviewmain">후기</a></span>
+        &emsp;&emsp;<span><a class="titleLink" href="/faq/faqMain">FAQ</a></span>
+        <th:block layout:fragment="test">
+                <span th:if="${#authentication.authenticated}">
+                    <!-- Authenticated user links -->
+                    &emsp;&emsp;<span><a th:if="${userCode == '1' || userCode == '2'}" class="titleLink" href="/member/profile1">마이페이지</a></span>
+                    &emsp;&emsp;<span><a th:if="${userCode == '2'}" class="titleLink" href="/therapist/profile">마이페이지</a></span>
+                    &emsp;&emsp;<span><a th:if="${userCode == '3'}" class="titleLink" href="/admin/">관리자페이지</a></span>
+                    &emsp;&emsp;<span><a class="titleLink" href="/">로그아웃</a></span>
+                        <span th:if="${userCode == '1' && reservationStatus == 'Y'}">
+                            <span th:include="includeSection2=false"></span>
+                </span>
+
+                <div th:unless="${#authentication.authenticated}">
+                    <!-- Not authenticated user links -->
+                    <span><a onclick="location.href='/member/login'">로그인</a></span>
+                    <span><a onclick="location.href='/member/category'">회원가입</a></span>
+                    <div th:include="includeSection1=false"></div>
+                </div>
+            </th:block>
+    </div>
 
 <hr class="line"/>
     <div th:if="${includeSection1}">
@@ -98,6 +115,15 @@
                 <div class="intro1-2"><h4>당신의 마음과 정신 건강을<br>우리와 함께 케어하세요</h4></div>
                 <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
             </div>
+        </div>
+    </div>
+
+    <div th:if="${ includeSection2 }">
+        <div class="section2">
+            <h2 th:if="${user}" th:text="${user.name ?: 'DefaultName'}">님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
+
+            <img class="image" src="/images/mainPage/Ellipse.png">
+
         </div>
     </div>
 </header>
