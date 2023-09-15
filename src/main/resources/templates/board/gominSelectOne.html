@@ -8,17 +8,19 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
 </head>
 <body>
-<header class="header" th:include="components/Header.html"></header>
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="Components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="Components/preLoginHeader.html" th:with="includeSection1=false"></div>
+</div>
 
 <p class="title">고민상담</p>
 <div class="selectone-title">제목</div>
 <div class="view-id-date"><span style="float: left">작성자 : asdf****</span><span style="float: right">작성일시 : 0000-00-00 11:11:11</span></div>
 <div class="view-select-board">글 상세내용1111111111111111111111111111111111111111111111</div>
-<!--상담사답변없음-->
-<textarea class="view-datgul-board" placeholder="답변 대기중입니다. 내용을 작성해주세요"></textarea>
-<div>
-    <div class="singobutton"><button type="submit">답변달기</button><button type="text" onclick="location.href='/communityboard/gomin'" style="margin-left: 3%">목록으로</button></div>
-</div>
+<!--상담사답변-->
+<div class="view-datgul-board">답변 상세222222222222222222222222222222221</div>
+<div class="datgul-view"><span class="datgul-view-id-date" style="float: right">0000-00-00 11:11:11 ohgi상담사님의 답변</span></div>
 
 
 
@@ -41,8 +43,8 @@
         </button>
     </div>
 </div>
-<div th:include="board/gominSangdamPaging.html"></div>
-<th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+<div th:include="board/gominPaging.html"></div>
+<th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 
 </body>
 </html>
