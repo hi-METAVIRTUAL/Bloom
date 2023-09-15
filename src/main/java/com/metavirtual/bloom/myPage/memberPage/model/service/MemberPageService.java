@@ -1,10 +1,9 @@
-/*
-package com.metavirtual.bloom.myPage.memberPage.service;
+package com.metavirtual.bloom.myPage.memberPage.model.service;
 
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
+import com.metavirtual.bloom.user.model.dto.UserDTO;
 
-public class MemberPageService {
+public interface MemberPageService {
 
-//    public void modifyMemberInfo(MemberDTO member, UserDTO user);
+    public void modifyMemberInfo(MemberDTO member, UserDTO user);
 }
-*/

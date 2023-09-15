@@ -14,25 +14,33 @@
             <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
             <tr>
                 <td>이름</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" disabled >이메다</textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea th:text="${user.name}" class="fixed-textarea" readonly="readonly"></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" disabled name="memberName">이메다</textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+<!--                <td>&nbsp;&nbsp;<textarea th:value="${#authentication.getPrincipal().getName()}" class="fixed-textarea" disabled></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
             </tr>
             <tr>
                 <td>아이디</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" disabled >metamong</textarea><br>아이디는 변경 불가능합니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea th:text="${user.userId}" class="fixed-textarea" readonly="readonly"></textarea><br>아이디는 변경 불가능합니다.</td>-->
+                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" disabled name="memberId">metamong</textarea><br>아이디는 변경 불가능합니다.</td>
+<!--                <td>&nbsp;&nbsp;<textarea th:value="${#authentication.getPrincipal().getUserId()}"" class="fixed-textarea" disabled></textarea><br>아이디는 변경 불가능합니다.</td>-->
             </tr>
             <tr>
                 <td>비밀번호</td>
                 <td>
-                    * <input class="round-input" type="password" name="pass" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" required >
+                    * <input class="round-input" type="password" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" required >
                 </td>
             </tr>
             <tr>
                 <td>이메일</td>
                 <td>
-                    * <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailId" th:value="${emailId}">
-                    @ <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailDomain" th:value="${emailDomain}">
+                    * <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailId" th:value="${emailId}" required>
+                    @ <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailDomain" id="emailDomain" th:text="${selectDomain}" required>
+                    <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                        <option value="empty">선택하기</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="">직접입력</option>
+                    </select>
                 </td>
                 <td>
                     <button class="info-bt" onclick="" >본인인증하기</button>
@@ -41,7 +49,7 @@
             <tr>
                 <td>인증번호입력</td>
                 <td>
-                    * <input class="round-input" type="text" name="cernum" value="">
+                    * <input class="round-input" type="text" name="cernum" value="" required>
                 </td>
                 <td>
                     <button class="info-bt" onclick="" >인증번호확인</button>
@@ -50,7 +58,7 @@
             <tr>
                 <td>닉네임</td>
                 <td>
-                    * <input class="round-input" type="text" name="nickname" th:value="${user.nickname}" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
+                    * <input class="round-input" type="text" name="nickname" th:value="${#authentication.getPrincipal().getNickname()}" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
                 </td>
                 </td>
                 <td>
@@ -59,9 +67,9 @@
            <tr>
                <td>전화번호</td>
                <td>
-                   * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" th:value="${phoneFront}">
-                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" th:value="${phoneMiddle}">
-                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" th:value="${phoneEnd}">
+                   * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" th:value="${phoneFront}" required>
+                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" th:value="${phoneMiddle}" required>
+                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" th:value="${phoneEnd}" required>
                </td>
            </tr>
            <tr>
@@ -70,7 +78,7 @@
                    &nbsp;&nbsp;<textarea style="width: 50px; text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" disabled>여성</textarea>
                </td>
 <!--               <td align="left">-->
-<!--                   &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${user.gender}"></textarea>-->
+<!--                   &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" disabled th:value="${#authentication.getPrincipal().getGender()}"></textarea>-->
 <!--               </td>-->
            </tr>
         </table>
