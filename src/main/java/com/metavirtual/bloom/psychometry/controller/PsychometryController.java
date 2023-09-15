@@ -29,8 +29,6 @@ public class PsychometryController {
 
         model.addAttribute("testQ", testQ);
 
-        System.out.println(testQ);
-        System.out.println("여기 안옴?");
         return "psychological/psychometry/startTest";
     }
 
