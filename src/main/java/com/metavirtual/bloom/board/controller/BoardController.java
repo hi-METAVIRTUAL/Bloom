@@ -62,7 +62,7 @@ public class BoardController {
 
     @GetMapping("/communityInsert")
     public String communityInsert() {
-        return "BoardInsert";
+        return "/board/boardInsert";
     }
 
     @GetMapping("boardSelectOne")
@@ -93,27 +93,27 @@ public class BoardController {
 
     @GetMapping("/gominselectone")
     public String gominselectone() {
-        return "gominSelectOne";
+        return "/board/gominSelectOne";
     }
 
     @GetMapping("/gominwait")
     public String gominwait() {
-        return "gominWait";
+        return "/board/gominWait";
     }
 
     @GetMapping("/center")
     public String center() {
-        return "customerCenter";
+        return "/board/customerCenter";
     }
 
     @GetMapping("/centerInsert")
     public String centerInsert() {
-        return "customerInsert";
+        return "/board/customerInsert";
     }
 
     @GetMapping("/centerSelectOne")
     public String centerSelectOne() {
-        return "customerSelectOne";
+        return "/board/customerSelectOne";
     }
 
 }

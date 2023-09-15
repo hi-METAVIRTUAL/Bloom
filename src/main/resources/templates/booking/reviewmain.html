@@ -7,7 +7,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
 </head>
 <body>
-<header class="header" th:include="components/Header.html"></header>
+<div th:with="loggedIn=false, reservationMade=false">
+    <div class="header" th:if="${loggedIn && reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
+    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
+    <div class="header" th:unless="${loggedIn}" th:include="components/Header.html" th:with="includeSection1=false"></div>
+</div>
 
 <h1 class="title">후기</h1>
 

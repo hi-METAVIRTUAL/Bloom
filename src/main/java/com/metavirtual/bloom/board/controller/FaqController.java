@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/faq")
+@RequestMapping("faq")
 public class FaqController {
 
     @GetMapping("/faqMain")
     public String faqMain() {
-        return "faq/faqMain";
+        return "board/faqMain";
     }
 }
