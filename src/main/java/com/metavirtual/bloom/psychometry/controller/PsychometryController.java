@@ -32,15 +32,15 @@ public class PsychometryController {
         return "psychological/psychometry/startTest";
     }
 
-    @GetMapping("/last")
+    @GetMapping("last")
     public String lastTestPage(){
         return "psychological/psychometry/lastTest";
     }
-    @GetMapping("/loding")
+    @GetMapping("loding")
     public String matchingPage(){
         return "psychological/psychometry/lodingPage";
     }
-    @GetMapping("/result")
+    @GetMapping("result")
     public String resultTestPage(){
         return "psychological/psychometry/resultTest";
     }
