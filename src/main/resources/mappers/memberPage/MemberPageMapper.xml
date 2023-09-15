@@ -3,14 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
+
     <update id="modifyMemberInfo">
-        UPDATE USER
-        SET PWD = #{pass}
-            , NICKNAME = #{ nickname }
-            , EMAIL = #{ email }
-            , PHONE = #{ phone }
-            , ADDRESS = #{ address }
-        WHERE MEMBER_STATUS = 'Y'
-        AND MEMBER_ID = #{ memberId }
+        UPDATE USER U, MEMBER M
+        SET U.PWD = #{ memberPwd }
+            , U.EMAIL = #{ email }
+            , U.PHONE = #{ phone }
+            , M.NICKNAME = #{ nickname }
+        WHERE U.USER_ID = MEMBER.USER_ID
+            AND U.USER_ID = #{ memberId }
     </update>
+
 </mapper>

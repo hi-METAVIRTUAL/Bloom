@@ -5,8 +5,8 @@ import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public class MemberPageMapper {
+public interface MemberPageMapper {
 
-//    int modifyMemberInfo(MemberDTO member, UserDTO user);
+    int modifyMemberInfo(MemberDTO member, UserDTO user);
 
 }
