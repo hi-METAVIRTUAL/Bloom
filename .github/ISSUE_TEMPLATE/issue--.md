@@ -14,6 +14,6 @@ assignees: Gray-Grazer, wjs960, babyybiss, jiyeong08
 ## Progress
 
 > 어떤 해결책을 원하는지 기술 
--[] todo1
--[] todo2
--[] todo3
+- [ ] todo1
+- [ ] todo2
+- [ ] todo3
