@@ -1,72 +1,84 @@
 package com.metavirtual.bloom.board.controller;
 
+import com.metavirtual.bloom.board.model.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/communityboard")
-public class CommunityBoard {
+public class BoardController {
+
+    private final BoardService boardService;
+
+    @Autowired
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping("/board")
     public String community() {
-        return "communityboard/communityboard";
+        return "board/communityboard";
     }
 
-    @GetMapping("/communityinsert")
+    /*@GetMapping("/search")*/
+
+
+    @GetMapping("/communityInsert")
     public String communityInsert() {
-        return "communityboard/communityinsert";
+        return "board/communityInsert";
     }
 
-    @GetMapping("communityboardselectone")
+    @GetMapping("boardSelectOne")
     public String selectOne() {
-        return "communityboard/boardselectone";
+        return "/board/boardSelectOne";
     }
 
     @GetMapping("/singo")
     public String singo() {
-        return "communityboard/singo";
+        return "board/singo";
     }
 
-    @GetMapping("/singojupsu")
+    @GetMapping("/singoResult")
     public String singojupsu() {
-        return "communityboard/singgjubsu";
+        return "board/singoResult";
     }
 
     @GetMapping("/gomin")
     public String gominSangdamSo() {
-        return "/communityboard/gominSangdamSo";
+        return "board/gominMain";
     }
 
-    @GetMapping("/gominSangdamInsert")
+    @GetMapping("/gominInsert")
     public String gominInsert() {
-        return "/communityboard/gominInsert";
+        return "board/gominInsert";
     }
 
 
     @GetMapping("/gominselectone")
     public String gominselectone() {
-        return "/communityboard/gominselectone";
+        return "board/gominselectone";
     }
 
     @GetMapping("/gominwait")
     public String gominwait() {
-        return "/communityboard/gominwait";
+        return "board/gominwait";
     }
 
     @GetMapping("/center")
     public String center() {
-        return "/communityboard/center";
+        return "board/center";
     }
 
     @GetMapping("/centerInsert")
     public String centerInsert() {
-        return "/communityboard/centerInsert";
+        return "board/centerInsert";
     }
 
     @GetMapping("/centerSelectOne")
     public String centerSelectOne() {
-        return "/communityboard/centerSelectOne";
+        return "board/centerSelectOne";
     }
 
 }
