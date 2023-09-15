@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.psychological.match.controller;
+package com.metavirtual.bloom.match.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
