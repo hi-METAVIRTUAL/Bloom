@@ -2,7 +2,41 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- namespace 임의로 설정함 바꿔줘야 됨 -->
-<mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
+<mapper namespace="com.metavirtual.bloom.board.model.dao.BoardMapper">
 
+    <resultMap id="boardResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
+        <id property="boardCode" column="BOARD_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="deleteDate" column="DELETE_DATE"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
+        <result property="boardCategory" column="BOARD_CATEGORY"/>
+        <result property="boardContent" column="BOARD_CONTENT"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+    <select id="findAllBoard" resultMap="boardResultMap">
+        SELECT BOARD_CODE
+        ,TITLE
+        ,POSTED_DATE
+        ,VIEW_COUNT
+        ,BOARD_CATEGORY
+        ,USER_ID
+        FROM BOARD
+        ORDER BY POSTED_DATE DESC
+    </select>
+
+    <insert id="boardNewPosting" parameterType="com.metavirtual.bloom.board.model.dto.BoardDTO">
+        INSERT INTO BOARD(
+        BOARD_CODE
+        ,TITLE
+        ,POSTED_DATE
+        ,DELETE_DATE
+        ,VIEW_COUNT
+        ,BOARD_CATEGORY
+        ,BOARD_CONTENT
+        ,USER_ID
+        )
+        VALUES(0,'','','',0,'','','');
+    </insert>
 </mapper>

@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.board.paging;
+package com.metavirtual.bloom.common.paging;
 
 
 public class Paging {
