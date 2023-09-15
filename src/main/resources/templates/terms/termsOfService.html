@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="header" th:include="Components/Header.html" th:with="textColor='white'"></div>
+<div class="header" th:include="components/Header.html" th:with="textColor='white'"></div>
 <h2>회사 운영 정책</h2>
 <div>
     <a class="titleLink" href="/terms/termsOfService">이용약관</a>
@@ -312,7 +312,7 @@
         문서 출력물에 의해 직접 전달하는 경우 요청기관의 담당자 또는 직상급자에게 직접전달(수령자 인적사항 등을 반드시 기록하여 관리)</textarea>
 </div>
 <footer>
-    <th:block th:include="Components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+    <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 </body>
 </html>
