@@ -14,14 +14,6 @@ assignees: Gray-Grazer, wjs960, babyybiss, jiyeong08
 ## Progress
 
 > 어떤 해결책을 원하는지 기술 
--[ ] todo1
--[ ] todo2
--[ ] todo3
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
-
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
-
-**Additional context**
-Add any other context or screenshots about the feature request here.
+-[] todo1
+-[] todo2
+-[] todo3
