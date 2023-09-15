@@ -1,7 +1,7 @@
 /*
 package com.metavirtual.bloom.board.controller;
 
-import com.metavirtual.bloom.board.model.service.BoardService;
+//import com.metavirtual.bloom.board.model.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/communityboard")
 public class BoardController {
 
-    private final BoardService boardService;
+    /*private final BoardService boardService;
 
     @Autowired
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
-    }
+    }*/
 
     @GetMapping("/board")
     public String community() {
