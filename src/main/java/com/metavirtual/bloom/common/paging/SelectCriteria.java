@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.board.paging;
+package com.metavirtual.bloom.common.paging;
 
 public class SelectCriteria {
 
@@ -12,6 +12,6 @@ public class SelectCriteria {
     private int startRow; // 조회 해야하는 시작 행의 숫자
     private int endRow; // 조회 해야하는 마지막 행의 숫자
     /* 검색 창 */
-    private String searchCondition; // 검색조건
-    private String searchValue; // 검색 텍스트
+    private String searchInput; // 검색조건
+    private String searchContent; // 검색 텍스트
 }

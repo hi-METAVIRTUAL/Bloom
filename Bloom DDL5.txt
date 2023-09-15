@@ -1,4 +1,4 @@
-﻿/* 계정 생성 및 권한 설정 */
+﻿/* 계정 생성 및 권한 설정 (연습용계정임!!!!!!!!!!!) */
 CREATE USER 'META'@'%' IDENTIFIED BY  'META';
 
 CREATE DATABASE BLOOM;
