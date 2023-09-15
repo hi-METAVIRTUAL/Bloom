@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
@@ -19,3 +20,4 @@ public class BoardService {
         return BoardMapper.searchAllBoard();
     }
 }
+*/

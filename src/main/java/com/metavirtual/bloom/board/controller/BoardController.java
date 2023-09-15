@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.service.BoardService;
@@ -22,7 +23,9 @@ public class BoardController {
         return "board/communityboard";
     }
 
-    /*@GetMapping("/search")*/
+    */
+/*@GetMapping("/search")*//*
+
 
 
     @GetMapping("/communityInsert")
@@ -81,4 +84,4 @@ public class BoardController {
         return "board/centerSelectOne";
     }
 
-}
+}*/
