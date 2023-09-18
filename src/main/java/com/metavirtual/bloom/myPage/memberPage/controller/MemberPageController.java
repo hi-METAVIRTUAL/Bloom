@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,5 +57,19 @@ public class MemberPageController {
     @GetMapping("/postList")
     public String postList(){
         return "mypage/member/postList";
+    }
+
+    @DeleteMapping("/deleteMYPost")
+    public String deleteMyPost(){
+
+
+        return null;
+    }
+
+    @DeleteMapping("/deleteMyComment")
+    public String deletMyComment(){
+
+
+        return null;
     }
 }
