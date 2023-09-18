@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <!--<link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">-->
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <script type="text/javascript" th:src="@{/js/event.js}"></script>
     <style>
         /* Set the size and position for your background component */
         .background-component {
@@ -28,18 +29,18 @@
     <h1 class="title">회원가입</h1>
     <div class="RegisterForm">
 
-        <form th:action="@{/member/memberRegist}" method="post" align="center">
+        <form th:action="@{/user/memberRegist}" method="post" align="center">
             <div style="display: flex; justify-content: center;">
                 <table class="registTable">
                     <tr>
                         <td class="row">이름</td>
-                        <td>*<input type="text" name="name" placeholder="최대 10자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+                        <td>*<input type="text" name="name" placeholder="최대 10자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
                     </tr>
 
                     <tr>
                         <td>아이디</td>
-                        <td>*<input type="text" name="id" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
-                        <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">중복체크</span></button></td>
+                        <td>*<input type="text" name="username" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
+                        <td><button onclick="location.href=''" name="duplicationIdCheck" value="duplicationIdCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;" ><span style="font-weight: bolder;">중복체크</span></button></td>
                     </tr>
 
                     <tr>
@@ -63,30 +64,31 @@
 
                     <tr>
                         <td>닉네임</td>
-                        <td>*<input type="text" name="nickname" placeholder="최대 10자 공백 / 특수기호 불가 / 영문/한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
-                        <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">중복체크</span></button></td>
+                        <td>*<input type="text" name="nickname" placeholder="최대 10자 공백 / 특수기호 불가 / 영문/한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
+                        <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;" >중복체크</span></button></td>
                     </tr>
 
                     <tr>
                         <td>전화번호</td>
                         <td style="text-align: left;" colspan="2">
-                            *<input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}">
-                            - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonem" pattern="[0-9]*" inputmode="numeric" th:value="${phoneMiddle}">
-                            - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonel" pattern="[0-9]*" inputmode="numeric" th:value="${phoneEnd}">
+                            *<input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}" required>
+                            - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonem" pattern="[0-9]*" inputmode="numeric" th:value="${phoneMiddle}" required>
+                            - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonel" pattern="[0-9]*" inputmode="numeric" th:value="${phoneEnd}" required>
                             &nbsp;&nbsp;성별*&nbsp;&nbsp;
+
                             <label for="male">남자</label>
-                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="male" value="male">
+                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="myGender" id="male" value="male">
                             <label for="female">여자</label>
-                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="female" value="female">
+                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="myGender" id="female" value="female">
                         </td>
                     </tr>
 
                     <tr>
                         <td>이메일</td>
                         <td style="text-align: left;">
-                            *<input type="text" name="emailId" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                            *<input type="text" name="emailId" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
                             @
-                            <input type="text" name="emailDomain" id="emailDomain" th:text="${selectDomain}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                            <input type="text" name="emailDomain" id="emailDomain" th:text="${selectDomain}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
                             <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                                 <option value="empty">선택하기</option>
                                 <option value="naver.com">naver.com</option>

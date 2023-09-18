@@ -10,4 +10,5 @@ import java.util.List;
 public interface PsychometryMapper {
 
     List<TestQDTO> findContent();
+    TestQDTO getQuestionByIndex(String index);
 }

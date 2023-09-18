@@ -6,12 +6,26 @@
 
     <update id="modifyMemberInfo">
         UPDATE USER U, MEMBER M
-        SET U.PWD = #{ memberPwd }
+        SET U.PWD = #{ pwd }
             , U.EMAIL = #{ email }
             , U.PHONE = #{ phone }
             , M.NICKNAME = #{ nickname }
         WHERE U.USER_ID = MEMBER.USER_ID
-            AND U.USER_ID = #{ memberId }
+            AND U.USER_ID = #{ userId }
     </update>
+
+    <delete id="deleteMyPost" parameterType="long">
+        DELETE
+        FROM BOARD
+        WHERE USER_ID = #{ userId }
+        AND TITLE = #{ title }
+        AND POSTED_DATE = #{ postedDate }
+    </delete>
+
+    <delete id="deleteMyComment" parameterType="long">
+        DELETE
+        FROM MEMBER_COMMENT
+        WHERE 
+    </delete>
 
 </mapper>
