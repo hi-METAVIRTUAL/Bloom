@@ -2,12 +2,11 @@ package com.metavirtual.bloom.common.paging;
 
 
 public class Paging {
-/*
     public static SelectCriteria getSelectCriteria (int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount) {
-        return getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount*//*, null, null*//*);
+        return getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, null, null);
     }
 
-    public static SelectCriteria getSelectCriteria (int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount, String searchCondition, String searchValue) {
+    public static SelectCriteria getSelectCriteria (int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount, String searchSelect, String searchValue) {
 
         int lastPage;
         int startPage;
@@ -15,7 +14,7 @@ public class Paging {
         int startRow;
         int endRow;
 
-        *//* 총 페이지 숫자 산정 *//*
+         /* 총 페이지 숫자 산정 */
 
         lastPage = (int) Math.ceil((double) totalBoardCount / limitPerPage);
 
@@ -35,10 +34,9 @@ public class Paging {
         startRow = (pageNo - 1) * limitPerPage;
         endRow = startRow + limitPerPage - 1;
 
-        SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, lastPage, startPage, endPage, startRow, endRow, searchCondition, searchValue);
+        SelectCriteria selectCriteria = new SelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, lastPage, startPage, endPage, startRow, endRow, searchSelect, searchValue);
 
         return  selectCriteria;
     }
-    */
 }
 

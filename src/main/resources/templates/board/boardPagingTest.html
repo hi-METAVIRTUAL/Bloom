@@ -34,15 +34,6 @@
 
 <!--페이징 처리-->
 <div class="paging">
-    <!-- 화면에 보여질 게시글 갯수 선택 -->
-    <div>
-        <select>
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-        </select>
-    </div>
-
     <div style="display: flex;">
         <!-- 맨 앞으로 이동 -->
         <!-- th:disabled = 1 페이지일 경우 버튼 안보이게 -->
@@ -68,9 +59,6 @@
         <!-- 마지막 페이지로 이동 -->
         <button><img src="../images/board/nextlist.png"></button> <!-- th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.lastPage}} + '\''"
                 th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}" -->
-    </div>
-    <div>
-        Total: : <span class="total">0</span>
     </div>
 </div>
 </html>
