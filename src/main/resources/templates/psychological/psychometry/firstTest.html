@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>first</title>
-
     <link rel="stylesheet" type="text/css" th:href="@{ /css/psychological/icon.css}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/psychological/firstTest.css}">
@@ -36,13 +35,15 @@
     </section>
     <br>
     <!-- 검사하기 버튼 -->
-    <button class="roundbutton" onclick="location.href='start'">검사하기</button>
+    <form action="start" method="get">
+        <input type="hidden" name="category" value="D">
+        <input type="submit" class="roundbutton" id="next1" value="검사하기">
+    </form>
     <br><br><br>
 </div>
 <!-- 풋터 -->
 <footer style="position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
     <th:block th:include="components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
 </footer>
-
 </body>
 </html>

@@ -19,8 +19,9 @@ public class PsychometryService {
         this.psychometryMapper = psychometryMapper;
     }
 
-    public List<TestQDTO> findContent() {
-        return psychometryMapper.findContent();
+    public List<TestQDTO> findContent(String category) {
+        System.out.println(category);
+        return psychometryMapper.findContent(category);
     }
 
     public TestQDTO findContentByCategory(String index) {
