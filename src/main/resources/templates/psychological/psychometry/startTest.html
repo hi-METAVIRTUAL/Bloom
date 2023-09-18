@@ -10,55 +10,75 @@
 </head>
 <body>
 <header class="header" th:include="components/Header.html" th:with="textColor='#FEEFCC'"></header>
-
 <main>
     <button id="countBoutton" class="countbutton"><h2 id='result' style="display: flex; justify-content: center;"> 1 /
         4</h2></button>
 </main>
 <div>
     <article>
-        <div>
-        </div>
-        <form action="/psychological/psychometry/last" method="get" class="theme-checker">
+        <form action="" method="get" class="theme-checker">
             <div th:each="test, testIndex : ${testQ}">
                 <!-- 서비스 or 쿼리문으로 질문 식별 -->
-                <h2 class="whiteText" th:text="${ test.testContent }" >요즘 기분이 가라앉거나 우울해서 기운이 없다.</h2>
-                <input type="radio" th:name="${test.testCategory} + ${testIndex}" class="one" value="1" />
-                <input type="radio" th:name="${test.testCategory} + ${testIndex}" class="two" value="2" />
-                <input type="radio" th:name="${test.testCategory} + ${testIndex}" class="three" value="3" />
-                <input type="radio" th:name="${test.testCategory} + ${testIndex}" class="four" value="4" />
-                <input type="radio" th:name="${test.testCategory} + ${testIndex}" class="five" value="5" />
-                <div class="testQ">
-                    <div>전혀그렇지않다</div> <div>매우그렇다</div>
+
+                <h2 class="whiteText" th:text="${test.testContent}"></h2>
+                <div class="qBox">
+                    <h2></h2>
+
+                <input type="radio" name="response_${testIndex}" class="one" value="1"/>
+                <input type="radio" name="response_${testIndex}" class="two" value="2"/>
+                <input type="radio" name="response_${testIndex}" class="three" value="3"/>
+                <input type="radio" name="response_${testIndex}" class="four" value="4"/>
+                <input type="radio" name="response_${testIndex}" class="five" value="5"/>
                 </div>
+                <div class="testQ">
+                    <div>전혀그렇지않다</div><div>매우그렇다</div>
+                </div>
+
             </div>
             <div>
-                <input id="next" class="roundbutton" type="button" value="다음" onclick="testCount()">
+                <input id="next" class="roundbutton" type="button" value="다음" onclick="begin()">
             </div>
         </form>
-    </article><br><br><br><br><br><br><br><br><br><br><br><br>
+    </article>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 <footer style=" position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 <script>
-    $("#next").click(function() {
-        countAndScroll();
-        function countAndScroll() {
-            // 결과를 표시할 element
-            const resultElement = document.getElementById('result');
-            // 현재 화면에 표시된 값
-            let number = parseInt(resultElement.innerText);
-            number += 1;
-            if (number > 4) {
-                window.location.href = '/psychological/psychometry/last';
-                return; // 리디렉션 후 함수 종료
+    $("#next").click(function (){
+        $.ajax({
+            url: "start",
+            success : function (data, status,xhr){
+                console.table(data);
+
+                const $qBox = $("#qBox h2");
+                $qBox.html("");
+                <input type="radio" name="response_${testIndex}" className="one" value="1"/>
+                for (let index in data){
+                    $h2 = $("<h2>").text(data[index].testContent);
+                    $div = $("<div>");
+                    $btr1 = $("<input>").name(data[index].testCategory).value(1);
+                    $btr2 = $("<input>").name(data[index].testCategory).value(2);
+                    $btr3 = $("<input>").name(data[index].testCategory).value(3);
+                    $btr4 = $("<input>").name(data[index].testCategory).value(4);
+                    $btr5 = $("<input>").name(data[index].testCategory).value(5);
+
+                    $div.append($h2);
+                    $div.append($btr1);
+                    $div.append($btr2);
+                    $div.append($btr3);
+                    $div.append($btr4);
+                    $div.append($btr5);
+
+                    $qBox.append($div);
+                }
+            },
+            error : function (xht, status,error){
+                console.log(error);
             }
-            resultElement.innerText = number + " / 4";
-            // 화면을 최상단으로 스크롤
-            window.scrollTo(0, 0);
-        }
+        });
     });
 </script>
 </body>
