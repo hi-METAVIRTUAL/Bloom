@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.model.service;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
@@ -35,3 +36,4 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
 }
+*/

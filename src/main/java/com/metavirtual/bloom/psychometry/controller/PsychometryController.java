@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("psychological/psychometry")
+/*@Controller
+@RequestMapping("psychological/psychometry")*/
 public class PsychometryController {
 
 
