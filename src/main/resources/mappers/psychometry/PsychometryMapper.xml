@@ -17,4 +17,9 @@
         FROM TEST_Q
         WHERE TEST_CATEGORY = 'D'
     </select>
+
+    <insert id="saveResponse" parameterType="java.util.Map">
+        INSERT INTO user_responses (question_id, response)
+        VALUES (#{questionId}, #{response})
+    </insert>
 </mapper>

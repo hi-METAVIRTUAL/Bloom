@@ -30,7 +30,7 @@ public class BoardService {
     }
 
 
-    /* bboardInsert.html 게시글 등록 메서드 */
+    /* boardInsert.html 게시글 등록 메서드 */
     @Transactional
     public void boardNewPosting(BoardDTO newPosting) throws BoardPostingException {
         int result = boardMapper.boardNewPosting(newPosting);

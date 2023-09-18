@@ -18,7 +18,7 @@
     <div class="header" th:include="components/Header.html"></div>
 
     <h1>LOGIN</h1>
-    <form th:action="@{/templates/member/login}" method="post" id="loginForm">
+    <form th:action="@{user}" method="post" id="loginForm">
         <input type="text" placeholder="아이디를 입력해주세요" name="username" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid; margin-bottom: 10px;"><br>
         <input type="password" placeholder="비밀번호를 입력해주세요" name="password" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid;"><br>
         <div style="margin-left: -400px;"><input type="checkbox" name="rememberMe" value="rememberMe"><span style="font-size: 13px;">로그인 상태 유지</span></div>
