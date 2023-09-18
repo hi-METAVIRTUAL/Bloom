@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
+
+    <update id="modifyTherapistInfo">
+        UPDATE USER
+        SET PWD = #{ pwd }
+            , EMAIL = #{ email }
+            , PHONE = #{ phone }
+        WHERE USER_ID = #{ userId }
+    </update>
+
+    <update id="modifyTherapistProfile">
+        UPDATE THERAPIST
+        SET THERAPIST_Q1 = #{ therapistQ1 }
+            , THERAPIST_Q2 = #{ therapistQ2 }
+            , THERAPIST_Q3 = #{ therapistQ3 }
+            , ORGANIZATION = #{ organization }
+            , DEPRESSION_CK r= #{ depressionCK }
+            , ANXIETY_CK = #{ anxietyCK }
+            , BIPOLAR_CK = #{ bipolarCK }
+            , OCD_CK = #{ ocd_CK }
+            , RELATION_CK = #{ relationCk }
+            , SESSION_VIDCALL_CK = #{ sessionVidCallCK }
+            , SESSION_CHAT_CK = #{ sessionChatCK }
+            , SESSION_INPERSON_CK = #{ sessionInPersonCK }
+        WHERE USER_ID = #{ userId }
+    </update>
+
+    <update id="modifyActivationStatus">
+        UPDATE THERAPIST
+        SET ACTIVATION_STATUS = #{ activationStatus }
+        WHERE USER_ID = #{ userId }
+    </update>
+
+</mapper>
