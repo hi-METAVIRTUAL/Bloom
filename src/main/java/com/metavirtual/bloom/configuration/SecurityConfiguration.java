@@ -36,8 +36,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .mvcMatchers("/**", "/introduction/**", "/terms/**", "/member/category", "member/registCategory"
-                        ,"member/memberRegist"/*,"/member/login" ,"/member/loginfail"*/)
+
+                .mvcMatchers("/**", "/introduction/**", "/terms/**", "/user/category", "user/registCategory"
+                        ,"user/memberRegist","user/findId","user/findPassword","user/login"
+                        ,"user/therapistRegist","user/therapistRegist2", "psychological/match/introduceTherapy"
+                        , "psychological/match/therapyList" /*,"/member/login" ,"/member/loginfail"*/)
                 .permitAll() // .denyAll(), rememberMe(), hasIpAddress()
                 .antMatchers("/employee/list")
                 .hasAnyAuthority("USER", "ADMIN")
