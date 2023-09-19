@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
@@ -40,7 +41,9 @@ public class BoardController {
         return "/board/boardMain";
     }
 
-    /* 전체 게시글 조회 메서드 */
+    */
+/* 전체 게시글 조회 메서드 *//*
+
     @GetMapping("/searchList")
     public String searchAllList(HttpServletRequest request, @RequestParam String searchSelect, @RequestParam String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                 Model model) {
@@ -72,6 +75,7 @@ public class BoardController {
         return "board/boardPagingTest";
     }
 
+
     /* 게시글 상세 조회 */
     @GetMapping("/")
     public String boardSelectOne (HttpServletRequest request, Model model) {
@@ -88,6 +92,7 @@ public class BoardController {
     }
 
     /* 게시글 등록 메서드 */
+
     @PostMapping("/boardPosting")
     public String boardContentPosting(BoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
 
@@ -163,3 +168,4 @@ public class BoardController {
     }
 
 }
+*/

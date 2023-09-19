@@ -1,5 +1,8 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.controller;
 
+import com.metavirtual.bloom.common.exception.myPage.DeleteException;
+import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
@@ -37,7 +40,7 @@ public class MemberPageController {
     }
 
     @PostMapping("/modifyMemberInfo")
-    public String changeMemberInfo(@ModelAttribute MemberDTO member, UserDTO user, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr){
+    public String changeMemberInfo(@ModelAttribute MemberDTO member, UserDTO user, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr) throws ModifyInfoException {
         log.info("");
         log.info("");
         log.info("[MemberController] modifyMemberInfo ========");
@@ -47,7 +50,7 @@ public class MemberPageController {
         member.setNickname(member.getNickname());
         user.setPhone(user.getPhone());
 
-        log.info("[MemberController] modifyMemberInfo request Member, user : " + member + user);
+        log.info("[MemberController] modifyMemberInfo request Member, User : " + member + user);
 
         memberPageService.modifyMemberInfo(member, user);
 
@@ -59,17 +62,37 @@ public class MemberPageController {
         return "mypage/member/postList";
     }
 
-    @DeleteMapping("/deleteMYPost")
-    public String deleteMyPost(){
+    @RequestMapping("/deleteMyPost")
+    public String deleteMyPost(HttpServletRequest request) throws DeleteException {
 
-
-        return null;
+        String[]ajaxMsg = request.getParameterValues("valueArr");
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++){
+            memberPageService.deleteMyPost(Integer.parseInt(ajaxMsg[i]));
+        }
+        return "redirect:/mypage/member/postList";
     }
 
-    @DeleteMapping("/deleteMyComment")
-    public String deletMyComment(){
+    @RequestMapping("/deleteMyComment")
+    public String deleteMyComment(HttpServletRequest request) throws DeleteException{
 
+        String[]ajaxMsg = request.getParameterValues("valueArr");
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++){
+            memberPageService.deleteMyComment(Integer.parseInt(ajaxMsg[i]));
+        }
+        return "redirect:/mypage/member/postList";
+    }
 
-        return null;
+    @RequestMapping("/deleteMyReview")
+    public String deleteMyReview(HttpServletRequest request) throws DeleteException{
+
+        String[]ajaxMsg = request.getParameterValues("valueArr");
+        int size = ajaxMsg.length;
+        for(int i=0; i<size; i++){
+            memberPageService.deleteMyReview(Integer.parseInt(ajaxMsg[i]));
+        }
+        return "redirect:/mypage/member/postList";
     }
 }
+*/

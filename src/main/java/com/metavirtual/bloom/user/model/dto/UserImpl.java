@@ -1,13 +1,13 @@
 package com.metavirtual.bloom.user.model.dto;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.User;
 
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
-public class UserImpl extends User {
+public class UserImpl /*extends User*/ {
 
     private String userId;
     private String pwd;
@@ -19,9 +19,9 @@ public class UserImpl extends User {
     private String unregistDate;
     private List<UserRoleDTO> userRoleList;		// 회원별권한리스트
 
-    public UserImpl(String userId, String pwd, Collection<? extends GrantedAuthority> authorities) {
+/*    public UserImpl(String userId, String pwd, Collection<? extends GrantedAuthority> authorities) {
         super(userId, pwd, authorities);
-    }
+    }*/
 
     public void setDetails(UserDTO user){
         this.userId = user.getUserId();

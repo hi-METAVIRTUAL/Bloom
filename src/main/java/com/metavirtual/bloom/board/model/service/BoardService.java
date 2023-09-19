@@ -1,3 +1,4 @@
+/*
 
 package com.metavirtual.bloom.board.model.service;
 
@@ -30,7 +31,9 @@ public class BoardService {
         return result;
     }
 
-    /* 전체 게시글 조회 메서드 */
+    */
+/* 전체 게시글 조회 메서드 *//*
+
     public List<BoardDTO> findAllBoard(SelectCriteria selectCriteria) {
         List<BoardDTO> boardList = boardMapper.findAllBoard(selectCriteria);
 
@@ -53,7 +56,9 @@ public class BoardService {
 
 
 
-    /* boardInsert.html 게시글 등록 메서드 */
+    */
+/* boardInsert.html 게시글 등록 메서드 *//*
+
     @Transactional
     public void boardNewPosting(BoardDTO newPosting) throws BoardPostingException {
         int result = boardMapper.boardNewPosting(newPosting);
@@ -76,3 +81,4 @@ public class BoardService {
     }
 }
 
+*/
