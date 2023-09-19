@@ -9,4 +9,5 @@ spring:
     password: META
 
 mybatis:
-  mapper-locations: mappers/**/*.xml
+  mapper-locations: classpath:mappers/**/*.xml
+  type-aliases-package: com.metavirtual.bloom.user.model.dto

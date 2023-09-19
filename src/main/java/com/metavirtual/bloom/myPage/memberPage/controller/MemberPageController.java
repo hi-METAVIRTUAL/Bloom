@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.controller;
 
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
@@ -73,3 +74,4 @@ public class MemberPageController {
         return null;
     }
 }
+*/
