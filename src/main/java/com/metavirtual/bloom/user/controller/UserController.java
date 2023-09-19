@@ -1,7 +1,7 @@
 package com.metavirtual.bloom.user.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.metavirtual.bloom.common.exception.member.UserRegistException;
+import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import com.metavirtual.bloom.user.model.service.UserServiceImpl;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;

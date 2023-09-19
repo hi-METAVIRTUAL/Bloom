@@ -1,7 +1,7 @@
 
 package com.metavirtual.bloom.user.model.service;
 
-import com.metavirtual.bloom.common.exception.member.UserRegistException;
+import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
 import com.metavirtual.bloom.user.model.dao.UserMapper;
 import com.metavirtual.bloom.user.model.dto.*;
 import org.slf4j.Logger;
