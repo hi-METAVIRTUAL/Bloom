@@ -22,6 +22,23 @@ function nextButtonClick(moonjae_no, answer_val) {
     questionNumberElement.textContent = `질문 ${currentQuestionIndex + 1}`;
 }
 
+$("#topp").click(function() {
+    countAndScroll();
+    function countAndScroll() {
+        // 결과를 표시할 element
+        const resultElement = document.getElementById('result');
+        // 현재 화면에 표시된 값
+        let number = parseInt(resultElement.innerText);
+        number += 1;
+        if (number > 4) {
+            window.location.href = '/psychological/psychometry/last';
+            return; // 리디렉션 후 함수 종료
+        }
+        resultElement.innerText = number + " / 4";
+        // 화면을 최상단으로 스크롤
+        window.scrollTo(0, 0);
+    }
+});
 
 /*
 const main = document.querySelector('#main');
