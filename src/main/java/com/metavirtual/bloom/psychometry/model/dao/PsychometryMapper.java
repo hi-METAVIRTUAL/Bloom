@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface PsychometryMapper {
 
-    List<TestQDTO> findContent();
+    List<TestQDTO> findContent(String category);
     TestQDTO getQuestionByIndex(String index);
 }

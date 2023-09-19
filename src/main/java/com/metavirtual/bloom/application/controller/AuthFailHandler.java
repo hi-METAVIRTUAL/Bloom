@@ -1,3 +1,4 @@
+
 package com.metavirtual.bloom.application.controller;
 
 import org.springframework.context.annotation.Configuration;
@@ -42,3 +43,4 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
     }
 
 }
+

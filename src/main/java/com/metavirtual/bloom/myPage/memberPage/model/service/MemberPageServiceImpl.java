@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.model.service;
 
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
@@ -50,5 +51,5 @@ public class MemberPageServiceImpl implements MemberPageService{
             throw new DeleteException("❌선택 후기 삭제 실패❌");
         }
     }
-
 }
+

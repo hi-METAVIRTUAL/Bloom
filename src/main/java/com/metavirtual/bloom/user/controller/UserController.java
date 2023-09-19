@@ -4,12 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
+/*import com.metavirtual.bloom.user.model.service.UserServiceImpl;*/
 import com.metavirtual.bloom.user.model.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+/*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,15 +21,16 @@ import java.util.Date;
 
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/user")
 public class UserController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
     private final UserServiceImpl userService;
 
-    public UserController(PasswordEncoder passwordEncoder, UserServiceImpl userService) {
-        this.passwordEncoder = passwordEncoder;
+    @Autowired
+    public UserController(/*PasswordEncoder passwordEncoder,*/ UserServiceImpl userService) {
+        /*this.passwordEncoder = passwordEncoder;*/
         this.userService = userService;
     }
 
@@ -41,17 +44,19 @@ public class UserController {
         return "user/memberRegist";
     }
 
-    @PostMapping("/memberRegist")
+    @PostMapping("/memberRegist") //spring 에서 제공하는 다른 request 써
     public String registMember(@ModelAttribute UserDTO user, @ModelAttribute MemberDTO member, HttpServletRequest request) throws UserRegistException {
 
-        user.setName(request.getParameter("name"));
+
+        System.out.println(user + " " + member);
+        /*user.setName(request.getParameter("name"));
         user.setUserId(request.getParameter("username"));
         user.setPwd(passwordEncoder.encode(user.getPwd()));
         member.setNickname("nickname");
         user.setPhone(request.getParameter("phonef")+"-"+ request.getParameter("phonem")+"-"+request.getParameter("phonel"));
 
         String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        user.setRegistDate(registDate);
+        user.setRegistDate(registDate);*/
 
         /* String name = request.getParameter("name");
         String username = request.getParameter("username");
@@ -83,25 +88,47 @@ public class UserController {
         user.setPwd(passwordEncoder.encode(user.getPwd()));*/
     }
 
-    @PostMapping("/idDupCheck")
-    public ResponseEntity<String> idDupCheck(@RequestBody UserDTO userDTO) throws JsonProcessingException {
-        log.info("[MemberController] idDupCheck");
-
+    @PostMapping("/user/idDupCheck")
+    public ResponseEntity<String> idDupCheck(@RequestBody UserDTO userDTO) {
+        System.out.println("controllerTest1");
         String result = "사용 가능한 아이디 입니다.";
-        log.info("[MemberController] idDupCheck : " + userDTO.getUserId());
 
-        if("".equals(userDTO.getUserId())) {
-            log.info("[MemberController] id - No value inputed");
-            result = "아이디를 입력해주세요";
-        } else if(userService.selectUserById(userDTO.getUserId())) {
-            log.info("[MemberController] id - Already exists");
-            result = "중복돤 아이디가 존재합니다";
+        if (userDTO != null && userService.idDupCheck(userDTO.getUserId())) {
+            result = "이미 사용 중인 아이디입니다";
         }
 
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/memberRegistSuccess")
+
+    // Replace this method with your actual duplicate check logic
+    private boolean isUsernameDuplicate(String username) {
+        // Implement your logic here to check if the username is a duplicate.
+        // Return true if it's a duplicate, false if it's not.
+        // You can use a service or repository to check against your data source.
+        // For now, we assume it's not a duplicate.
+        return false;
+    }
+
+/*    @PostMapping ("/nicknameDupCheck")
+    public ResponseEntity<String> nicknameDupCheck(@RequestBody MemberDTO memberDTO) throws JsonProcessingException {
+        log.info("[UserController] nicknameDupCheck");
+
+        String result = "사용 가능한 닉네임 입니다";
+        log.info("[UserController] nicknameDupCheck : " + memberDTO.getNickname());
+
+        if("".equals(memberDTO.getNickname())) {
+            log.info("[UserController] nickname - No value inputed");
+            result = "닉네임을 입력해주세요";
+        } else if(userService.selectUserByNickname(memberDTO.getNickname())) {
+            log.info("[UserController] nickname - Already exists");
+            result = "중복돤 닉네임이 존재합니다";
+        }
+
+        return ResponseEntity.ok(result);
+    }*/
+
+    @PostMapping("/memberRegistSuccess")
     public String regularRegistSuccess() {
         return "user/memberRegistSuccess"; }
 

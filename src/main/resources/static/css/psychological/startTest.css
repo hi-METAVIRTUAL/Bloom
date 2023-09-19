@@ -39,8 +39,9 @@ main {
     width: 25%;
     height: 25%;
 }
-.whiteText{ color: white;}
-
+.whiteText {
+    color: white;
+}
 .roundbutton{
     width: 100px;
     height: 50px;
