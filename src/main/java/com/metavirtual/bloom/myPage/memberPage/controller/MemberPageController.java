@@ -1,3 +1,4 @@
+/*
 package com.metavirtual.bloom.myPage.memberPage.controller;
 
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
@@ -94,3 +95,4 @@ public class MemberPageController {
         return "redirect:/mypage/member/postList";
     }
 }
+*/
