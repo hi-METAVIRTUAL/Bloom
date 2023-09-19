@@ -43,7 +43,9 @@ public class SecurityConfiguration {
                         , "psychological/match/therapyList"
                         ,"/user/loginfail", "/user/idDupCheck"
                 )
-                .permitAll(); // .denyAll(), rememberMe(), hasIpAddress()
+                .permitAll() // .denyAll(), rememberMe(), hasIpAddress()
+                .and()
+               .csrf().disable();
                 /*.antMatchers("/employee/list")
                 .hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/employee/file")
