@@ -4,13 +4,16 @@ package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.common.exception.board.BoardPostingException;
+import com.metavirtual.bloom.common.exception.board.CommentPostingException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardService {
@@ -22,6 +25,11 @@ public class BoardService {
         this.boardMapper = boardMapper;
     }
 
+    public int selectTotalCount(Map<String, String> searchMap) {
+
+        int result = boardMapper.selectTotalCount(searchMap);
+        return result;
+    }
 
     */
 /* 전체 게시글 조회 메서드 *//*
@@ -31,6 +39,21 @@ public class BoardService {
 
         return boardList;
     }
+
+    /**/
+    @Transactional
+    public BoardDTO boardSelectOne(int boardCode) {
+        BoardDTO boardSelect = null;
+
+        int result = boardMapper.viewCount(boardCode);
+
+        if(result > 0) {
+            boardSelect = boardMapper.boardSelectOne(boardCode);
+        }
+
+        return boardSelect;
+    }
+
 
 
     */
@@ -45,6 +68,17 @@ public class BoardService {
         }
     }
 
+    public List<MemberCommentDTO> searchAllComment(int boardCode) {
+        List<MemberCommentDTO> commentList;
+        commentList = boardMapper.searchCommentList(boardCode);
+
+        return commentList;
+    }
+
+    @Transactional
+    public void commentNewPosting(MemberCommentDTO newComment) throws CommentPostingException {
+
+    }
 }
 
 */
