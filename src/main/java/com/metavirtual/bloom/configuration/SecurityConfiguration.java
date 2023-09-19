@@ -37,7 +37,7 @@ public class SecurityConfiguration {
 
         http.authorizeRequests()
 
-                .mvcMatchers("/**", "/introduction/**", "/terms/**", "/user/category", "user/registCategory"
+                .mvcMatchers("/**","/mail", "/introduction/**", "/terms/**", "/user/category", "user/registCategory"
                         ,"user/memberRegist","user/findId","user/findPassword","user/login"
                         ,"user/therapistRegist","user/therapistRegist2", "psychological/match/introduceTherapy"
                         , "psychological/match/therapyList"
@@ -45,7 +45,9 @@ public class SecurityConfiguration {
                 )
                 .permitAll() // .denyAll(), rememberMe(), hasIpAddress()
                 .and()
-               .csrf().disable();
+                .csrf().disable();
+//                .csrf().ignoringAntMatchers("/mail"); // csrf disable 설정
+
                 /*.antMatchers("/employee/list")
                 .hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/employee/file")

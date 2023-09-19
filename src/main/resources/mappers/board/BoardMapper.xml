@@ -33,7 +33,7 @@
         <association property="boardCode" column="BOARD_CODE" resultMap="boardResultMap"/>
     </resultMap>
 
-    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+<!--    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
         SELECT COUNT(*)
         FROM BOARD A
         <if test="searchSelect == 'userId'">
@@ -124,6 +124,6 @@
         UPDATE BOARD
         SET VIEW_COUNT = VIEW_COUNT + 1
         WHERE BOARD_CODE = #{ boardCode }
-    </update>
+    </update>-->
 
 </mapper>
