@@ -26,7 +26,7 @@ function nextButtonClick(moonjae_no, answer_val) {
 /*
 const main = document.querySelector('#main');
 const qna = document.querySelector('#qna');
-const result = document.querySelector('#result');
+let result = document.querySelector('#result');
 const endPoint = 12;
 const select = [0,0,0,0,0,0,0,0,0,0,0,0];
 function begin(){

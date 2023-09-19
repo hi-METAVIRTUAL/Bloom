@@ -40,25 +40,28 @@ public class SecurityConfiguration {
                 .mvcMatchers("/**", "/introduction/**", "/terms/**", "/user/category", "user/registCategory"
                         ,"user/memberRegist","user/findId","user/findPassword","user/login"
                         ,"user/therapistRegist","user/therapistRegist2", "psychological/match/introduceTherapy"
-                        , "psychological/match/therapyList" /*,"/member/login" ,"/member/loginfail"*/)
-                .permitAll() // .denyAll(), rememberMe(), hasIpAddress()
-                .antMatchers("/employee/list")
+                        , "psychological/match/therapyList"
+                        ,"/user/loginfail", "/user/idDupCheck"
+                )
+                .permitAll(); // .denyAll(), rememberMe(), hasIpAddress()
+                /*.antMatchers("/employee/list")
                 .hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/employee/file")
                 .hasAnyAuthority("ADMIN")
-                .anyRequest().authenticated(); // .anonymous()
+                .anyRequest().authenticated(); // .anonymous()*/
 //               .and()
 //               .csrf().disable();
 
-        /*http.formLogin()
-                .loginPage("/member/login")
+
+/*   http.formLogin()
+                .loginPage("/user/login")
                 .defaultSuccessUrl("/")
                 .failureHandler(authFailHandler)
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/**"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/")
@@ -66,9 +69,8 @@ public class SecurityConfiguration {
                 .sessionManagement()
                 .maximumSessions(1)
                 .expiredUrl("/")
-                .maxSessionsPreventsLogin(true); // false: 이전 사용자의 강제 로그아웃 / true: 신규 사용자의 로그인 실패
-*/
+                .maxSessionsPreventsLogin(true); // false: 이전 사용자의 강제 로그아웃 / true: 신규 사용자의 로그인 실패*/
         return http.build();
     }
-
 }
+

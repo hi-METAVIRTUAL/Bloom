@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping("psychological/psychometry")
+/*@Controller
+@RequestMapping("psychological/psychometry")*/
 public class PsychometryController {
 
 

@@ -111,8 +111,8 @@
 
                 <th:block sec:authorize="isAuthenticated() == false">
                     <!--&lt;!&ndash; Not authenticated user links &ndash;&gt;-->
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a onclick="location.href='/member/login'">로그인</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a onclick="location.href='/member/category'">회원가입</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a onclick="location.href='/user/login'">로그인</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a onclick="location.href='/user/category'">회원가입</a></span>
                     <!--&lt;!&ndash;<span th:include="includeSection1=false"></span>&ndash;&gt;-->
                 </th:block>
         </div>
