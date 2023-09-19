@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metavirtual.user.model.dao.UserMapper">
+
+    <resultMap id="userResultMap" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="name" column="NAME"/>
+        <result property="gender" column="GENDER"/>
+        <result property="pwd" column="PASSWORD"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="registDate" column="REGISTDATE"/>
+        <result property="authorityCode" column="AUTHORITY_CODE"/>
+    </resultMap>
+
+    <select id="idDupCheck" resultType="string">
+        SELECT U.USER_ID
+        FROM USER U
+        WHERE U.USER_ID = #{ userId }
+    </select>
+<select id="selectUserById" parameterType="string">
+    SELECT U.USER_ID
+            FROM USER U
+            WHERE U.USER_ID = #{ userId }
+</select>
+
+<select id="selectUserByNickname" parameterType="string">
+    SELECT U.NICKNAME
+            FROM MEMBER U
+            WHERE U.NICKNAME = #{ nickname }
+</select>
+
+<insert id="insertUser" parameterType="UserDTO">
+    INSERT INTO
+                USER U (
+                          NAME
+                        , USER_ID
+                        , GENDER
+                        , PWD
+                        , EMAIL
+                        , PHONE
+                        , REGISTDATE
+                        )
+            VALUES (
+                      #{ name }
+                    , #{ username }
+                    , #{ gender }
+                    , #{ password }
+                    , #{ email }
+                    , #{ phone }
+                    , #{ registDate }
+                    )
+</insert>
+
+    <insert id="insertMember" parameterType="MemberDTO">
+        INSERT INTO MEMBER (NICKNAME)
+        SELECT M.NICKNAME
+        FROM MEMBER M
+        INNER JOIN USER U ON M.USER_ID = U.USER_ID;
+    </insert>
+
+</mapper>

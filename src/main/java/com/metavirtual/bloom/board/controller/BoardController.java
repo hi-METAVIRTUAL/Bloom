@@ -1,4 +1,4 @@
-/*
+
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
@@ -41,8 +41,10 @@ public class BoardController {
         return "/board/boardMain";
     }
 
-    */
-/* 전체 게시글 조회 메서드 *//*
+
+
+/*전체 게시글 조회 메서드*/
+
 
     @GetMapping("/searchList")
     public String searchAllList(HttpServletRequest request, @RequestParam String searchSelect, @RequestParam String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
@@ -76,7 +78,9 @@ public class BoardController {
     }
 
 
-    /* 게시글 상세 조회 */
+
+/* 게시글 상세 조회 */
+
     @GetMapping("/")
     public String boardSelectOne (HttpServletRequest request, Model model) {
         int boardCode = Integer.valueOf(request.getParameter("boardCode"));
@@ -84,14 +88,18 @@ public class BoardController {
 
         model.addAttribute("board", boardOne);
 
-        /* 댓글 조회 */
+
+/* 댓글 조회 */
+
         List<MemberCommentDTO> commentList = boardService.searchAllComment(boardCode);
         model.addAttribute("commentList", commentList);
 
         return "board/boardSelectOne";
     }
 
-    /* 게시글 등록 메서드 */
+
+/* 게시글 등록 메서드 */
+
 
     @PostMapping("/boardPosting")
     public String boardContentPosting(BoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
@@ -101,7 +109,9 @@ public class BoardController {
         return "redirect:/board/boardMain";
     }
 
-    /* 댓글 등록 메서드 */
+
+/* 댓글 등록 메서드 */
+
     @PostMapping("/commentPosting")
     public String commentContentPosting(MemberCommentDTO newPosting, RedirectAttributes rttr) throws CommentPostingException {
 
@@ -168,4 +178,4 @@ public class BoardController {
     }
 
 }
-*/
+

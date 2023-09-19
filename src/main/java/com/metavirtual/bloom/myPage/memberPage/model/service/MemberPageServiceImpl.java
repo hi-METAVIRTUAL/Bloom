@@ -1,4 +1,3 @@
-/*
 package com.metavirtual.bloom.myPage.memberPage.model.service;
 
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
