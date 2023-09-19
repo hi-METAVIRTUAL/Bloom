@@ -10,12 +10,18 @@
         <result property="testCategory" column="TEST_CATEGORY"/>
     </resultMap>
     
-    <select id="findContent" resultMap="resultContent">
+    <select id="findContent" resultMap="resultContent" parameterType="String">
         SELECT TEST_CODE,
             TEST_CONTENT,
             TEST_CATEGORY
         FROM TEST_Q
-        WHERE TEST_CATEGORY = 'D'
+            <if test='paraName1.equals("D")'>
+                WHERE TEST_CATEGORY = 'D'
+            </if>
+            <if test='paraName1.equals("A")'>
+                WHERE TEST_CATEGORY = 'A'
+            </if>
+
     </select>
 
     <insert id="saveResponse" parameterType="java.util.Map">

@@ -1,3 +1,29 @@
+
+const questions = [
+
+]
+let currentQuestionIndex = 0;
+
+
+function nextButtonClick(moonjae_no, answer_val) {
+    // 현재 질문에 대한 답변을 answers 배열에 저장
+    answers[moonjae_no] = answer_val;
+
+    // 마지막 질문일 경우 결과 페이지로 이동
+    if (answers === questions.length) {
+        calculateResult();
+        return;
+    }
+    const nextQuestion = questions[currentQuestionIndex];
+    const questionElement = document.getElementById('question');
+    const questionNumberElement = document.getElementById('question-number');
+
+    questionElement.textContent = nextQuestion.text;
+    questionNumberElement.textContent = `질문 ${currentQuestionIndex + 1}`;
+}
+
+
+/*
 const main = document.querySelector('#main');
 const qna = document.querySelector('#qna');
 let result = document.querySelector('#result');
@@ -64,4 +90,4 @@ function addAnswer(answerText,qIdx,idx){
             goNext(++qIdx);
         },450);
     }, false);
-}
+}*/

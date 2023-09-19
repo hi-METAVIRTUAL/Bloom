@@ -14,72 +14,142 @@
     <button id="countBoutton" class="countbutton"><h2 id='result' style="display: flex; justify-content: center;"> 1 /
         4</h2></button>
 </main>
-<div>
-    <article>
-        <form action="" method="get" class="theme-checker">
-            <div th:each="test, testIndex : ${testQ}">
-                <!-- 서비스 or 쿼리문으로 질문 식별 -->
-
-                <h2 class="whiteText" th:text="${test.testContent}"></h2>
-                <div class="qBox">
-                    <h2></h2>
-
-                <input type="radio" name="response_${testIndex}" class="one" value="1"/>
-                <input type="radio" name="response_${testIndex}" class="two" value="2"/>
-                <input type="radio" name="response_${testIndex}" class="three" value="3"/>
-                <input type="radio" name="response_${testIndex}" class="four" value="4"/>
-                <input type="radio" name="response_${testIndex}" class="five" value="5"/>
+<article>
+    <form action="" method="get" class="theme-checker">
+            <div>
+                <div th:each="test, testIndex : ${testQ}">
+                        <h2 class="whiteText" th:text="${test.testContent}"></h2>
+                        <input type="radio" th:name="${test.testCategory+test.testCode}" class="one" value="1"/>
+                        <input type="radio" th:name="${test.testCategory+test.testCode}" class="two" value="2"/>
+                        <input type="radio" th:name="${test.testCategory+test.testCode}" class="three" value="3"/>
+                        <input type="radio" th:name="${test.testCategory+test.testCode}" class="four" value="4"/>
+                        <input type="radio" th:name="${test.testCategory+test.testCode}" class="five" value="5"/>
+                        <div class="testQ">
+                            <div>전혀그렇지않다</div>
+                            <div>매우그렇다</div>
+                        </div>
+                    </th:block>
                 </div>
-                <div class="testQ">
-                    <div>전혀그렇지않다</div><div>매우그렇다</div>
-                </div>
-
             </div>
             <div>
-                <input id="next" class="roundbutton" type="button" value="다음" onclick="begin()">
+                <input type="hidden" name="category" value="A">
+                <input id="next2" class="roundbutton" type="button" value="다음">
             </div>
-        </form>
-    </article>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
+            <div>
+                <input type="hidden" name="category" value="B">
+                <input th:type="hidden" id="next3" class="roundbutton" type="button" value="다음">
+            </div>
+            <div>
+                <input type="hidden" name="category" value="C">
+                <input th:type="hidden" id="next4" class="roundbutton" type="submit" value="제출하기">
+            </div>
+            <input type="hidden" th:value="${testQ}" class="test11">
+    </form>
+</article>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <footer style=" position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 <script>
-    $("#next").click(function (){
-        $.ajax({
-            url: "start",
-            success : function (data, status,xhr){
-                console.table(data);
+        // JavaScript를 사용하여 질문 데이터를 관리하고 페이지를 동적으로 로드합니다.
+        const questions = [/* 질문 데이터를 여기에 추가 */];
+        const categoryIndex = ["D","A","C","D"]
+        let index = 0;
+        index++
 
-                const $qBox = $("#qBox h2");
-                $qBox.html("");
-                <input type="radio" name="response_${testIndex}" className="one" value="1"/>
-                for (let index in data){
-                    $h2 = $("<h2>").text(data[index].testContent);
-                    $div = $("<div>");
-                    $btr1 = $("<input>").name(data[index].testCategory).value(1);
-                    $btr2 = $("<input>").name(data[index].testCategory).value(2);
-                    $btr3 = $("<input>").name(data[index].testCategory).value(3);
-                    $btr4 = $("<input>").name(data[index].testCategory).value(4);
-                    $btr5 = $("<input>").name(data[index].testCategory).value(5);
+        $("#next2").click(function (){
 
-                    $div.append($h2);
-                    $div.append($btr1);
-                    $div.append($btr2);
-                    $div.append($btr3);
-                    $div.append($btr4);
-                    $div.append($btr5);
+            const category = categoryIndex[1];
+            $.ajax({
+                url:"start",
+                data: {category: category},
+                success: function (data, status, xhr){
+                    data.forEach(function (question, i) {
+                        const questionDiv = $('<div>');
+                        questionDiv.append($('<h2>').addClass('whiteText').text(question.testContent));
+                        questionDiv.append($('<input>').attr({
+                            type: 'radio',
+                            name: question.testCategory + question.testCode,
+                            class: 'one',
+                            value: '1'
+                        }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'radio',
+                            name: question.testCategory + question.testCode,
+                            class: 'two',
+                            value: '2'
+                        }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'radio',
+                            name: question.testCategory + question.testCode,
+                            class: 'three',
+                            value: '3'
+                        }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'radio',
+                            name: question.testCategory + question.testCode,
+                            class: 'four',
+                            value: '4'
+                        }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'radio',
+                            name: question.testCategory + question.testCode,
+                            class: 'five',
+                            value: '5'
+                        }));
+                        questionDiv.append($('<div>').addClass('testQ').append('전혀그렇지않다', '매우그렇다'));
+                        questionContainer.append(questionDiv);
+                    });
 
-                    $qBox.append($div);
+                    // 질문 번호 표시를 업데이트합니다.
+                    $('#result').text((index + 1) + ' / ' + data.length);
+
+                },
+                error: function (xhr, status, error){
+
                 }
-            },
-            error : function (xht, status,error){
-                console.log(error);
-            }
+            });
         });
-    });
+        $("#next3").click(function (){
+
+            console.log("1")
+            const category = categoryIndex[0];
+            $.ajax({
+                url:"start",
+                data: {
+                    category: category
+                },
+                success: function (data, status, xhr){
+                    nextPage();
+                    function nextPage(data){
+
+                        const category = data;
+
+                        // let a = [[${testQ}]];
+                        // $('#q2').append([[${testQ}]]);
+                        console.log(category);
+
+                    }
+
+                },
+                error: function (xhr, status, error){
+
+                }
+            });
+        });
+        /*$("#next2").click(function () {
+            index = 0; // 카테고리 A 질문 시작
+            loadQuestion(categoryIndex[index]);
+        });
+        $("#next3").click(function () {
+            index = 1; // 카테고리 B 질문 시작
+            loadQuestion(categoryIndex[index]);
+        });
+
+        $("#submit").click(function () {
+            // 폼 제출 로직 추가
+        });*/
 </script>
 </body>
 </html>
