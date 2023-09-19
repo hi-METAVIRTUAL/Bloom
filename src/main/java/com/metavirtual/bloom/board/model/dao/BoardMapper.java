@@ -12,6 +12,7 @@ import java.util.Map;
 public interface BoardMapper {
 
     int selectTotalCount(Map<String, String> searchMap);
+
     List<BoardDTO> findAllBoard(SelectCriteria selectCriteria);
 
     BoardDTO boardSelectOne(int boardCode);
@@ -21,6 +22,8 @@ public interface BoardMapper {
     int viewCount(int boardCode);
 
     List<MemberCommentDTO> searchCommentList(int boardCode);
+
+    int commentPosting(MemberCommentDTO newComment);
 }
 
 

@@ -13,10 +13,8 @@ import com.metavirtual.bloom.common.paging.SelectCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/communityboard")
+@RequestMapping("/board")
 public class BoardController {
 
     private final BoardService boardService;
@@ -36,26 +34,22 @@ public class BoardController {
     }
 
 
-    @GetMapping("/board")
-    public String community() {
-        return "/board/boardMain";
-    }
-
-
-
-/*전체 게시글 조회 메서드*/
-
-
-    @GetMapping("/searchList")
-    public String searchAllList(HttpServletRequest request, @RequestParam String searchSelect, @RequestParam String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-                                Model model) {
+    /*전체 게시글 조회 메서드*/
+    @GetMapping(value = "/searchList")
+    public ModelAndView searchAllList(HttpServletRequest request, @RequestParam(required = false) String searchSelect,
+                                         @RequestParam(required = false) String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
+                                         ModelAndView mv) {
 
 
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchSelect", searchSelect);
         searchMap.put("searchValue", searchValue);
 
+        System.out.println("검색조건 : " + searchMap);
+
         int totalBoardCount = boardService.selectTotalCount(searchMap);
+
+        System.out.println("총 게시물 수 : " + totalBoardCount);
 
         int limitPerPage = 10;
 
@@ -71,65 +65,76 @@ public class BoardController {
 
         List<BoardDTO> boardList = boardService.findAllBoard(selectCriteria);
 
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("selectCriteria", selectCriteria);
+        mv.addObject("boardList", boardList);
+        mv.addObject("selectCriteria", selectCriteria);
 
-        return "board/boardPagingTest";
+        System.out.println("조회리스트에 따른 페이징 처리는? : " + selectCriteria);
+        mv.setViewName("board/boardPagingTest");
+
+        return mv;
     }
 
+    /* 게시글 상세 조회 */
 
-
-/* 게시글 상세 조회 */
-
-    @GetMapping("/")
+    @GetMapping("/boardSelectOne")
     public String boardSelectOne (HttpServletRequest request, Model model) {
+
         int boardCode = Integer.valueOf(request.getParameter("boardCode"));
-        BoardDTO boardOne = boardService.boardSelectOne(boardCode);
+        BoardDTO selectOne = boardService.boardSelectOne(boardCode);
+        System.out.println("디테일 가져오는지? : " + selectOne);
 
-        model.addAttribute("board", boardOne);
+        model.addAttribute("board", selectOne);
 
-
-/* 댓글 조회 */
+    /* 댓글 조회 */
+/*
 
         List<MemberCommentDTO> commentList = boardService.searchAllComment(boardCode);
         model.addAttribute("commentList", commentList);
 
+*/
+
         return "board/boardSelectOne";
     }
 
+    /* 게시글 등록 화면*/
+    @GetMapping("/boardPosting")
+    public String boardInsert() {
+        return "board/boardInsert";
+    }
 
-/* 게시글 등록 메서드 */
-
-
+    /* 게시글 등록 메서드 */
     @PostMapping("/boardPosting")
-    public String boardContentPosting(BoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
+    public String boardContentPosting(@ModelAttribute BoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
 
         boardService.boardNewPosting(newPosting);
         rttr.addFlashAttribute("successMessage", "게시글 등록에 성공하였습니다");
-        return "redirect:/board/boardMain";
+        return "redirect:/board/boardPagingTest";
     }
 
 
-/* 댓글 등록 메서드 */
-
+    /* 댓글 등록 메서드 */
     @PostMapping("/commentPosting")
-    public String commentContentPosting(MemberCommentDTO newPosting, RedirectAttributes rttr) throws CommentPostingException {
+    public List<MemberCommentDTO> commentNewPosting(@RequestBody MemberCommentDTO newComment) throws CommentPostingException {
 
-        boardService.commentNewPosting(newPosting);
-        rttr.addFlashAttribute("successMessage", "댓글 등록에 성공하였습니다");
-        return "redirect:/board/boardSelectOne";
+        List<MemberCommentDTO> commentList = boardService.commentNewPosting(newComment);
+
+        return commentList;
     }
 
-
+/*
     @GetMapping("/communityInsert")
     public String communityInsert() {
         return "/board/boardInsert";
     }
+    */
+
+/*
 
     @GetMapping("boardSelectOne")
     public String selectOne() {
         return "/board/boardSelectOne";
     }
+*/
 
     @GetMapping("/singo")
     public String singo() {

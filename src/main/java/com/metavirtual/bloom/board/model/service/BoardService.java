@@ -25,12 +25,13 @@ public class BoardService {
 
     public int selectTotalCount(Map<String, String> searchMap) {
 
+
         int result = boardMapper.selectTotalCount(searchMap);
         return result;
     }
 
 
-/* 전체 게시글 조회 메서드 */
+    /* 전체 게시글 조회 메서드*/
 
     public List<BoardDTO> findAllBoard(SelectCriteria selectCriteria) {
         List<BoardDTO> boardList = boardMapper.findAllBoard(selectCriteria);
@@ -38,17 +39,18 @@ public class BoardService {
         return boardList;
     }
 
+    /* 게시글 상세 조회 */
     @Transactional
     public BoardDTO boardSelectOne(int boardCode) {
-        BoardDTO boardSelect = null;
+        BoardDTO selectOne = null;
 
         int result = boardMapper.viewCount(boardCode);
 
         if(result > 0) {
-            boardSelect = boardMapper.boardSelectOne(boardCode);
+            selectOne = boardMapper.boardSelectOne(boardCode);
         }
 
-        return boardSelect;
+        return selectOne;
     }
 
 
@@ -69,8 +71,20 @@ public class BoardService {
     }
 
     @Transactional
-    public void commentNewPosting(MemberCommentDTO newComment) throws CommentPostingException {
+    public List<MemberCommentDTO> commentNewPosting(MemberCommentDTO newComment) throws CommentPostingException {
 
+        int result = boardMapper.commentPosting(newComment);
+
+        List<MemberCommentDTO> commentList;
+
+        if(result > 0) {
+            commentList = boardMapper.searchCommentList(newComment.getBoardCode());
+        } else {
+            throw new CommentPostingException("댓글 등록에 실패하였습니다.");
+
+        }
+
+        return commentList;
     }
 }
 
