@@ -50,6 +50,21 @@ public class UserServiceImpl<AuthDetails> implements UserService {
     }*/
 
 
+        public int idDupCheck(String userId) throws Exception {
+            System.out.println(userId);
+            return userMapper.idDupCheck(userId);
+        }
+/*    public boolean idDupCheck(String userId){
+        String result = userMapper.idDupCheck(userId);
+        return result != null ? true : false;
+    }*/
+
+    public int nicknameDupCheck(String nickname) {
+        System.out.println(nickname);
+        return userMapper.nicknameDupCheck(nickname);
+
+    }
+
     @Override
     @Transactional
     public void registUser(UserDTO user, MemberDTO member) throws UserRegistException {
@@ -67,19 +82,9 @@ public class UserServiceImpl<AuthDetails> implements UserService {
         }
     }
 
-    /*public AuthDetails findUserId(String username) {
-        return null;
-    }*/
-
-
-    
-    public boolean idDupCheck(String userId){
-        String result = userMapper.idDupCheck(userId);
-        return result != null? true : false;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
+
 }

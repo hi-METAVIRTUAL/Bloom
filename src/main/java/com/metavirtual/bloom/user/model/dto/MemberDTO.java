@@ -10,11 +10,11 @@ public class MemberDTO {
     private String nickname;
     private int reportCount;
     private char relationCK;
-    private List<UserRoleDTO> userInfoRoleList;		// 회원별권한리스트
+    /*private List<UserRoleDTO> userInfoRoleList;		// 회원별권한리스트*/
     public MemberDTO() {
     }
 
-    public MemberDTO(String userId, String etcContent, char testStatus, char therapistGenderCK, String nickname, int reportCount, char relationCK, List<UserRoleDTO> userInfoRoleList) {
+    public MemberDTO(String userId, String etcContent, char testStatus, char therapistGenderCK, String nickname, int reportCount, char relationCK) {
         this.userId = userId;
         this.etcContent = etcContent;
         this.testStatus = testStatus;
@@ -22,7 +22,6 @@ public class MemberDTO {
         this.nickname = nickname;
         this.reportCount = reportCount;
         this.relationCK = relationCK;
-        this.userInfoRoleList = userInfoRoleList;
     }
 
     public String getUserId() {
@@ -81,14 +80,6 @@ public class MemberDTO {
         this.relationCK = relationCK;
     }
 
-    public List<UserRoleDTO> getUserInfoRoleList() {
-        return userInfoRoleList;
-    }
-    public List<UserRoleDTO> setUserInfoRoleList() {
-        return userInfoRoleList;
-    }
-
-
     @Override
     public String toString() {
         return "MemberDTO{" +
@@ -99,7 +90,6 @@ public class MemberDTO {
                 ", nickname='" + nickname + '\'' +
                 ", reportCount=" + reportCount +
                 ", relationCK=" + relationCK +
-                ", userInfoRoleList=" + userInfoRoleList +
                 '}';
     }
 }
