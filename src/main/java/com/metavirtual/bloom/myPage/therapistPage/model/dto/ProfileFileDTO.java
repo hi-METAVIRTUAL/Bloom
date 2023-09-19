@@ -1,4 +1,4 @@
-package com.metavirtual.bloom.myPage.therapistPage.dto;
+package com.metavirtual.bloom.myPage.therapistPage.model.dto;
 
 public class ProfileFileDTO {
 
