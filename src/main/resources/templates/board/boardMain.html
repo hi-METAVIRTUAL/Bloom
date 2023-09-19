@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,29 +14,11 @@
     <div class="header" th:unless="${loggedIn}" th:include="components/Header.html" th:with="includeSection1=false"></div>
 </div>
 
-<h1 class="title">커뮤니티</h1>
-<!-- 검색창 div -->
-<div>
-    <div class="searchBox1">
-        <select>
-            <option value="전체">전체</option>
-            <option value="제목">제목</option>
-            <option value="작성자">작성자</option>
-        </select>
 
-        <input type="search" placeholder="검색어를 입력해 주세요."/>
-
-        <button type="submit" class="insert-button" onclick="">
-            <span>검색</span>
-        </button>
-        <button type="submit" class="insert-button" onclick="location.href='/board/boardInsert'">
-            <span>글등록</span>
-        </button>
-    </div>
-</div>
 
 <div th:include="board/boardPagingTest.html"></div>
 <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 
 </body>
 </html>
+-->
