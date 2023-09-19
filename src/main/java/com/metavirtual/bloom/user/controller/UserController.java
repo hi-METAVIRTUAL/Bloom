@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -88,45 +90,36 @@ public class UserController {
         user.setPwd(passwordEncoder.encode(user.getPwd()));*/
     }
 
-    @PostMapping("/user/idDupCheck")
-    public ResponseEntity<String> idDupCheck(@RequestBody UserDTO userDTO) {
-        System.out.println("controllerTest1");
-        String result = "사용 가능한 아이디 입니다.";
+        @PostMapping("/idDupCheck")
+        @ResponseBody
+        public Map<Object, Object> idDupCheck(@RequestBody String userId) throws Exception {
 
-        if (userDTO != null && userService.idDupCheck(userDTO.getUserId())) {
-            result = "이미 사용 중인 아이디입니다";
+        System.out.println(userId);
+        Map<Object,Object> map = new HashMap<Object, Object>();
+        int result = 0;
+
+        result = userService.idDupCheck(userId);
+        System.out.println(result);
+        map.put("check", result);
+            System.out.println(userId);
+        return map;
         }
 
-        return ResponseEntity.ok(result);
-    }
+        @PostMapping("/nicknameDupCheck")
+        @ResponseBody
+        public Map<Object, Object> nicknameDupCheck(@RequestBody String nickname) throws Exception {
 
+            System.out.println(nickname);
+            Map<Object, Object> map = new HashMap<>();
+            int result = 0;
 
-    // Replace this method with your actual duplicate check logic
-    private boolean isUsernameDuplicate(String username) {
-        // Implement your logic here to check if the username is a duplicate.
-        // Return true if it's a duplicate, false if it's not.
-        // You can use a service or repository to check against your data source.
-        // For now, we assume it's not a duplicate.
-        return false;
-    }
+            result = userService.nicknameDupCheck(nickname);
+            System.out.println(nickname);
 
-/*    @PostMapping ("/nicknameDupCheck")
-    public ResponseEntity<String> nicknameDupCheck(@RequestBody MemberDTO memberDTO) throws JsonProcessingException {
-        log.info("[UserController] nicknameDupCheck");
+            map.put("check", result);
 
-        String result = "사용 가능한 닉네임 입니다";
-        log.info("[UserController] nicknameDupCheck : " + memberDTO.getNickname());
-
-        if("".equals(memberDTO.getNickname())) {
-            log.info("[UserController] nickname - No value inputed");
-            result = "닉네임을 입력해주세요";
-        } else if(userService.selectUserByNickname(memberDTO.getNickname())) {
-            log.info("[UserController] nickname - Already exists");
-            result = "중복돤 닉네임이 존재합니다";
+            return map;
         }
-
-        return ResponseEntity.ok(result);
-    }*/
 
     @PostMapping("/memberRegistSuccess")
     public String regularRegistSuccess() {

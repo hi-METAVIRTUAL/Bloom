@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <script type="text/javascript" th:src="@{/js/event.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
-    <meta name="_csrf" th:content="${_csrf.token}">
 
 
     <style>
@@ -50,75 +48,49 @@
                         <td><span id="result_checkId" style="font-size:12px;"></span></td>
                     </tr>
 
-
-                    <script>
-                        var token = $("meta[name='_csrf']").attr("content");
-                        var header = $("meta[name='_csrf_header']").attr("content");
-
-                        $(function() {
-                            $(document).ajaxSend(function(e, xhr, options) {
-                                xhr.setRequestHeader(header, token);
-                            });
-                        });
-
-                        $(document).ready(function() {
-                            $("#duplicationIdCheck").click(function () {
-                                let userId = $("#username").val().trim();
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/idDupCheck',
-                                    data: JSON.stringify({ "userId": userId }),
-                                    contentType: 'application/json;charset=UTF-8',
-                                    beforeSend: function (xhr) {
-                                        xhr.setRequestHeader(header, token);
-                                    },
-                                    success: function (result) {
-                                        if (result === "사용 가능한 아이디 입니다.") {
-                                            alert(result);
-                                        } else {
-                                            alert(result);
-                                        }
-                                    },
-                                    error: function (error) {
-                                        console.error('AJAX error:', error);
-                                        alert('An error occurred while processing your request. Please try again later.');
-                                    }
-                                });
-                            });
-                        });
-
-                    </script>
-                    </tr>
-
                     <tr>
                         <td>비밀번호</td>
                         <td>*<input type="password" name="password" id="password" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
-                        <div id="password-error" style="color: red;"></div>
-
-                      <!--  <script>
-                            const passwordInput = document.getElementById("password");
-                            const passwordError = document.getElementById("password-error");
-
-                            passwordInput.addEventListener("input", function () {
-                                if (passwordInput.validity.valid) {
-                                    passwordError.textContent = "";
-                                } else {
-                                    passwordError.textContent = "비밀번호는 8~20 자, 대소문자, 숫자, 특수기호가 필요하며 공백은 허용되지 않습니다.";
-                                }
-                            });
-                        </script>-->
                     </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <!-- Wrap the error message in a div with a specific class -->
+                            <div id="password-error-container">
+
+                            </div>
+                        </td>
+                    </tr>
+
+<!--                    <script>-->
+<!--                        function handlePasswordInput() {-->
+<!--                            const passwordInput = document.getElementById("password");-->
+<!--                            const passwordError = document.getElementById("password-error");-->
+
+<!--                            passwordInput.addEventListener("input", function () {-->
+<!--                                if (passwordInput.validity.valid) {-->
+<!--                                    passwordError.textContent = "";-->
+<!--                                } else {-->
+<!--                                    passwordError.textContent = "비밀번호는 8~20 자, 대소문자, 숫자, 특수기호가 필요하며 공백은 허용되지 않습니다.";-->
+<!--                                }-->
+<!--                            });-->
+<!--                        }-->
+
+<!--                        // Call the function to set up the event listener-->
+<!--                        handlePasswordInput();-->
+<!--                    </script>-->
+
 
                     <tr>
                         <td>닉네임</td>
                         <td>*<input type="text" name="nickname" id="nickname" placeholder="최대 10자 공백 / 특수기호 불가 / 영문/한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
-                        <td><button onclick="location.href=''" id="duplicationNicknameCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;" >중복체크</span></button></td>
+                        <td><input type="button" id="duplicationNicknameCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder;"></td>
                     </tr>
 
                     <tr>
                         <td>전화번호</td>
                         <td style="text-align: left;" colspan="2">
-                            *<input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}" required>
+                            *<input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" max="3" th:value="${phoneFront}" required>
                             - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonem" pattern="[0-9]*" inputmode="numeric" th:value="${phoneMiddle}" required>
                             - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonel" pattern="[0-9]*" inputmode="numeric" th:value="${phoneEnd}" required>
                             &nbsp;&nbsp;성별*&nbsp;&nbsp;
@@ -133,10 +105,10 @@
                     <tr>
                         <td>이메일</td>
                         <td style="text-align: left;">
-                            *<input type="text" name="emailId" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
+                            *<input type="text" id="emailId" name="emailId" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
                             @
-                            <input type="text" name="emailDomain" id="emailDomain" th:text="${selectDomain}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
-                            <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                            <input type="text" name="emailDomain" id="emailDomain" th:text="${emailDomainSelect}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
+                            <select id="emailDomainSelect" onchange="updateEmailDomain()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                                 <option value="empty">선택하기</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
@@ -145,22 +117,103 @@
                                 <option value="">직접입력</option>
                             </select>
                         </td>
-                        <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">본인인증</span></button></td>
+                        <td><button name="sendBtn" onclick="sendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
                     </tr>
 
+                    <!--<tr>
+                        <td id="mail_number" name="mail_number" style="display: none">
+                            <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+                            <button name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+                        </td>
+                    </tr>-->
+
                     <script>
-                        // Get references to the select and input elements
-                        const emailDomainSelect = document.getElementById('emailDomainSelect');
-                        const emailDomainInput = document.getElementById('emailDomain');
-                        // Add an event listener to the select element
-                        emailDomainSelect.addEventListener('change', function () {
-                            // Update the input field with the selected option's value
-                            emailDomainInput.value = this.value;
-                            emailDomainSelect.value = this.value;
-                        });
+                        function updateEmailDomain() {
+                            const emailDomainSelect = document.getElementById('emailDomainSelect');
+                            const emailDomainInput = document.getElementById('emailDomain');
+
+                            if (emailDomainSelect.value === "") {
+                                emailDomainInput.value = emailDomainInput.value.trim();
+                            } else if(emailDomainSelect.value !== 'empty'){
+                                emailDomainInput.value = emailDomainSelect.value;
+                                // Handle the case where "직접입력" is selected, or any other logic you want.
+                            }
+                            return emailDomainInput.value;
+                        }
+
+                        // Function to concatenate emailId and emailDomain with '@'
+                        function combineEmail() {
+                            const emailId = document.getElementById('emailId').value.trim();
+                            let emailDomain = updateEmailDomain();
+
+                            const completeEmail = emailId + '@' + emailDomain;
+                            return completeEmail.toString();
+                        }
+
+                        // Function to send the email and receive the confirmation number
+                        function sendNumber() {
+                            $("#mail_number").css("display", "block");
+                            const email = combineEmail(); /*Combine emailId and emailDomain*/
+                            $.ajax({
+                                url: "/mail",
+                                type: "POST",
+                                dataType: "json",
+                                data: { "mail": email },
+                                success: function (data) {
+                                    alert("인증번호 발송");
+                                    $("#Confirm").attr("value", data);
+                                },
+                                error: function () {
+                                    console.log(email);
+                                    console.log("verification Code send Failed")
+
+                                    alert("인증번호 발송 실패");
+                                }
+                            });
+                        }
+
+                        // Function to confirm the received number
+                        function confirmNumber() {
+                            var number1 = $("#number").val();
+                            var number2 = $("#Confirm").val();
+
+                            if (number1 == number2) {
+                                alert("본인인증이 완료되었습니다.");
+                            } else {
+                                alert("인증번호가 일치하지 않습니다.");
+                            }
+                        }
                     </script>
                 </table>
+
             </div>
+
+            <div>
+                <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                <div id="mail_number" name="mail_number" style="display: none">
+                    <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+                    <button name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+                </div>
+            </div>
+
+            <div style="color: red; font-size: 15px;" id="password-error"></div>
+            <script>
+                function handlePasswordInput() {
+                    const passwordInput = document.getElementById("password");
+                    const passwordError = document.getElementById("password-error");
+
+                    passwordInput.addEventListener("input", function () {
+                        if (passwordInput.validity.valid || passwordInput.value === "") {
+                            passwordError.textContent = "";
+                        } else {
+                            passwordError.textContent = "비밀번호는 8~20 자, 대소문자, 숫자, 특수기호가 필요하며 공백은 허용되지 않습니다.";
+                        }
+                    });
+                }
+
+                // Call the function to set up the event listener
+                handlePasswordInput();
+            </script>
         </form>
     </div>
         <hr class="solid" style="width:700px;">
