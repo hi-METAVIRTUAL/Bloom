@@ -1,5 +1,3 @@
-/*
-
 package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
@@ -31,8 +29,8 @@ public class BoardService {
         return result;
     }
 
-    */
-/* 전체 게시글 조회 메서드 *//*
+
+/* 전체 게시글 조회 메서드 */
 
     public List<BoardDTO> findAllBoard(SelectCriteria selectCriteria) {
         List<BoardDTO> boardList = boardMapper.findAllBoard(selectCriteria);
@@ -40,7 +38,6 @@ public class BoardService {
         return boardList;
     }
 
-    /**/
     @Transactional
     public BoardDTO boardSelectOne(int boardCode) {
         BoardDTO boardSelect = null;
@@ -54,10 +51,6 @@ public class BoardService {
         return boardSelect;
     }
 
-
-
-    */
-/* boardInsert.html 게시글 등록 메서드 *//*
 
     @Transactional
     public void boardNewPosting(BoardDTO newPosting) throws BoardPostingException {
@@ -81,4 +74,4 @@ public class BoardService {
     }
 }
 
-*/
+
