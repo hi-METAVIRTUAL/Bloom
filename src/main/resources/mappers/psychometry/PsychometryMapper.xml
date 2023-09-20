@@ -15,17 +15,16 @@
             TEST_CONTENT,
             TEST_CATEGORY
         FROM TEST_Q
-            <if test='paraName1.equals("D")'>
-                WHERE TEST_CATEGORY = 'D'
-            </if>
-            <if test='paraName1.equals("A")'>
-                WHERE TEST_CATEGORY = 'A'
-            </if>
+        WHERE TEST_CATEGORY = #{testCategory}
 
     </select>
 
-    <insert id="saveResponse" parameterType="java.util.Map">
-        INSERT INTO user_responses (question_id, response)
-        VALUES (#{questionId}, #{response})
+    <insert id="saveAnswers" parameterType="map">
+        INSERT INTO TEST_RESULT (TEST_CODE, ANSWER_SCORE)
+        VALUES (#{answer.testCode}, #{testCategory},'gao')
+
+        <!--<foreach collection="answers" item="answer" separator=",">
+            (#{answer.testCode}, #{answer.answerScore})
+        </foreach>-->
     </insert>
 </mapper>

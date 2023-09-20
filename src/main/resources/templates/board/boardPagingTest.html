@@ -1,64 +1,103 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/boardPaging.css}">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/boardPaging.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+<h1 class="title">게시판</h1>
 
-<!-- 게시글 보드 테이블 -->
-<div class="table">
-    <table style="align: center" class="boardListBox">
-        <tr class="table-th">
-            <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
-            <th style="width: 700px">제목</th>
-            <th style="width: 250px">작성자</th>
-            <th style="width: 250px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">작성일</th>
-        </tr>
-
-        <tr class="table-td1"> <!--th:each="board : ${ boardList }"-->
-            <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">1</td> <!--BoardDTO 글번호 th:text="${ board.no }" -->
-            <td><a href="/board/boardSelectOne">제목1</a></td> <!--BoardDTO 글제목 th:text="${ board.title }" -->
-            <td>ohgi</td> <!-- BoardDTO writer. writer는 MemberDTO의 nickname을 가리킴 th:text="${ board.writer.nickname }" -->
-            <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">2023-09-13 11:11:11</td> <!--BoardDTO 작성일 th:text="${ board.writedDate }" -->
-        </tr>
-
-        <tr class="table-td2">
-            <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">2</td>
-            <td><a href="/board/boardSelectOne">제목2</a></td>
-            <td>ohgi</td>
-            <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">2023-09-13 11:11:11</td>
-        </tr>
-    </table>
-</div>
-
-<!--페이징 처리-->
-<div class="paging">
-    <div style="display: flex;">
-        <!-- 맨 앞으로 이동 -->
-        <!-- th:disabled = 1 페이지일 경우 버튼 안보이게 -->
-        <button><img src="../images/board/previousfirst.png"></button> <!-- 버튼속성 th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.startPage}} + '\''"
-                th:disabled="${selectCriteria.pageNo == 1}" -->
-
-        <!-- 이전 페이지로 이동 -->
-        <button><img src="../images/board/previous.png"></button> <!-- 버튼속성 th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo - 1}} + '\''"
-                th:disabled="${selectCriteria.pageNo == 1}" -->
-
-        <!-- 숫자 버튼 -->
-        <th:block> <!-- th:block버튼 = th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}" -->
-            <button style="color: #C09A81;">1 <!-- 버튼속성 th:text="${ page }"
-                    th:onclick="'location.href=\'/board/list?currentPage='+ @{${page}} + '\''"
-                    th:disabled="${ selectCriteria.pageNo eq page }" -->
-            </button>
-        </th:block>
-
-        <!-- 다음 페이지로 이동 -->
-        <button><img src="../images/board/next.png"></button> <!-- 버튼속성 th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.pageNo + 1}} + '\''"
-                th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}"-->
-
-        <!-- 마지막 페이지로 이동 -->
-        <button><img src="../images/board/nextlist.png"></button> <!-- th:onclick="'location.href=\'/board/list?currentPage='+ @{${selectCriteria.lastPage}} + '\''"
-                th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}" -->
+    <!-- 검색창 -->
+    <div>
+        <div class="searchBox1">
+            <form id="searchForm" th:action="@{/board/searchList}" method="get">
+                <input type="hidden" name="currentPage" value="1">
+                <select id="searchSelect" name="searchSelect">
+                    <option value="all">전체</option>
+                    <option value="커뮤니티">커뮤니티</option>
+                    <option value="고민상담">고민상담</option>
+                    <option value="title">제목</option>
+                    <option value="writer">작성자</option>
+                </select>
+                <input type="search" id="searchValue" name="searchValue" placeholder="검색어를 입력해 주세요.">
+                <button type="submit" class="insert-button"><span>검색</span></button>
+            </form>
+            <button type="button" class="insert-button" onclick="location.href='/board/boardPosting'"><span>글등록</span></button>
+        </div>
     </div>
-</div>
+
+
+    <!-- 게시글 보드 테이블 -->
+    <div class="table">
+        <table style="align: center" class="boardListBox" id="boardListTable">
+            <tr class="table-th">
+                <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
+                <th style="width: 200px">유형</th>
+                <th style="width: 700px">제목</th>
+                <th style="width: 200px">작성자</th>
+                <th style="width: 200px">작성일</th>
+                <th style="width: 100px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">조회수</th>
+            </tr>
+
+            <tr th:each="board : ${ boardList }" class="table-td1">
+                <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+                    th:text="${ board.boardCode }"></td>
+                <td th:text="${ board.boardCategory }"></td>
+                <td th:text="${ board.title }"></td>
+                <td th:text="${ board.userId.nickname }"></td>
+                <td th:text="${ board.postedDate }"></td>
+                <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
+                    th:text="${ board.viewCount }"></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 페이징 처리 -->
+    <div class="paging">
+        <div style="display: flex;">
+            <!-- 맨 앞으로 이동 -->
+            <!-- th:disabled = 1 페이지일 경우 버튼 안보이게 -->
+            <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.startPage }} + '\''"
+                    th:disabled="${ selectCriteria.pageNo == 1 }"><img src="../images/board/previousfirst.png"></button>
+
+            <!-- 이전 페이지로 이동 -->
+            <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.pageNo - 1 }} + '\''"
+                    th:disabled="${ selectCriteria.pageNo == 1 }"><img src="../images/board/previous.png"></button>
+
+            <!-- 숫자 버튼 -->
+            <th:block th:each="page : ${ #numbers.sequence(selectCriteria.startPage, selectCriteria.endPage) }">
+                <button style="color: #C09A81;"
+                        th:text="${ page }"
+                        th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ page }} + '\''"
+                        th:disabled="${ selectCriteria.pageNo eq page }">
+                </button>
+            </th:block>
+
+            <!-- 다음 페이지로 이동 -->
+            <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.pageNo + 1 }} + '\''"
+                    th:disabled="${ selectCriteria.pageNo == selectCriteria.lastPage }"><img src="../images/board/next.png"></button>
+
+            <!-- 마지막 페이지로 이동 -->
+            <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.lastPage }} + '\''"
+                    th:disabled="${ selectCriteria.pageNo == selectCriteria.lastPage }"><img src="../images/board/nextlist.png"></button>
+        </div>
+    </div>
+<script th:inline="javascript">
+
+    const message = '[[${ successMessage }]]';
+    if (message != null && message !== 'null'){
+        alert(message);
+    }
+
+    if(document.querySelectorAll("#boardListTable td")) {
+        const $tds = document.querySelectorAll("#boardListTable td");
+        for (let i = 0; i < $tds.length; i++) {
+
+            $tds[i].onclick = function () {
+                const boardCode = this.parentNode.children[0].innerText;
+                location.href = "/board/boardSelectOne?boardCode=" + boardCode;
+            }
+        }
+    }
+</script>
 </html>

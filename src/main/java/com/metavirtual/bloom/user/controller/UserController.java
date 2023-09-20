@@ -1,6 +1,9 @@
 package com.metavirtual.bloom.user.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+//import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
+
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
@@ -51,6 +54,7 @@ public class UserController {
     @PostMapping("/memberRegist") //spring 에서 제공하는 다른 request 써
     public String registMember(@RequestParam String username, @RequestParam String password, @RequestParam String emailId, @RequestParam String emailDomain,
                                @ModelAttribute UserDTO user, @ModelAttribute MemberDTO member) throws UserRegistException {
+
 
         System.out.println("[UserController] 들어옴");
 

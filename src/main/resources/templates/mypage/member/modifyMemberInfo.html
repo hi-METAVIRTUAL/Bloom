@@ -5,34 +5,96 @@
     <title>My Info Setting</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/member/memberInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            color: #C09A81;
+            margin: 0 auto;
+            width: 100%;
+            background-color: #FFF6E2;
+            text-align: center;
+        }
+        .round-input {
+            width: 400px;
+            height: 30px;
+            border-color: #C09A81;
+            border-radius: 10px;
+            border-style: solid;
+        }
+        .info-table {
+            border-collapse: separate;
+            border-spacing: 0 20px;
+            border: none;
+            border-collapse: collapse;
+            text-align: center;
+            color: #C09A81;
+        }
+        .info-bt {
+            width: 100px;
+            height: 25px;
+            background-color: #C09A81;
+            border-radius: 30px;
+            color: #FFFFFF;
+            border: none;
+            text-align: center;
+        }
+        .email{
+            width: 135px;
+            height: 30px;
+            border-color: #C09A81;
+            border-radius: 10px;
+            border-style: solid;
+        }
+        tr{
+            height: 63px;
+        }
+        .tel {
+            width: 115px;
+            height: 30px;
+            border-color: #C09A81;
+            border-radius: 10px;
+            border-style: solid;
+        }
+    </style>
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
 <br><br>
-    <form align="center" method="post" th:action="@{/templates/user/infoSetting}">
-        <table align="center" class="info-table" style="vertical-align: central;">
-            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
+<h2>개인 정보 수정</h2><br>
+    <form align="center" method="post" th:action="@{/member/modifyMemberInfo}">
+        <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">
+            <a>*는 필수 입력입니다.</a><br><br>
+            <colgroup>
+                <col style="width: 20%">
+                <col style="width: 60%">
+                <col style="width: 20%">
+            </colgroup>
+            <input
+                    type="hidden"
+                    id="userId"
+                    name="userId"
+                    th:value="${ #authentication.getPrincipal().getUserId() }"
+            >
             <tr>
-                <td>이름</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" disabled name="memberName">이메다</textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea th:value="${#authentication.getPrincipal().getName()}" class="fixed-textarea" disabled></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+                <td align="left">이름</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" value="이메다"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${#authentication.getPrincipal().getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
             </tr>
             <tr>
-                <td>아이디</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" disabled name="memberId">metamong</textarea><br>아이디는 변경 불가능합니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea th:value="${#authentication.getPrincipal().getUserId()}"" class="fixed-textarea" disabled></textarea><br>아이디는 변경 불가능합니다.</td>-->
+                <td align="left">아이디</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" value="metamong"><br>아이디는 변경 불가능합니다.</td>
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${#authentication.getPrincipal().getUserId()}"><br>아이디는 변경 불가능합니다.</td>-->
             </tr>
             <tr>
-                <td>비밀번호</td>
+                <td align="left">비밀번호</td>
                 <td>
-                    * <input class="round-input" type="password" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" required >
+                    * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >
                 </td>
             </tr>
             <tr>
-                <td>이메일</td>
+                <td align="left">이메일</td>
                 <td>
-                    * <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailId" th:value="${emailId}" required>
-                    @ <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailDomain" id="emailDomain" th:text="${selectDomain}" required>
+                    * <input class="email" type="text" name="emailId" th:text="${#strings.substringBefore(#authentication.getPrincipal().getEmail(),'@')}" required>
+                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(userDTO.email,'@')}" required>
                     <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                         <option value="empty">선택하기</option>
                         <option value="naver.com">naver.com</option>
@@ -42,53 +104,88 @@
                         <option value="">직접입력</option>
                     </select>
                 </td>
-                <td>
-                    <button class="info-bt" onclick="" >본인인증하기</button>
+                <td align="right">
+                    <button class="info-bt" onclick="" >본인인증</button>
                 </td>
             </tr>
             <tr>
-                <td>인증번호입력</td>
+                <td align="left">인증번호입력</td>
                 <td>
                     * <input class="round-input" type="text" name="cernum" value="" required>
                 </td>
-                <td>
-                    <button class="info-bt" onclick="" >인증번호확인</button>
+                <td align="right">
+                    <button class="info-bt" onclick="" >인증확인</button>
                 </td>
             </tr>
             <tr>
-                <td>닉네임</td>
+                <td align="left">닉네임</td>
                 <td>
-                    * <input class="round-input" type="text" name="nickname" th:value="${#authentication.getPrincipal().getNickname()}" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
+                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:text="${#authentication.getPrincipal().getNickname()}" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
                 </td>
                 </td>
-                <td>
-                    <button class="info-bt" onclick="" >중복 체크</button>
+                <td align="right">
+                    <button class="info-bt" id="duplicationCheck" value="중복 확인">중복확인</button>
             </tr>
            <tr>
-               <td>전화번호</td>
+               <td align="left">전화번호</td>
                <td>
-                   * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" th:value="${phoneFront}" required>
-                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" th:value="${phoneMiddle}" required>
-                   - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" th:value="${phoneEnd}" required>
+                   * <input class="tel" type="text" pattern="[0-9]{1,3}" title="숫자만 입력 가능합니다" name="phonef" th:text="${#strings.arraySplit(userDTO.phone, '-')[0]}" required>
+                   - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonem" th:text="${#strings.arraySplit(userDTO.phone, '-')[1]}" required>
+                   - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonel" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[2]}" required>
                </td>
            </tr>
            <tr>
-               <td>성별</td>
-               <td align="left">
-                   &nbsp;&nbsp;<textarea style="width: 50px; text-align: center; height: 30px; line-height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" disabled>여성</textarea>
+               <td align="left">성별</td>
+               <td align="center">
+                   <input type="checkbox" name="gneder" th:value="m" disabled> 남성
+                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" checked disabled> 여성
                </td>
 <!--               <td align="left">-->
-<!--                   &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" disabled th:value="${#authentication.getPrincipal().getGender()}"></textarea>-->
+<!--                   <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'M'" disabled> 남성-->
+<!--                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'F'" disabled> 여성-->
 <!--               </td>-->
            </tr>
         </table>
 <br>
         <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
-        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='profile1'">
+        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">
     </form>
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
+<script>
+    $(function duplicationCheck() {
+        if (document.getElementById("duplicationCheck")) {
+            const $duplication = document.getElementById("duplicationCheck");
+
+            $duplication.onclick = function () {
+                let nickname = document.getElementById("nickname").value.trim();
+
+                fetch("/member/nickDuplCK", {
+                    mehtod: "POST",
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify({nickname: nickname})
+                })
+                    .then(result => result.text())
+                    .then(result => alert(result))
+                    .catch((error) => error.text().then((res => alert(res))));
+            }
+        }
+    });
+</script>
+<script>
+    // Get references to the select and input elements
+    const emailDomainSelect = document.getElementById('emailDomainSelect');
+    const emailDomainInput = document.getElementById('emailDomain');
+    // Add an event listener to the select element
+    emailDomainSelect.addEventListener('change', function () {
+        // Update the input field with the selected option's value
+        emailDomainInput.value = this.value;
+        emailDomainSelect.value = this.value;
+    });
+</script>
 </body>
 </html>

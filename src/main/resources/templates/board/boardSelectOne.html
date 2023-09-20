@@ -1,65 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
-</head>
-<body>
-<div th:with="loggedIn=false, reservationMade=false">
-    <div class="header" th:if="${loggedIn && reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
-    <div class="header" th:unless="${loggedIn}" th:include="components/Header.html" th:with="includeSection1=false"></div>
-</div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <h1 class="title">커뮤니티</h1>
+
 <!--게시글 상세-->
-<div class="selectone-title"><span>제목</span></div>
-<div class="view-id-date"><span style="float: left">작성자 : asdf****</span><span style="float: right">작성일시 : 0000-00-00 11:11:11</span></div>
-<div class="view-textarea">글 상세내용1111111111111111111111111111111111111111111111</div>
-<div class="singobutton"><button type="text" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
 
-<!--댓글상세1-->
-<div class="datgul-title">댓글</div>
-<div class="datgul-view"><span class="datgul-view-id-date" style="float: right">0000-00-00 11:11:11 asdf****</span></div>
-<div class="view-datgul-board">댓글 상세222222222222222222222222222222221</div>
-<div class="singobutton"><button type="text" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
-<!--댓글상세2-->
-<div class="datgul-view"><span class="datgul-view-id-date" style="float: right">0000-00-00 11:11:11 asdf****</span></div>
-<div class="view-datgul-board">댓글 상세222222222222222222222222222222221</div>
-<div class="singobutton"><button type="text" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
+    <div class="selectone-title"><span th:text="${ board.title }"></span></div>
+    <div class="view-id-date"> 작성자 : <span th:text="${ board.userId.nickname }"></span> 작성일시 : <span th:text="${ board.postedDate }"></span></div>
+    <div><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></div>
+    <div class="singobutton"><button type="button" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
+
+    <button type="button" class="insert-button" id="btnModify"><span>수정하기</span></button>
+    <button type="button" class="insert-button" id="btnDelete"><span>삭제하기</span></button>
+
 <!--댓글작성-->
+<!--<div><textarea rows="22" cols="100" placeholder="댓글을 작성해주세요." class="insert-datgul-board"></textarea></div>
+<div class="singobutton"><button type="text" onclick="location.href='/board/boardInsert'" style="float: right">댓글쓰기</button><button type="text" onclick="location.href='/board/boardMain'" style="float: right; margin-left: 3%; margin-right: 2%">목록으로</button></div>-->
 
-
-<div><textarea rows="22" cols="100" placeholder="댓글을 작성해주세요." class="insert-datgul-board"></textarea></div>
-<div class="singobutton"><button type="text" onclick="location.href='/board/boardInsert'" style="float: right">댓글쓰기</button><button type="text" onclick="location.href='/board/boardMain'" style="float: right; margin-left: 3%; margin-right: 2%">목록으로</button></div>
-
-
-
-
-<h1 class="title">커뮤니티</h1>
-<div>
-    <div class="searchBox1">
-        <select>
-            <option value="전체">전체</option>
-            <option value="제목">제목</option>
-            <option value="작성자">작성자</option>
-        </select>
-
-        <input type="search" placeholder="검색어를 입력해 주세요."/>
-
-        <button type="submit" class="insert-button" onclick="">
-            <span>검색</span>
-        </button>
-        <button type="submit" class="insert-button" onclick="location.href='/board/boardInsert'">
-            <span>글등록</span>
-        </button>
-    </div>
-</div>
-<div th:include="board/paging.html"></div>
-<th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
-
-</body>
+<script>
+    $("#btnModify").click(function () {
+        $.ajax({
+            url: "board/boardModify",
+            type: "post"
+        })
+    });
+</script>
 </html>

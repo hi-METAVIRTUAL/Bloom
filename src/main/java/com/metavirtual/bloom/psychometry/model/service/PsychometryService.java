@@ -5,11 +5,12 @@ import com.metavirtual.bloom.psychometry.model.dto.TestQDTO;
 import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
-/*@Service*/
+@Service
 public class PsychometryService {
 
     private final PsychometryMapper psychometryMapper;
@@ -19,13 +20,27 @@ public class PsychometryService {
         this.psychometryMapper = psychometryMapper;
     }
 
-    public List<TestQDTO> findContent(String category) {
-        System.out.println(category);
-        return psychometryMapper.findContent(category);
+    public List<TestQDTO> findContent(String testCategory) {
+        return psychometryMapper.findContent(testCategory);
     }
 
-    public TestQDTO findContentByCategory(String index) {
-        return psychometryMapper.getQuestionByIndex(index);
 
+
+    @Transactional
+    public List<TestResultDTO> saveAnswers(String answerScore, String testCategory) {
+        psychometryMapper.saveAnswers(answerScore,testCategory);
+        return null;
     }
 }
+
+
+/*public void saveAnswers(Map<String, String> answers, String category) {
+        for (Map.Entry<String, String> entry : answers.entrySet()) {
+            String testCategory = entry.getKey();
+            String answerScore = entry.getValue();
+
+            // 데이터베이스에 저장 로직 구현
+            // testCategory와 answerScore를 이용하여 TestResults 테이블에 저장
+            psychometryMapper.saveAnswers(category, testCategory, answerScore);
+        }
+    }*/

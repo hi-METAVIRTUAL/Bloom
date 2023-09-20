@@ -4,15 +4,48 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
 
-    <update id="modifyMemberInfo">
-        UPDATE USER U, MEMBER M
-        SET U.PWD = #{ pwd }
-            , U.EMAIL = #{ email }
-            , U.PHONE = #{ phone }
-            , M.NICKNAME = #{ nickname }
-        WHERE U.USER_ID = MEMBER.USER_ID
-            AND U.USER_ID = #{ userId }
+    <resultMap id="generalPostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
+        <id property="boardCode" column="BOARD_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="boardCategory" column="BOARD_CATEGORY"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+    </resultMap>
+
+    <update id="modifyUserInfo" parameterType="UserDTO">
+        UPDATE USER U
+        SET PWD = #{ pwd }
+            , EMAIL = #{ email }
+            , PHONE = #{ phone }
+        WHERE U.USER_ID = #{ userId }
     </update>
+
+    <update id="modifyMemberInfo" parameterType="MemberDTO">
+        UPDATE MEMBER M
+        SET NICKNAME = #{ nickname }
+        WHERE M.USER_ID = #{ userId }
+    </update>
+
+    <select id="selectMemberByNickname" resultType="string">
+        SELECT A.MEMBER_NICKNAME
+        FROM MEMBER A
+        WHERE A.MEMBER_NICKNAME = #{ nickname }
+    </select>
+
+    <select id="selectTotalCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE USER_ID = #{ sessionId }
+    </select>
+
+    <select id="selectPostList" resultMap="generalPostResultMap">
+        SELECT
+                BOARD_CODE
+                , TITLE
+                , BOARD_CATEGORY
+                , POSTED_DATE
+        FROM BOARD
+        WHERE USER_ID = #{ sessionId }
+    </select>
 
     <delete id="deleteMyPost">
         DELETE

@@ -18,12 +18,7 @@ body {
     text-align: center;
     height: 70px;
     color: #C09A81;
-}
-.table-td2 {
-    background-color: #FFFFFF;
-    text-align: center;
-    height: 70px;
-    color: #C09A81;
+    cursor: pointer;
 }
 
 

@@ -80,7 +80,7 @@
     <h1> 작성 글 / 댓글 보기 </h1>
 </div>
 <br>
-<div align="center">
+<div align="center" id="pList">
     <div>
         <h2>작성한 글</h2>
     </div>
@@ -137,38 +137,41 @@
 <!--                <td th:text="${boardDTO.postedDate}">2023-09-13 17:56</td>-->
 <!--            </tr>-->
         </table><br>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selecCriteria.startPage}} + '\''"
-            th:disabled="${selectCriteria.pageNo==1}"
-        >
-            <<
-        </button>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selectCritria.pageNo - 1}} + '\''"
-            th:disabled="${selectCriteria.pageNo==1}"
-        >
-            <
-        </button>
-        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
-            <button class="pagebt"
-                th:text="${ page }"
-                th:onclick="'location.href=\'?currentPage='+@{${page}}+'\''"
-                th:disabled="${ selectCriteria.pageNo eq page }">
-            </button>
-        </th:block>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selectCriteria.pageNo + 1}} + '\''"
-            th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
-        >
-            >
-        </button>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selectCriteria.maxPage}} + '\''"
-            th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
-        >
-            >>
-        </button><br>
         <input type="button" value="선택 삭제" onclick="deleteMyPost();">
+        </div>
+        <div align="center">
+            <input type="hidden" name="currentPage" value="1">
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${ selecCriteria.startPage }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+            >
+                <<
+            </button>
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${ selectCriteria.pageNo - 1 }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+            >
+                <
+            </button>
+            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                <button class="pagebt"
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'#pList?currentPage='+@{${page}}+'\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+                </button>
+            </th:block>
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+            >
+                >
+            </button>
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${selectCriteria.maxPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+            >
+                >>
+            </button><br>
     </div>
 </div>
 <br><br>
@@ -190,35 +193,35 @@
                 <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
-                <td class="longtd">여기가 님 일기장인가요? 이런 글은 ...</td>
+                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
                 <td>2023-09-13 18:00</td>
             </tr>
             <tr class="colortr">
                 <td class="tdleft"><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘의 나를 사랑합시다</td>
-                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별...</td>
+                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별하시는 건가요?? 차별 반대!!</td>
                 <td class="tdright">2023-09-13 18:02</td>
             </tr>
             <tr>
                 <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
-                <td class="longtd">여기가 님 일기장인가요? 이런 글은 ...</td>
+                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
                 <td>2023-09-13 18:00</td>
             </tr>
             <tr class="colortr">
                 <td class="tdleft"><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘의 나를 사랑합시다</td>
-                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별...</td>
+                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별하시는 건가요?? 차별 반대!!</td>
                 <td class="tdright">2023-09-13 18:02</td>
             </tr>
             <tr>
                 <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
-                <td class="longtd">여기가 님 일기장인가요? 이런 글은 ...</td>
+                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
                 <td>2023-09-13 18:00</td>
             </tr>
 <!--            <tr th:each="memberCommentDTO, boardDTO : ${comment}">-->
