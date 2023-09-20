@@ -37,36 +37,38 @@ public class PsychometryController {
     @GetMapping("first")
     public String test(){ return "psychological/psychometry/firstTest"; }
 
-    @GetMapping(value = "start",produces = "application/json; charset=UTF-8")
-    public String startTestPage(Model model, HttpServletRequest request, HttpSession httpSession){
-
-
-        String category = request.getParameter("category");
-        List<TestQDTO> testQ = psychometryService.findContent(category);
-        System.out.println(category);
+    @GetMapping(value = "start")
+    public String startTestPage(Model model,
+                                @RequestParam("testCategory") String testCategory){
+        /* 질문지를 가져옴 */
+        List<TestQDTO> testQ = psychometryService.findContent(testCategory);
         model.addAttribute("testQ", testQ);
-
         return "psychological/psychometry/startTest";
     }
     @GetMapping(value = "startAjax",produces = "application/json; charset=UTF-8")
     public ModelAndView getTestPage(ModelAndView mv, HttpServletResponse response,HttpServletRequest request) throws JsonProcessingException{
-        /*response.setContentType("application/json; charset=UTF-8");*/
-
-        String category = request.getParameter("category");
-        List<TestQDTO> testQ = psychometryService.findContent(category);
-        System.out.println(category);
+        response.setContentType("application/json; charset=UTF-8");
+        String testCategory = request.getParameter("testCategory");
+        String answerScore = request.getParameter("answerScore");
+        String testIndex = request.getParameter("testIndex");
+        List<TestQDTO> testQ = psychometryService.findContent(testCategory);
 
         ObjectMapper mapper = new ObjectMapper();
         mv.addObject("testQ", mapper.writeValueAsString(testQ));
         mv.setViewName("jsonView");
-        System.out.println("여긴 지나갔지?");
+        System.out.println(testCategory + " 카테");
+        System.out.println(answerScore + " 답변");
+        System.out.println(testIndex + "질코");
         return mv;
     }
 
     @PostMapping(value = "/saveAnswers", produces = "application/json; charset=UTF-8", consumes = "application/json")
     @ResponseBody
-    public String SaveAnswers(@RequestBody List<TestResultDTO> answerData) {
-        psychometryService.saveAnswers(answerData);
+    public String SaveAnswers(HttpServletRequest request) {
+        String testCategory = request.getParameter("testCategory");
+        String answerScore = request.getParameter("answerScore");
+        String testIndex = request.getParameter("testIndex");
+        List<TestResultDTO> testQ = psychometryService.saveAnswers(answerScore,testCategory);
         return "저장 완료";
     }
     @GetMapping("/saveAnswers")
@@ -121,3 +123,8 @@ public class PsychometryController {
         String categoryB = answers.get("B");
         String categoryO = answers.get("O");*//*
     }*/
+
+
+
+
+

@@ -1,7 +1,9 @@
 package com.metavirtual.bloom.user.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
 //import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
+
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
