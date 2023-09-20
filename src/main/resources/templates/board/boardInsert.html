@@ -5,29 +5,44 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 
 
-<h1 class="title">커뮤니티</h1>
+<h1 class="title">게시글 작성</h1>
 <div class="title-box">
-    <form id="boardPostingForm" th:action="@{/board/boardPosting}" method="post">
-
-
+    <form name="boardPostingForm" th:action="@{/board/boardPosting}" method="post">
         <span class="title-insert">제목</span>
         <input type="text" id="title" name="title" placeholder="글제목을 입력해 주세요." class="insert-input">
-        <select id="category" name="category">
-            <option value="category">커뮤니티</option>
-            <option value="category">고민상담</option>
+        <select id="boardCategory" name="boardCategory">
+            <option value="">선택해주세요</option>
+            <option value="커뮤니티" >커뮤니티</option>
+            <option value="고민상담" >고민상담</option>
         </select>
         <div class="textarea-field">
-            <textarea id="content" name="content" rows="22" cols="115" placeholder="글을 작성해주세요."></textarea>
+            <textarea id="boardContent" name="boardContent" rows="22" cols="115" placeholder="글을 작성해주세요."></textarea>
         </div>
+        <!-- 유저 닉네임 가져오기 -->
+        <div>
+            <input type="hidden" id="userId" name="userId" value="TEST1">
+            <!-- th:value="${ #authentication.getPrincipal().getUserId }" -->
+        </div>
+
         <div>
             <button type="submit" class="insert-button">
                 <span>등록하기</span>
             </button>
         </div>
     </form>
-    <button type="button" class="insert-button" onclick="location.href='/board/searchList'">
+    <button type="button" id="btnInsert" class="insert-button" onclick="location.href='/board/searchList'">
         <span>돌아가기</span>
     </button>
 </div>
 
+<script>
+
+    $("#boardCategory options:selected").val()
+
+    $(document).ready(function () {
+        $("#btnInsert").click(function () {
+            document.boardPostingForm.submit();
+        });
+    });
+</script>
 </html>

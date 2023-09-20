@@ -8,6 +8,7 @@ import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MemberPageService {
 
@@ -15,11 +16,11 @@ public interface MemberPageService {
 
     public boolean selectMemberByNickname(String nickname);
 
-    public int selectTotalCount();
+    public int selectTotalCount(Map<String, String> searchMap);
 
     public List<BoardDTO> selectPostList(SelectCriteria selectCriteria);
 
-    public void deleteMyPost(int boardCode) throws DeleteException;
+    public void deleteMyPost(String boardCode) throws DeleteException;
 
     public void deleteMyComment(int commentCode) throws DeleteException;
 

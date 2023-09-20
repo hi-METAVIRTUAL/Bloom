@@ -4,6 +4,35 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
 
+    <insert id="uploadPfImg">
+        INSERT PROFILE_FILE (
+                            FILE_NUMBER
+                            , FILE_PATH
+                            , FILE_ORIGIN_NAME
+                            , FILE_CHANGED_NAME
+                            , FILE_SIZE
+                            , USER_ID
+                            )
+        VALUES (
+                #{fileNumber}
+                , #{filePath}
+                , #{fileOriginName}
+                , #{fileChangedName}
+                , #{fileSize}
+                , #{sessionId}
+                )
+    </insert>
+
+    <update id="updatePfImg">
+        UPDATE PROFILE_FILE
+        SET FILE_NUMBER = #{fileNumber}
+            , FILE_PATH = #{filePath}
+            , FILE_ORIGIN_NAME = #{fileOriginName}
+            , FILE_CHANGED_NAME = #{fileChangedName}
+            , FILE_SIZE = #{fileSize}
+        WHERE USER_ID = #{sessionId}
+    </update>
+
     <update id="modifyTherapistInfo">
         UPDATE USER
         SET PWD = #{ pwd }
@@ -32,7 +61,7 @@
     <update id="modifyActivationStatus">
         UPDATE THERAPIST
         SET ACTIVATION_STATUS = #{ activationStatus }
-        WHERE USER_ID = #{ userId }
+        WHERE USER_ID = #{ sessionId }
     </update>
 
 </mapper>
