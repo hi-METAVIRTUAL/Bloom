@@ -2,8 +2,11 @@
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.board.model.service.BoardService;
+import com.metavirtual.bloom.common.exception.board.BoardDeleteException;
+import com.metavirtual.bloom.common.exception.board.BoardModifyException;
 import com.metavirtual.bloom.common.exception.board.BoardPostingException;
 import com.metavirtual.bloom.common.exception.board.CommentPostingException;
 import com.metavirtual.bloom.common.paging.Paging;
@@ -36,11 +39,11 @@ public class BoardController {
 
     /*전체 게시글 조회 메서드*/
     @GetMapping(value = "/searchList")
-    public ModelAndView searchAllList(HttpServletRequest request, @RequestParam(required = false) String searchSelect,
+    public ModelAndView searchAllList(@RequestParam(required = false) String searchSelect,
                                          @RequestParam(required = false) String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                          ModelAndView mv) {
 
-
+        /* 검색 조건을 객체에 담아 전송 */
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchSelect", searchSelect);
         searchMap.put("searchValue", searchValue);
@@ -68,6 +71,7 @@ public class BoardController {
         mv.addObject("boardList", boardList);
         mv.addObject("selectCriteria", selectCriteria);
 
+        System.out.println("가져온 게시글 리스트? : " + boardList);
         System.out.println("조회리스트에 따른 페이징 처리는? : " + selectCriteria);
         mv.setViewName("board/boardPagingTest");
 
@@ -98,17 +102,44 @@ public class BoardController {
 
     /* 게시글 등록 화면*/
     @GetMapping("/boardPosting")
-    public String boardInsert() {
+    public String boardContentPosting() {
         return "board/boardInsert";
     }
 
     /* 게시글 등록 메서드 */
     @PostMapping("/boardPosting")
-    public String boardContentPosting(@ModelAttribute BoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
+    public String boardContentPosting(@ModelAttribute MemberBoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
 
+        System.out.println("파라미터 값? : " + newPosting);
         boardService.boardNewPosting(newPosting);
+
         rttr.addFlashAttribute("successMessage", "게시글 등록에 성공하였습니다");
-        return "redirect:/board/boardPagingTest";
+        return "redirect:/board/searchList";
+    }
+
+    /* 게시글 수정 화면 */
+
+    /* 게시글 수정 메서드 */
+    @PostMapping("/boardModify")
+    public String boardModify(@ModelAttribute MemberBoardDTO modifyBoard, RedirectAttributes rttr) throws BoardModifyException {
+
+        System.out.println("파라미터 값? : " + modifyBoard);
+        boardService.boardModify(modifyBoard);
+
+
+        rttr.addFlashAttribute("successMessage", "게시글 수정에 성공하였습니다");
+        return "redirect:/board/boardSelectOne";
+    }
+
+    /* 게시글 삭제 메서드 */
+    @PostMapping("/boardDelete")
+    public String boardDelete(@ModelAttribute MemberBoardDTO deleteBoard, RedirectAttributes rttr) throws BoardDeleteException {
+
+        System.out.println("요청도달?? : " + deleteBoard);
+        boardService.boardDelete(deleteBoard);
+
+        rttr.addFlashAttribute("successMessage", "게시글 삭제에 성공하였습니다");
+        return "redirect:/board/boardSelectOne";
     }
 
 
@@ -121,20 +152,6 @@ public class BoardController {
         return commentList;
     }
 
-/*
-    @GetMapping("/communityInsert")
-    public String communityInsert() {
-        return "/board/boardInsert";
-    }
-    */
-
-/*
-
-    @GetMapping("boardSelectOne")
-    public String selectOne() {
-        return "/board/boardSelectOne";
-    }
-*/
 
     @GetMapping("/singo")
     public String singo() {

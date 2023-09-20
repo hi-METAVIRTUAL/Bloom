@@ -2,7 +2,10 @@ package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
+import com.metavirtual.bloom.common.exception.board.BoardDeleteException;
+import com.metavirtual.bloom.common.exception.board.BoardModifyException;
 import com.metavirtual.bloom.common.exception.board.BoardPostingException;
 import com.metavirtual.bloom.common.exception.board.CommentPostingException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
@@ -31,8 +34,7 @@ public class BoardService {
     }
 
 
-    /* 전체 게시글 조회 메서드*/
-
+    /* 전체 게시글 조회 */
     public List<BoardDTO> findAllBoard(SelectCriteria selectCriteria) {
         List<BoardDTO> boardList = boardMapper.findAllBoard(selectCriteria);
 
@@ -53,9 +55,9 @@ public class BoardService {
         return selectOne;
     }
 
-
+    /* 게시글 등록 */
     @Transactional
-    public void boardNewPosting(BoardDTO newPosting) throws BoardPostingException {
+    public void boardNewPosting(MemberBoardDTO newPosting) throws BoardPostingException {
         int result = boardMapper.boardNewPosting(newPosting);
 
         if(!(result > 0)) {
@@ -63,12 +65,33 @@ public class BoardService {
         }
     }
 
+    /* 게시글 수정 */
+    @Transactional
+    public void boardModify(MemberBoardDTO modifyBoard) throws BoardModifyException {
+        int result = boardMapper.boardModify(modifyBoard);
+
+        if(!(result > 0)) {
+            throw new BoardModifyException("게시글 수정에 실패하였습니다");
+        }
+    }
+    /* 게시글 삭제 */
+    @Transactional
+    public void boardDelete(MemberBoardDTO deleteBoard) throws BoardDeleteException {
+        int result = boardMapper.boardDelete(deleteBoard);
+
+        if(!(result > 0)) {
+            throw new BoardDeleteException("게시글 삭제에 실패하였습니다");
+        }
+    }
+
+    /* 댓글 리스트 조회 */
     public List<MemberCommentDTO> searchAllComment(int boardCode) {
         List<MemberCommentDTO> commentList;
         commentList = boardMapper.searchCommentList(boardCode);
 
         return commentList;
     }
+
 
     @Transactional
     public List<MemberCommentDTO> commentNewPosting(MemberCommentDTO newComment) throws CommentPostingException {
@@ -86,6 +109,7 @@ public class BoardService {
 
         return commentList;
     }
+
 }
 
 
