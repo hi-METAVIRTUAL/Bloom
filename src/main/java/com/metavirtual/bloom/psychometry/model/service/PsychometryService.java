@@ -20,12 +20,16 @@ public class PsychometryService {
         this.psychometryMapper = psychometryMapper;
     }
 
-    public List<TestQDTO> findContent(String category) {
-        return psychometryMapper.findContent(category);
+    public List<TestQDTO> findContent(String testCategory) {
+        return psychometryMapper.findContent(testCategory);
     }
+
+
+
     @Transactional
-    public void saveAnswers(List<TestResultDTO> answerData) {
-            psychometryMapper.saveAnswers(answerData);
+    public List<TestResultDTO> saveAnswers(String answerScore, String testCategory) {
+        psychometryMapper.saveAnswers(answerScore,testCategory);
+        return null;
     }
 }
 
