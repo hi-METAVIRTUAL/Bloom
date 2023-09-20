@@ -33,13 +33,18 @@
         <collection property="boardCode" column="BOARD_CODE" resultMap="boardResultMap"/>
     </resultMap>
 
-<!--    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
         SELECT COUNT(*)
         FROM BOARD A
         <if test="searchSelect eq 'writer'">
             JOIN MEMBER B ON(A.USER_ID = B.USER_ID)
         </if>
-        <if test="searchSelect eq 'category1'">
+        <if test="searchSelect eq 'community'">
+            <where>
+                A.BOARD_CATEGORY = #{ searchValue }
+            </where>
+        </if>
+        <if test="searchSelect eq 'gomin'">
             <where>
                 A.BOARD_CATEGORY = #{ searchValue }
             </where>
@@ -61,7 +66,7 @@
             ,A.TITLE
             ,A.POSTED_DATE
             ,A.BOARD_CATEGORY
-            ,B.NICKNAME
+            ,C.NICKNAME
             ,A.VIEW_COUNT
             ,A.USER_ID
         FROM (  SELECT B.BOARD_CODE
@@ -74,14 +79,19 @@
                 <if test="searchSelect eq 'writer'">
                     JOIN MEMBER C ON(B.USER_ID = C.USER_ID)
                 </if>
-                <if test="searchSelect eq 'boardCategory'">
-                    <where>
-                        A.BOARD_CATEGORY = #{ searchValue }
-                    </where>
-                </if>
                 <if test="searchSelect eq 'writer'">
                     <where>
                         C.NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
+                    </where>
+                </if>
+                <if test="searchSelect eq '커뮤니티'">
+                    <where>
+                        B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '커뮤니티'
+                    </where>
+                </if>
+                <if test="searchSelect eq '고민상담'">
+                    <where>
+                        B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '고민상담'
                     </where>
                 </if>
                 <if test="searchSelect eq 'title'">
@@ -90,8 +100,8 @@
                     </where>
                 </if>
         ) A
-        JOIN MEMBER B ON (A.USER_ID = B.USER_ID)
-        ORDER BY A.POSTED_DATE DESC
+        LEFT JOIN MEMBER C ON(A.USER_ID = C.USER_ID)
+        ORDER BY A.BOARD_CODE DESC
         LIMIT #{ startRow }, 10
     </select>
 
@@ -127,7 +137,7 @@
             ,BOARD_CONTENT
             ,USER_ID
         )
-        VALUES(#{ title }, curdate(), #{ category }, #{ content }, '이효진')
+        VALUES(#{ title }, NOW(), #{ boardCategory }, #{ boardContent }, #{ userId })
     </insert>
 
     <insert id="commentPosting">
@@ -143,6 +153,6 @@
         UPDATE BOARD
         SET VIEW_COUNT = VIEW_COUNT + 1
         WHERE BOARD_CODE = #{ boardCode }
-    </update>-->
+    </update>
 
 </mapper>

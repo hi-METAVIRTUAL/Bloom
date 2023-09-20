@@ -5,58 +5,137 @@
     <title>My Info Setting</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body{
+            color: #C09A81;
+            margin: 0 auto;
+            width: 100%;
+            background-color: #FFF6E2;
+            text-align: center;
+        }
+        .round-input {
+            width: 400px;
+            height: 30px;
+            border-color: #C09A81;
+            border-radius: 10px;
+            border-style: solid;
+        }
+        .info-table {
+            border-collapse: separate;
+            border-spacing: 0 20px;
+            border: none;
+            border-collapse: collapse;
+            text-align: center;
+            color: #C09A81;
+        }
+        .info-bt {
+            width: 100px;
+            height: 25px;
+            background-color: #C09A81;
+            border-radius: 30px;
+            color: #FFFFFF;
+            border: none;
+            text-align: center;
+        }
+        .email{
+            width: 135px;
+            height: 30px;
+            border-color: #C09A81;
+            border-radius: 10px;
+            border-style: solid;
+        }
+        tr{
+            height: 63px;
+        }
+        .tel {
+            width: 115px;
+            height: 30px;
+            border-color: #C09A81;
+            border-radius: 10px;
+            border-style: solid;
+        }
+    </style>
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
 <br><br>
-    <form align="center">
+<h2>개인 정보 수정</h2>
+    <form align="center" method="post" th:action="@{/therapist/modifyTherapistInfo}">
         <table align="center" class="info-table">
             <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
+            <colgroup>
+                <col style="width: 20%">
+                <col style="width: 60%">
+            </colgroup>
+            <input
+                    type="hidden"
+                    id="userId"
+                    name="userId"
+                    th:value="${ #authentication.getPrincipal().getUserId() }"
+            >
             <tr>
-                <td>이름</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly">김철수</textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" th:text="${therapistName}"></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+                <td align="left">이름</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="${#authentication.getPrincipal().getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
             </tr>
             <tr>
-                <td>아이디</td>
-                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly">chalse</textarea><br>아이디는 변경 불가능합니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea class="fixed-textarea" readonly="readonly" th:text="${therapistId}"></textarea><br>아이디는 변경 불가능합니다.</td>-->
+                <td align="left">아이디</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="${#authentication.getPrincipal().getUserId()}"><br>아이디는 변경 불가능합니다.</td>
             </tr>
             <tr>
-                <td>비밀번호</td>
+                <td align="left">비밀번호</td>
                 <td>
-                    * <input class="round-input" type="password" name="pass" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" >
+                    * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >
                 </td>
             </tr>
             <tr>
-                <td>이메일</td>
+                <td align="left">이메일</td>
                 <td>
-                    * <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailid" th:value="${emailId}">
-                    @ <input style="width: 147px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="emailaddress" th:value="${emailAddress}">
+                    * <input class="email" type="text" name="emailId" th:text="${#strings.substringBefore(#authentication.getPrincipal().getEmail(),'@')}" required>
+                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(#authentication.getPrincipal().getEmail(),'@')}" required>
+                    <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                        <option value="empty">선택하기</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="">직접입력</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <td>전화번호</td>
+                <td align="left">전화번호</td>
                 <td>
-                    * <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}">
-                    - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonem" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneMiddle}">
-                    - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonel" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneEnd}">
+                    * <input class="tel" type="text" pattern="[0-9]{1,3}" title="숫자만 입력 가능합니다" name="phonef" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[0]}" required>
+                    - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonem" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[1]}" required>
+                    - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonel" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[2]}" required>
                 </td>
             </tr>
             <tr>
-                <td>성별</td>
-                <td align="left">
-                    &nbsp;&nbsp;<textarea style=" text-align: center; width: 50px; height: 30px; line-height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly">남성</textarea>
-<!--                    &nbsp;&nbsp;<textarea style="width: 50px; height: 30px; border-radius: 10px; border-color: #C09A81; border-width: 2px; background-color: #E9E9E9; color: #C09A81; resize: none;" readonly="readonly" th:text="${therapistGender}"></textarea>-->
+                <td align="left">성별</td>
+                <td align="center">
+                    <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'M'" disabled> 남성
+                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'F'" disabled> 여성
                 </td>
             </tr>
         </table>
 <br>
-        <input style="width: 200px; height: 28px; border-radius: 30px; background-color: #C09A81; color: #FFFFFF; border: none" type="submit" value="수정 완료">
+        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
+        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='profile1'">
     </form>
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
+<script>
+    // Get references to the select and input elements
+    const emailDomainSelect = document.getElementById('emailDomainSelect');
+    const emailDomainInput = document.getElementById('emailDomain');
+    // Add an event listener to the select element
+    emailDomainSelect.addEventListener('change', function () {
+        // Update the input field with the selected option's value
+        emailDomainInput.value = this.value;
+        emailDomainSelect.value = this.value;
+    });
+</script>
 </body>
 </html>

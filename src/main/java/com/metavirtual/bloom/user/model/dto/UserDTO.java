@@ -16,12 +16,12 @@ public class UserDTO implements UserDetails {
     private String phone;
     private String registDate;
     private String unregistDate;
-    private List<UserRoleDTO> userRoleList;		// 회원별권한리스트
+    private int authority_code;
 
     public UserDTO() {
     }
 
-    public UserDTO(String userId, String pwd, String name, char gender, String email, String phone, String registDate, String unregistDate, List<UserRoleDTO> userRoleList) {
+    public UserDTO(String userId, String pwd, String name, char gender, String email, String phone, String registDate, String unregistDate, int authority_code) {
         this.userId = userId;
         this.pwd = pwd;
         this.name = name;
@@ -29,8 +29,7 @@ public class UserDTO implements UserDetails {
         this.email = email;
         this.phone = phone;
         this.registDate = registDate;
-        this.unregistDate = unregistDate;
-        this.userRoleList = userRoleList;
+        this.authority_code = authority_code;
     }
 
     public String getUserId() {
@@ -97,12 +96,12 @@ public class UserDTO implements UserDetails {
         this.unregistDate = unregistDate;
     }
 
-    public List<UserRoleDTO> getUserRoleList() {
-        return userRoleList;
+    public int getAuthority_code() {
+        return authority_code;
     }
 
-    public void setUserRoleList(List<UserRoleDTO> userRoleList) {
-        this.userRoleList = userRoleList;
+    public void setAuthority_code(int authority_code) {
+        this.authority_code = authority_code;
     }
 
     @Override
@@ -115,8 +114,7 @@ public class UserDTO implements UserDetails {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", registDate='" + registDate + '\'' +
-                ", unregistDate='" + unregistDate + '\'' +
-                ", userRoleList=" + userRoleList +
+                ", authority_code='" + authority_code +
                 '}';
     }
 

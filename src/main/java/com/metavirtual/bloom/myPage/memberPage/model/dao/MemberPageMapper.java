@@ -9,20 +9,22 @@ import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MemberPageMapper {
 
     int modifyMemberInfo(MemberDTO member);
+
     int modifyUserInfo(UserDTO user);
 
     String selectMemberByNickname(String nickname);
 
-    int selectTotalCount();
+    int selectTotalCount(Map<String, String> searchMap);
 
     List<BoardDTO> selectPostList(SelectCriteria selectCriteria);
 
-    int deleteMyPost(int boardCode);
+    int deleteMyPost(String boardCode);
 
     int deleteMyComment(int commentCode);
 

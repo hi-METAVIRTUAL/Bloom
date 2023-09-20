@@ -10,6 +10,7 @@ import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MemberPageServiceImpl implements MemberPageService{
@@ -36,8 +37,8 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
     @Override
-    public int selectTotalCount(){
-        int result = mapper.selectTotalCount();
+    public int selectTotalCount(Map<String, String> searchMap){
+        int result = mapper.selectTotalCount(searchMap);
         return result;
     }
 
@@ -48,7 +49,7 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
     @Override
-    public void deleteMyPost(int boardCode) throws DeleteException {
+    public void deleteMyPost(String boardCode) throws DeleteException {
         int result = mapper.deleteMyPost(boardCode);
 
         if(!(result>0)){

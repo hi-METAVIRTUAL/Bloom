@@ -15,15 +15,16 @@
             TEST_CONTENT,
             TEST_CATEGORY
         FROM TEST_Q
-        WHERE TEST_CATEGORY = #{category}
+        WHERE TEST_CATEGORY = #{testCategory}
 
     </select>
 
     <insert id="saveAnswers" parameterType="map">
         INSERT INTO TEST_RESULT (TEST_CODE, ANSWER_SCORE)
-        VALUES
-        <foreach collection="answers" item="answer" separator=",">
+        VALUES (#{answer.testCode}, #{testCategory},'gao')
+
+        <!--<foreach collection="answers" item="answer" separator=",">
             (#{answer.testCode}, #{answer.answerScore})
-        </foreach>
+        </foreach>-->
     </insert>
 </mapper>

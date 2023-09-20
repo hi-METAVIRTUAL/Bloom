@@ -80,7 +80,7 @@
     <h1> 작성 글 / 댓글 보기 </h1>
 </div>
 <br>
-<div align="center">
+<div align="center" id="pList">
     <div>
         <h2>작성한 글</h2>
     </div>
@@ -140,37 +140,38 @@
         <input type="button" value="선택 삭제" onclick="deleteMyPost();">
         </div>
         <div align="center">
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selecCriteria.startPage}} + '\''"
-            th:disabled="${selectCriteria.pageNo==1}"
-        >
-            <<
-        </button>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selectCritria.pageNo - 1}} + '\''"
-            th:disabled="${selectCriteria.pageNo==1}"
-        >
-            <
-        </button>
-        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <input type="hidden" name="currentPage" value="1">
             <button class="pagebt"
-                th:text="${ page }"
-                th:onclick="'location.href=\'?currentPage='+@{${page}}+'\''"
-                th:disabled="${ selectCriteria.pageNo eq page }">
-            </button>
-        </th:block>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selectCriteria.pageNo + 1}} + '\''"
-            th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
-        >
+                th:onclick="'location.href=\'#pList?currentPage='+@{${ selecCriteria.startPage }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
             >
-        </button>
-        <button class="pagebt"
-            th:onclick="'location.href=\'?currentPage='+@{${selectCriteria.maxPage}} + '\''"
-            th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
-        >
-            >>
-        </button><br>
+                <<
+            </button>
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${ selectCriteria.pageNo - 1 }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+            >
+                <
+            </button>
+            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                <button class="pagebt"
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'#pList?currentPage='+@{${page}}+'\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+                </button>
+            </th:block>
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+            >
+                >
+            </button>
+            <button class="pagebt"
+                th:onclick="'location.href=\'#pList?currentPage='+@{${selectCriteria.maxPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+            >
+                >>
+            </button><br>
     </div>
 </div>
 <br><br>
