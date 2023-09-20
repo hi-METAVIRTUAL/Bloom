@@ -12,7 +12,7 @@
         <result property="viewCount" column="VIEW_COUNT"/>
         <result property="boardCategory" column="BOARD_CATEGORY"/>
         <result property="boardContent" column="BOARD_CONTENT"/>
-        <association property="userId" column="USER_ID" resultMap="memberResultMap"/>
+        <collection property="userId" column="USER_ID" resultMap="memberResultMap"/>
     </resultMap>
 
     <resultMap id="memberResultMap" type="com.metavirtual.bloom.user.model.dto.MemberDTO">
@@ -30,26 +30,30 @@
         <result property="commentContent" column="COMMENT_CONTENT"/>
         <result property="postedDate" column="POSTED_DATE"/>
         <result property="deleteDate" column="DELETE_DATE"/>
-        <association property="boardCode" column="BOARD_CODE" resultMap="boardResultMap"/>
+        <collection property="boardCode" column="BOARD_CODE" resultMap="boardResultMap"/>
     </resultMap>
 
 <!--    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
         SELECT COUNT(*)
         FROM BOARD A
-        <if test="searchSelect == 'userId'">
+        <if test="searchSelect eq 'writer'">
             JOIN MEMBER B ON(A.USER_ID = B.USER_ID)
         </if>
-        <where>
-            <if test="searchSelect == 'boardCategory'">
+        <if test="searchSelect eq 'category1'">
+            <where>
                 A.BOARD_CATEGORY = #{ searchValue }
-            </if>
-            <if test="searchSelect == 'userId'">
+            </where>
+        </if>
+        <if test="searchSelect eq 'writer'">
+            <where>
                 B.NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
-            </if>
-            <if test="searchSelect == 'title'">
+            </where>
+        </if>
+        <if test="searchSelect eq 'title'">
+            <where>
                 A.TITLE LIKE CONCAT('%', #{ searchValue }, '%')
-            </if>
-        </where>
+            </where>
+        </if>
     </select>
 
     <select id="findAllBoard" resultMap="boardResultMap">
@@ -59,26 +63,32 @@
             ,A.BOARD_CATEGORY
             ,B.NICKNAME
             ,A.VIEW_COUNT
+            ,A.USER_ID
         FROM (  SELECT B.BOARD_CODE
                     ,B.TITLE
                     ,B.POSTED_DATE
                     ,B.BOARD_CATEGORY
                     ,B.VIEW_COUNT
+                    ,B.USER_ID
                 FROM BOARD B
-                <if test="searchSelect == 'userId'">
+                <if test="searchSelect eq 'writer'">
                     JOIN MEMBER C ON(B.USER_ID = C.USER_ID)
                 </if>
-                <where>
-                    <if test="searchSelect == 'boardCategory'">
+                <if test="searchSelect eq 'boardCategory'">
+                    <where>
                         A.BOARD_CATEGORY = #{ searchValue }
-                    </if>
-                    <if test="searchSelect == 'userId'">
+                    </where>
+                </if>
+                <if test="searchSelect eq 'writer'">
+                    <where>
                         C.NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
-                    </if>
-                    <if test="searchSelect == ''title">
+                    </where>
+                </if>
+                <if test="searchSelect eq 'title'">
+                    <where>
                         B.TITLE LIKE CONCAT('%', #{ searchValue }, '%')
-                    </if>
-                </where>
+                    </where>
+                </if>
         ) A
         JOIN MEMBER B ON (A.USER_ID = B.USER_ID)
         ORDER BY A.POSTED_DATE DESC
@@ -92,10 +102,9 @@
             ,A.BOARD_CATEGORY
             ,A.BOARD_CONTENT
             ,B.NICKNAME
-            ,C.COMMENT_CONTENT
+            ,A.USER_ID
         FROM BOARD A
         JOIN MEMBER B ON (A.USER_ID = B.USER_ID)
-        JOIN MEMBER_COMMENT C ON (A.BOARD_CODE = B.BOARD_CODE)
         WHERE A.BOARD_CODE = #{ boardCode }
     </select>
 
@@ -109,15 +118,25 @@
         ORDER BY A.POSTED_DATE DESC
     </select>
 
-    <insert id="boardNewPosting" parameterType="com.metavirtual.bloom.board.model.dto.BoardDTO">
+
+    <insert id="boardNewPosting">
         INSERT INTO BOARD(
-            ,TITLE
-            ,BOARD_CATEGORY
+            TITLE
             ,POSTED_DATE
+            ,BOARD_CATEGORY
             ,BOARD_CONTENT
             ,USER_ID
         )
-        VALUES( #{ title }, #{ boardCategory }, #{ postedDate }, #{ boardContent }, #{ userId });
+        VALUES(#{ title }, curdate(), #{ category }, #{ content }, '이효진')
+    </insert>
+
+    <insert id="commentPosting">
+        INSERT INTO MEMBER_COMMENT(
+            COMMENT_CONTENT
+            ,POSTED_DATE
+            ,BOARD_CODE
+        )
+        VALUES(#{ commentContent }, #{ postedDate }, #{ boardCode })
     </insert>
 
     <update id="viewCount">
