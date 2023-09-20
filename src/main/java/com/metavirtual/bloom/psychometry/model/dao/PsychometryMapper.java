@@ -12,8 +12,8 @@ import java.util.Map;
 @Mapper
 public interface PsychometryMapper {
 
-    List<TestQDTO> findContent(@Param("category") String category);
+    List<TestQDTO> findContent(@Param("testCategory") String testCategory);
 
-   /* int saveAnswers(Map<String, String> answers);*/
-    void saveAnswers(List<TestResultDTO> answerData);
+
+    int saveAnswers(String answerScore, String testCategory);
 }
