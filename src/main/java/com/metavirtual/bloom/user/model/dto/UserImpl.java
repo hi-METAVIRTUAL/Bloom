@@ -17,7 +17,7 @@ public class UserImpl /*extends User*/ {
     private String phone;
     private String registDate;
     private String unregistDate;
-    private List<UserRoleDTO> userRoleList;		// 회원별권한리스트
+
 
 /*    public UserImpl(String userId, String pwd, Collection<? extends GrantedAuthority> authorities) {
         super(userId, pwd, authorities);
@@ -98,13 +98,6 @@ public class UserImpl /*extends User*/ {
         this.unregistDate = unregistDate;
     }
 
-    public List<UserRoleDTO> getUserRoleList() {
-        return userRoleList;
-    }
-
-    public void setUserRoleList(List<UserRoleDTO> userRoleList) {
-        this.userRoleList = userRoleList;
-    }
 
     @Override
     public String toString() {
@@ -116,8 +109,7 @@ public class UserImpl /*extends User*/ {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", registDate='" + registDate + '\'' +
-                ", unregistDate='" + unregistDate + '\'' +
-                ", userRoleList=" + userRoleList +
+                ", unregistDate='" + unregistDate +
                 '}';
     }
 }

@@ -69,12 +69,15 @@ public class UserServiceImpl<AuthDetails> implements UserService {
     @Transactional
     public void registUser(UserDTO user, MemberDTO member) throws UserRegistException {
 
-        log.info("[UserService] Insert User : " + user);
+        System.out.println("[UserService] 들어옴");
+        System.out.println("[UserService] Insert User : " + user);
+        System.out.println("[UserService] Insert Member : " + member);
+
         int result1 = userMapper.insertUser(user);
         int result2 = userMapper.insertMember(member);
 
-
-        log.info("[UserService] Insert result : " + ((result1 > 0 && result2 > 0) ? "회원가입 성공" : "회원가입 실패"));
+        System.out.println("[UserService] Insert result1 : " + ((result1 > 0 ) ? "회원가입 성공" : "회원가입 실패"));
+        System.out.println("[UserService] Insert result2 : " + ((result2 > 0) ? "회원가입 성공" : "회원가입 실패"));
 
 
         if (!(result1 > 0 && result2 > 0)) {
@@ -82,9 +85,12 @@ public class UserServiceImpl<AuthDetails> implements UserService {
         }
     }
 
+    public void registMember(MemberDTO member) {
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
+
 
 }

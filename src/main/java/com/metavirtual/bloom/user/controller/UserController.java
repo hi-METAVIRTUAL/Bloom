@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 /*import org.springframework.security.crypto.password.PasswordEncoder;*/
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +29,12 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final UserServiceImpl userService;
 
     @Autowired
-    public UserController(/*PasswordEncoder passwordEncoder,*/ UserServiceImpl userService) {
-        /*this.passwordEncoder = passwordEncoder;*/
+    public UserController(PasswordEncoder passwordEncoder, UserServiceImpl userService) {
+        this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
 
@@ -48,10 +49,31 @@ public class UserController {
     }
 
     @PostMapping("/memberRegist") //spring 에서 제공하는 다른 request 써
-    public String registMember(@ModelAttribute UserDTO user, @ModelAttribute MemberDTO member, HttpServletRequest request) throws UserRegistException {
+    public String registMember(@RequestParam String username, @RequestParam String password, @RequestParam String emailId, @RequestParam String emailDomain,
+                               @ModelAttribute UserDTO user, @ModelAttribute MemberDTO member) throws UserRegistException {
 
+        System.out.println("[UserController] 들어옴");
 
         System.out.println(user + " " + member);
+
+        user.setUserId(username);
+        user.setPwd(password);
+        user.setEmail(emailId + '@' + emailDomain);
+        String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        user.setRegistDate(registDate);
+        user.setAuthority_code(1);
+
+        member.setUserId(username);
+
+        System.out.println("가져온 결과 = " +user.getUserId() +" " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate()+ " " + user.getAuthority_code());
+        System.out.println("총 결과 = " + user.getUserId() +" " + user.getPwd() + " " + user.getName() + " "
+                + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthority_code());
+
+        System.out.println("멤버 결과 : " + member.getNickname());
+
+        userService.registUser(user,member);
+
+        return "user/memberRegistSuccess";
         /*user.setName(request.getParameter("name"));
         user.setUserId(request.getParameter("username"));
         user.setPwd(passwordEncoder.encode(user.getPwd()));
@@ -70,18 +92,16 @@ public class UserController {
         String phone3 = request.getParameter("phonel");
         String phone = phone1 + "-" + phone2 + "-" + phone3;*/
 
-        String myGender = request.getParameter("myGender");
+       /* String gender.setGender("myGender")
         if ("male".equals(myGender)) {
             user.setGender('M');
         } else if ("female".equals(myGender)) {
             user.setGender('F');
-        }
+        }*/
 
-        user.setEmail(request.getParameter("emailId")+'@'+request.getParameter("emailDomain"));
+        /*user.setEmail(request.getParameter("emailId")+'@'+request.getParameter("emailDomain"));*/
 
-        userService.registUser(user,member);
 
-        return "user/memberRegistSuccess";
         /*String emailId = request.getParameter("emailId");
         String emailDomain = request.getParameter("emailDomain");
         String email = emailId + "@" + emailDomain;*/

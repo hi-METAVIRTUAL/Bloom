@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <!--<link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">-->
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
-    <script type="text/javascript" th:src="@{/js/event.js}"></script>
+    <script type="text/javascript" th:src="@{/js/event.js}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -32,17 +32,18 @@
     <h1 class="title">회원가입</h1>
     <div class="RegisterForm">
 
-        <form action="/memberRegist" id="memberRegist" method="post" align="center">
+        <form action="/user/memberRegist" id="memberRegist" method="POST" align="center">
             <div style="display: flex; justify-content: center;">
                 <table class="registTable">
                     <tr>
                         <td class="row">이름</td>
-                        <td>*<input type="text" name="name" placeholder="최대 10자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
+                        <td>*<input type="text" id="name" name="name" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?!.*[@$!%*?&\\s])[A-Za-z가-힣]{1,20}$" required></td>
                     </tr>
 
-                    <td>아이디</td>
-                    <td>*<input type="text" name="username" id="username" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
-                    <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
+                    <tr>
+                        <td>아이디</td>
+                        <td>*<input type="text" name="username" id="username" class="input-field" placeholder="최대 20자 / 공백 불가 / 영문 필수 / 특수 기호(!@$%&*) 필수" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[A-Za-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,20}$" required></td>
+                        <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
                     <tr>
                         <td></td>
                         <td><span id="result_checkId" style="font-size:12px;"></span></td>
@@ -50,7 +51,7 @@
 
                     <tr>
                         <td>비밀번호</td>
-                        <td>*<input type="password" name="password" id="password" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
+                        <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -83,33 +84,31 @@
 
                     <tr>
                         <td>닉네임</td>
-                        <td>*<input type="text" name="nickname" id="nickname" placeholder="최대 10자 공백 / 특수기호 불가 / 영문/한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
+                        <td>*<input type="text" name="nickname" id="nickname" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^[A-Za-z가-힣]{1,10}$" required></td>
                         <td><input type="button" id="duplicationNicknameCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder;"></td>
                     </tr>
 
                     <tr>
                         <td>전화번호</td>
                         <td style="text-align: left;" colspan="2">
-                            *<input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonef" pattern="[0-9]*" inputmode="numeric" max="3" th:value="${phoneFront}" required>
-                            - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonem" pattern="[0-9]*" inputmode="numeric" th:value="${phoneMiddle}" required>
-                            - <input style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="number" name="phonel" pattern="[0-9]*" inputmode="numeric" th:value="${phoneEnd}" required>
+                            *<input style="width: 270px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" id="phone" name="phone" class="input-field" placeholder="010-1234-5678" th:value="${phone}" required>
                             &nbsp;&nbsp;성별*&nbsp;&nbsp;
 
                             <label for="male">남자</label>
-                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="myGender" id="male" value="male">
+                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="male" value="M" required>
                             <label for="female">여자</label>
-                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="myGender" id="female" value="female">
+                            <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="female" value="F">
                         </td>
                     </tr>
 
                     <tr>
                         <td>이메일</td>
                         <td style="text-align: left;">
-                            *<input type="text" id="emailId" name="emailId" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
+                            *<input type="text" id="emailId" name="emailId" class="input-field" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
                             @
                             <input type="text" name="emailDomain" id="emailDomain" th:text="${emailDomainSelect}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
                             <select id="emailDomainSelect" onchange="updateEmailDomain()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
-                                <option value="empty">선택하기</option>
+                                <option value="">선택하기</option>
                                 <option value="naver.com">naver.com</option>
                                 <option value="gmail.com">gmail.com</option>
                                 <option value="yahoo.com">yahoo.com</option>
@@ -117,7 +116,7 @@
                                 <option value="">직접입력</option>
                             </select>
                         </td>
-                        <td><button name="sendBtn" onclick="sendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
+                        <td><button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
                     </tr>
 
                     <!--<tr>
@@ -174,13 +173,16 @@
 
                         // Function to confirm the received number
                         function confirmNumber() {
+                            const verificationBox = document.getElementById("number"); // Get the verificationBox button element
                             var number1 = $("#number").val();
                             var number2 = $("#Confirm").val();
 
                             if (number1 == number2) {
                                 alert("본인인증이 완료되었습니다.");
+                                verificationBox.style.borderColor = "green"; // Change the border color of the verificationBox button
+                                document.getElementById("submitButton").disabled = false;
                             } else {
-                                alert("인증번호가 일치하지 않습니다.");
+                                alert("인증번호가 일치하지 않습니다. 올바른 인증번호를 입력해주세요");
                             }
                         }
                     </script>
@@ -191,41 +193,56 @@
             <div>
                 <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
                 <div id="mail_number" name="mail_number" style="display: none">
-                    <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
-                    <button name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+                    <input type="text" name="number" id="number" class="input-field" placeholder="인증번호 입력" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                    <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;">이메일 인증</button>
                 </div>
             </div>
 
+            <div style="color: red; font-size: 15px;" id="name-error"></div>
+            <div style="color: red; font-size: 15px;" id="id-error"></div>
             <div style="color: red; font-size: 15px;" id="password-error"></div>
-            <script>
-                function handlePasswordInput() {
-                    const passwordInput = document.getElementById("password");
-                    const passwordError = document.getElementById("password-error");
+            <div style="color: red; font-size: 15px;" id="nickname-error"></div>
+            <div style="color: red; font-size: 15px;" id="phone-error"></div>
 
-                    passwordInput.addEventListener("input", function () {
-                        if (passwordInput.validity.valid || passwordInput.value === "") {
-                            passwordError.textContent = "";
-                        } else {
-                            passwordError.textContent = "비밀번호는 8~20 자, 대소문자, 숫자, 특수기호가 필요하며 공백은 허용되지 않습니다.";
-                        }
-                    });
-                }
+            <div style="font-size: 15px;" id="idDupCheck-error"></div>
+            <div style="font-size: 15px;" id="nicknameDupCheck-error"></div>
 
-                // Call the function to set up the event listener
-                handlePasswordInput();
-            </script>
-        </form>
-    </div>
+
+
+
         <hr class="solid" style="width:700px;">
         <h3>이용약관</h3>
         <textarea rows="10" cols="80" readonly id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum</textarea></p>
-        <button onclick="goBack()" type="button" style="width:200px;" class="whiteButton">돌아가기</button>&ensp;&ensp;<button type="submit" style="width:200px;" class="whiteButton">회원가입</button>
-        <script>
+        <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="회원가입" class="whiteButton" style="width:200px;" disabled>
+    </form>
+    </div>
+    <script>
+
             function goBack() {
                 window.location.href="/";
             }
+                // Your JavaScript code here
+
+/*            function registerButton() {
+                const idInput = document.getElementById("username");
+                const idError = document.getElementById("id-error");
+                const nicknameInput = document.getElementById("nickname");
+                const nicknameError = document.getElementById("nickname-error");
+                const phoneInput = document.getElementById("phone");
+                const phoneError = document.getElementById("phone-error");
+
+                const isIdValid = isInputValid(idInput, idPattern);
+                const isNicknameValid = isInputValid(nicknameInput, nicknamePattern);
+                const isPhoneValid = handlePhoneValidation(phoneInput, phoneError, phoneInputBox);
+
+                if (isIdValid && isNicknameValid && isPhoneValid) {
+                    alert("회원가입 성공!")
+                }else {
+                    alert("올바른 형식으로 다시 입력해주세요.")
+                }
+            }*/
         </script>
     <th:block th:include="components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
 
