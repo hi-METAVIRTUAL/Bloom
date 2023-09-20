@@ -77,12 +77,12 @@
             <tr>
                 <td align="left">이름</td>
                 <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" value="이메다"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea th:value="${#authentication.getPrincipal().getName()}" class="fixed-textarea" disabled></textarea><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${#authentication.getPrincipal().getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
             </tr>
             <tr>
                 <td align="left">아이디</td>
                 <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" value="metamong"><br>아이디는 변경 불가능합니다.</td>
-<!--                <td>&nbsp;&nbsp;<textarea th:value="${#authentication.getPrincipal().getUserId()}"" class="fixed-textarea" disabled></textarea><br>아이디는 변경 불가능합니다.</td>-->
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${#authentication.getPrincipal().getUserId()}"><br>아이디는 변경 불가능합니다.</td>-->
             </tr>
             <tr>
                 <td align="left">비밀번호</td>
@@ -141,14 +141,14 @@
                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" checked disabled> 여성
                </td>
 <!--               <td align="left">-->
-<!--                   <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == ${user.gender}" disabled> 남성-->
-<!--                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == ${user.gender}" disabled> 여성-->
+<!--                   <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'M'" disabled> 남성-->
+<!--                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'F'" disabled> 여성-->
 <!--               </td>-->
            </tr>
         </table>
 <br>
         <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
-        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='profile1'">
+        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">
     </form>
 <br><br>
 <footer>

@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member")
@@ -62,6 +64,8 @@ public class MemberPageController {
 
         memberPageService.modifyMemberInfo(member, user);
 
+        rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
+
         return "redirect:/mypage/member/memberInfo";
     }
 
@@ -91,21 +95,34 @@ public class MemberPageController {
     }
 
     @GetMapping(value = "/myPost")
-    public ModelAndView myPost(HttpServletRequest request, @RequestParam(value = "currentPage", defaultValue = "1") int pageNo
+    public ModelAndView myPost(HttpServletRequest request, @RequestParam(required = false) String searchCondition,
+                               @RequestParam(required = false) String searchValue, @RequestParam(value = "currentPage", defaultValue = "1") int pageNo
                                ,ModelAndView mv){
+
         log.info("");
         log.info("");
         log.info("[MemberPageController] ========");
 
-        int totalCount = memberPageService.selectTotalCount();
-        log.info("[MemberPageController] totalMyPostCount : "+totalCount);
+        Map<String, String> searchMap = new HashMap<>();
+        searchMap.put("searchCondition", searchCondition);
+        searchMap.put("searchValue", searchValue);
 
-        int limit = 5;
+        log.info("[MemberPageController] 컨트롤러에서 검색조건 확인하기 : " +searchMap);
+
+        int totalBoardCount = memberPageService.selectTotalCount(searchMap);
+        log.info("[MemberPageController] totalMyPostCount : "+totalBoardCount);
+
+        int limitPerPage = 5;
 
         int buttonAmount = 5;
 
-        SelectCriteria selectCriteria = Paging.getSelectCriteria(pageNo, totalCount, limit, buttonAmount);
+        SelectCriteria selectCriteria = null;
 
+        if(searchCondition != null && !"".equals(searchCondition)){
+            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCondition, searchValue);
+        } else {
+            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount);
+        }
         log.info("[MemberPageController] selectCriteria : "+selectCriteria);
 
         List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria);
@@ -115,18 +132,19 @@ public class MemberPageController {
         mv.addObject("myPostList", myPostList);
         mv.addObject("selectCriteria", selectCriteria);
         log.info("[MemberPageController] selectCriteria : "+selectCriteria);
+        mv.setViewName("mypage/member/postList");
 
         log.info("[MemberPageController] ========");
         return mv;
     }
 
-    @RequestMapping("/deleteMyPost")
+    @RequestMapping(value="/deleteMyPost")
     public String deleteMyPost(HttpServletRequest request) throws DeleteException {
 
         String[]ajaxMsg = request.getParameterValues("valueArr");
         int size = ajaxMsg.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyPost(Integer.parseInt(ajaxMsg[i]));
+            memberPageService.deleteMyPost(ajaxMsg[i]);
         }
         return "redirect:/mypage/member/postList";
     }
