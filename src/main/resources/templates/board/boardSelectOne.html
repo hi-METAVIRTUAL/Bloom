@@ -4,17 +4,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <h1 class="title">커뮤니티</h1>
 
 <!--게시글 상세-->
-<div class="selectone-title"><span th:text="${ board.title }"></span></div>
-<div class="view-id-date"> 작성자 : <span th:text="${ board.userId.nickname }"></span> 작성일시 : <span th:text="${ board.postedDate }"></span></div>
-<div><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></div>
-<div class="singobutton"><button type="button" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
+
+    <div class="selectone-title"><span th:text="${ board.title }"></span></div>
+    <div class="view-id-date"> 작성자 : <span th:text="${ board.userId.nickname }"></span> 작성일시 : <span th:text="${ board.postedDate }"></span></div>
+    <div><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></div>
+    <div class="singobutton"><button type="button" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
+
+    <button type="button" class="insert-button" id="btnModify"><span>수정하기</span></button>
+    <button type="button" class="insert-button" id="btnDelete"><span>삭제하기</span></button>
 
 <!--댓글작성-->
 <!--<div><textarea rows="22" cols="100" placeholder="댓글을 작성해주세요." class="insert-datgul-board"></textarea></div>
 <div class="singobutton"><button type="text" onclick="location.href='/board/boardInsert'" style="float: right">댓글쓰기</button><button type="text" onclick="location.href='/board/boardMain'" style="float: right; margin-left: 3%; margin-right: 2%">목록으로</button></div>-->
 
+<script>
+    $("#btnModify").click(function () {
+        $.ajax({
+            url: "board/boardModify",
+            type: "post"
+        })
+    });
+</script>
 </html>
