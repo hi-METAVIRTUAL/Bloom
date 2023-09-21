@@ -3,6 +3,8 @@ package com.metavirtual.bloom.user.model.service;
 
 
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
+import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
 import com.metavirtual.bloom.user.model.dao.UserMapper;
 import com.metavirtual.bloom.user.model.dto.*;
 import org.slf4j.Logger;
@@ -62,17 +64,37 @@ public class UserServiceImpl<AuthDetails> implements UserService {
 
     @Override
     @Transactional
-    public void registTherapistPI(UserDTO user) throws UserRegistException {
+    public void registTherapist(UserDTO user, TherapistDTO therapist, DataFileDTO dataFile) throws UserRegistException, ModifyInfoException {
 
         System.out.println("[UserService] 들어옴");
         System.out.println("[UserService] Insert User : " + user);
 
-        int result = userMapper.insertTherapistPI(user);
+        int userResult = userMapper.insertUser(user);
+        int therapistResult = userMapper.insertTherapist(therapist);
 
-        System.out.println("[UserService] Insert result2 : " + ((result > 0) ? "상담사 인적사항 회원가입 성공" : "상담사 인적사항 회원가입 실패"));
-        if(!(result > 0)) {
+
+
+        System.out.println("[UserService] Insert userResult : " + ((userResult > 0) ? "상담사 인적사항 회원가입 성공" : "상담사 인적사항 회원가입 실패"));
+        if(!(userResult > 0)) {
             throw new UserRegistException("상담사 회원가입에 실패하였습니다");
         }
+
+        System.out.println("[UserService] Insert therapistResult : " + ((therapistResult > 0) ? "상담사 추가 문항 등록 성공" : "상담사 추가 문항 등록 실패"));
+        if(!(therapistResult > 0)) {
+            throw new UserRegistException("상담사 추가 문항 등록에 실패하였습니다");
+        }
+
+        int fileResult;
+
+        if(dataFile.getFileNumber() == 0){
+            fileResult = userMapper.uploadDataFIle(dataFile);
+        } else {
+            fileResult = userMapper.updateDataFile(dataFile);
+        }
+        if(!(fileResult>0)){
+            throw new ModifyInfoException("❌프로필 사진 업로드 실패❌");
+        }
+
 
     }
 

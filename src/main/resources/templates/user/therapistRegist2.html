@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>상담사 회원가입</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" th:src="@{/js/registTherapistEvent.js}" defer></script>
     <link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <style>
@@ -111,55 +112,55 @@
 
 <h1 class="title">상담사 회원가입</h1><br>
 
-<form action="/member/therapistRegistSuccess" method="get">
+<form action="/member/therapistRegist2" method="POST" id="myForm">
 
         <h3>Q1. 상담사님 간단한 자기소개 부탁드려요(한줄소개)</h3>
-        <textarea placeholder="50자 이내 작성" ></textarea>
+        <textarea name="therapistQ1" placeholder="50자 이내 작성" required></textarea>
         <br><br>
         <h3>Q2. 내담자에게 어떤 방식으로 다가가시나요?</h3>
-        <textarea placeholder="500자 이내 작성"></textarea>
+        <textarea name="therapistQ2" placeholder="500자 이내 작성" required></textarea>
         <br><br>
         <h3>Q3. 상담사에게 있어서 중요하게 생각하는 가치관이 어떻게 되나요?</h3>
-        <textarea placeholder="500자 이내 작성"></textarea>
+        <textarea name="therapistQ3" placeholder="500자 이내 작성" required></textarea>
         <br><br>
 
-    <hr style="width: 800px;">
+        <hr style="width: 800px;">
 
-    <h3>경력사항</h3>
+        <h3>경력사항</h3>
 
-    <h2 style="margin-top: 10px;">소속기관</h2>
-    <textarea id="association" placeholder="20자 이내 작성"></textarea>
-    <br><br>
+        <h2 style="margin-top: 10px;">소속기관</h2>
+        <textarea id="association" name="association" placeholder="20자 이내 작성"></textarea>
+        <br><br>
         <div class="sectionCheckBox">
 
-             <div class="checkBox1">
-                 <h2 class="checkTitle">전문 분야 선책</h2><br>
-                  <div class="sec">
-                      <span>우울성&nbsp;<input type="checkbox" name="depression" value="우울"></span><br>
-                      <span>불안성&nbsp;<input type="checkbox" name="anxiety" value="불안"></span><br>
-                      <span>조울성&nbsp;<input type="checkbox" name="bipolar" value="양극성"></span><br>
-                      <span>강박성&nbsp;<input type="checkbox" name="ocd" value="강박성"></span><br>
-                      <span>대인관계&nbsp;<input type="checkbox" name="relationships" value="대인관계"></span><br>
-                  </div>
-             </div>
-             <div class="checkBox1">
-                <h2 class="checkTitle1">전문 분야 선책</h2><br>
-                    <div class="sec">
-                        <span>화상상담(Zoom)&nbsp;<input type="checkbox" name="videoChat" value="화상상담(줌)"></span><br>
-                        <span>채팅상담(카카오톡)&nbsp;<input type="checkbox" name="texting" value="채팅상담(카카오톡)"></span><br>
-                        <span>대면상담&nbsp;<input type="checkbox" name="inPerson" value="대면상담"></span><br>
-                    </div>
-             </div>
+            <div class="checkBox1">
+                <h2 class="checkTitle">전문 분야 선택</h2><br>
+                <div class="sec">
+                    <span>우울성&nbsp;<input type="checkbox" class="profession" name="depressionCK" value="우울"></span><br>
+                    <span>불안성&nbsp;<input type="checkbox" class="profession" name="anxietyCK" value="불안"></span><br>
+                    <span>조울성&nbsp;<input type="checkbox" class="profession" name="bipolarCK" value="양극성"></span><br>
+                    <span>강박성&nbsp;<input type="checkbox" class="profession" name="ocdCK" value="강박성"></span><br>
+                    <span>대인관계&nbsp;<input type="checkbox" class="profession" name="relationCK" value="대인관계"></span><br>
+                </div>
+            </div>
+            <div class="checkBox1">
+                <h2 class="checkTitle1">선택상담 방법 </h2><br>
+                <div class="sec">
+                    <span>화상상담(Zoom)&nbsp;<input type="checkbox" name="sessionVidCallCK" class="sessionMethod" value="화상상담(줌)"></span><br>
+                    <span>채팅상담(카카오톡)&nbsp;<input type="checkbox" name="sessionChatCK" class="sessionMethod" value="채팅상담(카카오톡)"></span><br>
+                    <span>대면상담&nbsp;<input type="checkbox" name="sessionInPersonCK" class="sessionMethod" value="대면상담"></span><br>
+                </div>
+            </div>
         </div>
-    <div class="sectionL">
-        <div class="fileSection">
-            <h2>첨부파일</h2>
-            <input type="file" accept="image/*" multiple onchange="loadFiles(event)">
-            <div id="previews" style="height: auto; overflow: hidden;"></div>
-        </div>
+        <div class="sectionL">
+            <div class="fileSection">
+                <h2>첨부파일</h2>
+                <input type="file" accept="image/*" multiple onchange="loadFiles(event)">
+                <div id="previews" style="height: auto; overflow: hidden;"></div>
+            </div>
         </div>
         <div class="buttons" style="display: flex; justify-content: center;">
-            <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">뒤로가기</button>&ensp;&ensp;<button onclick="location.href='therapistRegistSuccess'" type="submit" style="width:200px;" class="whiteButton">회원가입</button>
+            <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">뒤로가기</button>&ensp;&ensp;<input type="submit" style="width:200px;" id="submitButton" class="whiteButton" disabled>회원가입</input>
         </div>
     </form>
 

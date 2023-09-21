@@ -149,7 +149,7 @@ public class TherapistPageController {
         therapist.setDepressionCK(therapist.getDepressionCK());
         therapist.setAnxietyCK(therapist.getAnxietyCK());
         therapist.setBipolarCK(therapist.getBipolarCK());
-        therapist.setOcd_CK(therapist.getOcd_CK());
+        therapist.setOcdCK(therapist.getOcdCK());
         therapist.setRelationCK(therapist.getRelationCK());
         therapist.setSessionVidCallCK(therapist.getSessionVidCallCK());
         therapist.setSessionChatCK(therapist.getSessionChatCK());
