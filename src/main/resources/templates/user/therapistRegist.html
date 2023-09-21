@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <title>회원가입</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-  <!--<link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">-->
+  <script type="text/javascript" th:src="@{/js/registMemberEvent.js}" defer></script>
   <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
     /* Set the size and position for your background component */
     .background-component {
@@ -33,31 +34,30 @@
         <table class="registTable">
           <tr>
             <td class="row">이름</td>
-            <td>*<input type="text" name="name" placeholder="최대 10자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+            <td>*<input type="text" name="name" id="name" placeholder="최대 10자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
           </tr>
 
           <tr>
             <td>아이디</td>
-            <td>*<input type="text" name="id" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
-            <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">중복체크</span></button></td>
+            <td>*<input type="text" name="username" id="username" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+            <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
           </tr>
 
           <tr>
             <td>비밀번호</td>
-            <td>*<input type="password" name="password" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+            <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
           </tr>
 
           <tr>
             <td>전화번호</td>
             <td style="text-align: left;" colspan="2">
-              *<input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonef" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneFront}">
-              - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonem" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneMiddle}">
-              - <input style="width: 93px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" name="phonel" pattern="[0-9]*" inputmode="numeric" maxlength="3" th:value="${phoneEnd}">
-              &nbsp;&nbsp;성별
+              *<input style="width: 270px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" type="text" id="phone" name="phone" class="input-field" placeholder="010-1234-5678" th:value="${phone}" required>
+              &nbsp;&nbsp;성별*&nbsp;&nbsp;
+
               <label for="male">남자</label>
-              <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="male" value="male">
+              <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="male" value="M" required>
               <label for="female">여자</label>
-              <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="female" value="female">
+              <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="female" value="F">
             </td>
           </tr>
 
@@ -65,11 +65,11 @@
           <tr>
             <td>이메일</td>
             <td style="text-align: left;">
-              *<input type="text" name="emailId" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+              *<input type="text" id="emailId" name="emailId" class="input-field" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
               @
-              <input type="text" name="emailDomain" id="emailDomain" th:text="${selectDomain}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
-              <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
-                <option value="empty">선택하기</option>
+              <input type="text" name="emailDomain" id="emailDomain" th:text="${emailDomainSelect}" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>
+              <select id="emailDomainSelect" onchange="updateEmailDomain()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                <option value="">선택하기</option>
                 <option value="naver.com">naver.com</option>
                 <option value="gmail.com">gmail.com</option>
                 <option value="yahoo.com">yahoo.com</option>
@@ -77,30 +77,107 @@
                 <option value="">직접입력</option>
               </select>
             </td>
-            <td><button onclick="location.href=''" name="duplicateCheck" value="duplicateCheck" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">본인인증</span></button></td>
+            <td><button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
           </tr>
 
           <script>
-            // Get references to the select and input elements
-            const emailDomainSelect = document.getElementById('emailDomainSelect');
-            const emailDomainInput = document.getElementById('emailDomain');
-            // Add an event listener to the select element
-            emailDomainSelect.addEventListener('change', function () {
-              // Update the input field with the selected option's value
-              emailDomainInput.value = this.value;
-              emailDomainSelect.value = this.value;
-            });
+            function updateEmailDomain() {
+              const emailDomainSelect = document.getElementById('emailDomainSelect');
+              const emailDomainInput = document.getElementById('emailDomain');
+
+              if (emailDomainSelect.value === "") {
+                emailDomainInput.value = emailDomainInput.value.trim();
+              } else if(emailDomainSelect.value !== 'empty'){
+                emailDomainInput.value = emailDomainSelect.value;
+                // Handle the case where "직접입력" is selected, or any other logic you want.
+              }
+              return emailDomainInput.value;
+            }
+
+            // Function to concatenate emailId and emailDomain with '@'
+            function combineEmail() {
+              const emailId = document.getElementById('emailId').value.trim();
+              let emailDomain = updateEmailDomain();
+
+              const completeEmail = emailId + '@' + emailDomain;
+              return completeEmail.toString();
+            }
+
+            // Function to send the email and receive the confirmation number
+            function sendNumber() {
+              $("#mail_number").css("display", "block");
+              const email = combineEmail(); /*Combine emailId and emailDomain*/
+              $.ajax({
+                url: "/mail",
+                type: "POST",
+                dataType: "json",
+                data: { "mail": email },
+                success: function (data) {
+                  alert("인증번호 발송");
+                  $("#Confirm").attr("value", data);
+                },
+                error: function () {
+                  console.log(email);
+                  console.log("verification Code send Failed")
+
+                  alert("인증번호 발송 실패");
+                }
+              });
+            }
+
+            // Function to confirm the received number
+            function confirmNumber() {
+              const verificationBox = document.getElementById("number"); // Get the verificationBox button element
+              var number1 = $("#number").val();
+              var number2 = $("#Confirm").val();
+
+              if (number1 == number2) {
+                alert("본인인증이 완료되었습니다.");
+                verificationBox.style.borderColor = "green"; // Change the border color of the verificationBox button
+                document.getElementById("submitButton").disabled = false;
+              } else {
+                alert("인증번호가 일치하지 않습니다. 올바른 인증번호를 입력해주세요");
+              }
+            }
           </script>
+
         </table>
+
       </div>
-    </form>
+
+      <div>
+        <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+        <div id="mail_number" name="mail_number" style="display: none">
+          <input type="text" name="number" id="number" class="input-field" placeholder="인증번호 입력" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+          <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;">이메일 인증</button>
+        </div>
+      </div>
+
+      <div style="color: red; font-size: 15px;" id="name-error"></div>
+      <div style="color: red; font-size: 15px;" id="id-error"></div>
+      <div style="color: red; font-size: 15px;" id="password-error"></div>
+      <div style="color: red; font-size: 15px;" id="nickname-error"></div>
+      <div style="color: red; font-size: 15px;" id="phone-error"></div>
+
+      <div style="font-size: 15px;" id="idDupCheck-error"></div>
+      <div style="font-size: 15px;" id="nicknameDupCheck-error"></div>
+
+
     <hr class="solid" style="width:700px;">
     <h3>이용약관</h3>
     <textarea rows="10" cols="80" readonly id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum</textarea></p>
-    <button onclick="location.href='/'" style="width:200px;" class="whiteButton">돌아가기</button>&ensp;&ensp;<button onclick="location.href='therapistRegist2'" type="submit" style="width:200px;" class="whiteButton">다음</button>
+      <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="회원가입" class="whiteButton" style="width:200px;" disabled>
+    </form>
   </div>
+
+  <script>
+    function goBack() {
+      window.location.href="/";
+    }
+  </script>
+
   <th:block th:include="components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
 </div>
 </body>

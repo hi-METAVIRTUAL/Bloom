@@ -99,10 +99,11 @@
             <!--<span th:if="${authentication.authenticated}">-->
 
                 <th:block sec:authorize="isAuthenticated()">
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${userCode == '1' || userCode == '2'}" class="titleLink" href="/member/profile1">마이페이지</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${userCode == '2'}" class="titleLink" href="/therapist/profile">마이페이지</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${userCode == '3'}" class="titleLink" href="/admin/">관리자페이지</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a class="titleLink" href="/">로그아웃</a></span>
+<!--                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${userCode == '1' || userCode == '2'}" class="titleLink" href="/member/profile1">마이페이지</a></span>-->
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == 1}" class="titleLink" href="/member/profile1">마이페이지</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == '2'}" class="titleLink" href="/therapist/profile">마이페이지</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == '3'}" class="titleLink" href="/admin/">관리자페이지</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == 1 || authority_code == 2 || authority_code == 3}" class="titleLink" href="/">로그아웃</a></span>
                     <!--<span th:if="${userCode == '1' && reservationStatus == 'Y'}">
                                      <span th:include="includeSection2=false"></span>
                                </span>-->

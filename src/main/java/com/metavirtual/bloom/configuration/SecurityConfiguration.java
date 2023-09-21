@@ -43,7 +43,9 @@ public class SecurityConfiguration {
                         , "psychological/match/therapyList"
                         ,"/user/loginfail", "/user/idDupCheck"
                 )
-                .permitAll() // .denyAll(), rememberMe(), hasIpAddress()
+                .permitAll()
+                .antMatchers("/user/memberRegistSuccess")
+                .hasAnyAuthority("USER")// .denyAll(), rememberMe(), hasIpAddress()
                 .and()
                 .csrf().disable();
 //                .csrf().ignoringAntMatchers("/mail"); // csrf disable 설정
