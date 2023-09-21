@@ -13,14 +13,14 @@ public class TherapistDTO {
     private char depressionCK;
     private char anxietyCK;
     private char bipolarCK;
-    private char ocd_CK;
+    private char ocdCK;
     private char relationCK;
     private String organization;
 
     public TherapistDTO() {
     }
 
-    public TherapistDTO(String userId, String therapistQ1, String therapistQ2, String therapistQ3, char activationStatus, char confirmedStatus, char sessionVidCallCK, char sessionChatCK, char sessionInPersonCK, char depressionCK, char anxietyCK, char bipolarCK, char ocd_CK, char relationCK, String organization) {
+    public TherapistDTO(String userId, String therapistQ1, String therapistQ2, String therapistQ3, char activationStatus, char confirmedStatus, char sessionVidCallCK, char sessionChatCK, char sessionInPersonCK, char depressionCK, char anxietyCK, char bipolarCK, char ocdCK, char relationCK, String organization) {
         this.userId = userId;
         this.therapistQ1 = therapistQ1;
         this.therapistQ2 = therapistQ2;
@@ -33,7 +33,7 @@ public class TherapistDTO {
         this.depressionCK = depressionCK;
         this.anxietyCK = anxietyCK;
         this.bipolarCK = bipolarCK;
-        this.ocd_CK = ocd_CK;
+        this.ocdCK = ocdCK;
         this.relationCK = relationCK;
         this.organization = organization;
     }
@@ -134,12 +134,12 @@ public class TherapistDTO {
         this.bipolarCK = bipolarCK;
     }
 
-    public char getOcd_CK() {
-        return ocd_CK;
+    public char getOcdCK() {
+        return ocdCK;
     }
 
-    public void setOcd_CK(char ocd_CK) {
-        this.ocd_CK = ocd_CK;
+    public void setOcdCK(char ocdCK) {
+        this.ocdCK = ocdCK;
     }
 
     public char getRelationCK() {
@@ -173,7 +173,7 @@ public class TherapistDTO {
                 ", depressionCK=" + depressionCK +
                 ", anxietyCK=" + anxietyCK +
                 ", bipolarCK=" + bipolarCK +
-                ", ocd_CK=" + ocd_CK +
+                ", ocdCK=" + ocdCK +
                 ", relationCK=" + relationCK +
                 ", organization='" + organization + '\'' +
                 '}';

@@ -16,8 +16,100 @@
       width: 100%;
       height: 100%;
       z-index: -1; /* Ensure it's behind other content */
-
     }
+
+    .line {
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      border-color: #C09A81;
+      color: #C09A81;
+    }
+
+      textarea{
+        width: 500px;
+        border-radius: 20px;
+        height: 100px;
+        outline: none;
+        padding: 10px;
+        font-size: 1em;
+        transition: border 0.5s;
+        -webkit-transition: border 0.5s;
+        -moz-transition: border 0.5s;
+        -o-transition: border 0.5s;
+        border: solid 3px #C09A81;
+        box-sizing:border-box;
+        margin-top: 5px;
+
+      }
+
+      #association {
+        width: 800px;
+        height: 40px;
+        outline: none;
+        padding: 10px;
+        font-size: 1em;
+        transition: border 0.5s;
+        -webkit-transition: border 0.5s;
+        -moz-transition: border 0.5s;
+        -o-transition: border 0.5s;
+        border: solid 3px #C09A81;
+        box-sizing:border-box;
+      }
+      .sectionCheckBox {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+      }
+
+      .checkBox1, .checkBox2 {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 300px;
+        border-radius: 20px;
+        height: 300px;
+        font-size: 1em;
+        border: solid 3px #C09A81;
+        background-color: #ffffff;
+        box-sizing:border-box;
+      }
+
+      .sec {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .checkTitle {
+        margin-top: 10px;
+      }
+      .checkTitle1 {
+        margin-top: -40px;
+        margin-bottom: 50px;
+      }
+
+      .sec span {
+        display: flex;
+        align-items: center;
+        margin-bottom: -10px;
+      }
+
+      .fileSection {
+        width: 800px;
+        border-radius: 20px;
+        height: 150px;
+        font-size: 1em;
+        border: solid 3px #C09A81;
+        background-color: #ffffff;
+        box-sizing:border-box;
+        margin-top: 50px;
+      }
+
+      .sectionL {
+        display: flex;
+        justify-content: center;
+      }
 
   </style>
 </head>
@@ -29,11 +121,11 @@
   <h1 class="title">회원가입</h1>
   <div class="RegisterForm">
 
-    <form action="/user/therapistRegistPI" id="therapistRegist" method="POST" align="center">
+    <form action="/user/therapistRegist" method="POST" id="myForm" align="center" enctype="multipart/form-data">
       <div style="display: flex; justify-content: center;">
         <table class="registTable">
           <tr>
-            <td class="row">이름</td>
+            <td>이름</td>
             <td>*<input type="text" id="name" name="name" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
           </tr>
 
@@ -42,6 +134,7 @@
             <td>*<input type="text" name="username" id="username" class="input-field" placeholder="최대 20자 / 공백 불가 / 영문 필수" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
             <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
           </tr>
+
           <tr>
             <td>비밀번호</td>
             <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
@@ -59,7 +152,6 @@
               <input style="border-color: #C09A81; border-radius: 10px; border-style: solid;" type="radio" name="gender" id="female" value="F">
             </td>
           </tr>
-
 
           <tr>
             <td>이메일</td>
@@ -161,13 +253,109 @@
       <div style="font-size: 15px;" id="idDupCheck-error"></div>
       <div style="font-size: 15px;" id="nicknameDupCheck-error"></div>
 
+      <br><hr class="line"/><br>
 
-    <hr class="solid" style="width:700px;">
+        <h3>Q1. 상담사님 간단한 자기소개 부탁드려요(한줄소개)</h3>
+      <textarea name="therapistQ1" placeholder="50자 이내 작성" maxlength="500" required></textarea>
+        <br><br>
+        <h3>Q2. 내담자에게 어떤 방식으로 다가가시나요?</h3>
+        <textarea name="therapistQ2" placeholder="500자 이내 작성" maxlength="500" required></textarea>
+        <br><br>
+        <h3>Q3. 상담사에게 있어서 중요하게 생각하는 가치관이 어떻게 되나요?</h3>
+        <textarea name="therapistQ3" placeholder="500자 이내 작성" maxlength="500" required></textarea>
+
+        <br><br><br><hr class="line"/>
+
+        <h3>경력사항</h3>
+
+        <h2 style="margin-top: 10px;">소속기관</h2>
+        <textarea id="association" name="organization" placeholder="20자 이내 작성"></textarea>
+        <br><br>
+        <div class="sectionCheckBox">
+
+          <div class="checkBox1">
+            <h2 class="checkTitle">전문 분야 선택</h2><br>
+            <div class="sec">
+              <span>우울성&nbsp;<input type="checkbox" class="profession" name="depressionCK"></span><br>
+              <span>불안성&nbsp;<input type="checkbox" class="profession" name="anxietyCK"></span><br>
+              <span>조울성&nbsp;<input type="checkbox" class="profession" name="bipolarCK"></span><br>
+              <span>강박성&nbsp;<input type="checkbox" class="profession" name="ocdCK"></span><br>
+              <span>대인관계&nbsp;<input type="checkbox" class="profession" name="relationCK"></span><br>
+
+              <script>
+                // Get all checkboxes with the class "profession"
+                const checkboxes = document.querySelectorAll('.profession');
+
+                // Add a click event listener to each checkbox
+                checkboxes.forEach(checkbox => {
+                  checkbox.addEventListener('click', function () {
+                    // Check if the checkbox is checked
+                    if (this.checked) {
+                      // If checked, set its value to 'Y'
+                      this.value = 'Y';
+                    } else {
+                      // If unchecked, set its value back to 'N'
+                      this.value = 'N';
+                    }
+                  });
+                });
+              </script>
+            </div>
+          </div>
+          <div class="checkBox1">
+            <h2 class="checkTitle1">선택상담 방법 </h2><br>
+            <div class="sec">
+              <span>화상상담(Zoom)&nbsp;<input type="checkbox" name="sessionVidCallCK" class="sessionMethod"></span><br>
+              <span>채팅상담(카카오톡)&nbsp;<input type="checkbox" name="sessionChatCK" class="sessionMethod"></span><br>
+              <span>대면상담&nbsp;<input type="checkbox" name="sessionInPersonCK" class="sessionMethod"></span><br>
+
+              <script>
+                // Get all checkboxes with the class "profession"
+                const checkboxes1 = document.querySelectorAll('.sessionMethod');
+
+                // Add a click event listener to each checkbox
+                checkboxes1.forEach(checkbox => {
+                  checkbox.addEventListener('click', function () {
+                    // Check if the checkbox is checked
+                    if (this.checked) {
+                      // If checked, set its value to 'Y'
+                      this.value = 'Y';
+                    } else {
+                      // If unchecked, set its value back to 'N'
+                      this.value = 'N';
+                    }
+                  });
+                });
+              </script>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="sectionL">
+          <div class="fileSection">
+            <h2>첨부파일</h2>
+
+            <input id="therapistFile" type="file" name="therapistFile" multiple="multiple" />
+<!--            <button id="upload-button" onclick="uploadFile()" style="width: 70px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;"> 업로드 </button>-->
+
+          </div>
+        </div>
+
+<hr class="line"/>
+
     <h3>이용약관</h3>
-    <textarea rows="10" cols="80" readonly id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    <textarea rows="20" cols="80" readonly id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum</textarea></p>
-      <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="다음" class="whiteButton" style="width:200px;" disabled>
+      <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="회원가입" class="whiteButton" style="width:200px;">
+
+      <script>
+        function goBack() {
+          window.location.href = "therapistRegist";
+        }
+      </script>
+
     </form>
   </div>
 

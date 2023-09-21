@@ -1,7 +1,10 @@
 package com.metavirtual.bloom.user.model.service;
 
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
+import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
+import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.slf4j.LoggerFactory;
 //import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +27,6 @@ public interface UserService extends UserDetailsService {
     void registUser(UserDTO user, MemberDTO member) throws UserRegistException;
 
     @Transactional
-    void registTherapistPI(UserDTO user) throws UserRegistException;
+    void registTherapist(UserDTO user, TherapistDTO therapist, DataFileDTO dataFile) throws UserRegistException, ModifyInfoException;
 }
 

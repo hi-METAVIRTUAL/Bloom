@@ -60,7 +60,7 @@ window.onload = function() {
     const phoneError = document.getElementById("phone-error");
     const phoneInputBox = document.getElementById("phone");
     const phonePattern = /^010-[0-9]{4}-[0-9]{4}$/; // Define the phone pattern here
-    const phoneErrorMessage = "전회번호는 010-0000-0000 형식으로 입력해주세요 입력해주세요";
+    const phoneErrorMessage = "전회번호는 010-0000-0000 형식으로 입력해주세요";
     handleInputValidation(phoneInput, phoneError, phonePattern, phoneInputBox, phoneErrorMessage);
 
     function isInputValid(inputElement, pattern) {

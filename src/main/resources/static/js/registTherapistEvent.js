@@ -13,6 +13,9 @@ window.onload = function() {
                     inputBox.style.borderColor="red"
                 }
             }
+            setTimeout(function () {
+                errorElement.textContent = "";
+            }, 3000);
         });
         inputElement.addEventListener("change", function () {
             if (inputElement.value === "") {
@@ -47,20 +50,12 @@ window.onload = function() {
     const idErrorMessage = "아이디는 최대 20자, 영문은 필수이며 (공백, 한글, 특수기호는 불가)";
     handleInputValidation(idInput, idError, idPattern, idInputBox, idErrorMessage);
 
-// Call the function for nickname input
-    const nicknameInput = document.getElementById("nickname");
-    const nicknameError = document.getElementById("nickname-error");
-    const nicknameInputBox = document.getElementById("nickname");
-    const nicknamePattern = /^[a-zA-Z가-힣]{1,10}$/;
-    const nicknameErrorMessage = "닉네임은 최대 10자, 영문 또는 한글 가능하며 (공백, 특수기호는 불가)";
-    handleInputValidation(nicknameInput, nicknameError, nicknamePattern, nicknameInputBox, nicknameErrorMessage);
-
 // Call the function for phone input
     const phoneInput = document.getElementById("phone");
     const phoneError = document.getElementById("phone-error");
     const phoneInputBox = document.getElementById("phone");
     const phonePattern = /^010-[0-9]{4}-[0-9]{4}$/; // Define the phone pattern here
-    const phoneErrorMessage = "전회번호는 010-0000-0000 형식으로 입력해주세요 입력해주세요";
+    const phoneErrorMessage = "전회번호는 010-0000-0000 형식으로 입력해주세요";
     handleInputValidation(phoneInput, phoneError, phonePattern, phoneInputBox, phoneErrorMessage);
 
     function isInputValid(inputElement, pattern) {
@@ -114,4 +109,33 @@ window.onload = function() {
         });
     });
 
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+        const professionCheckboxes = document.querySelectorAll('.profession');
+        const sessionMethodCheckboxes = document.querySelectorAll('.sessionMethod');
+        let professionChecked = false;
+        let sessionMethodChecked = false;
+
+        professionCheckboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                professionChecked = true;
+            }
+        });
+
+        sessionMethodCheckboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                sessionMethodChecked = true;
+            }
+        });
+
+        if (!professionChecked || !sessionMethodChecked) {
+            alert("전문 분야와 상담 방법 각각 항목에 체크박스 최소 하나는 선택 해주셔야합니다");
+            event.preventDefault(); // Prevent form submission if checkboxes are not selected
+        } else {
+            document.getElementById("submitButton").disabled = false;
+        }
+    });
+
+    document.getElementById("submitButton").addEventListener("click", function(event) {
+        alert("회원가입 양식을 모두 작성 해주세요!");
+    });
 }

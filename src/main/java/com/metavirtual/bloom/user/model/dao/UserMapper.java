@@ -1,7 +1,9 @@
 package com.metavirtual.bloom.user.model.dao;
 
 
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
+import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,8 +23,12 @@ public interface UserMapper {
 
    int nicknameDupCheck(String nickname);
 
-    int insertTherapistPI(UserDTO user);
+    int insertTherapist(TherapistDTO therapist);
 
-    /*   AuthDetails findUserById(String username);*/
+   int uploadDataFIle(DataFileDTO dataFile);
+
+   int updateDataFile(DataFileDTO dataFile);
+
+   /*   AuthDetails findUserById(String username);*/
 
 }
