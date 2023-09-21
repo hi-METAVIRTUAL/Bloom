@@ -56,8 +56,9 @@ public class BoardService {
     }
 
     /* 게시글 등록 */
-    @Transactional
+    @Transactional(rollbackFor = BoardPostingException.class)
     public void boardNewPosting(MemberBoardDTO newPosting) throws BoardPostingException {
+
         int result = boardMapper.boardNewPosting(newPosting);
 
         if(!(result > 0)) {
