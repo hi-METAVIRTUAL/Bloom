@@ -15,7 +15,6 @@
         <h2 id='result' style="display: flex; justify-content: center;">1 / 4</h2></button>
 </main>
 <article>
-
     <form class="theme-checker">
         <div id="testBox">
             <div th:each="test, testIndex : ${testQ}">
@@ -47,11 +46,10 @@
     /* 페이지 표시 */
     let currentPage = 2;
     const selectCategory = ["", "D", "A", "B", "O"]
-    let answers = {};
-    const answersD = []
-    const answersA = []
-    const answersB = []
-    const answersO = []
+    let answers = [];
+    var category = {};
+    var answer = {};
+
     $(document).ready(function () {
         /* 버튼 클릭 */
         $("#next").click(function () {
@@ -59,9 +57,11 @@
             let testIndex = $("input[type='radio']:checked").length;
             if (testIndex < 8) {
                 $("input[type='radio']:checked").each(function (index) {
-                    let answerScore = $(this).val(); // 선택한 답변 값
+                    category = $(this).next().val()
+                    answer = $(this).val()
+                    /*let answerScore = $(this).val();  선택한 답변 값
                     let testCategory = $(this).next().val(); // 질문 카테고리
-                    /*let hiddenName = $(this).next().attr('name'); // 히든태그 name*/
+                    let hiddenName = $(this).next().attr('name'); // 히든태그 name */
 
 
                     /*console.log("$(this).val() ? = " + answerScore);
@@ -71,23 +71,13 @@
                     window.scrollTo(0, 0);
                     /* 다음 카테고리 값 넘겨주기 */
                         testCategory = selectCategory[currentPage];
-                        $("input[type='radio']:checked").each(function () {
-                            answersD[index] = answerScore;
-                            console.log(answersD[index] + "여기 저장 됨?1")
-                        });
                     if (currentPage == 3) {
                         testCategory = selectCategory[currentPage];
-                        $("input[type='radio']:checked").each(function () {
-                            answersD[index] = answerScore;
-                            console.log(answersA[index] + "여기 저장 됨?2")
-                        });
                     } else if (currentPage == 4) {
                         testCategory = selectCategory[currentPage];
                     } else if (currentPage == 5) {
                         testCategory = selectCategory[currentPage];
                     }
-
-                    console.log(answersA[index] + "AAA");
                     /*if (testCategory === 'D'){
                         answersD[index] = answerScore
                         console.log(testCategory)
@@ -99,9 +89,15 @@
                     }else if (testCategory === 'O'){
                         answersO[index] = answerScore
                     }*/
+                    answers.push(category);
+                    answers.push(answer);
+                    var testList = {
+                        "testList" : JSON.stringify(answers)
+                    }
                     $.ajax({
                         url: "startAjax",
-                        data: {testCategory: testCategory},
+                        data: {testCategory: testCategory,
+                            testList},
                         dataType: "json",
                         contentType: "application/json",
                         success: function (data, status, xhr) {
@@ -149,11 +145,8 @@
                                 }));
                                 questionDiv.append($('<div>').append(answerDiv1).append(answerDiv2).addClass('testQ'));
                                 questionContainer.append(questionDiv);
-
                             });
                             // 현재 질문을 페이지에 추가
-
-
                             if (currentPage == 5) {
                                 const buttonChange = $("#buttonChange");
                                 buttonChange.html("");
@@ -164,6 +157,23 @@
                                     value: '제출하기'
                                 }));
                             }
+                            $("#submit").click(function () {
+                                // answers 객체를 서버로 전송
+                                $.ajax({
+                                    url: "saveAnswers",
+                                    method: "POST",
+                                    traditional : true,
+                                    data: testList,testCategory,
+                                    contentType: "application/json",
+                                    success: function (data) {
+
+                                        // 제출이 성공했을 때의 처리
+                                    },
+                                    error: function (xhr, status, error) {
+                                        console.error(error);
+                                    }
+                                });
+                            })
                         },
                         error: function (xhr, status, error) {
                         }
@@ -175,12 +185,12 @@
                 }*/
 
         });
-        $("#submit").click(function () {
+        /*$("#submit").click(function () {
             // answers 객체를 서버로 전송
             $.ajax({
-                url: "submitAnswers",
+                url: "saveAnswers",
                 method: "POST",
-                data: JSON.stringify(answers),
+                data: testList,
                 contentType: "application/json",
                 success: function (data) {
 
@@ -190,115 +200,8 @@
                     console.error(error);
                 }
             });
-        })
+        })*/
     });
-
-    /*let currentPage = 2;
-    //const selectCategory = ["D", "A", "B", "O"]
-    $("#next").click(function () {
-        // 선택한 답변을 히든 태그에 저장
-        $("input[type='radio']:checked").each(function () {
-            /!* 카테고리 + index *!/
-            let testIndex = $(this).attr("name");
-            let testCategory = $(this).attr("name").charAt(0); // 카테고리 식별자 가져오기
-            const answerScore = $(this).val(); // 선택한 답변 값
-            const hiddenInputName = "category" + testCategory + "Answers[" + answerScore + "]";
-            $("input[name='" + hiddenInputName + "']").val("1"); // 선택한 답변을 1로 표시
-            /!* 체크 *!/
-            console.log(testIndex + "index");
-            console.log(answerScore + " 답변 값")
-            console.log(testCategory + " 카테고리 식별")
-            console.log(hiddenInputName + " 인풋네임?")
-            /!* 남은 항목 표시 *!/
-            $('#result').text((currentPage) + ' / ' + 4);
-            /!* 상단으으로 *!/
-            window.scrollTo(0, 0);
-            /!* 다음 카테고리 값 넘겨주기 *!/
-            console.log(currentPage+ "번호")
-            /!*if (currentPage == 1){
-                category = "D";
-            }else*!/ if(currentPage == 2){
-                testCategory = "A";
-
-            }else if(currentPage == 3){
-                testCategory = "B";
-            }else if(currentPage == 4){
-                testCategory = "O";
-            }
-
-            $.ajax({
-                url: "startAjax",
-                data: {
-                    category: testCategory,
-                    answerScore: answerScore,
-                    testIndex: testIndex
-                },
-                dataType: "json",
-                contentType: "application/json",
-                success: function (data, status, xhr) {
-
-                    const testQ = JSON.parse(data.testQ);
-                    const questionContainer = $("#test11");
-                    questionContainer.html("");
-                    testQ.forEach(function (testQ, i) {
-                        const questionDiv = $('<div>');
-                        const answerDiv1 = $('<div>').append('전혀그렇지않다');
-                        const answerDiv2 = $('<div>').append('매우그렇다');
-                        questionDiv.append($('<h2>').addClass('whiteText').text(testQ.testContent));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'one',
-                            value: '1'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'two',
-                            value: '2'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'three',
-                            value: '3'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'four',
-                            value: '4'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'five',
-                            value: '5'
-                        }));
-                        questionDiv.append($('<div>').append(answerDiv1).append(answerDiv2).addClass('testQ'));
-                        questionContainer.append(questionDiv);
-                    });
-                    if (currentPage == 5) {
-                        const buttonChange = $("#buttonChange");
-                        buttonChange.html("");
-                        buttonChange.append($('<input>').attr({
-                            id: 'dataSend',
-                            type: 'submit',
-                            class: 'roundbutton',
-                            value: '제출하기'
-                        }));
-                    }
-                },
-                error: function (xhr, status, error) {
-                }
-            });
-        });
-        currentPage++
-    });*/
-
-    // 다음 단계로 이동
-    // 추가로 처리해야 할 로직을 여기에 추가
-
 
 </script>
 </body>
