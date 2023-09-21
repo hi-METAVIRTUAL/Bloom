@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,14 +47,10 @@ public class PsychometryController {
         return "psychological/psychometry/startTest";
     }
     @GetMapping(value = "startAjax",produces = "application/json; charset=UTF-8")
-    public ModelAndView getTestPage(ModelAndView mv, HttpServletResponse response,HttpServletRequest request,
-                                    @RequestParam(value = "testCategory") String testCategory,
-                                    @RequestParam Map<String, Object> testList) throws JsonProcessingException{
+    public ModelAndView getTestPage(ModelAndView mv, HttpServletResponse response,
+                                    @RequestParam(value = "testCategory") String testCategory) throws JsonProcessingException{
         response.setContentType("application/json; charset=UTF-8");
-        String answerScore = request.getParameter("answerScore");
-        String testIndex = request.getParameter("testIndex");
         List<TestQDTO> testQ = psychometryService.findContent(testCategory);
-        System.out.println(testList + "텟투");
 
         ObjectMapper mapper = new ObjectMapper();
         mv.addObject("testQ", mapper.writeValueAsString(testQ));
@@ -67,9 +62,7 @@ public class PsychometryController {
     @PostMapping(value = "saveAnswers", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public String SaveAnswers(HttpServletRequest request,
-                              @RequestParam Map<String, Object> testList,
-                              @RequestParam(value = "testCategory", required = false) String testCategory ) throws JsonProcessingException {
-        System.out.println(testCategory + " 카테고리");
+                              @RequestParam Map<String, Object> testList) throws JsonProcessingException {
         System.out.println(testList + "리스트");
         String json = testList.get("testList").toString();
         ObjectMapper mapper = new ObjectMapper();

@@ -46,9 +46,11 @@
     /* 페이지 표시 */
     let currentPage = 2;
     const selectCategory = ["", "D", "A", "B", "O"]
-    let answers = [];
     var category = {};
     var answer = {};
+    var testList = {};
+    let answerScore = [];
+
 
     $(document).ready(function () {
         /* 버튼 클릭 */
@@ -56,9 +58,22 @@
             // 선택한 답변을 히든 태그에 저장
             let testIndex = $("input[type='radio']:checked").length;
             if (testIndex < 8) {
-                $("input[type='radio']:checked").each(function (index) {
+                $("input[type='radio']:checked").each(function () {
                     category = $(this).next().val()
                     answer = $(this).val()
+                    console.log(answer)
+                    if (category == 'D'){
+                       var testListD = {
+                            category : JSON.stringify(answerScore)
+                        }
+                    }else if (category == 'A'){
+                       var  testListA = {
+                            category : JSON.stringify(answerScore)
+                        }
+                    }
+
+                    console.log(testListD)
+                    console.log(testListA)
                     /*let answerScore = $(this).val();  선택한 답변 값
                     let testCategory = $(this).next().val(); // 질문 카테고리
                     let hiddenName = $(this).next().attr('name'); // 히든태그 name */
@@ -78,29 +93,15 @@
                     } else if (currentPage == 5) {
                         testCategory = selectCategory[currentPage];
                     }
-                    /*if (testCategory === 'D'){
-                        answersD[index] = answerScore
-                        console.log(testCategory)
-                    }else if (testCategory === 'A'){
-                        console.log(testCategory)
-                        answersA[index] = answerScore
-                    }else if (testCategory === 'B'){
-                        answersB[index] = answerScore
-                    }else if (testCategory === 'O'){
-                        answersO[index] = answerScore
-                    }*/
-                    answers.push(category);
-                    answers.push(answer);
-                    var testList = {
-                        "testList" : JSON.stringify(answers)
-                    }
+
+
                     $.ajax({
                         url: "startAjax",
-                        data: {testCategory: testCategory,
-                            testList},
+                        data: {testCategory: testCategory},
                         dataType: "json",
                         contentType: "application/json",
                         success: function (data, status, xhr) {
+                            answerScore.push(answer);
 
                             const testQ = JSON.parse(data.testQ);
                             const questionContainer = $("#testBox");
@@ -151,26 +152,30 @@
                                 const buttonChange = $("#buttonChange");
                                 buttonChange.html("");
                                 buttonChange.append($('<input>').attr({
-                                    id: 'dataSend',
-                                    type: 'submit',
+                                    id: 'submit',
+                                    type: 'button',
                                     class: 'roundbutton',
                                     value: '제출하기'
                                 }));
                             }
-                            $("#submit").click(function () {
+
+                            $("#submit").click(function (testList) {
+
+                                testList = {
+                                    testCategory : JSON.stringify(answerScore)
+                                }
                                 // answers 객체를 서버로 전송
                                 $.ajax({
                                     url: "saveAnswers",
                                     method: "POST",
-                                    traditional : true,
-                                    data: testList,testCategory,
-                                    contentType: "application/json",
+                                    data: testList,
                                     success: function (data) {
+
 
                                         // 제출이 성공했을 때의 처리
                                     },
                                     error: function (xhr, status, error) {
-                                        console.error(error);
+                                        console.error(error + " 에러가 났따...");
                                     }
                                 });
                             })
@@ -178,7 +183,9 @@
                         error: function (xhr, status, error) {
                         }
                     });
+
                 });
+
                 currentPage++
             }/*else if (testIndex < 8){
                     alert("전부 체크해주세요")
