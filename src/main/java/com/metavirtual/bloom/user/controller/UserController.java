@@ -63,11 +63,10 @@ public class UserController {
         user.setEmail(emailId + '@' + emailDomain);
         String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         user.setRegistDate(registDate);
-        user.setAuthority_code(1);
 
         member.setUserId(username);
 
-        System.out.println("가져온 결과 = " +user.getUserId() +" " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate()+ " " + user.getAuthority_code());
+        System.out.println("유저 가져온 결과 = " +user.getUserId() +" " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate()+ " " + user.getAuthority_code());
         System.out.println("총 결과 = " + user.getUserId() +" " + user.getPwd() + " " + user.getName() + " "
                 + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthority_code());
 

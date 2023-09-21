@@ -64,7 +64,7 @@
                         , #{ email }
                         , #{ phone }
                         , #{ registDate }
-                        , #{ authority_code }
+                        , 1
                         )
     </insert>
 
