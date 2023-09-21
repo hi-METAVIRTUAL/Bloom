@@ -5,6 +5,8 @@ import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
@@ -37,8 +39,20 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
     @Override
-    public int selectTotalCount(Map<String, String> searchMap){
-        int result = mapper.selectTotalCount(searchMap);
+    public int selectTotalPostCount(){
+        int result = mapper.selectTotalPostCount();
+        return result;
+    }
+
+    @Override
+    public int selectTotalCommentCount(){
+        int result = mapper.selectTotalCommentCount();
+        return result;
+    }
+
+    @Override
+    public int selectTotalReviewCount(){
+        int result = mapper.selectTotalReviewCount();
         return result;
     }
 
@@ -46,6 +60,18 @@ public class MemberPageServiceImpl implements MemberPageService{
     public List<BoardDTO> selectPostList(SelectCriteria selectCriteria){
         List<BoardDTO> myPostList = mapper.selectPostList(selectCriteria);
         return myPostList;
+    }
+
+    @Override
+    public List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria){
+        List<CommentListDTO> myCommentList = mapper.selectCommentList(selectCriteria);
+        return myCommentList;
+    }
+
+    @Override
+    public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria){
+        List<ReviewListDTO> myReviewList = mapper.selectReviewList(selectCriteria);
+        return myReviewList;
     }
 
     @Override

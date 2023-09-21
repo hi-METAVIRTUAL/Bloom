@@ -5,6 +5,11 @@
     <title>profile</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/member/memberInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        td{
+            border-bottom: 2px solid #C09A81;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,7 +20,7 @@
 <!--<div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 221px; height: 270px; border-radius: 30px; margin: auto;" align="center">-->
 <!--    <img src="../images/mypage/user/flower.png" class="image-center">-->
 <!--    <h3 th:text="${ user.getName() }"></h3>-->
-<!--    <a th:text="${ user.getEmail() }" style="color: #898989"></a>-->
+<!--    <a th:text="${ user.getEmail() }" style="color: #898989"></a><br>-->
 <!--    <a th:text="${ user.getPhone() }" style="color: #898989"></a>-->
 <!--</div>-->
 <!--<br><br>-->
@@ -24,32 +29,32 @@
 <!--    <br><br>-->
 <!--    <h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>-->
 <!--    <table style="margin-left:auto;margin-right:auto; color: #C09A81; width: 800px; height: 100px; border-top: 2px solid #C09A81; border-collapse: collapse;" align="center">-->
-<!--        <tr th:if="${ user.getUserId() } == ${ booking.getMemberId() }" align="center">-->
-<!--            <td th:if="${ booking.getTherapistId()} == ${user.getUserId() }" th:text="${ user.getName() }" onclick="location.href='/psychological/match/introduceTherapy'"></td>-->
+<!--        <tr th:if="${ user.getUserId() } eq ${ booking.getMemberId() }" align="center">-->
+<!--            <td th:if="${ booking.getTherapistId()} eq ${user.getUserId() }" th:text="${ user.getName() }" onclick="location.href='/psychological/match/introduceTherapy'"></td>-->
 <!--            <td th:text="${ booking.getBookingDate() }"></td>-->
-<!--            <td th:if="${ booking.getTherapistId() } == ${ user.getUserId() }" th:text="${ user.getPhone() }"></td>-->
-<!--            <td th:text="${ booking.getBookingStatus() }" style="border-radius: 10px; background-color: #C09A81; color: white;"></td>-->
+<!--            <td th:if="${ booking.getTherapistId() } eq ${ user.getUserId() }" th:text="${ user.getPhone() }"></td>-->
+<!--            <td th:text="${ booking.getBookingStatus() }"></td>-->
 <!--        </tr>-->
-<!--        <tr th:unless="${ user.getUserId() } == ${ booking.memberId() }" align="center">-->
+<!--        <tr th:unless="${ user.getUserId() } eq ${ booking.memberId() }" align="center">-->
 <!--            <td colspan="4" align="center" style="border-bottom: 2px solid #C09A81;">예약된 내역이 없습니다</td>-->
 <!--        </tr>-->
 <!--    </table>-->
 <!--    <br>-->
-<!--    <a th:if="${ user.getUserId() } == ${ booking.getMemberId() }" style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>-->
+<!--    <a th:if="${ user.getUserId() } eq ${ booking.getMemberId() }" style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>-->
 <!--    <br><br><br>-->
-<!--    <input th:if="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
-<!--    <input th:unless="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="테스트 하러 가기" onclick="location.href='/psychological/psychometry/firstTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
+<!--    <input th:if="${ user.getUserId() } eq ${ booking.getMemberId() }" type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
+<!--    <input th:unless="${ user.getUserId() } eq ${ booking.getMemberId() }" type="button" value="테스트 하러 가기" onclick="location.href='/psychological/psychometry/firstTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
 <!--    <br><br>-->
 <!--    <input type="button" value="작성 글 / 댓글 보기" onclick="location.href='postList'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
 <!--</div>-->
 <!--</div>-->
 
 <div>
-    <div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 221px; height: 270px; border-radius: 30px; margin: auto;" align="center">
+    <div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 221px; height: 270px; border-radius: 30px; margin: auto; color: #C09A81;" align="center">
         <img src="../images/mypage/user/flower.png" class="image-center">
         <h3 th:text="김철수"></h3>
-        <a th:text="member1@meta.com" style="color: #898989"></a>
-        <a th:text="010-1111-1111" style="color: #898989"></a>
+        <a th:text="'member1@meta.com'"></a><br>
+        <a th:text="010-1111-1111"></a>
     </div>
     <br><br>
     <div align="center">
@@ -57,23 +62,25 @@
         <br><br>
         <h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>
         <table style="margin-left:auto;margin-right:auto; color: #C09A81; width: 800px; height: 100px; border-top: 2px solid #C09A81; border-collapse: collapse;" align="center">
-            <tr th:if="${ user.getUserId() } == ${ booking.getMemberId() }" align="center">
-                <td th:if="${ booking.getTherapistId()} == ${user.getUserId() }" th:text="${ user.getName() }" onclick="location.href='/psychological/match/introduceTherapy'"></td>
-                <td th:text="${ booking.getBookingDate() }"></td>
-                <td th:if="${ booking.getTherapistId() } == ${ user.getUserId() }" th:text="${ user.getPhone() }"></td>
-                <td th:text="${ booking.getBookingStatus() }" style="border-radius: 10px; background-color: #C09A81; color: white;"></td>
+            <tr align="center">
+                <td>상담사</td>
+                <td>상담일시</td>
+                <td>연락처</td>
+                <td>예약상태</td>
             </tr>
-            <tr th:unless="${ user.getUserId() } == ${ booking.memberId() }" align="center">
-                <td colspan="4" align="center" style="border-bottom: 2px solid #C09A81;">예약된 내역이 없습니다</td>
+            <tr align="center">
+                <td th:text="김영희" onclick="location.href='/psychological/match/introduceTherapy'"></td>
+                <td th:text="'2023년 9월 21일 13시'"></td>
+                <td th:text="010-2222-2222"></td>
+                <td th:text="'예약 확정'"></td>
             </tr>
         </table>
         <br>
-        <a th:if="${ user.getUserId() } == ${ booking.getMemberId() }" style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>
+        <a style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>
         <br><br><br>
-        <input th:if="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
-        <input th:unless="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="테스트 하러 가기" onclick="location.href='/psychological/psychometry/firstTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+        <input type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
         <br><br>
-        <input type="button" value="작성 글 / 댓글 보기" onclick="location.href='postList'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+        <input type="button" value="작성한 글 보기" onclick="location.href='postList'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
     </div>
 </div>
 

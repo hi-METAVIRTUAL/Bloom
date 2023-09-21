@@ -6,4 +6,66 @@ public class ReviewDTO {
     private int reviewScore;
     private String deleteDate;
     private String reviewContent;
+
+    public ReviewDTO() {
+    }
+
+    public ReviewDTO(int bookingCode, String postedDate, int reviewScore, String deleteDate, String reviewContent) {
+        this.bookingCode = bookingCode;
+        this.postedDate = postedDate;
+        this.reviewScore = reviewScore;
+        this.deleteDate = deleteDate;
+        this.reviewContent = reviewContent;
+    }
+
+    public int getBookingCode() {
+        return bookingCode;
+    }
+
+    public void setBookingCode(int bookingCode) {
+        this.bookingCode = bookingCode;
+    }
+
+    public String getPostedDate() {
+        return postedDate;
+    }
+
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
+    }
+
+    public int getReviewScore() {
+        return reviewScore;
+    }
+
+    public void setReviewScore(int reviewScore) {
+        this.reviewScore = reviewScore;
+    }
+
+    public String getDeleteDate() {
+        return deleteDate;
+    }
+
+    public void setDeleteDate(String deleteDate) {
+        this.deleteDate = deleteDate;
+    }
+
+    public String getReviewContent() {
+        return reviewContent;
+    }
+
+    public void setReviewContent(String reviewContent) {
+        this.reviewContent = reviewContent;
+    }
+
+    @Override
+    public String toString() {
+        return "ReviewDTO{" +
+                "bookingCode=" + bookingCode +
+                ", postedDate='" + postedDate + '\'' +
+                ", reviewScore=" + reviewScore +
+                ", deleteDate='" + deleteDate + '\'' +
+                ", reviewContent='" + reviewContent + '\'' +
+                '}';
+    }
 }

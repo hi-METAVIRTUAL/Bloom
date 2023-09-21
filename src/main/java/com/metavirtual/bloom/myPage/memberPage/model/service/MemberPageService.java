@@ -4,6 +4,8 @@ import com.metavirtual.bloom.board.model.dto.BoardDTO;
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
@@ -16,9 +18,17 @@ public interface MemberPageService {
 
     public boolean selectMemberByNickname(String nickname);
 
-    public int selectTotalCount(Map<String, String> searchMap);
+    public int selectTotalPostCount();
+
+    public int selectTotalCommentCount();
+
+    public int selectTotalReviewCount();
 
     public List<BoardDTO> selectPostList(SelectCriteria selectCriteria);
+
+    public List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria);
+
+    public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria);
 
     public void deleteMyPost(String boardCode) throws DeleteException;
 

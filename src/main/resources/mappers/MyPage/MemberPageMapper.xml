@@ -31,9 +31,21 @@
         WHERE A.MEMBER_NICKNAME = #{ nickname }
     </select>
 
-    <select id="selectTotalCount" resultType="_int">
+    <select id="selectTotalPostCount" resultType="_int">
         SELECT COUNT(*)
         FROM BOARD
+        WHERE USER_ID = #{ sessionId }
+    </select>
+
+    <select id="selectTotalCommentCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM MEMBER_COMMENT
+        WHERE USER_ID = #{ sessionId }
+    </select>
+
+    <select id="selectTotalReviewCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM REVIEW
         WHERE USER_ID = #{ sessionId }
     </select>
 
@@ -45,6 +57,30 @@
                 , POSTED_DATE
         FROM BOARD
         WHERE USER_ID = #{ sessionId }
+    </select>
+
+    <select id="selectCommentList" resultMap="generalPostResultMap">
+        SELECT
+            C.COMMENT_CODE
+            , B.TITLE
+            , C.COMMENT_CONTENT
+            , C.POSTED_DATE
+        FROM BOARD B
+        INNER JOIN
+            MEMBER_COMMENT C ON B.BOARD_CODE = C.BOARD_CODE
+    </select>
+
+    <select id="selectReviewList" resultMap="generalPostResultMap">
+        SELECT
+            R.BOOKING_CODE
+            , U.NAME
+            , R.REVIEW_SCORE
+            , R.REVIEW_CONTENT
+        FROM REVIEW R
+        INNER JOIN
+            BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
+        INNER JOIN
+            USER U ON B.THERAPIST_ID = U.USER_ID
     </select>
 
     <delete id="deleteMyPost">
