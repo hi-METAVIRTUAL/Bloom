@@ -1,6 +1,7 @@
 package com.metavirtual.bloom.psychometry.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metavirtual.bloom.psychometry.model.dto.TestQDTO;
 import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,32 +48,37 @@ public class PsychometryController {
         return "psychological/psychometry/startTest";
     }
     @GetMapping(value = "startAjax",produces = "application/json; charset=UTF-8")
-    public ModelAndView getTestPage(ModelAndView mv, HttpServletResponse response,HttpServletRequest request) throws JsonProcessingException{
+    public ModelAndView getTestPage(ModelAndView mv, HttpServletResponse response,HttpServletRequest request,
+                                    @RequestParam(value = "testCategory") String testCategory,
+                                    @RequestParam Map<String, Object> testList) throws JsonProcessingException{
         response.setContentType("application/json; charset=UTF-8");
-        String testCategory = request.getParameter("testCategory");
         String answerScore = request.getParameter("answerScore");
         String testIndex = request.getParameter("testIndex");
         List<TestQDTO> testQ = psychometryService.findContent(testCategory);
+        System.out.println(testList + "텟투");
 
         ObjectMapper mapper = new ObjectMapper();
         mv.addObject("testQ", mapper.writeValueAsString(testQ));
         mv.setViewName("jsonView");
-        System.out.println(testCategory + " 카테");
-        System.out.println(answerScore + " 답변");
-        System.out.println(testIndex + "질코");
+
         return mv;
     }
 
-    @PostMapping(value = "/saveAnswers", produces = "application/json; charset=UTF-8", consumes = "application/json")
+    @PostMapping(value = "saveAnswers", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String SaveAnswers(HttpServletRequest request) {
-        String testCategory = request.getParameter("testCategory");
-        String answerScore = request.getParameter("answerScore");
-        String testIndex = request.getParameter("testIndex");
-        List<TestResultDTO> testQ = psychometryService.saveAnswers(answerScore,testCategory);
+    public String SaveAnswers(HttpServletRequest request,
+                              @RequestParam Map<String, Object> testList,
+                              @RequestParam(value = "testCategory", required = false) String testCategory ) throws JsonProcessingException {
+        System.out.println(testCategory + " 카테고리");
+        System.out.println(testList + "리스트");
+        String json = testList.get("testList").toString();
+        ObjectMapper mapper = new ObjectMapper();
+        List<TestResultDTO> testLists = mapper.readValue(json, new TypeReference<ArrayList<TestResultDTO>>(){});
+
+        System.out.println(testLists);
         return "저장 완료";
     }
-    @GetMapping("/saveAnswers")
+    @GetMapping("saveAnswers")
     public String goRegister() {
         return "psychological/psychometry/lastTest";
     }
