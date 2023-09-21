@@ -18,19 +18,19 @@
         <div class="textarea-field">
             <textarea id="boardContent" name="boardContent" rows="22" cols="115" placeholder="글을 작성해주세요."></textarea>
         </div>
-        <!-- 유저 닉네임 가져오기 -->
+        <!-- USER_ID 정보 가져오기 -->
         <div>
             <input type="hidden" id="userId" name="userId" value="Lhj1234@">
             <!-- th:value="${ #authentication.getPrincipal().getUserId }" -->
         </div>
 
         <div>
-            <button type="submit" class="insert-button">
+            <button id="btnInsert" type="submit" class="insert-button">
                 <span>등록하기</span>
             </button>
         </div>
     </form>
-    <button type="button" id="btnInsert" class="insert-button" onclick="location.href='/board/searchList'">
+    <button type="button" class="insert-button" onclick="location.href='/board/searchList'">
         <span>돌아가기</span>
     </button>
 </div>
