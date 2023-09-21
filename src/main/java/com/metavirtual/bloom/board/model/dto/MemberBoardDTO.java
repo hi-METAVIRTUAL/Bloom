@@ -1,7 +1,5 @@
 package com.metavirtual.bloom.board.model.dto;
 
-import com.metavirtual.bloom.user.model.dto.MemberDTO;
-
 
 /* 게시글 등록용 객체 */
 public class MemberBoardDTO {

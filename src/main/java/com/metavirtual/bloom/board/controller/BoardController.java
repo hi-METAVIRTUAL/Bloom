@@ -2,6 +2,7 @@
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.CommentBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.board.model.service.BoardService;
@@ -90,12 +91,12 @@ public class BoardController {
         model.addAttribute("board", selectOne);
 
     /* 댓글 조회 */
-/*
 
         List<MemberCommentDTO> commentList = boardService.searchAllComment(boardCode);
         model.addAttribute("commentList", commentList);
+        System.out.println("댓글리스트 가져오는지? : " + commentList);
 
-*/
+
         return "board/boardSelectOne";
     }
 
@@ -164,13 +165,15 @@ public class BoardController {
 
 
     /* 댓글 등록 메서드 */
-    @PostMapping("/commentPosting")
-    public List<MemberCommentDTO> commentNewPosting(@RequestBody MemberCommentDTO newComment) throws CommentPostingException {
+    /*@PostMapping("/commentPosting")
+    public List<MemberCommentDTO> commentNewPosting(@RequestBody CommentBoardDTO newComment) throws CommentPostingException {
 
         List<MemberCommentDTO> commentList = boardService.commentNewPosting(newComment);
 
         return commentList;
-    }
+    }*/
+
+    /* 댓글 삭제 메서드 */
 
 
     @GetMapping("/singo")

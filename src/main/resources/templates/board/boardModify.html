@@ -3,11 +3,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 
 <h1 class="title">게시글 수정</h1>
 <div class="title-box">
-    <form name="boardPostingForm" th:action="@{/board/boardModify}" method="post">
+    <form name="boardModifyForm" th:action="@{/board/boardModify}" method="post">
         <span class="title-insert">제목</span>
         <input type="text" id="title" name="title" placeholder="글제목을 입력해 주세요." class="insert-input">
         <select id="boardCategory" name="boardCategory">
@@ -41,10 +42,9 @@
 
     $("#boardCategory options:selected").val()
 
-    $(document).ready(function () {
-        $("#btnModify").click(function () {
-            document.boardPostingForm.submit();
-        });
+    $(document).on('click','#btnModify', function () {
+        $("#boardModifyForm")
     });
+
 </script>
 </html>
