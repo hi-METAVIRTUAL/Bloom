@@ -6,17 +6,20 @@ spring:
     # Google smtp server 사용
     host: smtp.gmail.com
     port: 587
-    username: ${mail.username} #앱 비밀번호 발급받은 google 계정
-    password: ${mail.password} #발급받은 앱 비밀번호
+    username: metavirtual.bloom@gmail.com #앱 비밀번호 발급받은 google 계정
+    password: vxeo wvvg kiev sxcu #발급받은 앱 비밀번호
     properties:
       mail:
         smtp:
           starttls:
             enable: true
             auth: true
+            logging:
+              level:
+                org.springframework.mail: DEBUG
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.coffit.today/BLOOM
+    url: jdbc:mysql://mysql.coffit.today:3306/bloom
     username: HIkdt6
     password: HIkdt6
   servlet:
