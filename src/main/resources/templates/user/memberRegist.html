@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <!--<link rel="stylesheet" type="text/css" href="/css/regist/regularRegist.css">-->
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
-    <script type="text/javascript" th:src="@{/js/event.js}" defer></script>
+    <script type="text/javascript" th:src="@{/js/registMemberEvent.js}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -44,43 +43,12 @@
                         <td>아이디</td>
                         <td>*<input type="text" name="username" id="username" class="input-field" placeholder="최대 20자 / 공백 불가 / 영문 필수 / 특수 기호(!@$%&*) 필수" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[A-Za-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,20}$" required></td>
                         <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
-                    <tr>
-                        <td></td>
-                        <td><span id="result_checkId" style="font-size:12px;"></span></td>
                     </tr>
 
                     <tr>
                         <td>비밀번호</td>
                         <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <!-- Wrap the error message in a div with a specific class -->
-                            <div id="password-error-container">
-
-                            </div>
-                        </td>
-                    </tr>
-
-<!--                    <script>-->
-<!--                        function handlePasswordInput() {-->
-<!--                            const passwordInput = document.getElementById("password");-->
-<!--                            const passwordError = document.getElementById("password-error");-->
-
-<!--                            passwordInput.addEventListener("input", function () {-->
-<!--                                if (passwordInput.validity.valid) {-->
-<!--                                    passwordError.textContent = "";-->
-<!--                                } else {-->
-<!--                                    passwordError.textContent = "비밀번호는 8~20 자, 대소문자, 숫자, 특수기호가 필요하며 공백은 허용되지 않습니다.";-->
-<!--                                }-->
-<!--                            });-->
-<!--                        }-->
-
-<!--                        // Call the function to set up the event listener-->
-<!--                        handlePasswordInput();-->
-<!--                    </script>-->
-
 
                     <tr>
                         <td>닉네임</td>
@@ -118,13 +86,6 @@
                         </td>
                         <td><button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
                     </tr>
-
-                    <!--<tr>
-                        <td id="mail_number" name="mail_number" style="display: none">
-                            <input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
-                            <button name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
-                        </td>
-                    </tr>-->
 
                     <script>
                         function updateEmailDomain() {
