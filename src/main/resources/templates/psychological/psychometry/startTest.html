@@ -17,19 +17,24 @@
 <article>
     <form class="theme-checker">
         <div id="testBox">
-            <div th:each="test, testIndex : ${testQ}">
+            <!--<div th:each="test, testIndex : ${testQ}">
                 <h2 class="whiteText" th:text="${test.testContent}"></h2>
                 <input type="radio" th:name="${test.testCategory+test.testCode}" class="one" value="1"/>
+                <input type="hidden" name="testCategory" th:value="${test.testCategory}"/>
                 <input type="radio" th:name="${test.testCategory+test.testCode}" class="two" value="2"/>
+                <input type="hidden" name="testCategory" th:value="${test.testCategory}"/>
                 <input type="radio" th:name="${test.testCategory+test.testCode}" class="three" value="3"/>
+                <input type="hidden" name="testCategory" th:value="${test.testCategory}"/>
                 <input type="radio" th:name="${test.testCategory+test.testCode}" class="four" value="4"/>
+                <input type="hidden" name="testCategory" th:value="${test.testCategory}"/>
                 <input type="radio" th:name="${test.testCategory+test.testCode}" class="five" value="5"/>
+                <input type="hidden" name="testCategory" th:value="${test.testCategory}"/>
                 <div class="testQ">
                     <div>전혀그렇지않다</div>
                     <div>매우그렇다</div>
                 </div>
                 <input type="hidden" name="testCategory" th:value="${test.testCategory}"/>
-            </div>
+            </div>-->
         </div>
         <input type="hidden" id="userId" value="userId">
         <div id="buttonChange">
@@ -43,56 +48,50 @@
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 <script>
-    /* 페이지 표시 */
     let currentPage = 2;
-    const selectCategory = ["", "D", "A", "B", "O"]
-    var category = {};
-    var answer = {};
-    var testList = {};
-    let answerScore = [];
-
-
     $(document).ready(function () {
         /* 버튼 클릭 */
+        const selectCategory = ["", "D", "A", "B", "O"]
+        //var answer = {};
+        let testList = {};
+        let answers = [];
+        let categorys = [];
+
         $("#next").click(function () {
             // 선택한 답변을 히든 태그에 저장
             let testIndex = $("input[type='radio']:checked").length;
-            if (testIndex < 8) {
+
+            if (testIndex <= 8) {
                 $("input[type='radio']:checked").each(function () {
-                    category = $(this).next().val()
-                    answer = $(this).val()
-                    console.log(answer)
-                    if (category == 'D'){
-                       var testListD = {
-                            category : JSON.stringify(answerScore)
-                        }
-                    }else if (category == 'A'){
-                       var  testListA = {
-                            category : JSON.stringify(answerScore)
-                        }
-                    }
 
-                    console.log(testListD)
-                    console.log(testListA)
-                    /*let answerScore = $(this).val();  선택한 답변 값
+                    let answerScore = $(this).val(); // 선택한 답변 값
                     let testCategory = $(this).next().val(); // 질문 카테고리
+
+
+                    /*testList = {
+                        index : JSON.stringify(answerScore)
+                    }
                     let hiddenName = $(this).next().attr('name'); // 히든태그 name */
-
-
-                    /*console.log("$(this).val() ? = " + answerScore);
-                    console.log("index" + index + " = " + hiddenName + ", val = " + testCategory);*/
                     $('#result').text((currentPage) + ' / ' + 4);
                     /* Top 으로 이동 */
                     window.scrollTo(0, 0);
                     /* 다음 카테고리 값 넘겨주기 */
+                    if (currentPage == 2) {
                         testCategory = selectCategory[currentPage];
-                    if (currentPage == 3) {
+                        console.log(testCategory + " 테스트")
+                    }else  if (currentPage == 3) {
                         testCategory = selectCategory[currentPage];
+                        console.log(testCategory + " 테스트")
                     } else if (currentPage == 4) {
                         testCategory = selectCategory[currentPage];
+                        console.log(testCategory + " 테스트")
                     } else if (currentPage == 5) {
                         testCategory = selectCategory[currentPage];
                     }
+                    console.log(testCategory)
+                    console.log(answerScore + "1")
+                    answers = answers.concat(answerScore);
+                    categorys = categorys.concat(testCategory);
 
 
                     $.ajax({
@@ -101,7 +100,7 @@
                         dataType: "json",
                         contentType: "application/json",
                         success: function (data, status, xhr) {
-                            answerScore.push(answer);
+                            //answerScore.push(answer);
 
                             const testQ = JSON.parse(data.testQ);
                             const questionContainer = $("#testBox");
@@ -159,16 +158,17 @@
                                 }));
                             }
 
-                            $("#submit").click(function (testList) {
+                            $("#submit").click(function () {
 
-                                testList = {
-                                    testCategory : JSON.stringify(answerScore)
-                                }
+                                console.log(categorys +"마지막")
+                                console.log(answers+"마지막")
+
+
                                 // answers 객체를 서버로 전송
-                                $.ajax({
+                               $.ajax({
                                     url: "saveAnswers",
                                     method: "POST",
-                                    data: testList,
+                                    data: JSON.stringify(categorys,answers),
                                     success: function (data) {
 
 
