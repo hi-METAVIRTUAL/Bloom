@@ -47,8 +47,8 @@
     <insert id="insertUser" parameterType="UserDTO">
         INSERT INTO
                     USER  (
-                              NAME
-                            , USER_ID
+                            USER_ID
+                            , NAME
                             , GENDER
                             , PWD
                             , EMAIL
@@ -57,8 +57,8 @@
                             , AUTHORITY_CODE
                             )
                 VALUES (
-                          #{ name }
                         , #{ userId }
+                        , #{ name }
                         , #{ gender }
                         , #{ pwd }
                         , #{ email }
