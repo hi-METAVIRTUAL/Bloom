@@ -59,6 +59,7 @@
                 $("input[type='radio']:checked").each(function (index) {
                     category = $(this).next().val()
                     answer = $(this).val()
+                    console.log(answer)
                     /*let answerScore = $(this).val();  선택한 답변 값
                     let testCategory = $(this).next().val(); // 질문 카테고리
                     let hiddenName = $(this).next().attr('name'); // 히든태그 name */
@@ -89,18 +90,15 @@
                     }else if (testCategory === 'O'){
                         answersO[index] = answerScore
                     }*/
-                    answers.push(category);
-                    answers.push(answer);
-                    var testList = {
-                        "testList" : JSON.stringify(answers)
-                    }
+
+
                     $.ajax({
                         url: "startAjax",
-                        data: {testCategory: testCategory,
-                            testList},
+                        data: {testCategory: testCategory},
                         dataType: "json",
                         contentType: "application/json",
                         success: function (data, status, xhr) {
+                            answers.push(answer);
 
                             const testQ = JSON.parse(data.testQ);
                             const questionContainer = $("#testBox");
@@ -151,13 +149,15 @@
                                 const buttonChange = $("#buttonChange");
                                 buttonChange.html("");
                                 buttonChange.append($('<input>').attr({
-                                    id: 'dataSend',
                                     type: 'submit',
                                     class: 'roundbutton',
                                     value: '제출하기'
                                 }));
                             }
                             $("#submit").click(function () {
+                                var testList = {
+                                    "testList" : JSON.stringify(answers)
+                                }
                                 // answers 객체를 서버로 전송
                                 $.ajax({
                                     url: "saveAnswers",
@@ -167,10 +167,11 @@
                                     contentType: "application/json",
                                     success: function (data) {
 
+
                                         // 제출이 성공했을 때의 처리
                                     },
                                     error: function (xhr, status, error) {
-                                        console.error(error);
+                                        console.error(error + " 에러가 났따...");
                                     }
                                 });
                             })
@@ -178,7 +179,9 @@
                         error: function (xhr, status, error) {
                         }
                     });
+
                 });
+
                 currentPage++
             }/*else if (testIndex < 8){
                     alert("전부 체크해주세요")
