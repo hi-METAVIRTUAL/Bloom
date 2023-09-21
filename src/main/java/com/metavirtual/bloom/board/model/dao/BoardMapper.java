@@ -1,6 +1,7 @@
 package com.metavirtual.bloom.board.model.dao;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.CommentBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
@@ -26,7 +27,7 @@ public interface BoardMapper {
 
     List<MemberCommentDTO> searchCommentList(int boardCode);
 
-    int commentPosting(MemberCommentDTO newComment);
+    int commentPosting(CommentBoardDTO newComment);
 
 }
 

@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 
 
+
 <h1 class="title">게시글 작성</h1>
 <div class="title-box">
     <form name="boardPostingForm" th:action="@{/board/boardPosting}" method="post">
@@ -22,7 +23,7 @@
         <div>
             <input type="hidden" id="postedDate" name="postedDate">
             <input type="hidden" id="userId" name="userId" value="a123!">
-            <!-- th:value="${ #authentication.getPrincipal().getUserId }" -->
+            <!-- th:value="${ #authentication.getPrincipal().getUserId() }" -->
         </div>
 
         <div>

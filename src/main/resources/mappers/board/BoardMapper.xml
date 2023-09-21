@@ -139,9 +139,24 @@
         )
         VALUES(#{ title }, NOW(), #{ boardCategory }, #{ boardContent }, #{ userId })
     </insert>
+
     <update id="boardModify">
+        UPDATE BOARD
+        <set>
+            <if test="title neq '">
+                TITLE = #{ title }
+            </if>
+            <if test="">
+                BOARD_CATEGORY = #{ boardCategory }
+            </if>
+        </set>
     </update>
 
+    <delete id="boardDelete">
+        DELETE
+        FROM BOARD
+        WHERE BOARD_CODE = #{ boardCode }
+    </delete>
     <insert id="commentPosting">
         INSERT INTO MEMBER_COMMENT(
             COMMENT_CONTENT

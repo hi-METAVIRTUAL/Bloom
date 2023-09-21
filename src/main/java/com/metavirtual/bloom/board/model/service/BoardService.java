@@ -2,6 +2,7 @@ package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.CommentBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.common.exception.board.BoardDeleteException;
@@ -96,7 +97,7 @@ public class BoardService {
 
 
     @Transactional
-    public List<MemberCommentDTO> commentNewPosting(MemberCommentDTO newComment) throws CommentPostingException {
+    public List<MemberCommentDTO> commentNewPosting(CommentBoardDTO newComment) throws CommentPostingException {
 
         int result = boardMapper.commentPosting(newComment);
 
