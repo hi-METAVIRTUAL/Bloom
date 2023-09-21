@@ -139,6 +139,8 @@
         )
         VALUES(#{ title }, NOW(), #{ boardCategory }, #{ boardContent }, #{ userId })
     </insert>
+    <update id="boardModify">
+    </update>
 
     <insert id="commentPosting">
         INSERT INTO MEMBER_COMMENT(

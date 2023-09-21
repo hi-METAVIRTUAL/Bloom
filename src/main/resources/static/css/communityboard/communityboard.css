@@ -52,7 +52,7 @@ body {
 }
 
 .searchBox1 input{
-    background: url("/images/review/search.png") no-repeat right center #FFF6E2;
+    /*background: url("/images/review/search.png") no-repeat right center #FFF6E2;*/
     width: 100%;
     background-size: 23px;
     border-color: #C09A81;
