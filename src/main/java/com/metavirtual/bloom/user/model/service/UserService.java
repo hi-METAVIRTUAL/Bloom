@@ -22,5 +22,8 @@ public interface UserService extends UserDetailsService {
 
     @Transactional
     void registUser(UserDTO user, MemberDTO member) throws UserRegistException;
+
+    @Transactional
+    void registTherapistPI(UserDTO user) throws UserRegistException;
 }
 

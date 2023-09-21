@@ -21,6 +21,8 @@ public interface UserMapper {
 
    int nicknameDupCheck(String nickname);
 
-   /*   AuthDetails findUserById(String username);*/
+    int insertTherapistPI(UserDTO user);
+
+    /*   AuthDetails findUserById(String username);*/
 
 }

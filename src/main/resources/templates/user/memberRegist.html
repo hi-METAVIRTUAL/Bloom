@@ -36,23 +36,22 @@
                 <table class="registTable">
                     <tr>
                         <td class="row">이름</td>
-                        <td>*<input type="text" id="name" name="name" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?!.*[@$!%*?&\\s])[A-Za-z가-힣]{1,20}$" required></td>
+                        <td>*<input type="text" id="name" name="name" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
                     </tr>
 
                     <tr>
                         <td>아이디</td>
-                        <td>*<input type="text" name="username" id="username" class="input-field" placeholder="최대 20자 / 공백 불가 / 영문 필수 / 특수 기호(!@$%&*) 필수" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[A-Za-z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,20}$" required></td>
+                        <td>*<input type="text" name="username" id="username" class="input-field" placeholder="최대 20자 / 공백 불가 / 영문 필수" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
                         <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
                     </tr>
-
                     <tr>
                         <td>비밀번호</td>
-                        <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
+                        <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
                     </tr>
 
                     <tr>
                         <td>닉네임</td>
-                        <td>*<input type="text" name="nickname" id="nickname" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^[A-Za-z가-힣]{1,10}$" required></td>
+                        <td>*<input type="text" name="nickname" id="nickname" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
                         <td><input type="button" id="duplicationNicknameCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder;"></td>
                     </tr>
 
