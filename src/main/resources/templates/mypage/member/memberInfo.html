@@ -10,37 +10,73 @@
 <body>
 <header class="header" th:include="components/Header.html"></header>
 <br><br>
-<div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 221px; height: 270px; border-radius: 30px; margin: auto;" align="center">
-    <img src="../images/mypage/user/flower.png" class="image-center">
-    <h3 th:text="${#authentication.getPrincipal().getName()}"></h3>
-    <a th:text="${#authentication.getPrincipal().getEmail()}" style="color: #898989"></a>
-    <a th:text="${#authentication.getPrincipal().getPhone()}" style="color: #898989"></a>
-</div>
-<br><br>
-<div align="center">
-    <input type="button" value="내 정보 수정하기" onclick="location.href='modifyMemberInfo'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 33px; cursor: pointer;">
+<h2 style="color: #C09A81;">마이 페이지</h2><br>
+<!--<div th:if="${user != null}">-->
+<!--<div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 221px; height: 270px; border-radius: 30px; margin: auto;" align="center">-->
+<!--    <img src="../images/mypage/user/flower.png" class="image-center">-->
+<!--    <h3 th:text="${ user.getName() }"></h3>-->
+<!--    <a th:text="${ user.getEmail() }" style="color: #898989"></a>-->
+<!--    <a th:text="${ user.getPhone() }" style="color: #898989"></a>-->
+<!--</div>-->
+<!--<br><br>-->
+<!--<div align="center">-->
+<!--    <input type="button" value="내 정보 수정하기" onclick="location.href='modifyMemberInfo'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 33px; cursor: pointer;">-->
+<!--    <br><br>-->
+<!--    <h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>-->
+<!--    <table style="margin-left:auto;margin-right:auto; color: #C09A81; width: 800px; height: 100px; border-top: 2px solid #C09A81; border-collapse: collapse;" align="center">-->
+<!--        <tr th:if="${ user.getUserId() } == ${ booking.getMemberId() }" align="center">-->
+<!--            <td th:if="${ booking.getTherapistId()} == ${user.getUserId() }" th:text="${ user.getName() }" onclick="location.href='/psychological/match/introduceTherapy'"></td>-->
+<!--            <td th:text="${ booking.getBookingDate() }"></td>-->
+<!--            <td th:if="${ booking.getTherapistId() } == ${ user.getUserId() }" th:text="${ user.getPhone() }"></td>-->
+<!--            <td th:text="${ booking.getBookingStatus() }" style="border-radius: 10px; background-color: #C09A81; color: white;"></td>-->
+<!--        </tr>-->
+<!--        <tr th:unless="${ user.getUserId() } == ${ booking.memberId() }" align="center">-->
+<!--            <td colspan="4" align="center" style="border-bottom: 2px solid #C09A81;">예약된 내역이 없습니다</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--    <br>-->
+<!--    <a th:if="${ user.getUserId() } == ${ booking.getMemberId() }" style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>-->
+<!--    <br><br><br>-->
+<!--    <input th:if="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
+<!--    <input th:unless="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="테스트 하러 가기" onclick="location.href='/psychological/psychometry/firstTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
+<!--    <br><br>-->
+<!--    <input type="button" value="작성 글 / 댓글 보기" onclick="location.href='postList'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">-->
+<!--</div>-->
+<!--</div>-->
+
+<div>
+    <div style="background-color: #FFFFFF; border: 2px solid #B3E6C4; width: 221px; height: 270px; border-radius: 30px; margin: auto;" align="center">
+        <img src="../images/mypage/user/flower.png" class="image-center">
+        <h3 th:text="김철수"></h3>
+        <a th:text="member1@meta.com" style="color: #898989"></a>
+        <a th:text="010-1111-1111" style="color: #898989"></a>
+    </div>
     <br><br>
-    <h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>
-    <table style="margin-left:auto;margin-right:auto; color: #C09A81; width: 800px; height: 100px; border-top: 2px solid #C09A81; border-collapse: collapse;" align="center">
-        <tr th:if="${#authentication.getPrincipal().getMemberId()} == ${booking.memberId}" align="center">
-            <td th:text="${ user.name }" th:if="${booking.therapistId} == ${user.userId}" onclick="location.href='/psychological/match/introduceTherapy'"></td>
-            <td th:text="${ booking.bookingDate }"></td>
-            <td th:text="${ user.phone }" th:if="${booking.therapistId} == ${user.userId}"></td>
-            <td th:text="${ booking.bookingStatus }" style="border-radius: 10px; background-color: #C09A81; color: white;"></td>
-        </tr>
-        <tr th:unless="${#authentication.getPrincipal().getMemberId()} == ${booking.memberId}" align="center">
-            <td colspan="4" align="center" style="border-bottom: 2px solid #C09A81;">예약된 내역이 없습니다</td>
-        </tr>
-    </table>
-    <br>
-    <a th:if="${#authentication.getPrincipal().getMemberId()} == ${booking.memberId}" style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>
-    <br><br><br>
-    <input th:if="${#authentication.getPrincipal().getMemberId()} == ${booking.memberId}" type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
-    <input th:unless="${#authentication.getPrincipal().getMemberId()} == ${booking.memberId}" type="button" value="테스트 하러 가기" onclick="location.href='/psychological/psychometry/firstTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
-    <br><br>
-    <input type="button" value="작성 글 / 댓글 보기" onclick="location.href='postList'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+    <div align="center">
+        <input type="button" value="내 정보 수정하기" onclick="location.href='modifyMemberInfo'" style="border-width: 1px; border-color: #C09A81; border: solid; color: #C09A81; background-color: #FFF6E2; border-radius: 10px; width: 180px; height: 33px; cursor: pointer;">
+        <br><br>
+        <h4 style="color: #C09A81; margin-left:auto; margin-right:auto;">나의 예약 내역</h4>
+        <table style="margin-left:auto;margin-right:auto; color: #C09A81; width: 800px; height: 100px; border-top: 2px solid #C09A81; border-collapse: collapse;" align="center">
+            <tr th:if="${ user.getUserId() } == ${ booking.getMemberId() }" align="center">
+                <td th:if="${ booking.getTherapistId()} == ${user.getUserId() }" th:text="${ user.getName() }" onclick="location.href='/psychological/match/introduceTherapy'"></td>
+                <td th:text="${ booking.getBookingDate() }"></td>
+                <td th:if="${ booking.getTherapistId() } == ${ user.getUserId() }" th:text="${ user.getPhone() }"></td>
+                <td th:text="${ booking.getBookingStatus() }" style="border-radius: 10px; background-color: #C09A81; color: white;"></td>
+            </tr>
+            <tr th:unless="${ user.getUserId() } == ${ booking.memberId() }" align="center">
+                <td colspan="4" align="center" style="border-bottom: 2px solid #C09A81;">예약된 내역이 없습니다</td>
+            </tr>
+        </table>
+        <br>
+        <a th:if="${ user.getUserId() } == ${ booking.getMemberId() }" style="color: #914D4D">예약 취소는 연결된 상담사에게 문의 바랍니다.</a>
+        <br><br><br>
+        <input th:if="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="내 검사 결과 조회" onclick="location.href='/psychological/psychometry/resultTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+        <input th:unless="${ user.getUserId() } == ${ booking.getMemberId() }" type="button" value="테스트 하러 가기" onclick="location.href='/psychological/psychometry/firstTest'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+        <br><br>
+        <input type="button" value="작성 글 / 댓글 보기" onclick="location.href='postList'" style="width: 200px; height: 33px; border-radius: 10px; background-color: #C09A81; color: #FFFFFF; border-color: #C09A81; border-width: 1px; border: solid; cursor: pointer;">
+    </div>
 </div>
-</script>
+
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
