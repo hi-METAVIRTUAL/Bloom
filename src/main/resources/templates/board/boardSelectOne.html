@@ -14,14 +14,11 @@
     <div><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></div>
     <div class="singobutton"><button type="button" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>
 
-    <button type="button" class="insert-button" id="btnModify"><span>수정하기</span></button>
-    <button type="button" class="insert-button" id="btnDelete"><span>삭제하기</span></button>
+    <button type="button" class="insert-button" id="btnModify" onclick="location.href='board/boardModify'"><span>수정하기</span></button>
+    <button type="button" class="insert-button" id="btnDelete" onclick=""><span>삭제하기</span></button>
 
 <!--댓글작성-->
 <!--<div><textarea rows="22" cols="100" placeholder="댓글을 작성해주세요." class="insert-datgul-board"></textarea></div>
 <div class="singobutton"><button type="text" onclick="location.href='/board/boardInsert'" style="float: right">댓글쓰기</button><button type="text" onclick="location.href='/board/boardMain'" style="float: right; margin-left: 3%; margin-right: 2%">목록으로</button></div>-->
 
-<script>
-
-</script>
 </html>

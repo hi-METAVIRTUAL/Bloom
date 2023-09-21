@@ -96,7 +96,6 @@ public class BoardController {
         model.addAttribute("commentList", commentList);
 
 */
-
         return "board/boardSelectOne";
     }
 
@@ -108,26 +107,47 @@ public class BoardController {
 
     /* 게시글 등록 메서드 */
     @PostMapping("/boardPosting")
-    public String boardContentPosting(@ModelAttribute MemberBoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
+    public String boardContentPosting(@RequestParam String title
+                                , @RequestParam String boardCategory
+                                , @RequestParam String boardContent
+                                , @ModelAttribute MemberBoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
 
         System.out.println("파라미터 값? : " + newPosting);
-        boardService.boardNewPosting(newPosting);
 
-        rttr.addFlashAttribute("successMessage", "게시글 등록에 성공하였습니다");
+        if(title != "" && boardCategory != "" && boardContent != "") {
+            boardService.boardNewPosting(newPosting);
+            rttr.addFlashAttribute("message", "게시글 등록에 성공하였습니다");
+        } else {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다");
+        }
+
         return "redirect:/board/searchList";
     }
 
     /* 게시글 수정 화면 */
+    @GetMapping("/boardModify")
+    public String boardModify () {
+        return "board/boardModify";
+    }
 
     /* 게시글 수정 메서드 */
     @PostMapping("/boardModify")
-    public String boardModify(@ModelAttribute MemberBoardDTO modifyBoard, RedirectAttributes rttr) throws BoardModifyException {
+    public String boardModify(@RequestParam String title
+                        , @RequestParam String boardCategory
+                        , @RequestParam String boardContent
+                        , @ModelAttribute MemberBoardDTO modifyBoard, RedirectAttributes rttr) throws BoardModifyException {
 
         System.out.println("파라미터 값? : " + modifyBoard);
-        boardService.boardModify(modifyBoard);
+
+        if(title != "" && boardCategory != "" && boardContent != "") {
+            boardService.boardModify(modifyBoard);
+            rttr.addFlashAttribute("message", "게시글 수정에 성공하였습니다");
+        } else {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다");
+        }
 
 
-        rttr.addFlashAttribute("successMessage", "게시글 수정에 성공하였습니다");
+
         return "redirect:/board/boardSelectOne";
     }
 
@@ -138,8 +158,8 @@ public class BoardController {
         System.out.println("요청도달?? : " + deleteBoard);
         boardService.boardDelete(deleteBoard);
 
-        rttr.addFlashAttribute("successMessage", "게시글 삭제에 성공하였습니다");
-        return "redirect:/board/boardSelectOne";
+        rttr.addFlashAttribute("message", "게시글이 삭제되었습니다");
+        return "redirect:/board/searchList";
     }
 
 
