@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>작성 글 댓글 목록</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/mypage/member/memberInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -80,62 +81,62 @@
     <h1> 작성 글 / 댓글 보기 </h1>
 </div>
 <br>
-<div align="center" id="pList">
+<div align="center">
     <div>
         <h2>작성한 글</h2>
     </div>
     <div>
         <b>제목을 누르면 이동합니다</b>
-        <table>
+        <table id="pList">
             <tr>
-                <th class="tdleft checktd" scope="col"><input id="allPostCheck" type="checkbox" name="allPostCheck" /></th> <!--체크박스 만들기(선택삭제) 글, 댓글, 후기 모두-->
+                <th class="tdleft checktd" scope="col"><input id="allPostCheck" type="checkbox" name="allPostCheck"></th> <!--체크박스 만들기(선택삭제) 글, 댓글, 후기 모두-->
                 <th scope="col">게시글코드</th>
                 <th scope="col">제목</th>
                 <th scope="col">게시판</th>
                 <th class="tdright" scope="col">작성일시</th>
             </tr>
-            <tr>
-                <td><input name="RowPostCheck" type="checkbox" value="${boardDTO.boardCode}"></td> <!--체크박스-->
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
-                <td>커뮤니티</td>
-                <td>2023-09-13 17:54</td>
-            </tr>
-            <tr class="colortr">
-                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${boardDTO.boardCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">진로 문제로 고민 중입니다.</td>
-                <td>고민상담</td>
-                <td class="tdright">2023-09-13 17:56</td>
-            </tr>
-            <tr>
-                <td><input name="RowPostCheck" type="checkbox" value="${boardDTO.boardCode}"></td> <!--체크박스-->
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
-                <td>커뮤니티</td>
-                <td>2023-09-13 17:54</td>
-            </tr>
-            <tr class="colortr">
-                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${boardDTO.boardCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">진로 문제로 고민 중입니다.</td>
-                <td>고민상담</td>
-                <td class="tdright">2023-09-13 17:56</td>
-            </tr>
-            <tr>
-                <td><input name="RowPostCheck" type="checkbox" value="${boardDTO.boardCode}"></td> <!--체크박스-->
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
-                <td>커뮤니티</td>
-                <td>2023-09-13 17:54</td>
-            </tr>
-<!--            <tr th:each="boardDTO : ${post}">-->
-<!--                <td><input name="RowPostCheck" type="checkbox" value="${boardDTO.boardCode}"></td>-->
-<!--                <td th:text="${boardDTO.boardCode}"></td>-->
-<!--                <td th:text="${boardDTO.title}" class="longtd" onclick="location.href='/'">진로 문제로 고민 중입니다.</td>-->
-<!--                <td th:text="${boardDTO.boardCategory}">고민상담</td>-->
-<!--                <td th:text="${boardDTO.postedDate}">2023-09-13 17:56</td>-->
+<!--            <tr th:each="board : ${postList}">-->
+<!--                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td>-->
+<!--                <td th:text="${ board.getBoardCode() }"></td>-->
+<!--                <td th:text="${ board.getTitle() }" class="longtd" onclick="location.href='/'"></td>-->
+<!--                <td th:text="${ board.getBoardCategory() }"></td>-->
+<!--                <td th:text="${ board.getPostedDate() }"></td>-->
 <!--            </tr>-->
+            <tr>
+                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td> <!--체크박스-->
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
+                <td>커뮤니티</td>
+                <td>2023-09-13 17:54</td>
+            </tr>
+            <tr class="colortr">
+                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">진로 문제로 고민 중입니다.</td>
+                <td>고민상담</td>
+                <td class="tdright">2023-09-13 17:56</td>
+            </tr>
+            <tr>
+                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td> <!--체크박스-->
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
+                <td>커뮤니티</td>
+                <td>2023-09-13 17:54</td>
+            </tr>
+            <tr class="colortr">
+                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">진로 문제로 고민 중입니다.</td>
+                <td>고민상담</td>
+                <td class="tdright">2023-09-13 17:56</td>
+            </tr>
+            <tr>
+                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td> <!--체크박스-->
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
+                <td>커뮤니티</td>
+                <td>2023-09-13 17:54</td>
+            </tr>
         </table><br>
         <input type="button" value="선택 삭제" onclick="deleteMyPost();">
         </div>
@@ -181,7 +182,7 @@
     </div>
     <div>
         <b>글제목을 누르면 이동합니다</b>
-        <table>
+        <table id="cList">
             <tr>
                 <th class="tdleft checktd" scope="col"><input id="allCommentCheck" type="checkbox" name="allCommentCheck" /></th>
                 <th scope="col">댓글번호</th>
@@ -189,50 +190,84 @@
                 <th scope="col">내용</th>
                 <th class="tdright" scope="col">작성일시</th>
             </tr>
-            <tr>
-                <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
-                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
-                <td>2023-09-13 18:00</td>
-            </tr>
-            <tr class="colortr">
-                <td class="tdleft"><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘의 나를 사랑합시다</td>
-                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별하시는 건가요?? 차별 반대!!</td>
-                <td class="tdright">2023-09-13 18:02</td>
-            </tr>
-            <tr>
-                <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
-                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
-                <td>2023-09-13 18:00</td>
-            </tr>
-            <tr class="colortr">
-                <td class="tdleft"><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘의 나를 사랑합시다</td>
-                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별하시는 건가요?? 차별 반대!!</td>
-                <td class="tdright">2023-09-13 18:02</td>
-            </tr>
-            <tr>
-                <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
-                <td></td>
-                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
-                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
-                <td>2023-09-13 18:00</td>
-            </tr>
-<!--            <tr th:each="memberCommentDTO, boardDTO : ${comment}">-->
+<!--            <tr th:each="memberComment : ${commentList}, board : ${postList}">-->
 <!--                <td><input name="RowCommentCheck" type="checkbox" value=""${memberCommentDTO.commentCode}></td>-->
-<!--                <td th:text="${memberCommentDTO.commentCode}"></td>-->
-<!--                <td th:text="${boardDTO.title}" class="longtd pointer" onclick="location.href='/'">오늘의 나를 사랑합시다</td>-->
-<!--                <td th:text="${memberCommentDTO.commentContent}" class="longtd">어제의 나랑 내일의 나는요? 지금 차별...</td>-->
-<!--                <td th:text="${.}">2023-09-13 18:02</td>-->
+<!--                <td th:text="${ memberComment.getCommentCode() }"></td>-->
+<!--                <td th:if="${ memberComment.getBoardCode() } eq ${ board.getBoardCode() }" th:text="${ board.getTitle() }" class="longtd pointer" onclick="location.href='/'">오늘의 나를 사랑합시다</td>-->
+<!--                <td th:text="${ memberComment.getCommentContent() }" class="longtd">어제의 나랑 내일의 나는요? 지금 차별...</td>-->
+<!--                <td th:text="${ memberComment.getPostedDate() }">2023-09-13 18:02</td>-->
 <!--            </tr>-->
+            <tr>
+                <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
+                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
+                <td>2023-09-13 18:00</td>
+            </tr>
+            <tr class="colortr">
+                <td class="tdleft"><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘의 나를 사랑합시다</td>
+                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별하시는 건가요?? 차별 반대!!</td>
+                <td class="tdright">2023-09-13 18:02</td>
+            </tr>
+            <tr>
+                <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
+                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
+                <td>2023-09-13 18:00</td>
+            </tr>
+            <tr class="colortr">
+                <td class="tdleft"><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘의 나를 사랑합시다</td>
+                <td class="longtd">어제의 나랑 내일의 나는요? 지금 차별하시는 건가요?? 차별 반대!!</td>
+                <td class="tdright">2023-09-13 18:02</td>
+            </tr>
+            <tr>
+                <td><input name="RowCommentCheck" type="checkbox" value="${memberCommentDTO.commentCode}"></td>
+                <td></td>
+                <td class="longtd pointer" onclick="location.href='/boardSelectOne'">오늘 있었던 일</td>
+                <td class="longtd">여기가 님 일기장인가요? 이런 글은 본인 일기장에나 쓰세요!</td>
+                <td>2023-09-13 18:00</td>
+            </tr>
         </table><br>
         <input type="button" value="선택 삭제" onclick="deleteMyComment();">
+    </div>
+    <div align="center">
+        <input type="hidden" name="currentPage" value="1">
+        <button class="pagebt"
+                th:onclick="'location.href=\'#cList?currentPage='+@{${ selecCriteria.startPage }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <<
+        </button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'#cList?currentPage='+@{${ selectCriteria.pageNo - 1 }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <
+        </button>
+        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <button class="pagebt"
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'#cList?currentPage='+@{${page}}+'\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+            </button>
+        </th:block>
+        <button class="pagebt"
+                th:onclick="'location.href=\'#cList?currentPage='+@{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+        >
+            >
+        </button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'#cList?currentPage='+@{${selectCriteria.maxPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+        >
+            >>
+        </button><br>
     </div>
 </div>
 <br><br>
@@ -241,64 +276,98 @@
         <h2>작성한 후기</h2>
     </div>
     <div>
-        <table>
-            <b>상담사를 누르면 이동합니다</b>
+        <b>상담사를 누르면 이동합니다</b>
+        <table id="rList">
             <tr>
                 <th class="tdleft checktd" scope="col"><input id="allReviewCheck" type="checkbox" name="allReviewCheck" /></th>
                 <th scope="col">예약코드</th>
                 <th scope="col">상담사</th>
                 <th scope="col">평점</th>
-                <th class="tdright" scope="col">작성일시</th>
+                <th class="tdright" scope="col">내용</th>
             </tr>
-            <tr>
-                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
-                <td></td>
-                <td class="pointer" onclick="location.href='/'">김철수</td>
-                <td>4점</td>
-                <td>2023-09-13 18시</td>
-            </tr>
-            <tr class="colortr">
-                <td class="tdleft"><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
-                <td></td>
-                <td class="pointer" onclick="location.href='/'">김영희</td>
-                <td>5점</td>
-                <td class="tdright">2023-08-08 20시</td>
-            </tr>
-            <tr>
-                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
-                <td></td>
-                <td class="pointer" onclick="location.href='/'">김철수</td>
-                <td>4점</td>
-                <td>2023-09-13 18시</td>
-            </tr>
-            <tr class="colortr">
-                <td class="tdleft"><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
-                <td></td>
-                <td class="pointer" onclick="location.href='/'">김영희</td>
-                <td>5점</td>
-                <td class="tdright">2023-08-08 20시</td>
-            </tr>
-            <tr>
-                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
-                <td></td>
-                <td class="pointer" onclick="location.href='/'">김철수</td>
-                <td>4점</td>
-                <td>2023-09-13 18시</td>
-            </tr>
-<!--            <tr th:each="reviewDTO, userDTO : ${review}">-->
+<!--            <tr th:each="review : ${reviewList}, booking : ${bookingList}, user : ${userList}">-->
 <!--                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>-->
-<!--                <td th:text="${reviewDTO.bookingCode}"></td>-->
-<!--                <td th:text="${userDTO.name}" class="pointer" onclick="location.href='/'">김영희</td>-->
-<!--                <td th:text="${reviewDTO.reviewScore}">5점</td>-->
-<!--                <td th:text="${reviewDTO.postedDate}">2023-08-08 20시</td>-->
+<!--                <td th:text="${ review.getBookingCode() }"></td>-->
+<!--                <td th:if="${ review.getBookingCode() } eq ${ booking.getBookingCode() } && ${ booking.getTherapistId() } eq ${ user.getUserId() }" th:text="${ user.getName() }" class="pointer" onclick="location.href='/'"></td>-->
+<!--                <td th:text="${ review.getReviewScore() }"></td>-->
+<!--                <td th:text="${ review.getReviewContent() }"></td>-->
 <!--            </tr>-->
+            <tr>
+                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
+                <td></td>
+                <td class="pointer" onclick="location.href='/'">김철수</td>
+                <td>4점</td>
+                <td>김철수 짱!</td>
+            </tr>
+            <tr class="colortr">
+                <td class="tdleft"><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
+                <td></td>
+                <td class="pointer" onclick="location.href='/'">김영희</td>
+                <td>5점</td>
+                <td class="tdright">김영희 짱!</td>
+            </tr>
+            <tr>
+                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
+                <td></td>
+                <td class="pointer" onclick="location.href='/'">김철수</td>
+                <td>4점</td>
+                <td>김철수 짱!</td>
+            </tr>
+            <tr class="colortr">
+                <td class="tdleft"><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
+                <td></td>
+                <td class="pointer" onclick="location.href='/'">김영희</td>
+                <td>5점</td>
+                <td class="tdright">김영희 짱!</td>
+            </tr>
+            <tr>
+                <td><input name="RowReviewCheck" type="checkbox" value="${reviewDTO.bookingCode}"></td>
+                <td></td>
+                <td class="pointer" onclick="location.href='/'">김철수</td>
+                <td>4점</td>
+                <td>김철수 짱!</td>
+            </tr>
         </table><br>
         <input type="button" value="선택 삭제" onclick="deleteMyReview();">
+    </div>
+    <div align="center">
+        <input type="hidden" name="currentPage" value="1">
+        <button class="pagebt"
+                th:onclick="'location.href=\'#rList?currentPage='+@{${ selecCriteria.startPage }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <<
+        </button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'#rList?currentPage='+@{${ selectCriteria.pageNo - 1 }} + '\''"
+                th:disabled="${selectCriteria.pageNo == 1}"
+        >
+            <
+        </button>
+        <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <button class="pagebt"
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'#rList?currentPage='+@{${page}}+'\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+            </button>
+        </th:block>
+        <button class="pagebt"
+                th:onclick="'location.href=\'#rList?currentPage='+@{${selectCriteria.pageNo + 1}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+        >
+            >
+        </button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'#rList?currentPage='+@{${selectCriteria.maxPage}} + '\''"
+                th:disabled="${selectCriteria.pageNo==selectCriteria.maxPage}"
+        >
+            >>
+        </button><br>
     </div>
 </div>
 <br><br>
 <div align="center">
-    <button onclick="history.back(-1);">마이페이지로 돌아가기</button>
+    <button onclick="location.href='memberInfo'">마이페이지로 돌아가기</button>
 </div>
 <br>
 <br>
@@ -306,50 +375,39 @@
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function (){
-        var chkObj=document.getElementsByName("RowPostCheck");
-        var rowCnt=chkObj.length;
+<script>
+    $(document).ready(function(){
+        $("checkAll").click(function(){
+            if($("#checkAll").prop("checked")){
+                $(".test").prop("checked", true);
+            } else{
+                $(".test").prop("checked", false);
+            }
 
-        $("input[name='allPostCheck']").click(function(){
-            var chk_listArr=$("input[name='RowPostCheck']");
-            for (var i=0; i<chk_listArr.length; i++){
-                chk_listArr[i].checked=this.checked;
-            }
-        });
-        $("input[name='RowPostCheck']").click(function(){
-            if($("input[name='RowPostCheck']:checked").length==rowCnt){
-                $("input[nmae='allPostCheck']")[0].checked=true;
-            }
-            else {
-                $("input[name='allPostcheck']")[0].checked=false;
-            }
-        });
+        })
     });
     function deleteMyPost(){
         var url="deleteMyPost";
-        var valueArr1 = new Array();
+        var valueArr = new Array();
         var list = $("input[name='RowPostCheck']");
         for(var i=0; i<list.length; i++){
             if(list[i].checked){
-                valueArr1.push(list[i].value);
+                valueArr.push(list[i].value);
             }
         }
-        if(valueArr1.length==0){
+        if(valueArr.length==0){
             alert("선택된 글이 없습니다.");
         }
         else {
             var chk=confirm("정말 삭제하시겠습니까?");
             $.ajax({
-                url:url,
-                type:'POST',
-                traditional:true,
+                url:"/member/deleteMyPost",
+                type:"POST",
                 data:{
-                    valueArr:valueArr1
+                    valueArr:valueArr
                 },
-                success:function(jdata){
-                    if(jdata=1){
+                success:function(data){
+                    if(data=1){
                         alert("삭제가 완료되었습니다!");
                         location.replace("postList")
                     }
@@ -371,8 +429,8 @@
             }
         });
         $("input[name='RowCommentCheck']").click(function(){
-            if($("input[name='RowCommentCheck']:checked").length==rowCnt){
-                $("input[nmae='allCommentCheck']")[0].checked=true;
+            if($("input[name='RowCommentCheck']:checked").length===rowCnt){
+                $("input[name='allCommentCheck']")[0].checked=true;
             }
             else {
                 $("input[name='allCommentCheck']")[0].checked=false;
@@ -423,8 +481,8 @@
             }
         });
         $("input[name='RowReviewCheck']").click(function(){
-            if($("input[name='RowReviewCheck']:checked").length==rowCnt){
-                $("input[nmae='allReviewCheck']")[0].checked=true;
+            if($("input[name='RowReviewCheck']:checked").length===rowCnt){
+                $("input[name='allReviewCheck']")[0].checked=true;
             }
             else {
                 $("input[name='allReviewCheck']")[0].checked=false;

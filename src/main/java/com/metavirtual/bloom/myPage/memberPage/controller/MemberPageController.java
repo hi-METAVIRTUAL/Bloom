@@ -2,10 +2,13 @@ package com.metavirtual.bloom.myPage.memberPage.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageService;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
@@ -95,43 +98,62 @@ public class MemberPageController {
     }
 
     @GetMapping(value = "/myPost")
-    public ModelAndView myPost(HttpServletRequest request, @RequestParam(required = false) String searchCondition,
-                               @RequestParam(required = false) String searchValue, @RequestParam(value = "currentPage", defaultValue = "1") int pageNo
+    public ModelAndView myPost(HttpServletRequest request
+                                ,@RequestParam(value = "currentPage", defaultValue = "1") int pageNo
                                ,ModelAndView mv){
 
         log.info("");
         log.info("");
         log.info("[MemberPageController] ========");
 
-        Map<String, String> searchMap = new HashMap<>();
-        searchMap.put("searchCondition", searchCondition);
-        searchMap.put("searchValue", searchValue);
+//        Map<String, String> searchMap = new HashMap<>();
+//        searchMap.put("searchCondition", searchCondition);
+//        searchMap.put("searchValue", searchValue);
+//
+//        log.info("[MemberPageController] 컨트롤러에서 검색조건 확인하기 : " +searchMap);
 
-        log.info("[MemberPageController] 컨트롤러에서 검색조건 확인하기 : " +searchMap);
-
-        int totalBoardCount = memberPageService.selectTotalCount(searchMap);
-        log.info("[MemberPageController] totalMyPostCount : "+totalBoardCount);
+        int totalPostCount = memberPageService.selectTotalPostCount();
+        int totalCommentCount = memberPageService.selectTotalCommentCount();
+        int totalReviewCount = memberPageService.selectTotalReviewCount();
+        log.info("[MemberPageController] totalMyPostCount : "+totalPostCount);
+        log.info("[MemberPageController] totalMyPostCount : "+totalCommentCount);
+        log.info("[MemberPageController] totalMyPostCount : "+totalReviewCount);
 
         int limitPerPage = 5;
 
         int buttonAmount = 5;
 
-        SelectCriteria selectCriteria = null;
+        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(pageNo, totalPostCount, limitPerPage, buttonAmount);
+        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(pageNo, totalCommentCount, limitPerPage, buttonAmount);
+        SelectCriteria selectCriteria3 = Paging.getSelectCriteria(pageNo, totalReviewCount, limitPerPage, buttonAmount);
 
-        if(searchCondition != null && !"".equals(searchCondition)){
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCondition, searchValue);
-        } else {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount);
-        }
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria);
+//        if(searchCondition != null && !"".equals(searchCondition)){
+//            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCondition, searchValue);
+//        } else {
+//            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount);
+//        }
 
-        List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria);
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria2);
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria3);
+
+        List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria1);
+        List<CommentListDTO> myCommentList = memberPageService.selectCommentList(selectCriteria2);
+        List<ReviewListDTO> myReviewList = memberPageService.selectReviewList(selectCriteria3);
 
         log.info("[MemberPageController] myPostList : "+myPostList);
+        log.info("[MemberPageController] myCommentList : "+myCommentList);
+        log.info("[MemberPageController] myReviewList : "+myReviewList);
 
         mv.addObject("myPostList", myPostList);
-        mv.addObject("selectCriteria", selectCriteria);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria);
+        mv.addObject("myCommentList", myCommentList);
+        mv.addObject("myReviewList", myReviewList);
+        mv.addObject("selectCriteria", selectCriteria1);
+        mv.addObject("selectCriteria", selectCriteria2);
+        mv.addObject("selectCriteria", selectCriteria3);
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria2);
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria3);
         mv.setViewName("mypage/member/postList");
 
         log.info("[MemberPageController] ========");

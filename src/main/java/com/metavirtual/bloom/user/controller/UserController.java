@@ -66,7 +66,11 @@ public class UserController {
         System.out.println("멤버 결과 : " + member.getNickname());
 
 
-        userService.registUser(user, member);
+        try {
+            userService.registUser(user, member);
+        } catch (UserRegistException e) {
+            throw new RuntimeException(e);
+        }
 
         return "user/memberRegistSuccess";
     }
