@@ -16,9 +16,9 @@ spring:
             auth: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/BLOOM
-    username: META
-    password: META
+    url: jdbc:mysql://mysql.coffit.today:3306/bloom
+    username: HIkdt6
+    password: HIkdt6
   servlet:
     multipart:
       enabled: true
