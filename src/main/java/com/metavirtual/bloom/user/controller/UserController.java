@@ -44,7 +44,7 @@ public class UserController {
 
     @PostMapping("/memberRegist") //spring 에서 제공하는 다른 request 써
     public String registMember(@RequestParam String username, @RequestParam String password, @RequestParam String emailId, @RequestParam String emailDomain,
-                               @ModelAttribute UserDTO user, @ModelAttribute MemberDTO member) throws UserRegistException {
+                               @ModelAttribute UserDTO user, @ModelAttribute MemberDTO member) /*throws UserRegistException*/ {
 
 
         System.out.println("[UserController] 들어옴");
@@ -64,6 +64,7 @@ public class UserController {
                 + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthority_code());
 
         System.out.println("멤버 결과 : " + member.getNickname());
+
 
         userService.registUser(user, member);
 
