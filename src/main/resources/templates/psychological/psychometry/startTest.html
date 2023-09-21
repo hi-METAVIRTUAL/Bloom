@@ -46,9 +46,11 @@
     /* 페이지 표시 */
     let currentPage = 2;
     const selectCategory = ["", "D", "A", "B", "O"]
-    let answers = [];
     var category = {};
     var answer = {};
+    var testList = {};
+    let answerScore = [];
+
 
     $(document).ready(function () {
         /* 버튼 클릭 */
@@ -56,10 +58,22 @@
             // 선택한 답변을 히든 태그에 저장
             let testIndex = $("input[type='radio']:checked").length;
             if (testIndex < 8) {
-                $("input[type='radio']:checked").each(function (index) {
+                $("input[type='radio']:checked").each(function () {
                     category = $(this).next().val()
                     answer = $(this).val()
                     console.log(answer)
+                    if (category == 'D'){
+                       var testListD = {
+                            category : JSON.stringify(answerScore)
+                        }
+                    }else if (category == 'A'){
+                       var  testListA = {
+                            category : JSON.stringify(answerScore)
+                        }
+                    }
+
+                    console.log(testListD)
+                    console.log(testListA)
                     /*let answerScore = $(this).val();  선택한 답변 값
                     let testCategory = $(this).next().val(); // 질문 카테고리
                     let hiddenName = $(this).next().attr('name'); // 히든태그 name */
@@ -79,17 +93,6 @@
                     } else if (currentPage == 5) {
                         testCategory = selectCategory[currentPage];
                     }
-                    /*if (testCategory === 'D'){
-                        answersD[index] = answerScore
-                        console.log(testCategory)
-                    }else if (testCategory === 'A'){
-                        console.log(testCategory)
-                        answersA[index] = answerScore
-                    }else if (testCategory === 'B'){
-                        answersB[index] = answerScore
-                    }else if (testCategory === 'O'){
-                        answersO[index] = answerScore
-                    }*/
 
 
                     $.ajax({
@@ -98,7 +101,7 @@
                         dataType: "json",
                         contentType: "application/json",
                         success: function (data, status, xhr) {
-                            answers.push(answer);
+                            answerScore.push(answer);
 
                             const testQ = JSON.parse(data.testQ);
                             const questionContainer = $("#testBox");
@@ -149,22 +152,23 @@
                                 const buttonChange = $("#buttonChange");
                                 buttonChange.html("");
                                 buttonChange.append($('<input>').attr({
-                                    type: 'submit',
+                                    id: 'submit',
+                                    type: 'button',
                                     class: 'roundbutton',
                                     value: '제출하기'
                                 }));
                             }
-                            $("#submit").click(function () {
-                                var testList = {
-                                    "testList" : JSON.stringify(answers)
+
+                            $("#submit").click(function (testList) {
+
+                                testList = {
+                                    testCategory : JSON.stringify(answerScore)
                                 }
                                 // answers 객체를 서버로 전송
                                 $.ajax({
                                     url: "saveAnswers",
                                     method: "POST",
-                                    traditional : true,
-                                    data: testList,testCategory,
-                                    contentType: "application/json",
+                                    data: testList,
                                     success: function (data) {
 
 
