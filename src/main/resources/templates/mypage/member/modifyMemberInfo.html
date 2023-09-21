@@ -76,13 +76,11 @@
             >
             <tr>
                 <td align="left">이름</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" value="이메다"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
-<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${#authentication.getPrincipal().getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${#authentication.getPrincipal().getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
             </tr>
             <tr>
                 <td align="left">아이디</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" value="metamong"><br>아이디는 변경 불가능합니다.</td>
-<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${#authentication.getPrincipal().getUserId()}"><br>아이디는 변경 불가능합니다.</td>-->
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${#authentication.getPrincipal().getUserId()}"><br>아이디는 변경 불가능합니다.</td>
             </tr>
             <tr>
                 <td align="left">비밀번호</td>
@@ -94,7 +92,7 @@
                 <td align="left">이메일</td>
                 <td>
                     * <input class="email" type="text" name="emailId" th:text="${#strings.substringBefore(#authentication.getPrincipal().getEmail(),'@')}" required>
-                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(userDTO.email,'@')}" required>
+                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(#authentication.getPrincipal().getEmail(),'@')}" required>
                     <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                         <option value="empty">선택하기</option>
                         <option value="naver.com">naver.com</option>
@@ -129,21 +127,17 @@
            <tr>
                <td align="left">전화번호</td>
                <td>
-                   * <input class="tel" type="text" pattern="[0-9]{1,3}" title="숫자만 입력 가능합니다" name="phonef" th:text="${#strings.arraySplit(userDTO.phone, '-')[0]}" required>
-                   - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonem" th:text="${#strings.arraySplit(userDTO.phone, '-')[1]}" required>
+                   * <input class="tel" type="text" pattern="[0-9]{1,3}" title="숫자만 입력 가능합니다" name="phonef" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[0]}" required>
+                   - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonem" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[1]}" required>
                    - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonel" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[2]}" required>
                </td>
            </tr>
            <tr>
                <td align="left">성별</td>
-               <td align="center">
-                   <input type="checkbox" name="gneder" th:value="m" disabled> 남성
-                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" checked disabled> 여성
+               <td align="left">
+                   <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'M'" disabled> 남성-
+                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'F'" disabled> 여성
                </td>
-<!--               <td align="left">-->
-<!--                   <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'M'" disabled> 남성-->
-<!--                   &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'F'" disabled> 여성-->
-<!--               </td>-->
            </tr>
         </table>
 <br>
