@@ -51,7 +51,7 @@ public class UserController {
 
     @PostMapping("/memberRegist") //spring 에서 제공하는 다른 request 써
     public String registMember(@RequestParam String username, @RequestParam String password, @RequestParam String emailId, @RequestParam String emailDomain,
-                               @ModelAttribute UserDTO user, @ModelAttribute MemberDTO member) throws UserRegistException {
+                               @ModelAttribute UserDTO user, @ModelAttribute MemberDTO member) /*throws UserRegistException*/ {
 
 
         System.out.println("[UserController] 들어옴");
@@ -63,17 +63,16 @@ public class UserController {
         user.setEmail(emailId + '@' + emailDomain);
         String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         user.setRegistDate(registDate);
-        user.setAuthority_code(1);
 
         member.setUserId(username);
 
-        System.out.println("가져온 결과 = " +user.getUserId() +" " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate()+ " " + user.getAuthority_code());
+        System.out.println("유저 가져온 결과 = " +user.getUserId() +" " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate()+ " " + user.getAuthority_code());
         System.out.println("총 결과 = " + user.getUserId() +" " + user.getPwd() + " " + user.getName() + " "
                 + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthority_code());
 
         System.out.println("멤버 결과 : " + member.getNickname());
 
-        userService.registUser(user,member);
+       // userService.registUser(user,member);
 
         return "user/memberRegistSuccess";
         /*user.setName(request.getParameter("name"));
