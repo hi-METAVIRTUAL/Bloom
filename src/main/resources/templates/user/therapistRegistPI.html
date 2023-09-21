@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>회원가입</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-  <script type="text/javascript" th:src="@{/js/registMemberEvent.js}" defer></script>
+  <script type="text/javascript" th:src="@{/js/registTherapistEvent.js}" defer></script>
   <link rel="stylesheet" type="text/css" href="/css/common/common.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
@@ -29,23 +29,22 @@
   <h1 class="title">회원가입</h1>
   <div class="RegisterForm">
 
-    <form align="center">
+    <form action="/user/therapistRegistPI" id="therapistRegist" method="POST" align="center">
       <div style="display: flex; justify-content: center;">
         <table class="registTable">
           <tr>
             <td class="row">이름</td>
-            <td>*<input type="text" name="name" id="name" placeholder="최대 10자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+            <td>*<input type="text" id="name" name="name" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
           </tr>
 
           <tr>
             <td>아이디</td>
-            <td>*<input type="text" name="username" id="username" placeholder="최대 20자 / 공백 불가 / 영문만 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;"></td>
+            <td>*<input type="text" name="username" id="username" class="input-field" placeholder="최대 20자 / 공백 불가 / 영문 필수" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
             <td><input type="button" id="duplicationIdCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder"></td>
           </tr>
-
           <tr>
             <td>비밀번호</td>
-            <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" required></td>
+            <td>*<input type="password" name="password" id="password" class="input-field" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 공백 불가" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
           </tr>
 
           <tr>
@@ -168,7 +167,7 @@
     <textarea rows="10" cols="80" readonly id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
 Where does it come from? Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum</textarea></p>
-      <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="회원가입" class="whiteButton" style="width:200px;" disabled>
+      <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="다음" class="whiteButton" style="width:200px;" disabled>
     </form>
   </div>
 

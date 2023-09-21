@@ -1,14 +1,14 @@
 window.onload = function() {
 
-    function handleInputValidation(inputElement, errorElement, pattern, inputBox) {
+    function handleInputValidation(inputElement, errorElement, pattern, inputBox, message) {
         inputElement.addEventListener("input", function () {
-            if (inputElement.validity.valid || inputElement.value === "") {
+            if ((inputElement.validity.valid && pattern.test(inputElement.value)) || inputElement.value === "") {
                 errorElement.textContent = "";
                 if (inputBox) {
                     inputBox.style.borderColor="green"
                 }
             } else {
-                errorElement.textContent = pattern;
+                errorElement.textContent = message;
                 if (inputBox) {
                     inputBox.style.borderColor="red"
                 }
@@ -16,7 +16,6 @@ window.onload = function() {
         });
         inputElement.addEventListener("change", function () {
             if (inputElement.value === "") {
-                errorElement.textContent = "";
                 if (inputBox) {
                     inputBox.style.borderColor = "#C09A81";
                 }
@@ -24,61 +23,45 @@ window.onload = function() {
         });
     }
 
-    function handlePhoneValidation(inputElement, errorElement, inputBox) {
-        const errorMessage = "전회번호는 - 포함해서 최대 12자까지만 입력해주세요";
-        const phonePattern = /^010-[0-9]{4}-[0-9]{4}$/; // Define the phone pattern here
-
-        inputElement.addEventListener("input", function () {
-            const inputValue = inputElement.value;
-
-            if (phonePattern.test(inputValue) || inputValue === "") {
-                errorElement.textContent = "";
-                inputBox.style.borderColor = "green";
-            } else {
-                errorElement.textContent = errorMessage;
-                inputBox.style.borderColor = "red";
-            }
-        });
-
-        // Add another event listener to clear the error message when the input is focused
-        inputElement.addEventListener("focus", function () {
-            errorElement.textContent = "";
-        });
-
-        inputElement.addEventListener("change", function () {
-            if (inputElement.value === "") {
-                errorElement.textContent = "";
-                inputBox.style.borderColor = "#C09A81";
-            }
-        });
-    }
-
-
 // Call the function for password input
     const passwordInput = document.getElementById("password");
     const passwordError = document.getElementById("password-error");
     const passwordInputBox = document.getElementById("password");
-    const passwordPattern = "비밀번호는 8~20 자, 영문 대문자/소문자, 숫자, 특수기호(!@$%&*)가 필수이며 공백과 한글은 허용되지 않습니다.";
-    handleInputValidation(passwordInput, passwordError, passwordPattern, passwordInputBox);
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+    const passwordErrorMessage = "비밀번호는 8~20 자, 영문 대문자/소문자, 숫자, 특수기호(!@$%&*)가 필수이며 공백과 한글은 허용되지 않습니다.";
+    handleInputValidation(passwordInput, passwordError, passwordPattern, passwordInputBox, passwordErrorMessage);
 
 // Call the function for name input
     const nameInput = document.getElementById("name");
     const nameError = document.getElementById("name-error");
     const nameInputBox = document.getElementById("name");
-    const namePattern = "이름은 최대 10자, 영문 또는 한글 필수이며 공백과 특수기호는 허용되지 않습니다.";
-    handleInputValidation(nameInput, nameError, namePattern, nameInputBox);
+    const namePattern = /^[a-zA-Z가-힣]{1,10}$/;
+    const nameErrorMessage = "이름은 최대 10자, 영문 또는 한글 필수이며 공백과 특수기호는 허용되지 않습니다.";
+    handleInputValidation(nameInput, nameError, namePattern, nameInputBox, nameErrorMessage);
 
 // Call the function for id(username) input
     const idInput = document.getElementById("username");
     const idError = document.getElementById("id-error");
-    const idPattern = "아이디는 최대 20자, 영문, 특수기호(!@$%&*)는 필수이며 공백과 한글은 허용되지 않습니다.";
-    handleInputValidation(idInput, idError, idPattern);
+    const idInputBox = document.getElementById("username");
+    const idPattern = /^[a-zA-Z0-9]{1,20}$/;
+    const idErrorMessage = "아이디는 최대 20자, 영문은 필수이며 (공백, 한글, 특수기호는 불가)";
+    handleInputValidation(idInput, idError, idPattern, idInputBox, idErrorMessage);
+
+// Call the function for nickname input
+    const nicknameInput = document.getElementById("nickname");
+    const nicknameError = document.getElementById("nickname-error");
+    const nicknameInputBox = document.getElementById("nickname");
+    const nicknamePattern = /^[a-zA-Z가-힣]{1,10}$/;
+    const nicknameErrorMessage = "닉네임은 최대 10자, 영문 또는 한글 가능하며 (공백, 특수기호는 불가)";
+    handleInputValidation(nicknameInput, nicknameError, nicknamePattern, nicknameInputBox, nicknameErrorMessage);
 
 // Call the function for phone input
     const phoneInput = document.getElementById("phone");
     const phoneError = document.getElementById("phone-error");
     const phoneInputBox = document.getElementById("phone");
-    handlePhoneValidation(phoneInput, phoneError, phoneInputBox);
+    const phonePattern = /^010-[0-9]{4}-[0-9]{4}$/; // Define the phone pattern here
+    const phoneErrorMessage = "전회번호는 010-0000-0000 형식으로 입력해주세요 입력해주세요";
+    handleInputValidation(phoneInput, phoneError, phonePattern, phoneInputBox, phoneErrorMessage);
 
     function isInputValid(inputElement, pattern) {
         return inputElement.validity.valid || inputElement.value === "" || !pattern.test(inputElement.value);

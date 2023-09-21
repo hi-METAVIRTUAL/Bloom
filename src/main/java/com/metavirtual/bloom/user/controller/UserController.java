@@ -1,26 +1,19 @@
 package com.metavirtual.bloom.user.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 /*import com.metavirtual.bloom.user.model.service.UserServiceImpl;*/
 import com.metavirtual.bloom.user.model.service.UserServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-/*import org.springframework.security.crypto.password.PasswordEncoder;*/
+        import org.springframework.beans.factory.annotation.Autowired;
+        /*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
+        import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,57 +52,23 @@ public class UserController {
         System.out.println(user + " " + member);
 
         user.setUserId(username);
-        user.setPwd(password);
+        user.setPwd(passwordEncoder.encode(password));
         user.setEmail(emailId + '@' + emailDomain);
         String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         user.setRegistDate(registDate);
 
         member.setUserId(username);
 
-        System.out.println("유저 가져온 결과 = " +user.getUserId() +" " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate()+ " " + user.getAuthority_code());
-        System.out.println("총 결과 = " + user.getUserId() +" " + user.getPwd() + " " + user.getName() + " "
+        System.out.println("유저 가져온 결과 = " + user.getUserId() + " " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate() + " " + user.getAuthority_code());
+        System.out.println("총 결과 = " + user.getUserId() + " " + user.getPwd() + " " + user.getName() + " "
                 + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthority_code());
 
         System.out.println("멤버 결과 : " + member.getNickname());
 
-       // userService.registUser(user,member);
+
+        userService.registUser(user, member);
 
         return "user/memberRegistSuccess";
-        /*user.setName(request.getParameter("name"));
-        user.setUserId(request.getParameter("username"));
-        user.setPwd(passwordEncoder.encode(user.getPwd()));
-        member.setNickname("nickname");
-        user.setPhone(request.getParameter("phonef")+"-"+ request.getParameter("phonem")+"-"+request.getParameter("phonel"));
-
-        String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        user.setRegistDate(registDate);*/
-
-        /* String name = request.getParameter("name");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String nickname = request.getParameter("nickname");
-        String phone1 = request.getParameter("phonef");
-        String phone2 = request.getParameter("phonem");
-        String phone3 = request.getParameter("phonel");
-        String phone = phone1 + "-" + phone2 + "-" + phone3;*/
-
-       /* String gender.setGender("myGender")
-        if ("male".equals(myGender)) {
-            user.setGender('M');
-        } else if ("female".equals(myGender)) {
-            user.setGender('F');
-        }*/
-
-        /*user.setEmail(request.getParameter("emailId")+'@'+request.getParameter("emailDomain"));*/
-
-
-        /*String emailId = request.getParameter("emailId");
-        String emailDomain = request.getParameter("emailDomain");
-        String email = emailId + "@" + emailDomain;*/
-
-/*        user.setName(name);
-        user.setUserId(username);
-        user.setPwd(passwordEncoder.encode(user.getPwd()));*/
     }
 
         @PostMapping("/idDupCheck")
@@ -147,9 +106,26 @@ public class UserController {
     public String regularRegistSuccess() {
         return "user/memberRegistSuccess"; }
 
-    @GetMapping("/therapistRegist")
-    public String therapistRegist(){
-        return "user/therapistRegist";
+    @GetMapping("/therapistRegistPI")
+    public String registTherapist(){
+        return "user/therapistRegistPI";
+    }
+
+    @PostMapping("/therapistRegistPI")
+    public String therapistRegist(@RequestParam String username, @RequestParam String password, @RequestParam String emailId, @RequestParam String emailDomain,
+                                  @ModelAttribute UserDTO user) throws UserRegistException {
+
+        System.out.println("[UserController] 들어옴");
+        user.setUserId(username);
+        user.setPwd(passwordEncoder.encode(password));
+        user.setEmail(emailId + '@' + emailDomain);
+        String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        user.setRegistDate(registDate);
+
+        System.out.println(user);
+        userService.registTherapistPI(user);
+
+        return "user/therapistRegist2";
     }
 
     @GetMapping("/therapistRegist2")
