@@ -12,7 +12,7 @@ public class SelectCriteria {
     private int startRow; // 조회 해야하는 시작 행의 숫자
     private int endRow; // 조회 해야하는 마지막 행의 숫자
     /* 검색 창 */
-    private String searchSelect; // 검색조건
+    private String searchSelect; // 검색조건 옵션 (제목, 작성자)
     private String searchValue; // 검색 텍스트
 
     public SelectCriteria() {

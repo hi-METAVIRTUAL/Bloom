@@ -30,7 +30,8 @@
         <result property="commentContent" column="COMMENT_CONTENT"/>
         <result property="postedDate" column="POSTED_DATE"/>
         <result property="deleteDate" column="DELETE_DATE"/>
-        <collection property="boardCode" column="BOARD_CODE" resultMap="boardResultMap"/>
+        <result property="boardCode" column="BOARD_CODE"/>
+        <result property="userId" column="USER_ID"/>
     </resultMap>
 
     <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
@@ -122,9 +123,25 @@
         SELECT A.COMMENT_CODE
             ,A.COMMENT_CONTENT
             ,A.POSTED_DATE
-            ,A.BOARD_CODE
-        FROM MEMBER_COMMENT A
+            ,B.BOARD_CODE
+            ,B.USER_ID
+            ,C.NICKNAME
+        FROM (  SELECT A.COMMENT_CODE
+                    ,A.COMMENT_CONTENT
+                    ,B.BOARD_CODE
+                    ,B.TITLE
+                    ,B.POSTED_DATE
+                    ,B.BOARD_CATEGORY
+                    ,B.VIEW_COUNT
+                    ,B.USER_ID
+                    ,C.NICKNAME
+                FROM BOARD B
+                JOIN MEMBER_COMMENT A ON (B.BOARD_CODE = A.BOARD_CODE)
+                JOIN MEMBER C ON(B.USER_ID = C.USER_ID)
+        ) A
         JOIN BOARD B ON (A.BOARD_CODE = B.BOARD_CODE)
+        JOIN MEMBER C ON(A.USER_ID = C.USER_ID)
+        WHERE BOARD_CODE = #{ boardCode }
         ORDER BY A.POSTED_DATE DESC
     </select>
 
@@ -157,14 +174,24 @@
         FROM BOARD
         WHERE BOARD_CODE = #{ boardCode }
     </delete>
+
     <insert id="commentPosting">
         INSERT INTO MEMBER_COMMENT(
-            COMMENT_CONTENT
-            ,POSTED_DATE
-            ,BOARD_CODE
+        COMMENT_CONTENT
+        ,POSTED_DATE
+        ,BOARD_CODE
+        ,USER_ID
         )
-        VALUES(#{ commentContent }, #{ postedDate }, #{ boardCode })
+        VALUES(#{ commentContent }, NOW(), #{ boardCode }, #{ userId })
     </insert>
+
+    <delete id="commentDelete">
+        DELETE FROM MEMBER_COMMENT
+        WHERE COMMENT_CODE = #{ commentCode }
+    </delete>
+
+
+
 
     <update id="viewCount">
         UPDATE BOARD

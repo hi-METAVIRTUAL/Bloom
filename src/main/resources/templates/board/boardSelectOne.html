@@ -6,81 +6,179 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-    <h1 class="title">커뮤니티</h1>
+    <div>
+        <h1 class="title">게시글</h1>
+        <br>
+        <div>
+            <table>
+                <tr style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <td colspan="2"><p th:text="${ board.boardCategory }"></p></td>
+                </tr>
+                <tr>
+                    <td colspan="2"> 제목 | <p th:text="${ board.title }"></p></td>
+                </tr>
+                <tr class="view-id-date">
+                    <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; text-align: left;">작성자 |<span th:text="${ board.userId.nickname }"></span></td>
+                    <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; text-align: right;">작성일 |<span th:text="${ board.postedDate }"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="button" style="text-align: right;">신고하기</button></td>
+                </tr>
+            </table>
+            <div>
+                <button type="button" class="insert-button" id="btnModify">수정하기</button>
+                <button type="button" class="insert-button" id="btnDelete">삭제하기</button>
+            </div>
+            <div>
+                <button type="button" class="insert-button" th:onclick="'location.href=\'/board/searchList\''">
+                    돌아가기
+                </button>
+            </div>
 
+            <table id="commentInsert">
+                <input id="boardNo" type="hidden" th:value="${ board.boardCode }">
+                <tr>
+                    <td>댓글</td>
+                    <td>
+                        <textarea cols="40" rows="3" id="commentContent" style="resize: none;"></textarea>
+                    </td>
+                    <td>
+                        <button type="button" id="insertComment">작성하기</button>
+                    </td>
+                </tr>
+            </table>
 
-    <!--게시글 상세-->
-    <div class="selectone-title"><span th:text="${ board.title }"></span></div>
-    <div class="view-id-date"> 작성자 : <span th:text="${ board.userId.nickname }"></span> 작성일시 : <span th:text="${ board.postedDate }"></span></div>
-    <div><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></div>
-
-
-    <!--<div class="singobutton"><button type="button" onclick="location.href='/board/singo'" style="float: right">신고하기</button></div>-->
-
-    <button type="button" class="insert-button" id="btnModify" th:><span>수정하기</span></button>
-    <button type="button" class="insert-button" id="btnDelete"><span>삭제하기</span></button>
-
-
-    <!-- 댓글작성 -->
-    <table id="commentInsert">
-        <input type="hidden" id="boardCode" th:value="${ board.boardCode }">
-        <tr>
-            <td>댓글</td>
-            <td>
-                <textarea cols="50" rows="3" id="commentContent" style="resize: none;"></textarea>
-            </td>
-            <td>
-                <button type="button" id="newComment">댓글작성</button>
-            </td>
-        </tr>
-    </table>
-
-    <!-- 댓글 리스트 -->
-    <table>
-        <th:block th:if="${ commentList != null }">
-            <th:block th:each="memberComment : ${ commentList }">
-            <tr class="table-td1">
-                <input type="hidden" id="${ memberComment.commentCode }" th:value="${ memberComment.commentCode }">
-                <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
-                    th:text="${ memberComment.commentContent }"></td>
-                <td th:text="${ memberComment.userId.nickname }"></td>
-                <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
-                    th:text="${ memberComment.postedDate }"></td>
-                <td>
-                    <!-- 로그인 정보가 댓글 작성자와 같은 경우 삭제 버튼 보이게..-->
-                   <!-- <th:block sec:authorize="isAuthenticated()"
-                              th:if="${ #authentication.getPrincipal().getUserId() == memberComment.userId.nickname }">
-                              <button type="button"
-                              th:commentCode="${ memberComment.commentCode }"
-                              th:onclick="commentDelete(this.getAttribute('commentCode'))">댓글삭제</button>
-                    </th:block>-->
-                    <!--테스트용-->
-                    <!--<button th:onclick="@{/board/commentDelete}">댓글삭제</button>-->
-                    <button onclick="location.href='/board/commentDelete'">댓글삭제</button>
-                </td>
-            </tr>
-            </th:block>
-        </th:block>
-    </table>
-
+            <table id="commentResult">
+                <th:block th:if="${ commentList != null }">
+                    <th:block th:each="memberComment : ${ commentList }">
+                        <tr class="table-td1">
+                            <input type="hidden" id="${ memberComment.commentCode }" th:value="${ memberComment.commentCode }">
+                            <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+                                th:text="${ memberComment.commentContent }"></td>
+                            <td th:text="${ memberComment.userId }"></td>
+                            <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
+                                th:text="${ memberComment.postedDate }"></td>
+                            <td>
+                            </td>
+                        </tr>
+                    </th:block>
+                </th:block>
+            </table>
+        </div>
+    </div>
 
 
     <script th:inline="javascript">
 
-        const message = '[[${ message }]]';
+        /*const message = '[[${ message }]]';
         if (message != null && message !== 'null'){
             alert(message);
+        }*/
+
+
+        if(document.getElementById("insertComment")) {
+
+            const $insertComment = document.getElementById("insertComment");
+            const $commentContent = document.getElementById("commentContent");
+
+            $insertComment.onclick = function() {
+
+                if($commentContent.value.trim() == ""){
+                    alert('댓글을 입력해 주십시오');
+                    return ;
+                }
+
+                let boardNo = document.getElementById("boardNo").value;
+                let commentContent = document.getElementById("commentContent").value;
+
+                fetch("/board/commentPosting", {
+                    method: "post",
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify(
+                        {
+                            userId: 'a123!',
+                            boardCode: boardNo,
+                            commentContent: commentContent
+                        }
+                    )
+                })
+                    .then(result => result.json())
+                    .then(data => {
+                        const $table = $("#commentResult");
+                        $table.html("");
+
+                        data.map((memberComment) => {
+                            $tr = $("<tr>");
+                            $commentContentTd = $("<td>").text(memberComment.commentContent);
+                            $userIdTd = $("<td>").text(memberComment.userId);
+                            $postedDateTd = $("<td>").text(memberComment.postedDate);
+                            $removeTd = $("<td>");
+
+
+                            $tr.append("<input type='hidden' id=" + memberComment.commentCode + " value='" + memberComment.commentCode + "'>");
+                            $tr.append($commentContentTd);
+                            $tr.append($userIdTd);
+                            $tr.append($postedDateTd);
+                            $tr.append($removeTd);
+
+                            $table.append($tr);
+                        });
+
+                    })
+                    .catch((error) => error.text().then((res) => alert(res)));
+            }
         }
-/*
 
-        $(document).on('click', '#btnModify', function () {
-            const page = Request.
-        });
 
-        $(document).on('click', '#btnDelete', function () {
+        function commentDelete(commentNo){
 
-        });
-*/
+            let boardNo = document.getElementById("boardNo").value;
 
+            fetch("/board/commentDelete", {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify(
+                    {
+                        BoardCode:boardNo,
+                        commentCode:commentNo
+                    }
+                )
+            })
+                .then(result => result.json())
+                .then(data => {
+                    console.table(data);
+
+                    const $table = $("#commentResult");
+                    $table.html("");
+
+                    data.map((memberComment) => {
+                        $tr = $("<tr>");
+                        $commentContentTd = $("<td>").text(memberComment.commentContent);
+                        $userIdTd = $("<td>").text(memberComment.userId);
+                        $postedDateTd = $("<td>").text(memberComment.postedDate);
+                        $removeTd = $("<td>");
+
+
+                        $tr.append("<input type='hidden' id=" + memberComment.commentCode + " value='" + memberComment.commentCode + "'>");
+                        $tr.append($commentContentTd);
+                        $tr.append($userIdTd);
+                        $tr.append($postedDateTd);
+                        $tr.append($removeTd);
+
+                        $table.append($tr);
+
+                    })
+
+
+                })
+                .catch((error) => error.text().then((res) => alert(res)));
+        }
     </script>
 </html>
