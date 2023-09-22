@@ -1,7 +1,11 @@
 package com.metavirtual.bloom.myPage.therapistPage.controller;
 
+import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
+import com.metavirtual.bloom.common.paging.Paging;
+import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.service.TherapistPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
@@ -13,12 +17,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -165,8 +171,54 @@ public class TherapistPageController {
     }
 
     @GetMapping("/reservManage")
-    public String reservManage(){
-        return "mypage/therapist/reservManage";
+    public ModelAndView reservManage(HttpServletRequest request
+                                , @RequestParam(value = "currentPage", defaultValue = "1") int pageNo, ModelAndView mv){
+
+        log.info("");
+        log.info("");
+        log.info("[TherapistController] ========");
+
+        int totalBoardCount = therapistPageService.selectReservationCount();
+        log.info("[TherapistController] totalReservationCount : "+totalBoardCount);
+
+        int limitPerPage = 5;
+        int buttonAmount = 5;
+
+        SelectCriteria selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount);
+
+        log.info("[TherapistController] selectCriteria : "+selectCriteria);
+
+        List<ReservationDTO> reservationList = therapistPageService.selectReservationList(selectCriteria);
+
+        log.info("[TherapistController] reservationList : "+reservationList);
+
+        mv.addObject("reservationList", reservationList);
+        mv.addObject("selectCriteria", selectCriteria);
+        log.info("[TherapistController] SelectCriteria : "+selectCriteria);
+        mv.setViewName("/mypage/therapist/reservManage");
+
+        log.info("[TherapistController] ========");
+        return mv;
+    }
+
+    @PostMapping("/acceptReservation")
+    public String confirmReservation(HttpServletRequest request, HttpServletResponse response, BookingDTO bookingDTO) throws ModifyInfoException{
+        int bookingCode = Integer.parseInt(request.getParameter("bookingCode"));
+        bookingDTO.setBookingCode(bookingCode);
+
+        therapistPageService.confirmReservation(bookingCode);
+
+        return "redirect:/therapist/reservManage";
+    }
+
+    @PostMapping("/rejectReservation")
+    public String declineReservation(HttpServletRequest request, HttpServletResponse response, BookingDTO bookingDTO) throws ModifyInfoException{
+        int bookingCode = Integer.parseInt(request.getParameter("bookingCode"));
+        bookingDTO.setBookingCode(bookingCode);
+
+        therapistPageService.confirmReservation(bookingCode);
+
+        return "redirect:/therapist/reservManage";
     }
 
     @GetMapping("/reservPopup")

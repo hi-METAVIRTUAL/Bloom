@@ -2,7 +2,15 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
+<mapper namespace="com.metavirtual.bloom.myPage.therapistPage.model.dao.TherapistPageMapper">
+
+    <resultMap id="generalBoardResultMap" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="name" column="NAME"/>
+        <result property="gender" column="GENDER"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="phone" column="PHONE"/>
+    </resultMap>
 
     <insert id="uploadPfImg">
         INSERT PROFILE_FILE (
@@ -62,6 +70,36 @@
         UPDATE THERAPIST
         SET ACTIVATION_STATUS = #{ activationStatus }
         WHERE USER_ID = #{ sessionId }
+    </update>
+
+    <select id="selectReservationCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOOKING B
+        WHERE B.THERAPIST_ID = #{ sessionId }
+        AND B.BOOKING_STATUS = 'waiting'
+    </select>
+
+    <select id="selectReservationList" resultMap="generalBoardResultMap">
+        SELECT
+            B.BOOKING_CODE
+            , U.NAME
+            , U.GENDER
+            , B.BOOKING_DATE
+            , U.PHONE
+        FROM BOOKING B
+        INNER JOIN USER U ON B.MEMBER_ID = U.USER_ID
+    </select>
+
+    <update id="confirmReservation">
+        UPDATE BOOKING
+        SET BOOKING_STATUS = 'CONFIRM'
+        WHERE BOOKING_CODE = #{ bookingCode }
+    </update>
+
+    <update id="declineReservation">
+        UPDATE BOOKING
+        SET BOOKING_STATUS = 'DECLINE'
+        WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 
 </mapper>
