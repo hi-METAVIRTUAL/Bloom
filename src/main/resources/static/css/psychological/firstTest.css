@@ -1,31 +1,17 @@
-body {
+body{
     font-family: 'Noto Sans KR';
     color: #FEEFCC;
     background: #C09A81;
     text-align: center;
-    margin: 0;
-    padding: 0;
 }
-
-#beforeTest {
-    margin-top: -30px;
-    padding: 30px;
-}
-
-.icons {
+.icons{
     position: relative;
     width: 70px;
     height: 70px;
     top: 15%;
     bottom: 15%;
 }
-.circle{
-    display: flex;
-    justify-content: center;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-img {
+img{
     width: 600px;
     height: 250px;
     border-radius: 30px;
@@ -33,128 +19,17 @@ img {
     margin-left: auto;
     margin-right: auto;
 }
-
-span {
-    color: white;
-}
-#result{
+section {
     display: flex;
     justify-content: center;
 }
-
-.testQ{
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    margin-top: 30px;
-    margin-bottom: 50px;
+section article {
+    margin-left: 100px
+;margin-right: 100px;
 }
-.countbutton{
-    width: 110px;
-    height: 60px;
-    color: #C09A81;
-    background: #FFFFFF;
-    border-radius: 30px;
-    border: none;
-}
-.grass {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 200px;
-    margin-top: -300px;
-    z-index: -1;
-}
-.picture{
-    width: 25%;
-    height: 25%;
-}
-.whiteText {
+span{
     color: white;
 }
-.roundbutton{
-    width: 100px;
-    height: 50px;
-    color: #C09A81;
-    background: #FFFFFF;
-    border-radius: 30px;
-    border-color: white;
-}
-.btn span.glyphicon {
-    opacity: 0;
-}
-.btn.active span.glyphicon {
-    opacity: 1;
-}
-:root {
-    --radio-color: rgb(55, 55, 55);
-}
-/* -------- 검사 버튼 ----------- */
-.theme-checker {
-    display: flex;
-    /*gap: 3rem;*/
-    padding: 1rem;
-    border-top: none;
-    border-radius: 10px;
-    flex-direction: column
-}
-
-.theme-checker input[type="radio"] {
-    appearance: none;
-    width: 5rem;
-    height: 5rem;
-    margin-right: 2%;
-    margin-left: 2%;
-    outline: 5px solid var(--radio-color);
-    outline-offset: 2px;
-    border-radius: 50px;
-    transition: all 0.5s ease-in-out
-}
-
-.theme-checker input[type="radio"]:checked {
-    background: var(--radio-color);
-    transform: rotateZ(180deg);
-    border-radius: 50%;
-}
-
-.theme-checker input[type="radio"].one {
-    border: 10px;
-    --radio-color: #FFE0A3;
-}
-
-.theme-checker input[type="radio"].two {
-    --radio-color: #FFCFA3;
-    width: 4rem;
-    height: 4rem;
-}
-
-.theme-checker input[type="radio"].three {
-    --radio-color: #FFBBB1;
-    width: 3.5rem;
-    height: 3.5rem;
-}
-
-.theme-checker input[type="radio"].four {
-    --radio-color: #F3A58C;
-    width: 4rem;
-    height: 4rem;
-}
-
-.theme-checker input[type="radio"].five {
-    --radio-color: #E99B82;
-}
-
-.gotop {
-    width: 200px;
-    height: 40px;
-    line-height: 40px;
-    display: inline-block;
-    margin-right: 10px;
-    background: blue;
-    text-align: center;
-    color: #fff;
-}
-
+button{
+    width: 150px;
+    height: 40px;}

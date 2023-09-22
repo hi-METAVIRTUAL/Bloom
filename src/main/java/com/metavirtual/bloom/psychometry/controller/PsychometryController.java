@@ -39,11 +39,10 @@ public class PsychometryController {
     public String test(){ return "psychological/psychometry/firstTest"; }
 
     @GetMapping(value = "start")
-    public String startTestPage(Model model,
-                                @RequestParam("testCategory") String testCategory){
+    public String startTestPage(Model model){
         /* 질문지를 가져옴 */
-        List<TestQDTO> testQ = psychometryService.findContent(testCategory);
-        model.addAttribute("testQ", testQ);
+        //List<TestQDTO> testQ = psychometryService.findContent(testCategory);
+        //model.addAttribute("testQ", testQ);
         return "psychological/psychometry/startTest";
     }
     @GetMapping(value = "startAjax",produces = "application/json; charset=UTF-8")
