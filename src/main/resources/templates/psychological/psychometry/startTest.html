@@ -23,7 +23,7 @@
     </div>
 </form>
 <div id="buttonChange">
-    <input type="hidden" id="userId" value="userId">
+    <input type="hidden" id="userId" value="qwer1234!">
     <input type="hidden" id="D" value="D">
     <input id="next" type="button" class="roundbutton" value="다음">
 </div>
@@ -34,20 +34,31 @@
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 <script>
-    let currentPage = 1; // 처음 페이지를 1로 설정
-    const selectCategory = ["", "D", "A", "B", "O"];
-    let categorys = [];
-    let answers = [];
-    let questionAnswers = [];
+    let currentPage = 0; // 처음 페이지를 1로 설정
+    const selectCategory = [ "D", "A", "B", "O"];
 
+    let categories = [];
+    let answers = [];
 
     $(document).ready(function () {
         let testCategory = selectCategory[currentPage]; // 다음 카테고리 가져오기
         loadQuestions(testCategory);
 
         function loadQuestions(testCategory) {
+            let categoryGet =$(this).next().val();
+            // 점수 배열로 저장
+            $("input[type='radio']:checked").each(function () {
+                let answerScore = $(this).val();
+                let categoryGet =$(this).next().val();
+                answers.push(answerScore);
+                categories.push(categoryGet);
+            });
 
-            $('#result').text((currentPage) + ' / ' + 4);
+            console.log(answers)
+            console.log(categories)
+            // 현재 페이지의 답변을 answers 배열에 저장합니다.
+
+            $('#result').text((currentPage+1) + ' / ' + 4);
             window.scrollTo(0, 0);
             $.ajax({
                 url: "startAjax",
@@ -78,10 +89,20 @@
                             value: '1'
                         }));
                         questionDiv.append($('<input>').attr({
+                            type: 'hidden',
+                            name: 'category',
+                            value: testQ.testCategory
+                        }));
+                        questionDiv.append($('<input>').attr({
                             type: 'radio',
                             name: testQ.testCategory + testQ.testCode,
                             class: 'two',
                             value: '2'
+                        }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'hidden',
+                            name: 'category',
+                            value: testQ.testCategory
                         }));
                         questionDiv.append($('<input>').attr({
                             type: 'radio',
@@ -90,10 +111,20 @@
                             value: '3'
                         }));
                         questionDiv.append($('<input>').attr({
+                            type: 'hidden',
+                            name: 'category',
+                            value: testQ.testCategory
+                        }));
+                        questionDiv.append($('<input>').attr({
                             type: 'radio',
                             name: testQ.testCategory + testQ.testCode,
                             class: 'four',
                             value: '4'
+                        }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'hidden',
+                            name: 'category',
+                            value: testQ.testCategory
                         }));
                         questionDiv.append($('<input>').attr({
                             type: 'radio',
@@ -101,13 +132,17 @@
                             class: 'five',
                             value: '5'
                         }));
+                        questionDiv.append($('<input>').attr({
+                            type: 'hidden',
+                            name: 'category',
+                            value: testQ.testCategory
+                        }));
                         questionDiv.append($('<div>').append(answerDiv1).append(answerDiv2).addClass('testQ'));
                         questionBox.append(questionDiv);
                     });
                 },
                 error: function (xhr, status, error) {
                 }
-
             });
             if (currentPage < 5) {
                 currentPage++;
@@ -115,10 +150,10 @@
         }
 
         $("#next").click(function () {
-            let testCategory = selectCategory[currentPage  - 1];
+            let testCategory = selectCategory[currentPage];
             loadQuestions(testCategory);
 
-            if (currentPage == 5) {
+            if (currentPage == 4) {
                 const buttonChange = $("#buttonChange");
                 buttonChange.html("");
                 buttonChange.append($('<input>').attr({
@@ -130,40 +165,36 @@
                 }));
             }
             $("#submit").click(function () {
-                let testCategory = selectCategory[currentPage - 1];
-                let answersForCategory = [];
-
                 $("input[type='radio']:checked").each(function () {
-                    answerScore = $(this).val();
-                    answersForCategory.push(answerScore);
+                    let answerScore = $(this).val();
+                    let categoryGet =$(this).next().val();
+                    answers.push(answerScore);
+                    categories.push(categoryGet);
                 });
-
-                let categoryAndAnswers = {
-                    category: testCategory,
-                    answers: answersForCategory
+                let dataToSend = {
+                    categories: categories,
+                    answers: answers
                 };
 
-                categorys.push(testCategory);
-                questionAnswers.push(categoryAndAnswers);
-
-                console.log(questionAnswers)
-
+                console.log(dataToSend)
                 // answers 객체를 서버로 전송
                 $.ajax({
                     url: "saveAnswers",
                     method: "POST",
-                    data: JSON.stringify(categorys, answers),
+                    data: JSON.stringify(dataToSend),
+                    contentType: "application/json; charset=utf-8",
                     success: function (data) {
-                        // 제출이 성공했을 때의 처리
+                        $(document).ready(function (){
+                            window.location.href = "/psychological/psychometry/last";
+                        });
+
                     },
                     error: function (xhr, status, error) {
                         console.error(error + " 에러가 났따...");
                     }
                 });
             });
-
         })
-
     });
 </script>
 </body>

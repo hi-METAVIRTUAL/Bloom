@@ -5,6 +5,16 @@ public class TestResultDTO {
     private int answerCode;
     private int answerScore;
 
+    private int totalScore;
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
     private String testCategory;
     private String USER_ID;
 
