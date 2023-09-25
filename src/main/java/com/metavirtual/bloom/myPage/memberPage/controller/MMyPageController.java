@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MyPageController {
+public class MMyPageController {
 
     @GetMapping("/memberInfo")
     public String memberInfo(Model model, Authentication authentication){

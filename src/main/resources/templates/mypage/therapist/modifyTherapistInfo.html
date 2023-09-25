@@ -59,69 +59,131 @@
 <body>
 <header class="header" th:include="components/Header.html"></header>
 <br><br>
-<h2>개인 정보 수정</h2>
-    <form align="center" method="post" th:action="@{/therapist/modifyTherapistInfo}">
-        <table align="center" class="info-table">
-            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
-            <colgroup>
-                <col style="width: 20%">
-                <col style="width: 60%">
-            </colgroup>
-            <input
-                    type="hidden"
-                    id="userId"
-                    name="userId"
-                    th:value="${ #authentication.getPrincipal().getUserId() }"
-            >
-            <tr>
-                <td align="left">이름</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="${#authentication.getPrincipal().getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
-            </tr>
-            <tr>
-                <td align="left">아이디</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="${#authentication.getPrincipal().getUserId()}"><br>아이디는 변경 불가능합니다.</td>
-            </tr>
-            <tr>
-                <td align="left">비밀번호</td>
-                <td>
-                    * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >
-                </td>
-            </tr>
-            <tr>
-                <td align="left">이메일</td>
-                <td>
-                    * <input class="email" type="text" name="emailId" th:text="${#strings.substringBefore(#authentication.getPrincipal().getEmail(),'@')}" required>
-                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(#authentication.getPrincipal().getEmail(),'@')}" required>
-                    <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
-                        <option value="empty">선택하기</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="yahoo.com">yahoo.com</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                        <option value="">직접입력</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="left">전화번호</td>
-                <td>
-                    * <input class="tel" type="text" pattern="[0-9]{1,3}" title="숫자만 입력 가능합니다" name="phonef" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[0]}" required>
-                    - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonem" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[1]}" required>
-                    - <input class="tel" type="text" pattern="[0-9]{1,4}" title="숫자만 입력 가능합니다" name="phonel" th:text="${#strings.arraySplit(#authentication.getPrincipal().getPhone(), '-')[2]}" required>
-                </td>
-            </tr>
-            <tr>
-                <td align="left">성별</td>
-                <td align="center">
-                    <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'M'" disabled> 남성
-                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${#authentication.getPrincipal().getGender()} == 'F'" disabled> 여성
-                </td>
-            </tr>
-        </table>
-<br>
-        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
-        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='profile1'">
-    </form>
+<h2>개인 정보 수정</h2><br>
+<!--    <form align="center" method="post" th:action="@{/therapist/modifyTherapistInfo}">-->
+<!--        <table align="center" class="info-table" th:if="${user != null}">-->
+<!--            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>-->
+<!--            <colgroup>-->
+<!--                <col style="width: 20%">-->
+<!--                <col style="width: 60%">-->
+<!--            </colgroup>-->
+<!--            <input-->
+<!--                    type="hidden"-->
+<!--                    id="userId"-->
+<!--                    name="userId"-->
+<!--                    th:value="${ user.getUserId() }"-->
+<!--            >-->
+<!--            <tr>-->
+<!--                <td align="left">이름</td>-->
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="${user.getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">아이디</td>-->
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="${user.getUserId()}"><br>아이디는 변경 불가능합니다.</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">비밀번호</td>-->
+<!--                <td>-->
+<!--                    * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">이메일</td>-->
+<!--                <td>-->
+<!--                    * <input class="email" type="text" name="emailId" th:text="${#strings.substringBefore(user.getEmail(),'@')}" required>-->
+<!--                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(user.getEmail(),'@')}" required>-->
+<!--                    <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">-->
+<!--                        <option value="empty">선택하기</option>-->
+<!--                        <option value="naver.com">naver.com</option>-->
+<!--                        <option value="gmail.com">gmail.com</option>-->
+<!--                        <option value="yahoo.com">yahoo.com</option>-->
+<!--                        <option value="hotmail.com">hotmail.com</option>-->
+<!--                        <option value="">직접입력</option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">전화번호</td>-->
+<!--                <td>-->
+<!--                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:text="${ user.getPhone() }" required>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">성별</td>-->
+<!--                <td align="center">-->
+<!--                    <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${user.getGender()} == 'M'" disabled> 남성-->
+<!--                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${user.getGender()} == 'F'" disabled> 여성-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--<br>-->
+<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">-->
+<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='therapistInfo'">-->
+<!--    </form>-->
+
+<div>
+<form align="center" method="post" th:action="@{/therapist/modifyTherapistInfo}">
+    <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">
+        <a>*는 필수 입력입니다.</a><br><br>
+        <colgroup>
+            <col style="width: 30%">
+            <col style="width: 70%">
+        </colgroup>
+        <input
+                type="hidden"
+                id="userId"
+                name="userId"
+                th:value="${ YHkimmm }"
+        >
+        <tr>
+            <td align="left">이름</td>
+            <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="김영희"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+        </tr>
+        <tr>
+            <td align="left">아이디</td>
+            <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="YHkimmm"><br>아이디는 변경 불가능합니다.</td>
+        </tr>
+        <tr>
+            <td align="left">비밀번호</td>
+            <td>
+                * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >
+            </td>
+        </tr>
+        <tr>
+            <td align="left">이메일</td>
+            <td>
+                * <input class="email" type="text" name="emailId" th:value="member2" required>
+                @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="meta.com" required>
+                <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                    <option value="empty">선택하기</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="yahoo.com">yahoo.com</option>
+                    <option value="hotmail.com">hotmail.com</option>
+                    <option value="">직접입력</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">전화번호</td>
+            <td>
+                * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="010-2222-2222" required>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">성별</td>
+            <td align="center">
+                <input type="checkbox" name="gender" th:value="M" disabled> 남성
+                &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" th:checked="true" disabled> 여성
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
+    <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='therapistInfo'">
+</form>
+</div>
+
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>

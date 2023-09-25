@@ -12,6 +12,11 @@
         <result property="phone" column="PHONE"/>
     </resultMap>
 
+    <resultMap id="book" type="BookDTO">
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+    </resultMap>
+
     <insert id="uploadPfImg">
         INSERT PROFILE_FILE (
                             FILE_NUMBER
@@ -101,5 +106,13 @@
         SET BOOKING_STATUS = 'DECLINE'
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
+
+    <select id="getBooking" resultMap="book">
+        SELECT
+            BOOKING_DATE
+            , MEMBER_ID
+        FROM BOOKING
+        WHERE THERAPIST_ID = #{ sessionId }
+    </select>
 
 </mapper>
