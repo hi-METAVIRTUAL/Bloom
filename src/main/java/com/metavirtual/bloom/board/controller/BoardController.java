@@ -2,19 +2,16 @@
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
-import com.metavirtual.bloom.board.model.dto.CommentBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.board.model.service.BoardService;
-import com.metavirtual.bloom.common.exception.board.BoardDeleteException;
-import com.metavirtual.bloom.common.exception.board.BoardModifyException;
-import com.metavirtual.bloom.common.exception.board.BoardPostingException;
-import com.metavirtual.bloom.common.exception.board.CommentPostingException;
+import com.metavirtual.bloom.common.exception.board.*;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,11 +35,11 @@ public class BoardController {
     }
 
 
-    /*전체 게시글 조회 메서드*/
+    /* 전체 게시글 조회 메서드*/
     @GetMapping(value = "/searchList")
-    public ModelAndView searchAllList(@RequestParam(required = false) String searchSelect,
-                                         @RequestParam(required = false) String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-                                         ModelAndView mv) {
+    public ModelAndView searchCommunityList(@RequestParam(required = false) String searchSelect,
+                                            @RequestParam(required = false) String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
+                                            ModelAndView mv) {
 
         /* 검색 조건을 객체에 담아 전송 */
         Map<String, String> searchMap = new HashMap<>();
@@ -165,15 +162,25 @@ public class BoardController {
 
 
     /* 댓글 등록 메서드 */
-    /*@PostMapping("/commentPosting")
-    public List<MemberCommentDTO> commentNewPosting(@RequestBody CommentBoardDTO newComment) throws CommentPostingException {
+    @PostMapping(value = "/commentPosting")
+    public ResponseEntity<List<MemberCommentDTO>> commentNewPosting(@RequestBody MemberCommentDTO newComment) throws CommentPostingException {
 
+        System.out.println("댓글 파라미터 값 ? : " + newComment);
         List<MemberCommentDTO> commentList = boardService.commentNewPosting(newComment);
 
-        return commentList;
-    }*/
+        return ResponseEntity.ok(commentList);
+    }
 
     /* 댓글 삭제 메서드 */
+    @DeleteMapping(value = "/commentDelete")
+    public ResponseEntity<List<MemberCommentDTO>> commentDelete(@RequestBody MemberCommentDTO commentDelete) throws CommentDeleteException {
+
+        System.out.println("댓글 파라미터 값 ? : " + commentDelete);
+        List<MemberCommentDTO> commentList = boardService.commentDelete(commentDelete);
+
+        return ResponseEntity.ok(commentList);
+    }
+
 
 
     @GetMapping("/singo")

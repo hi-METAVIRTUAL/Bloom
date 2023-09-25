@@ -10,12 +10,13 @@
     <!-- 검색창 -->
     <div>
         <div class="searchBox1">
-            <form id="searchForm" th:action="@{/board/searchList}" method="get">
+            <form id="searchForm">
+                <div style="font-size: 25px; margin: auto">
+                    <button id="communityBtn">커뮤니티</button> |
+                    <button id="counselingBtn">고민상담</button>
+                </div>
                 <input type="hidden" name="currentPage" value="1">
                 <select id="searchSelect" name="searchSelect">
-                    <option value="all">전체</option>
-                    <option value="커뮤니티">커뮤니티</option>
-                    <option value="고민상담">고민상담</option>
                     <option value="title">제목</option>
                     <option value="writer">작성자</option>
                 </select>
@@ -82,14 +83,32 @@
                     th:disabled="${ selectCriteria.pageNo == selectCriteria.lastPage }"><img src="../images/board/nextlist.png"></button>
         </div>
     </div>
+
 <script th:inline="javascript">
 
+    /* CRUD 메시지 알림 창 */
     const message = '[[${ message }]]';
     if (message != null && message !== 'null'){
         alert(message);
     }
 
+    /* 커뮤니티 조회 */
+   /* $("#communityBtn").click(function (){
+
+    });
+*/
+    /* 고민상담 조회 */
+/*
+
+    $("#counselingBtn").click(function (){
+
+    });
+*/
+
+
     if(document.querySelectorAll("#boardListTable td")) {
+
+        /* boardCode 파싱 */
         const $tds = document.querySelectorAll("#boardListTable td");
         for (let i = 0; i < $tds.length; i++) {
 

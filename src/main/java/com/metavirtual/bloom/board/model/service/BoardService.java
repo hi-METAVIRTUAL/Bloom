@@ -2,13 +2,9 @@ package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
-import com.metavirtual.bloom.board.model.dto.CommentBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
-import com.metavirtual.bloom.common.exception.board.BoardDeleteException;
-import com.metavirtual.bloom.common.exception.board.BoardModifyException;
-import com.metavirtual.bloom.common.exception.board.BoardPostingException;
-import com.metavirtual.bloom.common.exception.board.CommentPostingException;
+import com.metavirtual.bloom.common.exception.board.*;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,10 +57,10 @@ public class BoardService {
     public void boardNewPosting(MemberBoardDTO newPosting) throws BoardPostingException {
 
         int result = boardMapper.boardNewPosting(newPosting);
-
+/*
         if(!(result > 0)) {
             throw new BoardPostingException("게시글 등록에 실패하였습니다");
-        }
+        }*/
     }
 
     /* 게시글 수정 */
@@ -73,18 +69,18 @@ public class BoardService {
 
         int result = boardMapper.boardModify(modifyBoard);
 
-        if(!(result > 0)) {
+        /*if(!(result > 0)) {
             throw new BoardModifyException("게시글 수정에 실패하였습니다");
-        }
+        }*/
     }
     /* 게시글 삭제 */
     @Transactional
     public void boardDelete(MemberBoardDTO deleteBoard) throws BoardDeleteException {
         int result = boardMapper.boardDelete(deleteBoard);
-
+/*
         if(!(result > 0)) {
             throw new BoardDeleteException("게시글 삭제에 실패하였습니다");
-        }
+        }*/
     }
 
     /* 댓글 리스트 조회 */
@@ -95,24 +91,40 @@ public class BoardService {
         return commentList;
     }
 
-
+    /* 댓글 등록 */
     @Transactional
-    public List<MemberCommentDTO> commentNewPosting(CommentBoardDTO newComment) throws CommentPostingException {
-
-        int result = boardMapper.commentPosting(newComment);
+    public List<MemberCommentDTO> commentNewPosting(MemberCommentDTO newComment) throws CommentPostingException {
 
         List<MemberCommentDTO> commentList;
+
+        int result = boardMapper.commentPosting(newComment);
 
         if(result > 0) {
             commentList = boardMapper.searchCommentList(newComment.getBoardCode());
         } else {
             throw new CommentPostingException("댓글 등록에 실패하였습니다.");
-
         }
 
         return commentList;
     }
 
+    /* 댓글 삭제 */
+
+    @Transactional
+    public List<MemberCommentDTO> commentDelete(MemberCommentDTO commentDelete) throws CommentDeleteException {
+
+        List<MemberCommentDTO> commentList;
+
+        int result = boardMapper.commentDelete(commentDelete.getCommentCode());
+
+        if(result > 0) {
+            commentList = boardMapper.searchCommentList(commentDelete.getBoardCode());
+        } else {
+            throw new CommentDeleteException("댓글 삭제에 실패하셨습니다.");
+        }
+
+        return commentList;
+    }
 }
 
 

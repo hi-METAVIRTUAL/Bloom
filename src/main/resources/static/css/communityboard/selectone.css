@@ -90,3 +90,11 @@ body {
     font-size: 18px;
 }
 
+.btn btn-or {
+    text-align: right;
+    height: 30px;
+    border-radius: 10px;
+    width: 220px;
+    background: #C09A81;
+    border: none;
+}
