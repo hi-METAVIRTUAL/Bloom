@@ -141,7 +141,6 @@
         ) A
         JOIN BOARD B ON (A.BOARD_CODE = B.BOARD_CODE)
         JOIN MEMBER C ON(A.USER_ID = C.USER_ID)
-        WHERE BOARD_CODE = #{ boardCode }
         ORDER BY A.POSTED_DATE DESC
     </select>
 
