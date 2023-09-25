@@ -15,6 +15,38 @@
         <result property="authorityCode" column="AUTHORITY_CODE"/>
     </resultMap>
 
+<!--    <resultMap id="bookingResultMap" type="com.metavirtual.bloom.booking.model.dto.BookingDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="therapistId" column="THERAPIST_ID"/>
+        <result property="bookingStatus" column="BOOKING_STATUS"/>
+    </resultMap>-->
+    <resultMap id="bookingResultMap" type="com.metavirtual.bloom.booking.model.dto.BookingDTO">
+        <id property="bookingCode" column="BOOKING_CODE" />
+        <result property="bookingDate" column="BOOKING_DATE" />
+        <result property="bookingStatus" column="BOOKING_STATUS" />
+
+        <!-- Map therapist using association -->
+        <association property="therapist" resultMap="theraResultMap" />
+
+        <!-- Map member using association -->
+        <association property="member" resultMap="memResultMap" />
+    </resultMap>
+
+    <resultMap id="theraResultMap" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="therapist_id" />
+        <result property="name" column="therapist_name" />
+        <result property="phone" column="therapist_phone" />
+    </resultMap>
+
+    <resultMap id="memResultMap" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="member_id" />
+        <result property="name" column="member_name" />
+        <result property="phone" column="member_phone" />
+    </resultMap>
+
+
     <resultMap id="memberResultMap" type="com.metavirtual.bloom.user.model.dto.MemberDTO">
         <id property="userId" column="USER_ID"/>
         <result property="etcContent" column="ETC_CONTENT"/>
@@ -172,6 +204,35 @@
         FROM THERAPIST T
         WHERE T.USER_ID = #{ userId };
     </update>
+    <select id="bookingStatus" resultMap="bookingResultMap">
+        SELECT
+        B.booking_date,
+        U.name AS therapist_name,
+        U.phone AS therapist_phone,
+        M.name AS member_name,
+        M.phone AS member_phone
+        FROM
+        Booking B
+        JOIN
+        User U ON B.therapist_id = U.user_id
+        JOIN
+        User M ON B.member_id = M.user_Id
+        WHERE
+        B.member_id = #{userId};
+
+    </select>
 
 
 </mapper>
+        <!--SELECT
+            U.name AS name,
+            U.phone AS phone,
+            B.booking_date
+        FROM
+            Booking B
+        JOIN
+            User U ON B.therapist_id = U.user_id
+        JOIN
+            User M ON B.member_id = M.user_id
+        WHERE
+            B.member_id = #{ userId };-->

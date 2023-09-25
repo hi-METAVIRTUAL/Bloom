@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
@@ -173,16 +172,78 @@
 
 <th:block sec:authorize="isAuthenticated()">
     <div class="section1-2">
+
         <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
+        <form action="/user/bookStat" method="post">
+            <input type="hidden" id="userIdInput" name="userId" value="${#authentication.getPrincipal().getUserId}">
+        </form>
+<script>
+    $(document).ready(function () {
+        // Automatically submit the form when the page loads
+        $("#userIdInput").closest("form").submit();
+    });
+</script>
+    <div th:each="data : ${ data }">
+        <div th:text="${data.therapist.name}"></div>
+        <div th:text="${data.therapist.phone}"></div>
+        <div th:text="${data.booking_date}"></div>
     </div>
+
+
+<!--        </th:block>-->
+
+<!--            <div th:text="${booking.bookingDate}"></div>
+            <div th:text="${booking.therapist.name}"></div>
+            <div th:text="${booking.therapist.phone}"></div>
+            <div th:text="${booking.bookingStatus}"></div>
+            <div>Data received in the loop</div>-->
+        </div>
+        <!--<tr th:each="data : ${ data }">
+            <td th:text="${data.name}"></td>
+            <td th:text="${data.phone}"></td>
+            <td th:text="${data.booking_date}"></td>
+        </tr>-->
+
 </th:block>
 
 <th:block sec:authorize="isAuthenticated()">
-    <div class="section1-3">
+    <div id="section1-3">
 
         <img class="image" src="/images/mainPage/Ellipse.png">
     </div>
 </th:block>
+<!--<script>
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var responseData = JSON.parse(xhr.responseText);
+                    // Handle and display the JSON data
+                    displayData(responseData);
+                } catch (e) {
+                    // Handle JSON parsing error
+                    console.error("Error parsing JSON response: " + e);
+                }
+            } else {
+                // Handle non-200 status codes (e.g., error responses)
+                console.error("HTTP error: " + xhr.status);
+            }
+        }
+    };
+
+    xhr.open("GET", "/user/bookingStat", true);
+    xhr.send();
+
+    function displayData(data) {
+        var resultDiv = document.getElementById("section1-2");
+        // Modify the content of the resultDiv using the received data
+        resultDiv.innerHTML = "Received data: " + data[0].bookingDate;
+        console.log(data);
+    }
+</script>-->
 
 
 <div class="section2">

@@ -2,6 +2,7 @@
 package com.metavirtual.bloom.user.model.service;
 
 
+import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
@@ -24,7 +25,10 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import static java.lang.String.valueOf;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -60,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
 
         UserDTO user = userMapper.findUserById(userId);
-        log.info(String.valueOf(user));
+        log.info(valueOf(user));
         /* 사용자가 입력한 아이디로 조회가 안될 경우 NPE(NullPointerException) 방지를 위해 빈 MemberDTO 객체를 생성 */
         if (user == null) {
 //            throw new UsernameNotFoundException("존재하는 정보가 없습니다");
@@ -72,7 +76,7 @@ public class UserServiceImpl implements UserService {
         if (user.getAuthorityCode() != 1 || user.getAuthorityCode() != 2) {
             int authorityCode = user.getAuthorityCode();
 
-            authorities.add(new SimpleGrantedAuthority(String.valueOf(authorityCode)));
+            authorities.add(new SimpleGrantedAuthority(valueOf(authorityCode)));
         }
 
         UserImpl userImpl = new UserImpl(user.getUserId(), user.getPwd(), authorities);
@@ -194,4 +198,14 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public List<BookingDTO> bookingStatus(String userId) {
+
+        log.info("userId : " + userId);
+
+        return  userMapper.bookingStatus(userId);
+
+    }
+
+
 }
+
