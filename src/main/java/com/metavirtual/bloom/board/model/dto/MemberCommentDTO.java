@@ -1,6 +1,7 @@
 package com.metavirtual.bloom.board.model.dto;
 
 
+import com.metavirtual.bloom.user.model.dto.MemberDTO;
 
 public class MemberCommentDTO {
     private int commentCode;
@@ -8,12 +9,12 @@ public class MemberCommentDTO {
     private String postedDate;
     private String deleteDate;
     private int boardCode;
-    private String userId;
+    private MemberDTO userId;
 
     public MemberCommentDTO() {
     }
 
-    public MemberCommentDTO(int commentCode, String commentContent, String postedDate, String deleteDate, int boardCode, String userId) {
+    public MemberCommentDTO(int commentCode, String commentContent, String postedDate, String deleteDate, int boardCode, MemberDTO userId) {
         this.commentCode = commentCode;
         this.commentContent = commentContent;
         this.postedDate = postedDate;
@@ -62,11 +63,11 @@ public class MemberCommentDTO {
         this.boardCode = boardCode;
     }
 
-    public String getUserId() {
+    public MemberDTO getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(MemberDTO userId) {
         this.userId = userId;
     }
 
@@ -78,7 +79,7 @@ public class MemberCommentDTO {
                 ", postedDate='" + postedDate + '\'' +
                 ", deleteDate='" + deleteDate + '\'' +
                 ", boardCode=" + boardCode +
-                ", userId='" + userId + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }

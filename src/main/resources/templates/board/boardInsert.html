@@ -9,16 +9,40 @@
 <h1 class="title">게시글 작성</h1>
 <div class="title-box">
     <form name="boardPostingForm" th:action="@{/board/boardPosting}" method="post">
-        <span class="title-insert">제목</span>
-        <input type="text" id="title" name="title" placeholder="글제목을 입력해 주세요." class="insert-input">
-        <select id="boardCategory" name="boardCategory">
-            <option value="">선택해주세요</option>
-            <option value="커뮤니티" >커뮤니티</option>
-            <option value="고민상담" >고민상담</option>
-        </select>
-        <div class="textarea-field">
-            <textarea id="boardContent" name="boardContent" rows="22" cols="115" placeholder="글을 작성해주세요."></textarea>
-        </div>
+
+        <table>
+            <tr>
+                <th>제목</th>
+                <td>
+                    <input type="text" id="title" name="title" placeholder="글제목을 입력해 주세요." class="insert-input">
+                </td>
+            </tr>
+            <tr>
+                <th>분류</th>
+                <td>
+                    <div>
+                        <select id="boardCategory" name="boardCategory">
+                            <option value="">분류</option>
+                            <option value="커뮤니티" >커뮤니티</option>
+                            <option value="고민상담" >고민상담</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>
+                    <textarea id="boardContent" name="boardContent" rows="22" cols="115" placeholder="글을 작성해주세요."></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+
+
         <!-- USER_ID 정보 가져오기 -->
         <div>
             <input type="hidden" id="postedDate" name="postedDate">

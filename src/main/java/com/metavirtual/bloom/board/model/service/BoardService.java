@@ -57,10 +57,9 @@ public class BoardService {
     public void boardNewPosting(MemberBoardDTO newPosting) throws BoardPostingException {
 
         int result = boardMapper.boardNewPosting(newPosting);
-/*
         if(!(result > 0)) {
             throw new BoardPostingException("게시글 등록에 실패하였습니다");
-        }*/
+        }
     }
 
     /* 게시글 수정 */
@@ -69,9 +68,9 @@ public class BoardService {
 
         int result = boardMapper.boardModify(modifyBoard);
 
-        /*if(!(result > 0)) {
+        if(!(result > 0)) {
             throw new BoardModifyException("게시글 수정에 실패하였습니다");
-        }*/
+        }
     }
     /* 게시글 삭제 */
     @Transactional

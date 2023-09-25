@@ -124,7 +124,13 @@ public class BoardController {
 
     /* 게시글 수정 화면 */
     @GetMapping("/boardModify")
-    public String boardModify () {
+    public String boardModify (HttpServletRequest request, Model model) {
+
+        int boardCode = Integer.valueOf(request.getParameter("boardCode"));
+        BoardDTO selectOne = boardService.boardSelectOne(boardCode);
+        System.out.println("디테일 가져오는지? : " + selectOne);
+
+        model.addAttribute("board", selectOne);
         return "board/boardModify";
     }
 
@@ -144,9 +150,7 @@ public class BoardController {
             rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다");
         }
 
-
-
-        return "redirect:/board/boardSelectOne";
+        return "redirect:/board/searchList";
     }
 
     /* 게시글 삭제 메서드 */

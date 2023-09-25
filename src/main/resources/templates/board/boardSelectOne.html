@@ -22,6 +22,7 @@
                     <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; text-align: right;">작성일 |<span th:text="${ board.postedDate }"></span></td>
                 </tr>
                 <tr>
+                    <td>내용</td>
                     <td colspan="2"><textarea th:text="${ board.boardContent }" class="view-textarea"></textarea></td>
                 </tr>
                 <tr>
@@ -39,7 +40,7 @@
             </div>
 
             <table id="commentInsert">
-                <input id="boardNo" type="hidden" th:value="${ board.boardCode }">
+                <input type="hidden" id="boardNo" th:value="${ board.boardCode }">
                 <tr>
                     <td>댓글</td>
                     <td>
@@ -73,11 +74,17 @@
 
     <script th:inline="javascript">
 
-        /*const message = '[[${ message }]]';
+        /* 게시글 수정 */
+        $('#btnModify').click(function (){
+            const boardCode = document.getElementById("boardNo").value;
+            location.href = "/board/boardModify?boardCode=" + boardCode;
+        });
+
+        /* CRUD 메시지 알림 창 */
+        const message = '[[${ message }]]';
         if (message != null && message !== 'null'){
             alert(message);
-        }*/
-
+        }
 
         if(document.getElementById("insertComment")) {
 
