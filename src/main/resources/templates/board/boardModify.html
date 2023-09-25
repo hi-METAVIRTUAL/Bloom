@@ -9,22 +9,44 @@
 <h1 class="title">게시글 수정</h1>
 <div class="title-box">
     <form name="boardModifyForm" th:action="@{/board/boardModify}" method="post">
-        <span class="title-insert">제목</span>
-        <input type="text" id="title" name="title" placeholder="글제목을 입력해 주세요." class="insert-input">
-        <select id="boardCategory" name="boardCategory">
-            <option value="">선택해주세요</option>
-            <option value="커뮤니티" >커뮤니티</option>
-            <option value="고민상담" >고민상담</option>
-        </select>
-        <div class="textarea-field">
-            <textarea id="boardContent" name="boardContent" rows="22" cols="115" placeholder="글을 작성해주세요."></textarea>
-        </div>
-        <!-- USER_ID 정보 가져오기 -->
+
+        <table>
+            <tr>
+                <th>제목</th>
+                <td>
+                    <input type="text" id="title" name="title" class="insert-input" th:value="${ board.title }">
+                </td>
+            </tr>
+            <tr>
+                <th>분류</th>
+                <td>
+                    <div>
+                        <select id="boardCategory" name="boardCategory">
+                            <option value="">분류</option>
+                            <option value="커뮤니티" >커뮤니티</option>
+                            <option value="고민상담" >고민상담</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td>
+                    <textarea id="boardContent" name="boardContent" rows="22" cols="115" th:text="${ board.boardContent }"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- 게시글 정보 가져오기 -->
         <div>
             <input type="hidden" id="postedDate" name="postedDate">
             <input type="hidden" id="userId" name="userId" value="a123!">
-            <input type="hidden" id="board" name="board">
-            <!-- th:value="${ #authentication.getPrincipal().getUserId }" -->
+            <input type="hidden" id="boardCode" name="boardCode" th:value="${ board.boardCode }">
+            <!-- th:value="${ #authentication.getPrincipal().getUserId() }" -->
         </div>
 
         <div>
@@ -40,10 +62,11 @@
 
 <script>
 
-    $("#boardCategory options:selected").val()
 
-    $(document).on('click','#btnModify', function () {
-        $("#boardModifyForm")
+    $(document).ready(function () {
+        $("#btnModify").click(function () {
+            document.boardModifyForm.submit();
+        });
     });
 
 </script>
