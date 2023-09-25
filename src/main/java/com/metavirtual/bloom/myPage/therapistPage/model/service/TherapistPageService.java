@@ -29,5 +29,5 @@ public interface TherapistPageService {
 
     public void declineReservation(int bookingCode) throws ModifyInfoException;
 
-    public List<BookDTO> getBooking() throws Exception;
+    public List<BookDTO> bookingList() throws Exception;
 }

@@ -3,6 +3,7 @@ package com.metavirtual.bloom.myPage.memberPage.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
+import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
@@ -13,12 +14,15 @@ import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageService;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
+import com.metavirtual.bloom.user.model.dto.UserImpl;
 import com.metavirtual.bloom.user.model.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -45,12 +49,34 @@ public class MemberPageController {
 
 
     @GetMapping("/memberInfo")
-    public String memberInfo (){
+    public String memberInfo (Model model, Authentication authentication){
+        if (authentication != null && authentication.isAuthenticated()){
+            Object principal = authentication.getPrincipal();
+            if(principal instanceof UserDTO){
+                UserDTO user = (UserDTO) principal;
+                model.addAttribute("user", user);
+            }else if(principal instanceof BookingDTO){
+                BookingDTO booking = (BookingDTO) principal;
+                model.addAttribute("booking", booking);
+            }
+//            UserDTO user = (UserDTO) authentication.getPrincipal();
+//            model.addAttribute("user", user);
+//
+//            BookingDTO booking = (BookingDTO) authentication.getPrincipal();
+//            model.addAttribute("booking", booking);
+        }
         return "mypage/member/memberInfo";
     }
 
     @GetMapping("/modifyMemberInfo")
-    public String modifyMemberInfo(){
+    public String modifyMemberInfo(Model model, Authentication authentication){
+        if(authentication != null && authentication.isAuthenticated()){
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+
+            MemberDTO member = (MemberDTO) authentication.getPrincipal();
+            model.addAttribute("member", member);
+        }
         return "mypage/member/modifyMemberInfo";
     }
 

@@ -15,29 +15,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MMyPageController {
 
-    @GetMapping("/memberInfo")
-    public String memberInfo(Model model, Authentication authentication){
-        if (authentication != null && authentication.isAuthenticated()){
-            UserDTO user = (UserDTO) authentication.getPrincipal();
-            model.addAttribute("user", user);
+//    @GetMapping("member/memberInfo")
+//    public String memberInfo(Model model, Authentication authentication){
+//        if (authentication != null && authentication.isAuthenticated()){
+//            Object principal = authentication.getPrincipal();
+//            if(principal instanceof UserDTO){
+//                UserDTO user = (UserDTO) principal;
+//                model.addAttribute("user", user);
+//            }else if(principal instanceof BookingDTO){
+//                BookingDTO booking = (BookingDTO) principal;
+//                model.addAttribute("booking", booking);
+//            }
+////            UserDTO user = (UserDTO) authentication.getPrincipal();
+////            model.addAttribute("user", user);
+////
+////            BookingDTO booking = (BookingDTO) authentication.getPrincipal();
+////            model.addAttribute("booking", booking);
+//        }
+//        return "member/memberInfo";
+//    }
 
-            BookingDTO booking = (BookingDTO) authentication.getPrincipal();
-            model.addAttribute("booking", booking);
-        }
-        return "memberInfo";
-    }
-
-    @GetMapping("/modifyMemberInfo")
-    public String modifyMemberInfo(Model model, Authentication authentication){
-        if(authentication != null && authentication.isAuthenticated()){
-            UserDTO user = (UserDTO) authentication.getPrincipal();
-            model.addAttribute("user", user);
-
-            MemberDTO member = (MemberDTO) authentication.getPrincipal();
-            model.addAttribute("member", member);
-        }
-        return "modifyMemberInfo";
-    }
+//    @GetMapping("/modifyMemberInfo")
+//    public String modifyMemberInfo(Model model, Authentication authentication){
+//        if(authentication != null && authentication.isAuthenticated()){
+//            UserDTO user = (UserDTO) authentication.getPrincipal();
+//            model.addAttribute("user", user);
+//
+//            MemberDTO member = (MemberDTO) authentication.getPrincipal();
+//            model.addAttribute("member", member);
+//        }
+//        return "modifyMemberInfo";
+//    }
 
     @GetMapping("/postList")
     public String postList(Model model, Authentication authentication){
