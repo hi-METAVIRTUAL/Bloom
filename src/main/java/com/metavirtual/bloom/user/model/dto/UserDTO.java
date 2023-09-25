@@ -1,12 +1,16 @@
 package com.metavirtual.bloom.user.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class UserDTO implements UserDetails {
+public class UserDTO{
 
     private String userId;
     private String pwd;
@@ -16,12 +20,12 @@ public class UserDTO implements UserDetails {
     private String phone;
     private String registDate;
     private String unregistDate;
-    private int authority_code;
+    private int authorityCode;
 
     public UserDTO() {
     }
 
-    public UserDTO(String userId, String pwd, String name, char gender, String email, String phone, String registDate, String unregistDate, int authority_code) {
+    public UserDTO(String userId, String pwd, String name, char gender, String email, String phone, String registDate, String unregistDate, int authorityCode) {
         this.userId = userId;
         this.pwd = pwd;
         this.name = name;
@@ -29,7 +33,8 @@ public class UserDTO implements UserDetails {
         this.email = email;
         this.phone = phone;
         this.registDate = registDate;
-        this.authority_code = authority_code;
+        this.unregistDate = unregistDate;
+        this.authorityCode = authorityCode;
     }
 
     public String getUserId() {
@@ -96,17 +101,18 @@ public class UserDTO implements UserDetails {
         this.unregistDate = unregistDate;
     }
 
-    public int getAuthority_code() {
-        return authority_code;
+    public int getAuthorityCode() {
+        return authorityCode;
     }
 
-    public void setAuthority_code(int authority_code) {
-        this.authority_code = authority_code;
+    public void setAuthorityCode(int authorityCode) {
+        this.authorityCode = authorityCode;
     }
+
 
     @Override
     public String toString() {
-        return "UserInfo_DTO{" +
+        return "UserDTO{" +
                 "userId='" + userId + '\'' +
                 ", pwd='" + pwd + '\'' +
                 ", name='" + name + '\'' +
@@ -114,42 +120,9 @@ public class UserDTO implements UserDetails {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", registDate='" + registDate + '\'' +
-                ", authority_code='" + authority_code +
+                ", unregistDate='" + unregistDate + '\'' +
+                ", authorityCode='" + authorityCode +
                 '}';
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }

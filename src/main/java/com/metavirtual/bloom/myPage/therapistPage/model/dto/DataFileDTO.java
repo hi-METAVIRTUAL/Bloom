@@ -6,12 +6,14 @@ public class DataFileDTO {
     private String userId;
     private String fileOriginName;
     private String fileChangedName;
-    private int fileSize;
+    private long fileSize;
+
+    /*private int fileSize;*/
 
     public DataFileDTO() {
     }
 
-    public DataFileDTO(int fileNumber, String filePath, String userId, String fileOriginName, String fileChangedName, int fileSize) {
+    public DataFileDTO(int fileNumber, String filePath, String userId, String fileOriginName, String fileChangedName, long fileSize) {
         this.fileNumber = fileNumber;
         this.filePath = filePath;
         this.userId = userId;
@@ -60,11 +62,11 @@ public class DataFileDTO {
         this.fileChangedName = fileChangedName;
     }
 
-    public int getFileSize() {
-        return fileSize;
+    public long getFileSize(long fileSize) {
+        return this.fileSize;
     }
 
-    public void setFileSize(int fileSize) {
+    public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
 

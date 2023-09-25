@@ -29,6 +29,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
             errorMessage = "서버에서 오류가 발생하였습니다.\n 관리자에게 문의해 주세요.";
         } else if(exception instanceof UsernameNotFoundException) {
             errorMessage = "존재하지 않는 회원입니다.\n 아이디를 확인해 주세요.";
+            errorMessage = "존재하지 않는 회원입니다.\n 아이디를 확인해 주세요.";
         } else if(exception instanceof AuthenticationCredentialsNotFoundException) {
             errorMessage = "인증 요청이 거부되었습니다.\n 관리자에게 문의해 주세요.";
         } else {
@@ -37,7 +38,7 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
         }
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
-        setDefaultFailureUrl("/app/loginfail?errorMessage=" + errorMessage);
+        setDefaultFailureUrl("/user/loginfail?errorMessage=" + errorMessage);
 
         super.onAuthenticationFailure(request, response, exception);
     }

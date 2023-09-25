@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Bloom</title>
@@ -112,13 +114,13 @@
             border-radius: 20px;
         }
 
-        .section5 {
-            background-image: url("/images/mainPage/mainPhoto4.png");
-            background-repeat: no-repeat;
-            background-size: cover; /* Ensure the image covers the entire container */
-            z-index: 1;
-            min-height: 730px; /* Set a fixed height for the container */
-        }
+        /*.section5 {*/
+        /*    background-image: url("/images/mainPage/mainPhoto4.png");*/
+        /*    background-repeat: no-repeat;*/
+        /*    background-size: cover; !* Ensure the image covers the entire container *!*/
+        /*    z-index: 1;*/
+        /*    min-height: 730px; !* Set a fixed height for the container *!*/
+        /*}*/
 
         #scroller2 {
             margin-top: 100px;
@@ -141,7 +143,7 @@
     </style>
 </head>
 <body>
-<div th:with="includeSection1=true" class="header" th:include="components/Header.html"></div>
+<div th:with="includeSection1=true, includeSection2=true" class="header" th:include="components/Header.html"></div>
 
 
 <!--<div class="header" th:include="Components/Header.html"></div>
@@ -157,6 +159,32 @@
 </div>-->
 
 <!--두번쨰 섹션-->
+<th:block sec:authorize="isAuthenticated() == false">
+<div class="section1">
+    <img class="mainPhoto1" src="/images/mainPage/mainPhoto1.png">
+    <div class="introSection">
+        <div class="intro1"><h2>맞춤형 상담사 매칭</h2><h3>으로</h3></div>
+        <div class="intro1-1"><h2>당신의 변화를 지원합니다</h2></div>
+        <div class="intro1-2"><h4>당신의 마음과 정신 건강을<br>우리와 함께 케어하세요</h4></div>
+        <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
+    </div>
+</div>
+</th:block>
+
+<th:block sec:authorize="isAuthenticated()">
+    <div class="section1-2">
+        <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
+    </div>
+</th:block>
+
+<th:block sec:authorize="isAuthenticated()">
+    <div class="section1-3">
+
+        <img class="image" src="/images/mainPage/Ellipse.png">
+    </div>
+</th:block>
+
+
 <div class="section2">
     <div class="section2-1">
         <h2>당신의 선택권을 존중</h2>

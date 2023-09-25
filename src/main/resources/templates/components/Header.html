@@ -98,28 +98,55 @@
             <!--테스트용-->
             <!--<span th:if="${authentication.authenticated}">-->
 
-                <th:block sec:authorize="isAuthenticated()">
+
+            <th:block sec:authorize="isAuthenticated()">
 <!--                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${userCode == '1' || userCode == '2'}" class="titleLink" href="/member/profile1">마이페이지</a></span>-->
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == 1}" class="titleLink" href="/member/profile1">마이페이지</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == '2'}" class="titleLink" href="/therapist/profile">마이페이지</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == '3'}" class="titleLink" href="/admin/">관리자페이지</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authority_code == 1 || authority_code == 2 || authority_code == 3}" class="titleLink" href="/">로그아웃</a></span>
-                    <!--<span th:if="${userCode == '1' && reservationStatus == 'Y'}">
+            <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 1}">
+                <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
+                    &emsp;&emsp;<a class="titleLink" href="/member/profile1">마이페이지</a>
+                </span>
+            </th:block>
+            <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 2}">
+                <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
+                    &emsp;&emsp;<a class="titleLink" href="/therapist/profile">마이페이지</a>
+                </span>
+            </th:block>
+            <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 3}">
+                <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
+                    &emsp;&emsp;<a class="titleLink" href="/admin/">마이페이지</a>
+                </span>
+            </th:block>
+
+                <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
+                    &emsp;&emsp;<a class="titleLink" th:href="@{/user/logout}">로그아웃</a>
+                </span>
+
+            </th:block>
+<!--
+
+            &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authorityCode == 2}" class="titleLink" href="/therapist/profile">마이페이지</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authorityCode == 3}" class="titleLink" href="/admin/">관리자페이지</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${authorityCode == 1 || authorityCode == 2 || authorityCode == 3}" class="titleLink" th:href="@{/user/logout}">로그아웃</a></span>
+                    &lt;!&ndash;<span th:if="${userCode == '1' && reservationStatus == 'Y'}">
                                      <span th:include="includeSection2=false"></span>
-                               </span>-->
-                </th:block>
+                               </span>&ndash;&gt;
+-->
 
 
+            <th:block sec:authorize="isAnonymous()">
                 <th:block sec:authorize="isAuthenticated() == false">
                     <!--&lt;!&ndash; Not authenticated user links &ndash;&gt;-->
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a onclick="location.href='/user/login'">로그인</a></span>
-                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a onclick="location.href='/user/category'">회원가입</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:href="@{/user/login}">로그인</a></span>
+                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:href="@{/user/category}">회원가입</a></span>
                     <!--&lt;!&ndash;<span th:include="includeSection1=false"></span>&ndash;&gt;-->
                 </th:block>
+            </th:block>
         </div>
 
 <hr class="line"/>
-    <div th:if="${includeSection1}">
+
+
+<!--    <th:block th:if="${includeSection1}">
         <div class="section1">
             <img class="mainPhoto1" src="/images/mainPage/mainPhoto1.png">
             <div class="introSection">
@@ -129,16 +156,16 @@
                 <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
             </div>
         </div>
-    </div>
+    </th:block>
 
-        <div th:if="${ includeSection2 }">
+
+        <th:block th:if="${ includeSection2 }">
             <div class="section2">
-                <h2 th:if="${user}" th:text="${user.name ?: 'DefaultName'}">님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
-
+                <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
                 <img class="image" src="/images/mainPage/Ellipse.png">
-
             </div>
-        </div>
+        </th:block>-->
+
 </header>
 </body>
 </html>
