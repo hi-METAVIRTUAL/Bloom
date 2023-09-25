@@ -8,10 +8,10 @@
         <id property="userId" column="USER_ID"/>
         <result property="name" column="NAME"/>
         <result property="gender" column="GENDER"/>
-        <result property="pwd" column="PASSWORD"/>
+        <result property="pwd" column="PWD"/>
         <result property="email" column="EMAIL"/>
         <result property="phone" column="PHONE"/>
-        <result property="registDate" column="REGISTDATE"/>
+        <result property="registDate" column="REGIST_DATE"/>
         <result property="authorityCode" column="AUTHORITY_CODE"/>
     </resultMap>
 
@@ -43,6 +43,34 @@
         <result property="organization" column="ORGANIZATION"/>
     </resultMap>
 
+    <select id="findUserById" resultMap="userResultMap">
+        SELECT
+                 U.NAME
+                , U.USER_ID
+                , U.GENDER
+                , U.PWD
+                , U.EMAIL
+                , U.PHONE
+                , U.REGIST_DATE
+                , U.UNREGIST_DATE
+                , U.AUTHORITY_CODE
+                , B.AUTHORITY_CODE REF_AUTHORITY_CODE
+                , B.AUTHORITY_NAME
+                , C.AUTHORITY_CODE REF_AUTHORITY_CODE2
+                , C.MENU_CODE REF_MENU_CODE
+                , D.MENU_CODE
+                , D.MENU_NAME
+                , D.MENU_URL
+                , D.MENU_CONTENT
+                , D.MENU_CATEGORY
+                , D.SUPER_MENU_CODE
+        FROM USER U
+        LEFT JOIN AUTHORITY B ON (U.AUTHORITY_CODE = B.AUTHORITY_CODE)
+        LEFT JOIN AUTHORITY_MENU C ON (B.AUTHORITY_CODE = C.AUTHORITY_CODE)
+        LEFT JOIN MENU D ON (C.MENU_CODE = D.MENU_CODE)
+        WHERE U.USER_ID = #{ userId }
+    </select>
+
     <select id="idDupCheck" parameterType="String" resultType="int">
         SELECT COUNT(*)
         FROM USER U
@@ -56,9 +84,9 @@
     </select>
 
     <select id="selectUserById" parameterType="String" resultMap="userResultMap">
-        SELECT U.USER_ID
-                FROM USER U
-                WHERE U.USER_ID = #{ userId }
+        SELECT USER_ID
+                FROM USER
+                WHERE USER_ID = #{ userId }
     </select>
 
 
@@ -82,7 +110,7 @@
                         , #{ email }
                         , #{ phone }
                         , #{ registDate }
-                        , 1
+                        , #{ authorityCode }
                         )
     </insert>
 
@@ -93,44 +121,57 @@
         WHERE U.USER_ID = #{ userId };
     </update>
 
-    <insert id="insertTherapistPI" parameterType="UserDTO">
-        INSERT INTO
-        USER (
-                          NAME
-                        , USER_ID
-                        , GENDER
-                        , PWD
-                        , EMAIL
-                        , PHONE
-                        , REGIST_DATE
-                        , AUTHORITY_CODE
-                        )
-            VALUES (
-                        #{ name }
-                        , #{ userId }
-                        , #{ gender }
-                        , #{ pwd }
-                        , #{ email }
-                        , #{ phone }
-                        , #{ registDate }
-                        , 2
-        )
-    </insert>
 
     <insert id="insertTherapist" parameterType="TherapistDTO">
         INSERT INTO THERAPIST (
-        THERAPIST_Q1
-        ,THERAPIST_Q2
-        ,THERAPIST_Q3
-        ,ORGANIZATION
-        ,DEPRESSION_CK
-        ,ANXIETY_CK
-        ,OCD_CK
-        ,BIPOLAR_CK
-        ,RELATION_CK
-        ,SESSION_VIDCAL_CK
-        ,SESSION_CHAT_CK
-        ,SESSION_INPERSON_CK
+                                USER_ID
+                                ,THERAPIST_Q1
+                                ,THERAPIST_Q2
+                                ,THERAPIST_Q3
+                                ,ORGANIZATION
+                                ,DEPRESSION_CK
+                                ,ANXIETY_CK
+                                ,OCD_CK
+                                ,BIPOLAR_CK
+                                ,RELATION_CK
+                                ,SESSION_VIDCALL_CK
+                                ,SESSION_CHAT_CK
+                                ,SESSION_INPERSON_CK
+                                )
+        VALUES (
+                #{ userId }
+                , #{ therapistQ1 }
+                , #{ therapistQ2 }
+                , #{ therapistQ3 }
+                , #{ organization }
+                , #{ depressionCK }
+                , #{ anxietyCK }
+                , #{ ocdCK }
+                , #{ bipolarCK }
+                , #{ relationCK }
+                , #{ sessionVidCallCK }
+                , #{ sessionChatCK }
+                , #{ sessionInPersonCK }
+        )
     </insert>
+
+    <update id="uploadDataFile" parameterType="com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO">
+        INSERT INTO DATA_FILE (
+                                USER_ID
+                                , FILE_NUMBER
+                                , FILE_PATH
+                                , FILE_ORIGIN_NAME
+                                , FILE_CHANGED_NAME
+                                , FILE_SIZE
+        ) SELECT T.USER_ID
+                                , #{fileNumber}
+                                , #{filePath}
+                                , #{fileOriginName}
+                                , #{fileChangedName}
+                                , #{fileSize}
+        FROM THERAPIST T
+        WHERE T.USER_ID = #{ userId };
+    </update>
+
 
 </mapper>

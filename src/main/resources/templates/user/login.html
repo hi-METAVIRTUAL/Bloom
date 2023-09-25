@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
@@ -18,19 +19,33 @@
     <div class="header" th:include="components/Header.html"></div>
 
     <h1>LOGIN</h1>
-    <form th:action="@{user}" method="post" id="loginForm">
+    <div sec:authorize="${isAnonymous()}">
+    <form th:action="@{/user/login}" method="post" class="loginForm" id="loginForm">
+
         <input type="text" placeholder="아이디를 입력해주세요" name="username" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid; margin-bottom: 10px;"><br>
         <input type="password" placeholder="비밀번호를 입력해주세요" name="password" style="width: 500px; height: 40px; border-color: #C09A81; border-radius: 10px; border-style: solid;"><br>
         <div style="margin-left: -400px;"><input type="checkbox" name="rememberMe" value="rememberMe"><span style="font-size: 13px;">로그인 상태 유지</span></div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <button type="submit" name="login" value="login" style="width: 500px; height: 40px; margin-top: 10px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">LOGIN</span></button>
     </form>
+    </div>
 
     <ul>
         <li onclick="location.href='category'">회원가입</li>
         &nbsp;&nbsp;|&nbsp;&nbsp;<li onclick="location.href='findId'">아이디 찾기</li>&nbsp;&nbsp;|&nbsp;&nbsp;<li onclick="location.href='findPassword'">비밀번호 찾기</li>
     </ul>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Your jQuery code here
+    $(function(){
+        $("input[name=userId]").focus();
 
+        $("input[type=submit]").click(function(){
+            $("#loginForm").submit();
+        });
+    })
+</script>
 <th:block th:include="/components/beigeBackgroundBrownGrass.html"></th:block>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>

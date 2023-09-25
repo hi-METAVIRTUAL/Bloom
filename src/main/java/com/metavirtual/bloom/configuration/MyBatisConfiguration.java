@@ -8,12 +8,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
 @Configuration
 @MapperScan(basePackages = "com.metavirtual.bloom", annotationClass = Mapper.class)
 public class MyBatisConfiguration {
+
+    PasswordEncoder passwordEncoder;
 
 
 }

@@ -36,6 +36,8 @@ public class MemberPageController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PasswordEncoder passwordEncoder;
     private final MemberPageServiceImpl memberPageService;
+
+
     public MemberPageController(PasswordEncoder passwordEncoder, MemberPageServiceImpl memberPageService){
         this.passwordEncoder = passwordEncoder;
         this.memberPageService = memberPageService;

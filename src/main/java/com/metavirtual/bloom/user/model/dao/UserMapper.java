@@ -5,6 +5,7 @@ import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,15 +20,16 @@ public interface UserMapper {
 
    int idDupCheck(String userId) throws Exception;
 
-   int findUserById(String userId);
+   UserDTO findUserById(String userId);
 
    int nicknameDupCheck(String nickname);
 
     int insertTherapist(TherapistDTO therapist);
 
-   int uploadDataFIle(DataFileDTO dataFile);
-
    int updateDataFile(DataFileDTO dataFile);
+
+
+   int uploadDataFile(DataFileDTO dataFile);
 
    /*   AuthDetails findUserById(String username);*/
 

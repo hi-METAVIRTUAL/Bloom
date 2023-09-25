@@ -109,9 +109,9 @@ window.onload = function() {
         });
     });
 
-    document.getElementById("myForm").addEventListener("submit", function(event) {
-        const professionCheckboxes = document.querySelectorAll('.profession');
-        const sessionMethodCheckboxes = document.querySelectorAll('.sessionMethod');
+/*    document.getElementById("myForm").addEventListener("submit", function(event) {
+        const professionCheckboxes = document.querySelectorAll("profession");
+        const sessionMethodCheckboxes = document.querySelectorAll("sessionMethod");
         let professionChecked = false;
         let sessionMethodChecked = false;
 
@@ -133,9 +133,9 @@ window.onload = function() {
         } else {
             document.getElementById("submitButton").disabled = false;
         }
-    });
-
+    });*/
+/*
     document.getElementById("submitButton").addEventListener("click", function(event) {
         alert("회원가입 양식을 모두 작성 해주세요!");
-    });
+    });*/
 }

@@ -240,7 +240,7 @@
         <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
         <div id="mail_number" name="mail_number" style="display: none">
           <input type="text" name="number" id="number" class="input-field" placeholder="인증번호 입력" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
-          <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;">이메일 인증</button>
+          <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;" required>이메일 인증</button>
         </div>
       </div>
 
@@ -276,58 +276,20 @@
           <div class="checkBox1">
             <h2 class="checkTitle">전문 분야 선택</h2><br>
             <div class="sec">
-              <span>우울성&nbsp;<input type="checkbox" class="profession" name="depressionCK"></span><br>
-              <span>불안성&nbsp;<input type="checkbox" class="profession" name="anxietyCK"></span><br>
-              <span>조울성&nbsp;<input type="checkbox" class="profession" name="bipolarCK"></span><br>
-              <span>강박성&nbsp;<input type="checkbox" class="profession" name="ocdCK"></span><br>
-              <span>대인관계&nbsp;<input type="checkbox" class="profession" name="relationCK"></span><br>
+              <span>우울성&nbsp;<input type="checkbox" class="profession" name="depressionCK" value="Y"></span><br>
+              <span>불안성&nbsp;<input type="checkbox" class="profession" name="anxietyCK" value="Y"></span><br>
+              <span>조울성&nbsp;<input type="checkbox" class="profession" name="bipolarCK" value="Y"></span><br>
+              <span>강박성&nbsp;<input type="checkbox" class="profession" name="ocdCK" value="Y"></span><br>
+              <span>대인관계&nbsp;<input type="checkbox" class="profession" name="relationCK"  value="Y"></span><br>
 
-              <script>
-                // Get all checkboxes with the class "profession"
-                const checkboxes = document.querySelectorAll('.profession');
-
-                // Add a click event listener to each checkbox
-                checkboxes.forEach(checkbox => {
-                  checkbox.addEventListener('click', function () {
-                    // Check if the checkbox is checked
-                    if (this.checked) {
-                      // If checked, set its value to 'Y'
-                      this.value = 'Y';
-                    } else {
-                      // If unchecked, set its value back to 'N'
-                      this.value = 'N';
-                    }
-                  });
-                });
-              </script>
             </div>
           </div>
           <div class="checkBox1">
             <h2 class="checkTitle1">선택상담 방법 </h2><br>
             <div class="sec">
-              <span>화상상담(Zoom)&nbsp;<input type="checkbox" name="sessionVidCallCK" class="sessionMethod"></span><br>
-              <span>채팅상담(카카오톡)&nbsp;<input type="checkbox" name="sessionChatCK" class="sessionMethod"></span><br>
-              <span>대면상담&nbsp;<input type="checkbox" name="sessionInPersonCK" class="sessionMethod"></span><br>
-
-              <script>
-                // Get all checkboxes with the class "profession"
-                const checkboxes1 = document.querySelectorAll('.sessionMethod');
-
-                // Add a click event listener to each checkbox
-                checkboxes1.forEach(checkbox => {
-                  checkbox.addEventListener('click', function () {
-                    // Check if the checkbox is checked
-                    if (this.checked) {
-                      // If checked, set its value to 'Y'
-                      this.value = 'Y';
-                    } else {
-                      // If unchecked, set its value back to 'N'
-                      this.value = 'N';
-                    }
-                  });
-                });
-              </script>
-
+              <span>화상상담(Zoom)&nbsp;<input type="checkbox" name="sessionVidCallCK" value="Y"></span><br>
+              <span>채팅상담(카카오톡)&nbsp;<input type="checkbox" name="sessionChatCK" value='Y'></span><br>
+              <span>대면상담&nbsp;<input type="checkbox" name="sessionInPersonCK" value='Y'></span><br>
             </div>
           </div>
         </div>
@@ -336,7 +298,7 @@
           <div class="fileSection">
             <h2>첨부파일</h2>
 
-            <input id="therapistFile" type="file" name="therapistFile" multiple="multiple" />
+            <input id="therapistFiles" type="file" name="therapistFiles" multiple/>
 <!--            <button id="upload-button" onclick="uploadFile()" style="width: 70px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;"> 업로드 </button>-->
 
           </div>

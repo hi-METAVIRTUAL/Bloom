@@ -20,31 +20,41 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+
+    @GetMapping("/login")
+    public void login() {
+    }
+
+    @PostMapping("/login")
+    public String loginPost(@RequestParam("username") String userId, @RequestParam("password") String pwd, HttpServletRequest request) {
+//            userService.loadUserByUsername(userId, pwd,)
+
+        return "redirect:/";
+    }
     private final PasswordEncoder passwordEncoder;
     private final UserServiceImpl userService;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${image.image-dir}")
-    private String IMAGE_DIR;
+    @Autowired
+    private ServletContext servletContext; // Inject ServletContext
 
-    @Value("${spring.servlet.multipart.location}")
-    private String ROOT_LOCATION;
     @Autowired
     public UserController(PasswordEncoder passwordEncoder, UserServiceImpl userService) {
         this.passwordEncoder = passwordEncoder;
@@ -54,6 +64,12 @@ public class UserController {
     @GetMapping("/category")
     public String regist(){
         return "user/registCategory";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
     }
 
     @GetMapping("/memberRegist")
@@ -75,12 +91,13 @@ public class UserController {
         user.setEmail(emailId + '@' + emailDomain);
         String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         user.setRegistDate(registDate);
+        user.setAuthorityCode(1);
 
         member.setUserId(username);
 
-        System.out.println("유저 가져온 결과 = " + user.getUserId() + " " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate() + " " + user.getAuthority_code());
+        System.out.println("유저 가져온 결과 = " + user.getUserId() + " " + user.getPwd() + " " + user.getEmail() + " " + user.getRegistDate() + " " + user.getAuthorityCode());
         System.out.println("총 결과 = " + user.getUserId() + " " + user.getPwd() + " " + user.getName() + " "
-                + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthority_code());
+                + user.getGender() + " " + user.getEmail() + " " + user.getPhone() + " " + user.getRegistDate() + " " + user.getAuthorityCode());
 
         System.out.println("멤버 결과 : " + member.getNickname());
 
@@ -135,84 +152,64 @@ public class UserController {
         return "/user/therapistRegist";
     }
 
+
     @PostMapping("/therapistRegist")
     public String therapistRegist(@RequestParam String username, @RequestParam String password, @RequestParam String emailId
-                , @RequestParam String emailDomain, HttpServletRequest request, @RequestParam("therapistFile") MultipartFile therapistFile
-                ,@RequestParam(value="depressionCK", defaultValue = "N") String depressionCk
-                ,@RequestParam(value="anxietyCK", defaultValue = "N") String anxietyCK
-                ,@RequestParam(value="bipolarCK", defaultValue = "N") String bipolarCK
-                ,@RequestParam(value="ocdCK", defaultValue = "N") String ocdCK
-                ,@RequestParam(value="relationCK", defaultValue = "N") String relatonCK
-                ,@RequestParam(value="sessionVidCallCK", defaultValue = "N") String sessionVidCallCK
-                ,@RequestParam(value="sessionChatCK", defaultValue = "N") String sessionChatCK
-                ,@RequestParam(value="sessionInPersonCK", defaultValue = "N") String sessionInPersonCk
-                ,RedirectAttributes rttr, String singleFileDescription, Model model
-                ,@ModelAttribute UserDTO user, @ModelAttribute TherapistDTO therapist, @ModelAttribute DataFileDTO dataFile) throws UserRegistException, ModifyInfoException {
+            , @RequestParam String emailDomain, @RequestParam("therapistFiles") List<MultipartFile> therapistFiles
+            ,@RequestParam(value="depressionCK", defaultValue = "N") String depressionCK
+            ,@RequestParam(value="anxietyCK", defaultValue = "N") String anxietyCK
+            ,@RequestParam(value="bipolarCK", defaultValue = "N") String bipolarCK
+            ,@RequestParam(value="ocdCK", defaultValue = "N") String ocdCK
+            ,@RequestParam(value="relationCK", defaultValue = "N") String relationCK
+            ,@RequestParam(value="sessionVidCallCK", defaultValue = "N") String sessionVidCallCK
+            ,@RequestParam(value="sessionChatCK", defaultValue = "N") String sessionChatCK
+            ,@RequestParam(value="sessionInPersonCK", defaultValue = "N") String sessionInPersonCk
+            ,@ModelAttribute UserDTO user, @ModelAttribute TherapistDTO therapist, @ModelAttribute DataFileDTO dataFile) throws UserRegistException, ModifyInfoException {
 
 
         System.out.println("[UserController] therapistRegist 들어옴");
+
         user.setUserId(username);
         user.setPwd(passwordEncoder.encode(password));
         user.setEmail(emailId + '@' + emailDomain);
         String registDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         user.setRegistDate(registDate);
-
+        user.setAuthorityCode(2);
 
         therapist.setUserId(username);
         /*checkBox .charAT() logic*/
-        therapist.setDepressionCK(depressionCk.charAt(0));
+        therapist.setDepressionCK(depressionCK.charAt(0));
         therapist.setAnxietyCK(anxietyCK.charAt(0));
         therapist.setBipolarCK(bipolarCK.charAt(0));
         therapist.setOcdCK(ocdCK.charAt(0));
-        therapist.setRelationCK(relatonCK.charAt(0));
+        therapist.setRelationCK(relationCK.charAt(0));
         /*=============================*/
         therapist.setSessionVidCallCK(sessionVidCallCK.charAt(0));
         therapist.setSessionChatCK(sessionChatCK.charAt(0));
         therapist.setSessionInPersonCK(sessionInPersonCk.charAt(0));
 
-
-        System.out.println("[UserController] therapistRegist : " + user);
+        System.out.println("[UserController] UserRegist : " + user);
         System.out.println("[UserController] therapistRegist : " + therapist);
 
 
-        String rootLocation = ROOT_LOCATION + IMAGE_DIR;
-
-        String fileUploadDirectory = rootLocation + "/upload/therapistDataFile";
-
-        File directory = new File(fileUploadDirectory);
-
-        log.info("[TherapistController] fileUploadDirectory : "+ directory);
-
-        if(!directory.exists()){
-            log.info("[TherapistController] 폴더 생성 : " + directory.mkdirs());
-        }
-
-        String fileOriginName = therapistFile.getOriginalFilename();
-        String ext = fileOriginName.substring(fileOriginName.lastIndexOf("."));
-        String fileChangedName = UUID.randomUUID().toString().replaceAll("-", "") + ext;
-
-        userService.registTherapist(user, therapist, dataFile);
-
-        try {
-            therapistFile.transferTo(new File(fileUploadDirectory + "/" + fileChangedName));
-            rttr.addFlashAttribute("message", "파일 업로드 성공!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            rttr.addFlashAttribute("message", "파일 업로드 실패.");
-        }
-
-
+        userService.registTherapist(user, therapist, dataFile, therapistFiles);
 
 
         return "user/therapistRegistSuccess";
-    }
+        }
+
+
 
     @GetMapping("/therapistRegistSuccess")
     public String therapistRegistSuccess() { return "user/therapistRegistSuccess"; }
 
+    @GetMapping("/loginfail")
+    public ModelAndView loginFail(@RequestParam String errorMessage, ModelAndView mv) {
+        mv.addObject("message", errorMessage);
+        mv.setViewName("user/loginfail");
 
-    @GetMapping("/login")
-    public String login() { return "user/login"; }
+        return mv;
+    }
 
     @GetMapping("/findId")
     public String findId() { return "user/findId"; }
