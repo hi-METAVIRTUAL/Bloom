@@ -19,7 +19,9 @@ public interface PsychometryMapper {
 
     int hopeTherapist(MemberDTO member);
 
+    int saveTotalScore(int totalD, int totalA, int totalB, int totalO, String userId);
+
     int getTotalScore(String userId);
 
-    int saveTotalScore(int totalD, int totalA, int totalB, int totalO, String userId);
+
 }

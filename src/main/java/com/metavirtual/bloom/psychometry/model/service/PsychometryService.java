@@ -45,11 +45,9 @@ public class PsychometryService {
     }
 
     public int getTotalScore(String userId) {
-        int total = psychometryMapper.getTotalScore(userId);
-        return total;
+
+        return psychometryMapper.getTotalScore(userId);
     }
-
-
 
 }
 

@@ -25,8 +25,6 @@ public class MainController {
 
 
 
-        String userId = principal.getName();
-
         return "index";
     }
 
