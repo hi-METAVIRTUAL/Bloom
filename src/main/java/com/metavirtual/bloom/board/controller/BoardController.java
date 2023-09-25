@@ -164,7 +164,6 @@ public class BoardController {
         return "redirect:/board/searchList";
     }
 
-
     /* 댓글 등록 메서드 */
     @PostMapping(value = "/commentPosting")
     public ResponseEntity<List<MemberCommentDTO>> commentNewPosting(@RequestBody MemberCommentDTO newComment) throws CommentPostingException {
@@ -176,7 +175,7 @@ public class BoardController {
     }
 
     /* 댓글 삭제 메서드 */
-    @DeleteMapping(value = "/commentDelete")
+    @PatchMapping(value = "/commentDelete")
     public ResponseEntity<List<MemberCommentDTO>> commentDelete(@RequestBody MemberCommentDTO commentDelete) throws CommentDeleteException {
 
         System.out.println("댓글 파라미터 값 ? : " + commentDelete);

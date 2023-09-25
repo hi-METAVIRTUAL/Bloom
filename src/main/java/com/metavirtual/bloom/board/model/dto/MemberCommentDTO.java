@@ -9,12 +9,12 @@ public class MemberCommentDTO {
     private String postedDate;
     private String deleteDate;
     private int boardCode;
-    private MemberDTO userId;
+    private String userId;
 
     public MemberCommentDTO() {
     }
 
-    public MemberCommentDTO(int commentCode, String commentContent, String postedDate, String deleteDate, int boardCode, MemberDTO userId) {
+    public MemberCommentDTO(int commentCode, String commentContent, String postedDate, String deleteDate, int boardCode, String userId) {
         this.commentCode = commentCode;
         this.commentContent = commentContent;
         this.postedDate = postedDate;
@@ -63,11 +63,11 @@ public class MemberCommentDTO {
         this.boardCode = boardCode;
     }
 
-    public MemberDTO getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(MemberDTO userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -79,7 +79,7 @@ public class MemberCommentDTO {
                 ", postedDate='" + postedDate + '\'' +
                 ", deleteDate='" + deleteDate + '\'' +
                 ", boardCode=" + boardCode +
-                ", userId=" + userId +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

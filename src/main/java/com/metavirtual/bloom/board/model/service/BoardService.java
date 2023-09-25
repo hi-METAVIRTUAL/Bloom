@@ -76,10 +76,10 @@ public class BoardService {
     @Transactional
     public void boardDelete(MemberBoardDTO deleteBoard) throws BoardDeleteException {
         int result = boardMapper.boardDelete(deleteBoard);
-/*
+
         if(!(result > 0)) {
             throw new BoardDeleteException("게시글 삭제에 실패하였습니다");
-        }*/
+        }
     }
 
     /* 댓글 리스트 조회 */
