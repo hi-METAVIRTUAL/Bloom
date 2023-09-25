@@ -4,10 +4,12 @@ import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.therapistPage.model.dao.TherapistPageMapper;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,12 @@ import java.util.List;
 @Service
 public class TherapistPageServiceImpl implements TherapistPageService{
 
+    private SqlSession sqlSession;
     private final TherapistPageMapper mapper;
-    public TherapistPageServiceImpl(TherapistPageMapper mapper){this.mapper = mapper;}
+    public TherapistPageServiceImpl(TherapistPageMapper mapper, SqlSession sqlSession){
+        this.mapper = mapper;
+        this.sqlSession = sqlSession;
+    }
 
     @Override
     public void uploadProfileImg(ProfileFileDTO profileFileDTO) throws ModifyInfoException{
@@ -87,5 +93,13 @@ public class TherapistPageServiceImpl implements TherapistPageService{
         if(!(result>0)){
             throw new ModifyInfoException(("예약 거절 요청 실패"));
         }
+    }
+
+    @Override
+    public List<BookDTO> getBooking() throws Exception {
+        List<BookDTO> book = null;
+        book = sqlSession.selectList("Book.bookingList");
+
+        return book;
     }
 }
