@@ -89,7 +89,7 @@
         <b>제목을 누르면 이동합니다</b>
         <table id="pList">
             <tr>
-                <th class="tdleft checktd" scope="col"><input id="allPostCheck" type="checkbox" name="allPostCheck"></th> <!--체크박스 만들기(선택삭제) 글, 댓글, 후기 모두-->
+                <th class="tdleft checktd" scope="col"><input id="allPostCheck" type="checkbox" name="allPostCheck" class="post"></th> <!--체크박스 만들기(선택삭제) 글, 댓글, 후기 모두-->
                 <th scope="col">게시글코드</th>
                 <th scope="col">제목</th>
                 <th scope="col">게시판</th>
@@ -103,35 +103,35 @@
 <!--                <td th:text="${ board.getPostedDate() }"></td>-->
 <!--            </tr>-->
             <tr>
-                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td> <!--체크박스-->
+                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}" class="post"></td> <!--체크박스-->
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
                 <td>커뮤니티</td>
                 <td>2023-09-13 17:54</td>
             </tr>
             <tr class="colortr">
-                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td>
+                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}" class="post"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">진로 문제로 고민 중입니다.</td>
                 <td>고민상담</td>
                 <td class="tdright">2023-09-13 17:56</td>
             </tr>
             <tr>
-                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td> <!--체크박스-->
+                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}" class="post"></td> <!--체크박스-->
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
                 <td>커뮤니티</td>
                 <td>2023-09-13 17:54</td>
             </tr>
             <tr class="colortr">
-                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td>
+                <td class="tdleft"><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}" class="post"></td>
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">진로 문제로 고민 중입니다.</td>
                 <td>고민상담</td>
                 <td class="tdright">2023-09-13 17:56</td>
             </tr>
             <tr>
-                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}"></td> <!--체크박스-->
+                <td><input name="RowPostCheck" type="checkbox" value="${board.getBoardCode()}" class="post"></td> <!--체크박스-->
                 <td></td>
                 <td class="longtd pointer" onclick="location.href='/boardSelectOne'">코딩 배워보신 분 있나요?</td>
                 <td>커뮤니티</td>
@@ -375,16 +375,25 @@
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 
-<script>
-    $(document).ready(function(){
-        $("checkAll").click(function(){
-            if($("#checkAll").prop("checked")){
-                $(".test").prop("checked", true);
-            } else{
-                $(".test").prop("checked", false);
-            }
+<script type="text/javascript">
+    $(function (){
+        var chkObj=document.getElementsByName("RowPostCheck");
+        var rowCnt=chkObj.length;
 
-        })
+        $("input[name='allPostCheck']").click(function(){
+            var chk_listArr=$("input[name='RowPostCheck']");
+            for (var i=0; i<chk_listArr.length; i++){
+                chk_listArr[i].checked=this.checked;
+            }
+        });
+        $("input[name='RowPostCheck']").click(function(){
+            if($("input[name='RowPostCheck']:checked").length==rowCnt){
+                $("input[nmae='allPostCheck']")[0].checked=true;
+            }
+            else {
+                $("input[name='allPostcheck']")[0].checked=false;
+            }
+        });
     });
     function deleteMyPost(){
         var url="deleteMyPost";
@@ -418,110 +427,110 @@
             });
         }
     }
-    $(function (){
-        var chkObj=document.getElementsByName("RowCommentCheck");
-        var rowCnt=chkObj.length;
-
-        $("input[name='allCommentCheck']").click(function(){
-            var chk_listArr=$("input[name='RowCommentCheck']");
-            for (var i=0; i<chk_listArr.length; i++){
-                chk_listArr[i].checked=this.checked;
-            }
-        });
-        $("input[name='RowCommentCheck']").click(function(){
-            if($("input[name='RowCommentCheck']:checked").length===rowCnt){
-                $("input[name='allCommentCheck']")[0].checked=true;
-            }
-            else {
-                $("input[name='allCommentCheck']")[0].checked=false;
-            }
-        });
-    });
-    function deleteMyComment(){
-        var url="deleteMyComment";
-        var valueArr2 = new Array();
-        var list = $("input[name='RowCommentCheck']");
-        for(var i=0; i<list.length; i++){
-            if(list[i].checked){
-                valueArr2.push(list[i].value);
-            }
-        }
-        if(valueArr2.length==0){
-            alert("선택된 댓글이 없습니다.");
-        }
-        else {
-            var chk=confirm("정말 삭제하시겠습니까?");
-            $.ajax({
-                url:url,
-                type:'POST',
-                traditional:true,
-                data:{
-                    valueArr:valueArr2
-                },
-                success:function(jdata){
-                    if(jdata=1){
-                        alert("삭제가 완료되었습니다!");
-                        location.replace("postList")
-                    }
-                    else{
-                        alert("삭제 실패. 다시 시도해 주세요. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
-                    }
-                }
-            });
-        }
-    }
-    $(function (){
-        var chkObj=document.getElementsByName("RowReviewCheck");
-        var rowCnt=chkObj.length;
-
-        $("input[name='allReviewCheck']").click(function(){
-            var chk_listArr=$("input[name='RowReviewCheck']");
-            for (var i=0; i<chk_listArr.length; i++){
-                chk_listArr[i].checked=this.checked;
-            }
-        });
-        $("input[name='RowReviewCheck']").click(function(){
-            if($("input[name='RowReviewCheck']:checked").length===rowCnt){
-                $("input[name='allReviewCheck']")[0].checked=true;
-            }
-            else {
-                $("input[name='allReviewCheck']")[0].checked=false;
-            }
-        });
-    });
-    function deleteMyReview(){
-        var url="deleteMyReview";
-        var valueArr3 = new Array();
-        var list = $("input[name='RowReviewCheck']");
-        for(var i=0; i<list.length; i++){
-            if(list[i].checked){
-                valueArr3.push(list[i].value);
-            }
-        }
-        if(valueArr3.length==0){
-            alert("선택된 후기가 없습니다.");
-        }
-        else {
-            var chk=confirm("정성스레 작성한 후기는 다른 회원들이 상담사를 결정하는데 큰 도움이 됩니다. 정말 삭제하시겠습니까?");
-            $.ajax({
-                url:url,
-                type:'POST',
-                traditional:true,
-                data:{
-                    valueArr:valueArr3
-                },
-                success:function(jdata){
-                    if(jdata=1){
-                        alert("삭제가 완료되었습니다!");
-                        location.replace("postList")
-                    }
-                    else{
-                        alert("삭제 실패. 다시 시도해 주세요. 문제가 계속되는 경우 고객센터로 문의 바랍니다. ");
-                    }
-                }
-            });
-        }
-    }
+    // $(function (){
+    //     var chkObj=document.getElementsByName("RowCommentCheck");
+    //     var rowCnt=chkObj.length;
+    //
+    //     $("input[name='allCommentCheck']").click(function(){
+    //         var chk_listArr=$("input[name='RowCommentCheck']");
+    //         for (var i=0; i<chk_listArr.length; i++){
+    //             chk_listArr[i].checked=this.checked;
+    //         }
+    //     });
+    //     $("input[name='RowCommentCheck']").click(function(){
+    //         if($("input[name='RowCommentCheck']:checked").length===rowCnt){
+    //             $("input[name='allCommentCheck']")[0].checked=true;
+    //         }
+    //         else {
+    //             $("input[name='allCommentCheck']")[0].checked=false;
+    //         }
+    //     });
+    // });
+    // function deleteMyComment(){
+    //     var url="deleteMyComment";
+    //     var valueArr2 = new Array();
+    //     var list = $("input[name='RowCommentCheck']");
+    //     for(var i=0; i<list.length; i++){
+    //         if(list[i].checked){
+    //             valueArr2.push(list[i].value);
+    //         }
+    //     }
+    //     if(valueArr2.length==0){
+    //         alert("선택된 댓글이 없습니다.");
+    //     }
+    //     else {
+    //         var chk=confirm("정말 삭제하시겠습니까?");
+    //         $.ajax({
+    //             url:url,
+    //             type:'POST',
+    //             traditional:true,
+    //             data:{
+    //                 valueArr:valueArr2
+    //             },
+    //             success:function(jdata){
+    //                 if(jdata=1){
+    //                     alert("삭제가 완료되었습니다!");
+    //                     location.replace("postList")
+    //                 }
+    //                 else{
+    //                     alert("삭제 실패. 다시 시도해 주세요. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
+    // $(function (){
+    //     var chkObj=document.getElementsByName("RowReviewCheck");
+    //     var rowCnt=chkObj.length;
+    //
+    //     $("input[name='allReviewCheck']").click(function(){
+    //         var chk_listArr=$("input[name='RowReviewCheck']");
+    //         for (var i=0; i<chk_listArr.length; i++){
+    //             chk_listArr[i].checked=this.checked;
+    //         }
+    //     });
+    //     $("input[name='RowReviewCheck']").click(function(){
+    //         if($("input[name='RowReviewCheck']:checked").length===rowCnt){
+    //             $("input[name='allReviewCheck']")[0].checked=true;
+    //         }
+    //         else {
+    //             $("input[name='allReviewCheck']")[0].checked=false;
+    //         }
+    //     });
+    // });
+    // function deleteMyReview(){
+    //     var url="deleteMyReview";
+    //     var valueArr3 = new Array();
+    //     var list = $("input[name='RowReviewCheck']");
+    //     for(var i=0; i<list.length; i++){
+    //         if(list[i].checked){
+    //             valueArr3.push(list[i].value);
+    //         }
+    //     }
+    //     if(valueArr3.length==0){
+    //         alert("선택된 후기가 없습니다.");
+    //     }
+    //     else {
+    //         var chk=confirm("정성스레 작성한 후기는 다른 회원들이 상담사를 결정하는데 큰 도움이 됩니다. 정말 삭제하시겠습니까?");
+    //         $.ajax({
+    //             url:url,
+    //             type:'POST',
+    //             traditional:true,
+    //             data:{
+    //                 valueArr:valueArr3
+    //             },
+    //             success:function(jdata){
+    //                 if(jdata=1){
+    //                     alert("삭제가 완료되었습니다!");
+    //                     location.replace("postList")
+    //                 }
+    //                 else{
+    //                     alert("삭제 실패. 다시 시도해 주세요. 문제가 계속되는 경우 고객센터로 문의 바랍니다. ");
+    //                 }
+    //             }
+    //         });
+    //     }
+    // }
 </script>
 
 </body>

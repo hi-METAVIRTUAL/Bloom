@@ -4,6 +4,7 @@ import com.metavirtual.bloom.board.model.dto.BoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
+import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.security.core.Authentication;
@@ -55,6 +56,9 @@ public class MyPageController {
 
             BookingDTO booking = (BookingDTO) authentication.getPrincipal();
             model.addAttribute("booking", booking);
+
+            SelectCriteria selectCriteria = (SelectCriteria) authentication.getPrincipal();
+            model.addAttribute("selectCriteria", selectCriteria);
         }
         return "postList";
     }
