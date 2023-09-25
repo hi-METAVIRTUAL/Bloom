@@ -3,6 +3,7 @@ package com.metavirtual.bloom.psychometry.model.service;
 import com.metavirtual.bloom.psychometry.model.dao.PsychometryMapper;
 import com.metavirtual.bloom.psychometry.model.dto.TestQDTO;
 import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
+import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +28,29 @@ public class PsychometryService {
 
 
     @Transactional
-    public List<TestResultDTO> saveAnswers(String answerScore, String testCategory) {
-        psychometryMapper.saveAnswers(answerScore,testCategory);
-        return null;
+    public void saveAnswers(int answer,String category) {
+
+            psychometryMapper.saveAnswers(answer,category);
     }
+    public void saveTotalScore(int totalD, int totalA, int totalB, int totalO, String userId) {
+        psychometryMapper.saveTotalScore(totalD,totalA,totalB,totalO,userId);
+    }
+
+    @Transactional
+    public void hopeTherapist(MemberDTO member) {
+
+        System.out.println(member+ "서비스");
+        psychometryMapper.hopeTherapist(member);
+        System.out.println(member);
+    }
+
+    public int getTotalScore(String userId) {
+        int total = psychometryMapper.getTotalScore(userId);
+        return total;
+    }
+
+
+
 }
 
 

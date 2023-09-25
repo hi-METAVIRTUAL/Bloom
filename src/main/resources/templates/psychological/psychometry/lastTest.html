@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>last</title>
     <link rel="stylesheet" type="text/css" href="/css/psychological/lastTest.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 <header class="header" th:include="components/Header.html" th:with="textColor='#FEEFCC'"></header>
@@ -12,17 +14,20 @@
 <div class="box"><br>
     해당사항이 있으면 체크해주세요.<br><br>
     <h3>희망 상담사 성별</h3>
-    <form action="/psychological/psychometry/loding" method="get"><br>
-        <input type="radio" name="gender" value="남">남자<br>
-        <input type="radio" name="gender" value="여">여자<br>
-        <input type="radio" name="gender" value="무관">무관<br><br>
-    <h3>최근고민분야</h3><br>
-    <input type="checkbox" name="family" value="가족관계">가족관계
-    <input type="checkbox" name="couple" value="연인관계">연인관계
-    <input type="checkbox" name="colleague" value="동료관계">동료관계
-    <input type="checkbox" name="alone" value="소외감">소외감
-    <input type="checkbox" name="etc" value="기타">기타 <br><br>
-        <input placeholder="기타내용작성 50자 이내" class="textBox"/> <br>
+    <form action="loding" method="POST"><br>
+        <input type="radio" name="therapistGenderCK" value="M">남자<br>
+        <input type="radio" name="therapistGenderCK" value="W">여자<br>
+        <input type="radio" name="therapistGenderCK" value="x">무관<br><br>
+        <h3>최근고민분야</h3><br>
+        <input type="checkbox" name="family" value="가족관계">가족관계
+        <input type="checkbox" name="couple" value="연인관계">연인관계
+        <input type="checkbox" name="colleague" value="동료관계">동료관계
+        <input type="checkbox" name="alone" value="소외감">소외감 <br><br>
+        <!--<input type="checkbox" name="etc" value="기타">기타 -->
+        <input placeholder="기타내용작성 50자 이내" name="etcContent" class="textBox"/><br>
+
+        <input type="hidden" name="userId" value="qwer1234!">
+        <input type="hidden" name="relationCK" value="">
         <input class="roundbutton" type="submit" value="제출하기"><br>
     </form>
 </div>
@@ -30,5 +35,27 @@
     <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
+<script>
+    document.querySelector("form").addEventListener("submit", function () {
+        let checkboxes = document.querySelectorAll("input[type='checkbox']");
+        let isChecked = false;
+
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                isChecked = true;
+            }
+        });
+
+        // 대인관계 체크 여부를 설정
+        let therapistGenderCK = document.querySelector("input[name='therapistGenderCK']:checked").value;
+        let relationCK = isChecked ? "Y" : "N";
+
+        // 숨겨진 input 필드에 값을 설정
+        document.querySelector("input[name='relationCK']").value = relationCK;
+
+        console.log(relationCK + "대인관계");
+        console.log(therapistGenderCK + "희망")
+    });
+</script>
 </body>
 </html>

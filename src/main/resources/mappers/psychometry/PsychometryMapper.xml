@@ -19,12 +19,47 @@
 
     </select>
 
-    <insert id="saveAnswers" parameterType="map">
-        INSERT INTO TEST_RESULT (TEST_CODE, ANSWER_SCORE)
-        VALUES (#{answer.testCode}, #{testCategory},'gao')
+    <insert id="saveAnswers">
+        INSERT INTO TEST_RESULT (ANSWER_SCORE,TEST_CATEGORY,USER_ID)
+        VALUES (#{answer}, #{category},'gao')
 
-        <!--<foreach collection="answers" item="answer" separator=",">
-            (#{answer.testCode}, #{answer.answerScore})
-        </foreach>-->
     </insert>
+
+    <insert id="saveTotalScore">
+        INSERT INTO MEMBER_TEST_RESULT (
+        TEST_DATE,
+        DEPRESSION_TOTAL_SCORE,
+        ANXIETY_TOTAL_SCORE,
+        BIPOLAR_TOTAL_SCORE,
+        OCD_TOTAL_SCORE,
+        USER_ID)
+        VALUES (
+        NOW(),
+        #{totalD},
+        #{totalA},
+        #{totalB},
+        #{totalO},
+        'gao'
+        )
+
+    </insert>
+
+   <update id="hopeTherapist" parameterType="com.metavirtual.bloom.user.model.dto.MemberDTO">
+       UPDATE MEMBER
+       SET ETC_CONTENT = #{etcContent},
+       THERAPIST_GENDER_CK = #{therapistGenderCK},
+       RELATION_CK = #{relationCK}
+
+       WHERE USER_ID = 'qwer1234!'
+
+   </update>
+    <resultMap id="getTotalScore" type="com.metavirtual.bloom.psychometry.model.dto.TestResultDTO">
+    </resultMap>
+
+    <select id="getTotalScore" resultMap="getTotalScore">
+        SELECT SUM(ANSWER_SCORE)
+        FROM TEST_RESULT
+        WHERE USER_ID = 'userId'
+
+    </select>
 </mapper>

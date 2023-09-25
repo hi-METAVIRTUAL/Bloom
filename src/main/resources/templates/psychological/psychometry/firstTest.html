@@ -1,364 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta>
-    <title>start</title>
-    <link rel="stylesheet" type="text/css" href="/css/psychological/firstTest.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>first</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/psychological/icon.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{ /css/psychological/firstTest.css}">
 </head>
 <body>
+<!-- 헤더 -->
+
 <header class="header" th:include="components/Header.html" th:with="textColor='#FEEFCC'"></header>
-<!--첫화면 -->
-<main id="mainTop">
+<!-- 검사 멘트 -->
+<div style="margin-top: -30px; padding: 30px">
     <h3>검증된 심리검사로 자신을 마주해보아요</h3>
-</main>
-<div id="beforeTest">
-    <img id="pic" src="/images/psychological/test.jpg"><br>
-    <div class="circle"><img class="icons" src="/images/psychological/bulb.png" alt="전구">
-        <span>검사예상 소요시간<br>3분</span>
-    </div>
+    <!-- 사진 -->
+    <img src="/images/psychological/test.jpg">
     <br>
-    <div class="circle"><img class="icons" src="/images/psychological/hand.png" alt="손">
-        <span>총 검사 문항 수 <br>32문항</span>
-    </div>
+    <!-- 원모양 배경1-->
+    <section>
+        <article>
+            <div class="circle" ><img class="icons" src="/images/psychological/bulb.png" alt="전구"></div><br>
+            <span>검사예상 소요시간<br>
+                3분
+            </span>
+        </article>
+        <!-- 원모양 배경2-->
+        <article>
+            <div class="circle"><img class="icons" src="/images/psychological/hand.png" alt="손"></div><br>
+            <span>총 검사 문항 수 <br>
+                32문항
+            </span>
+        </article><br>
+    </section>
+    <br>
+    <!-- 검사하기 버튼 -->
+    <button class="roundbutton" onclick="location.href='start'">검사하기</button>
+    <br><br><br>
 </div>
-<!-- 질문 -->
-<form class="theme-checker">
-    <div id="testBox">
-        <div th:each="test, testIndex : ${testQ}">
-            <!-- 질문 내용 ~ -->
-        </div>
-    </div>
-</form>
-<div id="buttonChange">
-    <input type="hidden" id="userId" value="userId">
-    <input type="hidden" id="D" value="D">
-    <input id="startTest" type="button" class="roundbutton" value="검사하기">
-</div>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-<footer style=" position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
-    <img class="grass" src="/images/common/beigeGrass.png" alt="grass">
-    <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+<!-- 풋터 -->
+<footer style="position: fixed;bottom: 0; margin: 0 auto; left: 0; right: 0;">
+    <th:block th:include="components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
 </footer>
-<script>
-    const selectCategory = ["", "D", "A", "B", "O"]
-    let currentPage = 1;
 
-    let answers = [];
-    let categorys = [];
-
-
-    $("#nextButton").click(function (){
-
-    });
-    const testCategory = selectCategory[currentPage]; // 다음 카테고리 가져오기
-
-    $("#startTest").click(function (testCategory) {
-        let testIndex = $("input[type='radio']:checked").length;
-        if (testIndex < 8){
-            $("input[type='radio']:checked").each(function () {
-
-                let answerScore = $(this).val(); // 선택한 답변 값
-                let testCategory = $(this).next().val(); // 질문 카테고리
-            });
-            window.scrollTo(0, 0);
-            answers = answers.concat(answerScore);
-            categorys = categorys.concat(testCategory);
-        }
-        const mainTop = $("#mainTop");
-        mainTop.html("");
-        const resultNum = mainTop.append($('<button>').attr({
-            id: 'countBoutton',
-            class: 'countbutton',
-        }).text((currentPage) + " / 4"));
-        resultNum.append($('<h2>').attr({id: 'result'}));
-        mainTop.append(resultNum)
-        currentPage++
-
-
-        $.ajax({
-            url: "startAjax",
-            data: {testCategory: testCategory},
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data, status, xhr) {
-                //answerScore.push(answer);
-
-                const testQ = JSON.parse(data.testQ);
-                const beforeTest = $("#beforeTest");
-                const questionBox = $("#testBox");
-
-                beforeTest.html("");
-                questionBox.html("");
-
-                /* 질문 반복 */
-                testQ.forEach(function (testQ) {
-                    const questionDiv = $('<div>');
-                    const answerDiv1 = $('<div>').append('전혀그렇지않다');
-                    const answerDiv2 = $('<div>').append('매우그렇다');
-
-                    /* 질문 */
-                    questionDiv.append($('<h2>').addClass('whiteText').text(testQ.testContent));
-                    /* 버튼 */
-                    questionDiv.append($('<input>').attr({
-                        type: 'radio',
-                        name: testQ.testCategory + testQ.testCode,
-                        class: 'one',
-                        value: '1'
-                    }));
-                    questionDiv.append($('<input>').attr({
-                        type: 'radio',
-                        name: testQ.testCategory + testQ.testCode,
-                        class: 'two',
-                        value: '2'
-                    }));
-                    questionDiv.append($('<input>').attr({
-                        type: 'radio',
-                        name: testQ.testCategory + testQ.testCode,
-                        class: 'three',
-                        value: '3'
-                    }));
-                    questionDiv.append($('<input>').attr({
-                        type: 'radio',
-                        name: testQ.testCategory + testQ.testCode,
-                        class: 'four',
-                        value: '4'
-                    }));
-                    questionDiv.append($('<input>').attr({
-                        type: 'radio',
-                        name: testQ.testCategory + testQ.testCode,
-                        class: 'five',
-                        value: '5'
-                    }));
-                    questionDiv.append($('<div>').append(answerDiv1).append(answerDiv2).addClass('testQ'));
-                    questionBox.append(questionDiv);
-                });
-                // 현재 질문을 페이지에 추가
-                if (currentPage == 4) {
-                    const buttonChange = $("#buttonChange");
-                    buttonChange.html("");
-                    buttonChange.append($('<input>').attr({
-                        id: 'submit',
-                        type: 'button',
-                        class: 'roundbutton',
-                        value: '제출하기',
-                        disabled: false
-                    }));
-                } else {
-                    const buttonChange = $("#buttonChange");
-                    buttonChange.html("");
-                    buttonChange.append($('<input>').attr({
-                        id: 'nextButton',
-                        type: 'button',
-                        class: 'roundbutton',
-                        value: '다음',
-                        disabled: false
-                    }));
-                }
-                $("#submit").click(function () {
-
-                    console.log(categorys + "마지막")
-                    console.log(answers + "마지막")
-
-
-                    // answers 객체를 서버로 전송
-                    $.ajax({
-                        url: "saveAnswers",
-                        method: "POST",
-                        data: JSON.stringify(categorys, answers),
-                        success: function (data) {
-
-
-                            // 제출이 성공했을 때의 처리
-                        },
-                        error: function (xhr, status, error) {
-                            console.error(error + " 에러가 났따...");
-                        }
-                    });
-                })
-            },
-            error: function (xhr, status, error) {
-            }
-        });
-
-    });
-
-
-</script>
 </body>
 </html>
-
-<!--
-let currentPage = 1; // 처음 페이지를 1로 설정
-    const selectCategory = ["", "D", "A", "B", "O"];
-    let answers = [];
-    let categorys = [];
-
-    $("#startTest").click(function () {
-        $("#pic").hide();
-
-        // "다음" 버튼 클릭 이벤트 핸들러
-        function onNextButtonClick() {
-            // 페이지를 증가시킴
-            const mainTop = $("#mainTop");
-            mainTop.html("");
-            console.log(currentPage)
-            const resultNum = mainTop.append($('<button>').attr({
-                id: 'countBoutton',
-                class: 'countbutton',
-            }).text((currentPage) + " / 4"));
-            resultNum.append($('<h2>').attr({id: 'result'}));
-            mainTop.append(resultNum);
-
-            currentPage++;
-
-
-            const testCategory = selectCategory[currentPage]; // 다음 카테고리 가져오기
-            loadQuestions(testCategory); // 다음 질문 로드
-        }
-
-        // 질문 로드 함수
-        function loadQuestions(testCategory) {
-
-
-            let answerScore = $(this).val(); // 선택한 답변 값
-            answers = answers.concat(answerScore);
-            categorys = categorys.concat(testCategory);
-            const answerValues = [];
-            $("input[type='radio']:checked").each(function() {
-                answerValues.push($(this).val());
-            });
-            answers.push(answerValues)
-
-            $.ajax({
-                url: "startAjax",
-                data: {testCategory: testCategory},
-                dataType: "json",
-                async: false,
-                contentType: "application/json",
-                success: function (data, status, xhr) {
-
-                    const testQ = JSON.parse(data.testQ);
-                    const beforeTest = $("#beforeTest");
-                    const questionBox = $("#testBox");
-
-                    beforeTest.html("");
-                    questionBox.html("");
-
-                    /* 질문 반복 */
-                    testQ.forEach(function (testQ) {
-                        const questionDiv = $('<div>');
-                        const answerDiv1 = $('<div>').append('전혀그렇지않다');
-                        const answerDiv2 = $('<div>').append('매우그렇다');
-
-                        /* 질문 */
-                        questionDiv.append($('<h2>').addClass('whiteText').text(testQ.testContent));
-                        /* 버튼 */
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'one',
-                            value: '1'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'two',
-                            value: '2'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'three',
-                            value: '3'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'four',
-                            value: '4'
-                        }));
-                        questionDiv.append($('<input>').attr({
-                            type: 'radio',
-                            name: testQ.testCategory + testQ.testCode,
-                            class: 'five',
-                            value: '5'
-                        }));
-                        questionDiv.append($('<div>').append(answerDiv1).append(answerDiv2).addClass('testQ'));
-                        questionBox.append(questionDiv);
-                    });
-
-
-                    // "다음" 버튼 추가
-                    if (currentPage == 4) {
-                        const buttonChange = $("#buttonChange");
-                        buttonChange.html("");
-                        buttonChange.append($('<input>').attr({
-                            id: 'submit',
-                            type: 'button',
-                            class: 'roundbutton',
-                            value: '제출하기',
-                            disabled: false
-                        }));
-                    }else {
-                        const buttonChange = $("#buttonChange");
-                        buttonChange.html("");
-                        buttonChange.append($('<input>').attr({
-                            id: 'nextButton',
-                            type: 'button',
-                            class: 'roundbutton',
-                            value: '다음',
-                            disabled: false
-                        }));
-                    }
-
-                    // "다음" 버튼 클릭 시 다음 페이지로 이동하도록 이벤트 핸들러 설정
-                    $("#nextButton").click(onNextButtonClick);
-                    window.scrollTo(0, 0);
-
-
-
-                    // 답변이 모두 선택되면 버튼 활성화, 그렇지 않으면 비활성화
-                    /*function checkAnswers() {
-                        const isAnswered = $("input[type='radio']:checked").length === $("input[type='radio']").length;
-                        // 답변이 모두 선택되면 버튼 활성화, 그렇지 않으면 비활성화
-                        $("#nextButton, #submit").prop("disabled", !isAnswered);
-                    }
-                    $("input[type='radio']").change(checkAnswers);*/
-
-
-
-                    $("#submit").click(function () {
-
-                        console.log(categorys + "마지막")
-                        console.log(answers + "마지막")
-
-
-                        // answers 객체를 서버로 전송
-                        $.ajax({
-                            url: "saveAnswers",
-                            method: "POST",
-                            data: JSON.stringify(categorys, answers),
-                            success: function (data) {
-
-
-                                // 제출이 성공했을 때의 처리
-                            },
-                            error: function (xhr, status, error) {
-                                console.error(error + " 에러가 났따...");
-                            }
-                        });
-                    })
-                },
-
-                error: function (xhr, status, error) {
-                }
-            });
-        }
-
-        // 초기 질문 로드
-        loadQuestions(selectCategory[currentPage]);
-    });
-    -->

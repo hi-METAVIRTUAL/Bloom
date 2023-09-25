@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metavirtual.bloom.psychometry.model.dto.TestQDTO;
 import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
 import com.metavirtual.bloom.psychometry.model.service.PsychometryService;
+import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import org.springframework.boot.Banner;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -21,16 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("psychological/psychometry")
 public class PsychometryController {
-
-
     private final PsychometryService psychometryService;
-
     public PsychometryController(PsychometryService psychometryService) {
         this.psychometryService = psychometryService;
     }
@@ -38,92 +37,79 @@ public class PsychometryController {
     @GetMapping("first")
     public String test(){ return "psychological/psychometry/firstTest"; }
 
-    @GetMapping(value = "start")
-    public String startTestPage(Model model,
-                                @RequestParam("testCategory") String testCategory){
-        /* 질문지를 가져옴 */
-        List<TestQDTO> testQ = psychometryService.findContent(testCategory);
-        model.addAttribute("testQ", testQ);
-        return "psychological/psychometry/startTest";
-    }
+    @GetMapping("start")
+    public String startTestPage(){return "psychological/psychometry/startTest";}
     @GetMapping(value = "startAjax",produces = "application/json; charset=UTF-8")
     public ModelAndView getTestPage(ModelAndView mv, HttpServletResponse response,
                                     @RequestParam(value = "testCategory") String testCategory) throws JsonProcessingException{
         response.setContentType("application/json; charset=UTF-8");
         List<TestQDTO> testQ = psychometryService.findContent(testCategory);
-
         ObjectMapper mapper = new ObjectMapper();
         mv.addObject("testQ", mapper.writeValueAsString(testQ));
         mv.setViewName("jsonView");
-
         return mv;
     }
-
     @PostMapping(value = "saveAnswers", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String SaveAnswers(HttpServletRequest request,
-                              @RequestParam Map<String, Object> testList) throws JsonProcessingException {
-        System.out.println(testList + "리스트");
-        String json = testList.get("testList").toString();
-        ObjectMapper mapper = new ObjectMapper();
-        List<TestResultDTO> testLists = mapper.readValue(json, new TypeReference<ArrayList<TestResultDTO>>(){});
+    public ResponseEntity<String> SaveAnswers(@RequestBody Map<String, Object> dataToSend,
+                                              HttpSession session) throws JsonProcessingException {
+        int totalD = 0;
+        int totalA = 0;
+        int totalB = 0;
+        int totalO = 0;
+        String userId=(String) session.getAttribute("userId");
+        List<String> categories = (List<String>) dataToSend.get("categories");
+        List<String> answers = (List<String>) dataToSend.get("answers");
+        for (int i = 0; i < categories.size(); i++){
+            String category = categories.get(i);
+            int answer = Integer.parseInt(answers.get(i));
+            System.out.println(category+"카테");
+            if ("D".equals(category)) {
+                totalD += answer;
+                System.out.println(totalD + "토탈1");
+            } else if ("A".equals(category)) {
+                totalA += answer;
+            } else if ("B".equals(category)) {
+                totalB += answer;
+            } else if ("O".equals(category)) {
+                totalO += answer;
+            }
+            psychometryService.saveAnswers(answer,category);
 
-        System.out.println(testLists);
-        return "저장 완료";
-    }
-    @GetMapping("saveAnswers")
-    public String goRegister() {
-        return "psychological/psychometry/lastTest";
-    }
+            System.out.println(totalD + "토탈");
+        }
+        psychometryService.saveTotalScore(totalD,totalA,totalB,totalO,userId);
 
+
+        System.out.println(categories);
+        System.out.println(answers);
+        // categories 및 answers 데이터를 원하는 방식으로 처리
+        // 응답을 반환하거나 추가 처리 수행
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "데이터 전송 성공");
+
+        return ResponseEntity.ok(new ObjectMapper().writeValueAsString(response));
+    }
     @GetMapping("last")
     public String lastTestPage(){
         return "psychological/psychometry/lastTest";
     }
-    @GetMapping("loding")
-    public String matchingPage(){
+    @PostMapping("/loding")
+    public String matchingPage(MemberDTO member, RedirectAttributes rttr){
+
+        psychometryService.hopeTherapist(member);
+        rttr.addFlashAttribute("successMessage", "신규 메뉴 등록에 성공 했습니다.");
+
         return "psychological/psychometry/lodingPage";
     }
     @GetMapping("result")
-    public String resultTestPage(){
+    public String resultTestPage(HttpSession session){
+        String userId=(String) session.getAttribute("userId");
+        int totalScore = psychometryService.getTotalScore(userId);
+
         return "psychological/psychometry/resultTest";
     }
 }
-
-
- /* @PostMapping(value = "saveAnswers", produces = "application/json; charset=UTF-8", consumes = "application/json")
-    public ResponseEntity<String>  SaveAnswers(@RequestBody Map<String, Map<String, String>> answerData)  {
-
-        System.out.println("왔나?1 " + answerData);
-        // formData에서 필요한 데이터를 추출하여 사용
-
-
-        Map<String, String> categoryAAnswers = answerData.get("categoryA");
-        Map<String, String> categoryBAnswers = answerData.get("categoryB");
-        Map<String, String> categoryOAnswers = answerData.get("categoryO");
-
-
-        if (categoryAAnswers != null && !categoryAAnswers.isEmpty()) {
-            // 카테고리 A에 대한 답변 저장 로직
-            psychometryService.saveAnswers(categoryAAnswers, "A");
-        }
-        if (categoryBAnswers != null && !categoryBAnswers.isEmpty()) {
-            // 카테고리 B에 대한 답변 저장 로직
-            psychometryService.saveAnswers(categoryBAnswers, "B");
-        }
-        if (categoryOAnswers != null && !categoryOAnswers.isEmpty()) {
-            // 카테고리 O에 대한 답변 저장 로직
-            psychometryService.saveAnswers(categoryOAnswers, "O");
-        }
-
-
-        return ResponseEntity.ok("저장 완료");
-       *//* String categoryD = answers.get("D");
-        String categoryA = answers.get("A");
-        String categoryB = answers.get("B");
-        String categoryO = answers.get("O");*//*
-    }*/
-
 
 
 
