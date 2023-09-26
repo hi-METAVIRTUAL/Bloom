@@ -10,14 +10,18 @@
 <header class="header" th:include="components/Header.html"></header>
 <h3 style="margin-top: 50px;">메타님에게 맞춘 상담사들을 추천드려요!</h3>
 <div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
-    <div class="parent" >
+    <div class="parent" th:each="therapistInfo:${therapistInfo}" >
         <div class="our-team">
             <div class="picture">
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
+                <th:block th:text="${therapistInfo.therapistQ1}"></th:block>
             </div>
             <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
+                <h3 th:text="${therapistInfo.name}"></h3>
+                <h4 th:if="${therapistInfo.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
+                <h4 th:if="${therapistInfo.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
+                <h4 th:if="${therapistInfo.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
+                <h4 th:if="${therapistInfo.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
             </div>
             <ul class="social">
                 <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
@@ -26,7 +30,7 @@
         <div class="our-team">
             <div class="picture">
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
+                <span th:text="${therapistInfo.therapistQ1}"></span>
             </div>
             <div class="team-content">
                 <h3>상담사 이름</h3>
