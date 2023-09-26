@@ -3,3 +3,11 @@ body {
     color: #C09A81;
     background-color: #FFF6E2;
 }
+
+.btn-appear {
+    display: block;
+}
+
+.btn-disappear{
+    display: none;
+}
