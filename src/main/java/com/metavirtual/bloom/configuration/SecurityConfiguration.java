@@ -44,7 +44,7 @@ public class SecurityConfiguration {
          http.csrf().disable();
 
          http.authorizeRequests()
-                 .mvcMatchers("/**","/","/mail", "/introduction/**", "/terms/**", "/user/category", "/user/registCategory"
+                 .mvcMatchers("/","/mail", "/introduction/**", "/terms/**", "/user/category", "/user/registCategory"
                          ,"user/memberRegist","user/findId","user/findPassword","/user/login", "/user/loginfail"
                          ,"user/therapistRegist","user/therapistRegist2", "psychological/match/introduceTherapy"
                          , "psychological/match/therapyList"
@@ -76,7 +76,7 @@ public class SecurityConfiguration {
                  .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/index")
 
                 .permitAll();
         return http.build();

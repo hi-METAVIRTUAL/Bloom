@@ -1,8 +1,9 @@
 package com.metavirtual.bloom.configuration;
 
+import com.metavirtual.bloom.user.model.dto.UserImpl;
 import com.metavirtual.bloom.user.model.service.UserService;
 import com.metavirtual.bloom.user.model.service.UserServiceImpl;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,7 @@ public class MainController {
 
 
     UserServiceImpl userService;
-    Principal principal;
+
     @GetMapping("/index")
     public void gomain() {
     }
@@ -24,8 +25,10 @@ public class MainController {
     public String defaultLocation() {
 
 
+
         return "index";
     }
+
 
 
     @GetMapping("review")

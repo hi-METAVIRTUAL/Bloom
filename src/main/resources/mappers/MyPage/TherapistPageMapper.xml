@@ -12,7 +12,9 @@
         <result property="userDTO.phone" column="PHONE"/>
     </resultMap>
 
+
     <resultMap id="book" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO">
+
         <result property="bookingDate" column="BOOKING_DATE"/>
         <result property="memberId" column="MEMBER_ID"/>
     </resultMap>

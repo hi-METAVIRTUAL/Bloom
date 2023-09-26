@@ -1,6 +1,7 @@
 package com.metavirtual.bloom.user.controller;
 
 //import com.metavirtual.bloom.common.exception.myPage.UserRegistException;
+import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.member.UserRegistException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
@@ -8,6 +9,7 @@ import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 /*import com.metavirtual.bloom.user.model.service.UserServiceImpl;*/
+import com.metavirtual.bloom.user.model.dto.UserImpl;
 import com.metavirtual.bloom.user.model.service.UserServiceImpl;
 
 import org.slf4j.Logger;
@@ -15,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
         /*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +34,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -208,6 +214,19 @@ public class UserController {
         mv.addObject("message", errorMessage);
         mv.setViewName("user/loginfail");
 
+        return mv;
+    }
+
+    @PostMapping("/bookingStat")
+    public ModelAndView bookingDetails(@RequestParam("userId")String userId, ModelAndView mv){
+
+            List<BookingDTO> data = userService.bookingStatus(userId);
+
+            log.info(data.toString());
+
+            mv.addObject("data", data);
+
+        mv.setViewName("index");
         return mv;
     }
 
