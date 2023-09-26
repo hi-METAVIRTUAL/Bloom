@@ -1,48 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>List</title>
     <link rel="stylesheet" type="text/css" href="/css/match/therapyList.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
-
-<h1>00님 이런 상담사들은 어떠세요?</h1>
-<!-- 상담사 찾기 버튼
-<div>
-    <div style="position:fixed; top: 200px; right: 5px;">
-        <a id="toTop" href="#" ><img class="icons" src="../images/psychological/search.png" title="위로가기"></a><br>
+<th:block sec:authorize="isAuthenticated()">
+    <div class="section1-2">
+        <h1><span sec:authentication="principal.name"></span>님 이런 상담사들은 어떠세요?</h1>
     </div>
-</div>-->
-<script>
-    const scrollTop = function () {
-        // create HTML button element
-        const scrollBtn = document.createElement("button");
-        scrollBtn.innerHTML = "&uarr;";
-        scrollBtn.setAttribute("id", "scroll-btn");
-        document.body.appendChild(scrollBtn);
-        // hide/show button based on scroll distance
-        const scrollBtnDisplay = function () {
-            window.scrollY > 600/*window.innerHeight*/
-                ? scrollBtn.classList.add("show")
-                : scrollBtn.classList.remove("show");
-        };
-        window.addEventListener("scroll", scrollBtnDisplay);
-        // scroll to top when button clicked
-        const scrollWindow = function () {
-            if (window.scrollY != 0) {
-                setTimeout(function () {
-                    window.scrollTo(0, window.scrollY - 50);
-                    scrollWindow();
-                }, 10);
-            }
-        };
-        scrollBtn.addEventListener("click", scrollWindow);
-    };
-    scrollTop();
-</script>
+</th:block>
 <!-- 상담사 검색 카테고리-->
 <div>
     <form class="checkbox">
@@ -56,7 +29,7 @@
 </div>
 <!-- 검색 -->
 <div style="margin: 0 auto; width: 70%">
-    <div>
+    <div >
         <div class="search-bar">
             <input type="search" placeholder="상담사 성함을 검색 해주세요." class="search-input"/>
             <button type="submit" class="search-button" onclick="">
@@ -65,107 +38,7 @@
         </div>
     </div>
 <!--프로필 -->
-    <div class="parent">
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
+    <div class="parent" th:each="therapistInfo:${therapistInfo}">
         <div class="our-team">
             <div class="picture">
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
@@ -199,5 +72,109 @@
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
 </footer>
+<script>
+
+    // 클라이언트 측 코드
+
+    let currentPage = 1; // 초기 페이지 번호
+    const itemsPerPage = 12; // 페이지 당 아이템 수
+
+    // 더 보기 버튼 클릭 이벤트
+    document.getElementById("load-more-button").addEventListener("click", () => {
+        currentPage++; // 페이지 번호 증가
+        loadMoreTherapists();
+    });
+
+    // 초기 페이지 로드
+    loadMoreTherapists();
+
+    function loadMoreTherapists() {
+        // Ajax 호출하여 상담사 데이터 가져오기
+        $.ajax({
+            url: `/psychological/match/therapyList?page=${currentPage}&pageSize=${itemsPerPage}`,
+            method: "GET",
+            success: function (data) {
+                // 데이터를 가져온 후 처리
+                if (data.length > 0) {
+                    // 상담사 데이터를 화면에 추가
+                    appendTherapistsToDOM(data);
+                } else {
+                    // 더 이상 데이터가 없을 경우 더 보기 버튼 숨기기
+                    document.getElementById("load-more-button").style.display = "none";
+                }
+            },
+            error: function (error) {
+                console.error("Error loading therapists: " + error);
+            },
+        });
+    }
+
+    function appendTherapistsToDOM(therapists) {
+        const parentElement = document.querySelector(".parent");
+
+        therapists.forEach((therapist) => {
+            // 이미 존재하는 프로필 정보를 중복해서 추가하지 않도록 확인
+            const existingProfile = parentElement.querySelector(`.our-team h3:contains('${therapist.name}')`);
+            if (!existingProfile) {
+                // 상담사 데이터를 HTML에 추가
+                const therapistHtml = `
+            <div class="our-team">
+                <div class="picture">
+                    <img class="img-fluid" src="${therapist.imageUrl}">
+                    <span th:text="${therapist.therapistQ1}"></span>
+                </div>
+                <div class="team-content">
+                    <h3>${therapist.name}</h3>
+                    <h4 th:if="${therapist.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
+                    <h4 th:if="${therapist.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
+                    <h4 th:if="${therapist.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
+                    <h4 th:if="${therapist.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
+                </div>
+                <ul class="social">
+                    <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                </ul>
+            </div>
+        `;
+
+                // 상담사를 화면에 추가
+                parentElement.insertAdjacentHTML("beforeend", therapistHtml);
+            }
+        });
+    }
+
+
+    const scrollTop = function () {
+        // create HTML button element
+        const scrollBtn = document.createElement("button");
+        scrollBtn.innerHTML = "&uarr;";
+        scrollBtn.setAttribute("id", "scroll-btn");
+        document.body.appendChild(scrollBtn);
+        // hide/show button based on scroll distance
+        const scrollBtnDisplay = function () {
+            window.scrollY > 600/*window.innerHeight*/
+                ? scrollBtn.classList.add("show")
+                : scrollBtn.classList.remove("show");
+        };
+        window.addEventListener("scroll", scrollBtnDisplay);
+        // scroll to top when button clicked
+        const scrollWindow = function () {
+            if (window.scrollY != 0) {
+                setTimeout(function () {
+                    window.scrollTo(0, window.scrollY - 50);
+                    scrollWindow();
+                }, 10);
+            }
+        };
+        scrollBtn.addEventListener("click", scrollWindow);
+    };
+    scrollTop();
+</script>
 </body>
 </html>
+
+<!-- 상담사 찾기 버튼
+<div>
+    <div style="position:fixed; top: 200px; right: 5px;">
+        <a id="toTop" href="#" ><img class="icons" src="../images/psychological/search.png" title="위로가기"></a><br>
+    </div>
+</div>-->
