@@ -103,17 +103,17 @@
 <!--                    &emsp;&emsp;<span th:style="'color: ' + ${textColor ?: '#C09A81'}"><a th:if="${userCode == '1' || userCode == '2'}" class="titleLink" href="/member/profile1">마이페이지</a></span>-->
             <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 1}">
                 <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
-                    &emsp;&emsp;<a class="titleLink" href="/member/profile1">마이페이지</a>
+                    &emsp;&emsp;<a class="titleLink" href="/member/memberInfo">마이페이지</a>
                 </span>
             </th:block>
             <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 2}">
                 <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
-                    &emsp;&emsp;<a class="titleLink" href="/therapist/profile">마이페이지</a>
+                    &emsp;&emsp;<a class="titleLink" href="/therapist/therapistInfo">마이페이지</a>
                 </span>
             </th:block>
             <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 3}">
                 <span th:style="'color: ' + ${textColor ?: '#C09A81'}">
-                    &emsp;&emsp;<a class="titleLink" href="/admin/">마이페이지</a>
+                    &emsp;&emsp;<a class="titleLink" href="/admin/">관리자페이지</a>
                 </span>
             </th:block>
 
