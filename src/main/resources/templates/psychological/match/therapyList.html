@@ -64,106 +64,6 @@
                 <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
 
     </div>
 
@@ -213,19 +113,22 @@
         const parentElement = document.querySelector(".parent");
 
         therapists.forEach((therapist) => {
-            // 상담사 데이터를 HTML에 추가
-            const therapistHtml = `
+            // 이미 존재하는 프로필 정보를 중복해서 추가하지 않도록 확인
+            const existingProfile = parentElement.querySelector(`.our-team h3:contains('${therapist.name}')`);
+            if (!existingProfile) {
+                // 상담사 데이터를 HTML에 추가
+                const therapistHtml = `
             <div class="our-team">
                 <div class="picture">
-                    <img class="img-fluid" src="${therapistInfo.imageUrl}">
-                    <span th:text="${therapistInfo.therapistQ1}"></span>
+                    <img class="img-fluid" src="${therapist.imageUrl}">
+                    <span th:text="${therapist.therapistQ1}"></span>
                 </div>
                 <div class="team-content">
-                    <h3>${therapistInfo.name}</h3>
-                    <h4 th:if="${therapistInfo.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
-                    <h4 th:if="${therapistInfo.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
-                    <h4 th:if="${therapistInfo.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
-                    <h4 th:if="${therapistInfo.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
+                    <h3>${therapist.name}</h3>
+                    <h4 th:if="${therapist.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
+                    <h4 th:if="${therapist.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
+                    <h4 th:if="${therapist.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
+                    <h4 th:if="${therapist.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
                 </div>
                 <ul class="social">
                     <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
@@ -233,8 +136,9 @@
             </div>
         `;
 
-            // 상담사를 화면에 추가
-            parentElement.insertAdjacentHTML("beforeend", therapistHtml);
+                // 상담사를 화면에 추가
+                parentElement.insertAdjacentHTML("beforeend", therapistHtml);
+            }
         });
     }
 
