@@ -47,13 +47,6 @@
         tr{
             height: 63px;
         }
-        .tel {
-            width: 115px;
-            height: 30px;
-            border-color: #C09A81;
-            border-radius: 10px;
-            border-style: solid;
-        }
     </style>
 </head>
 <body>
@@ -61,8 +54,8 @@
 <br><br>
 <h2>개인 정보 수정</h2><br>
     <form align="center" method="post" th:action="@{/therapist/modifyTherapistInfo}">
+        <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
         <table align="center" class="info-table" th:if="${user != null}">
-            <a style="color: #C09A81;">*는 필수 입력입니다.</a><br>
             <colgroup>
                 <col style="width: 20%">
                 <col style="width: 60%">
@@ -75,16 +68,24 @@
             >
             <tr>
                 <td align="left">이름</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="${user.getName()}"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="${user.getName()}"><br>개명 회원은 고객센터로 문의 바랍니다</td>
             </tr>
             <tr>
                 <td align="left">아이디</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="${user.getUserId()}"><br>아이디는 변경 불가능합니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="${user.getUserId()}"><br>아이디는 변경 불가능합니다</td>
             </tr>
             <tr>
                 <td align="left">비밀번호</td>
                 <td>
                     * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="pwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >
+                    <br>8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가
+                </td>
+            </tr>
+            <tr>
+                <td align="left">전화번호</td>
+                <td>
+                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="${ user.getPhone() }" required>
+                    <br>000-0000-0000 형식으로 입력해 주세요
                 </td>
             </tr>
             <tr>
@@ -103,16 +104,10 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">전화번호</td>
-                <td>
-                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="${ user.getPhone() }" required>
-                </td>
-            </tr>
-            <tr>
                 <td align="left">성별</td>
                 <td align="center">
-                    <input type="checkbox" name="gender" th:value="m" th:checked="true" th:if="${user.getGender()} == 'M'" disabled> 남성
-                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="f" th:checked="true" th:if="${user.getGender()} == 'F'" disabled> 여성
+                    <input type="radio" name="gender" id="male" value="M" th:checked="${user.getGender().toString() == 'M'}" th:disabled="${user.getGender().toString() == 'F'}"> 남성
+                    &nbsp;&nbsp;<input type="radio" name="gender" id="female" value="F" th:checked="${user.getGender().toString() == 'F'}" th:disabled="${user.getGender().toString() == 'M'}"> 여성
                 </td>
             </tr>
         </table>

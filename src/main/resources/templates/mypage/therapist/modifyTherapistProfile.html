@@ -26,15 +26,15 @@
                     type="hidden"
                     id="userId"
                     name="userId"
-                    th:value="${ user.getUserId() }"
+                    th:value="${ user.setTherapistDTO(). }"
             >
             <tr>
                 <th>
                     Q1. 상담사님 간단하게 자기소개 부탁드립니다.(한줄소개) *
                     <br><br>
                 </th>
-                <td>
-                    <textarea class="therapist-q" name="therapistQ1" th:text="${user.getTherapistQ1()}"></textarea>
+                <td th:if="${user.userId != null}">
+                    <textarea class="therapist-q" name="therapistQ1" th:text="${user.therapistDTO.getTherapistQ1()}"></textarea>
                     <p>50자 이내 작성</p>
                     <br>
                 </td>

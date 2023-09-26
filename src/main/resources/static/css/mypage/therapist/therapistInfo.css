@@ -92,8 +92,18 @@ body {
 .info-table {
     border-collapse: separate;
     border-spacing: 0 20px;
+    border: none;
+    border-collapse: collapse;
+    text-align: center;
     color: #C09A81;
-    margin-top: -40px;
+}
+
+.info-table tr td {
+    border: none;
+    border-collapse: collapse;
+    text-align: center;
+    color: #C09A81;
+    padding: 15px;
 }
 
 .dome {
