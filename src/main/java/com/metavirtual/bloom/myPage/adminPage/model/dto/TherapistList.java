@@ -5,59 +5,59 @@ import com.metavirtual.bloom.user.model.dto.UserDTO;
 
 public class TherapistList {
 
-    private UserDTO userId;
-    private UserDTO name;
-    private UserDTO registDate;
-    private TherapistDTO confirmedStatus;
+    private String userId;
+    private String name;
+    private String registDate;
+    private char confirmedStatus;
 
     public TherapistList() {
     }
 
-    public TherapistList(UserDTO userId, UserDTO name, UserDTO registDate, TherapistDTO confirmedStatus) {
+    public TherapistList(String userId, String name, String registDate, char confirmedStatus) {
         this.userId = userId;
         this.name = name;
         this.registDate = registDate;
         this.confirmedStatus = confirmedStatus;
     }
 
-    public UserDTO getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UserDTO userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public UserDTO getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(UserDTO name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public UserDTO getRegistDate() {
+    public String getRegistDate() {
         return registDate;
     }
 
-    public void setRegistDate(UserDTO registDate) {
+    public void setRegistDate(String registDate) {
         this.registDate = registDate;
     }
 
-    public TherapistDTO getConfirmedStatus() {
+    public char getConfirmedStatus() {
         return confirmedStatus;
     }
 
-    public void setConfirmedStatus(TherapistDTO confirmedStatus) {
+    public void setConfirmedStatus(char confirmedStatus) {
         this.confirmedStatus = confirmedStatus;
     }
 
     @Override
     public String toString() {
-        return "TherapisList{" +
-                "userId=" + userId +
-                ", name=" + name +
-                ", registDate=" + registDate +
+        return "TherapistList{" +
+                "userId='" + userId + '\'' +
+                ", name='" + name + '\'' +
+                ", registDate='" + registDate + '\'' +
                 ", confirmedStatus=" + confirmedStatus +
                 '}';
     }
