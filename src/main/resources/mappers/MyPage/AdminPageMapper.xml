@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metavirtual.bloom.myPage.adminPage.model.dao.AdminPageMapper">
+
+    <resultMap id="memberResultMap" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="name" column="Name"/>
+        <result property="registDate" column="REGIST_DATE"/>
+    </resultMap>
+
+    <resultMap id="therapistResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistList">
+        <id property="userId" column="USER_ID"/>
+        <result property="name" column="Name"/>
+        <result property="registDate" column="REGIST_DATE"/>
+
+        <association property="confirmedStatus" resultMap="resultMap"/>
+    </resultMap>
+
+    <resultMap id="resultMap" type="com.metavirtual.bloom.user.model.dto.TherapistDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="therapistQ1" column="THERAPIST_Q1"/>
+        <result property="therapistQ2" column="THERAPIST_Q2"/>
+        <result property="therapistQ3" column="THERAPIST_Q3"/>
+        <result property="activationStatus" column="ACTIVATION_STATUS"/>
+        <result property="confirmedStatus" column="CONFIRMED_STATUS"/>
+        <result property="sessionVidCallCK" column="SESSION_VIDCALL_CK"/>
+        <result property="sessionChatCK" column="SESSION_CHAT_CK"/>
+        <result property="sessionInPersonCK" column="SESSION_INPERSON_CK"/>
+        <result property="depressionCK" column="DEPRESSION_CK"/>
+        <result property="anxietyCK" column="ANXIETY_CK"/>
+        <result property="bipolarCK" column="BIPOLAR_CK"/>
+        <result property="ocdCK" column="OCD_CK"/>
+        <result property="relationCK" column="RELATION_CK"/>
+        <result property="organization" column="ORGANIZATION"/>
+    </resultMap>
+
+    <select id="selectMemberCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE AUTHORITY_CODE = 1
+    </select>
+
+    <select id="selectMemberList" resultMap="memberResultMap">
+        SELECT
+            USER_ID
+            , NAME
+            , REGIST_DATE
+        FROM USER
+        WHERE AUTHORITY_CODE = 1
+        ORDER BY REGIST_DATE DESC
+    </select>
+
+    <select id="selectTherapistCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE AUTHORITY_CODE = 2
+    </select>
+
+    <select id="selectTherapistList" resultMap="therapistResultMap">
+        SELECT
+            U.USER_ID
+            , U.NAME
+            , U.REGIST_DATE
+            , T.CONFIRMED_STATUS
+        FROM USER U
+        JOIN THERAPIST T ON U.USER_ID = T.USER_ID
+        WHERE AUTHORITY_CODE = 2
+        ORDER BY U.REGIST_DATE DESC
+    </select>
+
+</mapper>
