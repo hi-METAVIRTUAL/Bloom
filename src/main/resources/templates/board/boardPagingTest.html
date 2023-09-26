@@ -5,32 +5,36 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/boardPaging.css}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<h1 class="title">게시판</h1>
+
+    <th:block th:include="components/Header.html"></th:block>
 
     <!-- 검색창 -->
-    <div>
+        <h2 style="text-align: center">게시판</h2>
         <div class="searchBox1">
             <form id="searchForm">
-                <div style="font-size: 25px; margin: auto">
-                    <button id="communityBtn">커뮤니티</button> |
-                    <button id="counselingBtn">고민상담</button>
+                <div style="text-align: center">
+                    <button class="buttons-board" style="width: 150px" id="communityBtn">커뮤니티</button> |
+                    <button class="buttons-board" style="width: 150px" id="counselingBtn">고민상담</button>
+                    <span> <--- 이부분은 아직 동작하지 않습니다.. </span>
                 </div>
-                <input type="hidden" name="currentPage" value="1">
-                <select id="searchSelect" name="searchSelect">
-                    <option value="title">제목</option>
-                    <option value="writer">작성자</option>
-                </select>
-                <input type="search" id="searchValue" name="searchValue" placeholder="검색어를 입력해 주세요.">
-                <button type="submit" class="insert-button"><span>검색</span></button>
+                <br>
+                <div class="search-bar">
+                    <input type="hidden" name="currentPage" value="1">
+                    <select id="searchSelect" name="searchSelect">
+                        <option value="title">제목</option>
+                        <option value="writer">작성자</option>
+                    </select>
+                    <input style="width: 700px" type="search" id="searchValue" name="searchValue" placeholder="검색어를 입력해 주세요.">
+                    <button type="submit" class="buttons-board" style="width: 100px"><span>검색</span></button>
+                </div>
             </form>
-            <button type="button" class="insert-button" onclick="location.href='/board/boardPosting'"><span>글등록</span></button>
         </div>
-    </div>
-
-
+    <br>
     <!-- 게시글 보드 테이블 -->
     <div class="table">
-        <table style="align: center" class="boardListBox" id="boardListTable">
+
+        <table class="boardListBox" id="boardListTable">
+            <p style="text-align: right"><button type="button" class="buttons-board" style="width: 150px" onclick="location.href='/board/boardPosting'">글등록</button></p>
             <tr class="table-th">
                 <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
                 <th style="width: 200px">유형</th>

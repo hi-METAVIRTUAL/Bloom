@@ -142,7 +142,7 @@
     </style>
 </head>
 <body>
-<div th:with="includeSection1=true, includeSection2=true" class="header" th:include="components/Header.html"></div>
+<div class="header" th:include="components/Header.html"></div>
 
 
 <!--<div class="header" th:include="Components/Header.html"></div>
@@ -174,20 +174,23 @@
     <div class="section1-2">
 
         <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
-        <form action="/user/bookStat" method="post">
-            <input type="hidden" id="userIdInput" name="userId" value="${#authentication.getPrincipal().getUserId}">
+        <form th:action="@{/user/bookStat}" id="bookingForm" method="GET">
+
+            <input type="hidden" id="userIdInput" name="userIdInput" th:value="${ #authentication.getPrincipal().getUserId }">
+            <div th:each="data : ${ data }">
+                <div th:text="${data.therapist.name}"></div>
+                <div th:text="${data.therapist.phone}"></div>
+                <div th:text="${data.booking_date}"></div>
+            </div>
         </form>
-<script>
-    $(document).ready(function () {
-        // Automatically submit the form when the page loads
-        $("#userIdInput").closest("form").submit();
-    });
-</script>
-    <div th:each="data : ${ data }">
-        <div th:text="${data.therapist.name}"></div>
-        <div th:text="${data.therapist.phone}"></div>
-        <div th:text="${data.booking_date}"></div>
-    </div>
+<!--
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Automatically submit the form when the page loads
+                document.getElementById("bookingForm").submit();
+            });
+        </script>-->
+
 
 
 <!--        </th:block>-->

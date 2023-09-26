@@ -46,8 +46,8 @@
         <!-- USER_ID 정보 가져오기 -->
         <div>
             <input type="hidden" id="postedDate" name="postedDate">
-            <input type="hidden" id="userId" name="userId" value="a123!">
-            <!-- th:value="${ #authentication.getPrincipal().getUserId() }" -->
+            <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
+            <!--  -->
         </div>
 
         <div>
