@@ -217,17 +217,16 @@ public class UserController {
         return mv;
     }
 
-    @PostMapping("/bookingStat")
-    public ModelAndView bookingDetails(@RequestParam("userId")String userId, ModelAndView mv){
+    @GetMapping("/bookingStat")
+    public String bookingDetails(@RequestParam("userId")String userId, Model model){
 
             List<BookingDTO> data = userService.bookingStatus(userId);
 
             log.info(data.toString());
 
-            mv.addObject("data", data);
+            model.addAttribute("data", data);
 
-        mv.setViewName("index");
-        return mv;
+            return "index";
     }
 
     @GetMapping("/findId")
