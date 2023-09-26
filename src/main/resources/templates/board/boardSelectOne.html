@@ -30,8 +30,10 @@
                 </tr>
             </table>
             <div>
-                <button type="button" class="insert-button" id="btnModify">수정하기</button>
-                <button type="button" class="insert-button" id="btnDelete">삭제하기</button>
+                <th:block> <!-- th:if="${ #authentication.getPrincipal().getUserId() == board.refUserId }" -->
+                    <button type="button" id="btnModify">수정하기</button>
+                    <button type="button" id="btnDelete">삭제하기</button>
+                </th:block>
             </div>
             <div>
                 <button type="button" class="insert-button" th:onclick="'location.href=\'/board/searchList\''">
@@ -44,7 +46,7 @@
                 <tr>
                     <td>댓글</td>
                     <td>
-                        <textarea cols="40" rows="3" id="commentContent" style="resize: none;"></textarea>
+                        <textarea cols="40" rows="3" id="commentContent" style="resize: none;" readonly></textarea>
                     </td>
                     <td>
                         <button type="button" id="insertComment">댓글작성</button>
@@ -63,11 +65,12 @@
                             <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
                                 th:text="${ memberComment.postedDate }"></td>
                             <td>
-                                <th:block> <!--sec:authorize="isAuthenticated()"
-                                            th:if="${ #authentication.getPrincipal().getMemberNo() == reply.writer.memberNo }"-->
+                                <th:block> <!--
+                                            th:if="${ #authentication.getPrincipal().getUserId() == memberComment.userId }"-->
                                     <button type="button"
                                             th:commentNo="${ memberComment.commentCode }"
-                                            th:onclick="commentDelete(this.getAttribute('commentNo'))">댓글삭제</button>
+                                            th:onclick="commentDelete(this.getAttribute('commentNo'))">댓글삭제
+                                    </button>
                                 </th:block>
                             </td>
                         </tr>

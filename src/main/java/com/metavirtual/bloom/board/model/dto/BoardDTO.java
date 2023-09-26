@@ -10,12 +10,14 @@ public class BoardDTO {
     private int viewCount; // 게시물 조회 수
     private String boardCategory; // 게시글 분류
     private String boardContent; // 게시글 내용
-    private MemberDTO userId; // MemberDTO userId 불러와야함
+    private MemberDTO userId;
+    private String refUserId; // MemberDTO userId 불러와야함
+    private String refNickname; // MemberDTO nickname 불러와야함
 
     public BoardDTO() {
     }
 
-    public BoardDTO(int boardCode, String title, String postedDate, String deleteDate, int viewCount, String boardCategory, String boardContent, MemberDTO userId) {
+    public BoardDTO(int boardCode, String title, String postedDate, String deleteDate, int viewCount, String boardCategory, String boardContent, MemberDTO userId, String refUserId, String refNickname) {
         this.boardCode = boardCode;
         this.title = title;
         this.postedDate = postedDate;
@@ -24,6 +26,8 @@ public class BoardDTO {
         this.boardCategory = boardCategory;
         this.boardContent = boardContent;
         this.userId = userId;
+        this.refUserId = refUserId;
+        this.refNickname = refNickname;
     }
 
     public int getBoardCode() {
@@ -90,6 +94,24 @@ public class BoardDTO {
         this.userId = userId;
     }
 
+    public String getRefUserId() {
+        refUserId = userId.getUserId();
+        return refUserId;
+    }
+
+    public void setRefUserId(String refUserId) {
+        this.refUserId = refUserId;
+    }
+
+    public String getRefNickname() {
+        refNickname = userId.getNickname();
+        return refNickname;
+    }
+
+    public void setRefNickname(String refNickname) {
+        this.refNickname = refNickname;
+    }
+
     @Override
     public String toString() {
         return "BoardDTO{" +
@@ -100,7 +122,9 @@ public class BoardDTO {
                 ", viewCount=" + viewCount +
                 ", boardCategory='" + boardCategory + '\'' +
                 ", boardContent='" + boardContent + '\'' +
-                ", userId='" + userId + '\'' +
+                ", userId=" + userId +
+                ", refUserId='" + refUserId + '\'' +
+                ", refNickname='" + refNickname + '\'' +
                 '}';
     }
 }
