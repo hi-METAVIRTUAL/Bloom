@@ -24,27 +24,10 @@ public class MainController {
     @GetMapping("/")
     public String defaultLocation() {
 
+
+
         return "index";
     }
-/*
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(authentication != null && authentication.isAuthenticated()) {
-
-            String userId = ((UserImpl) authentication.getPrincipal()).getUserId();
-
-            char BookingReservation = userService.bookingStatus(userId);
-
-
-        }
-
-
-
-        String userId = principal.getName();
-
-        return "index";*/
-
-
 
 
 

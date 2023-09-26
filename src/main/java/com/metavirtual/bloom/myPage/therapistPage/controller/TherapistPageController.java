@@ -4,14 +4,17 @@ import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.service.TherapistPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
+import com.metavirtual.bloom.user.model.dto.UserImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,7 +96,11 @@ public class TherapistPageController {
     }
 
     @GetMapping("/modifyTherapistInfo")
-    public String modifyTherapistInfo(){
+    public String therapistInfo(Model model, Authentication authentication){
+        if (authentication != null && authentication.isAuthenticated()){
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
         return "mypage/therapist/modifyTherapistInfo";
     }
 
@@ -105,7 +112,7 @@ public class TherapistPageController {
 
         user.setPwd(passwordEncoder.encode(user.getPwd()));
         user.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
-        user.setPhone(request.getParameter("phonef")+"-"+request.getParameter("phonem")+"-"+request.getParameter("phonel"));
+        user.setPhone(request.getParameter("phone"));
 
         log.info("[TherapistController] modifyTherapistInfo request User : "+user);
 
@@ -113,7 +120,7 @@ public class TherapistPageController {
 
         rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
 
-        return "redirect:/mypage/therapist/therapistInfo";
+        return "/mypage/therapist/therapistInfo";
     }
 
     @PostMapping(value = "/modifyActivationStatus")
@@ -138,8 +145,12 @@ public class TherapistPageController {
     }
 
     @GetMapping("/modifyTherapistProfile")
-    public String profileSetting(){
-        return "mypage/therapist/modifyTherapistProfile";
+    public String modifyTherapistProfile(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()){
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
+            return "mypage/therapist/modifyTherapistProfile";
     }
 
     @PostMapping("/modifyTherapistProfile")
@@ -148,26 +159,26 @@ public class TherapistPageController {
         log.info("");
         log.info("[TherapistController] modifyTherapistProfile ========");
 
-        therapist.setTherapistQ1(therapist.getTherapistQ1());
-        therapist.setTherapistQ2(therapist.getTherapistQ2());
-        therapist.setTherapistQ3(therapist.getTherapistQ3());
-        therapist.setOrganization(therapist.getOrganization());
-        therapist.setDepressionCK(therapist.getDepressionCK());
-        therapist.setAnxietyCK(therapist.getAnxietyCK());
-        therapist.setBipolarCK(therapist.getBipolarCK());
-        therapist.setOcdCK(therapist.getOcdCK());
-        therapist.setRelationCK(therapist.getRelationCK());
-        therapist.setSessionVidCallCK(therapist.getSessionVidCallCK());
-        therapist.setSessionChatCK(therapist.getSessionChatCK());
-        therapist.setSessionInPersonCK(therapist.getSessionInPersonCK());
+        therapist.setTherapistQ1(request.getParameter("therapistQ1"));
+        therapist.setTherapistQ2(request.getParameter("therapistQ2"));
+        therapist.setTherapistQ3(request.getParameter("therapistQ3"));
+        therapist.setOrganization(request.getParameter("organization"));
+        therapist.setDepressionCK(request.getParameter("depressionCK").charAt(0));
+        therapist.setAnxietyCK(request.getParameter("anxietyCK").charAt(0));
+        therapist.setBipolarCK(request.getParameter("bipolarCK").charAt(0));
+        therapist.setOcdCK(request.getParameter("ocdCK").charAt(0));
+        therapist.setRelationCK(request.getParameter("relationCK").charAt(0));
+        therapist.setSessionVidCallCK(request.getParameter("sessionVidCallCK").charAt(0));
+        therapist.setSessionChatCK(request.getParameter("sessionChatCK").charAt(0));
+        therapist.setSessionInPersonCK(request.getParameter("sessionInPersonCK").charAt(0));
 
-        log.info("[TherapistController] modifyTherpistProfile request Therapist : "+therapist);
+        log.info("[TherapistController] modifyTherapistProfile request Therapist : "+therapist);
 
         therapistPageService.modifyTherapistProfile(therapist);
 
         rttr.addFlashAttribute("message", "프로필 정보 수정에 성공하셨습니다!");
 
-        return "redirect:/mypage/therapist/therapistInfo";
+        return "/mypage/therapist/therapistInfo";
     }
 
     @GetMapping("/reservManage")
@@ -219,6 +230,12 @@ public class TherapistPageController {
         therapistPageService.confirmReservation(bookingCode);
 
         return "redirect:/therapist/reservManage";
+    }
+
+    @GetMapping("/reservation")
+    public List<BookDTO> bookingList() throws Exception {
+        List<BookDTO> bookingList = therapistPageService.bookingList();
+        return bookingList;
     }
 
     @GetMapping("/reservPopup")

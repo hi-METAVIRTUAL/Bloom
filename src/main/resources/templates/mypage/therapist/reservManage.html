@@ -188,7 +188,6 @@
 </footer>
 <script>
 
-
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
@@ -225,19 +224,22 @@
             businessHours: false,
             dayMaxEvents: true, // allow "more" link when too many events
             events: [
-                <%List<BookDTO> bookingList = (List<BookDTO>) request.getAttribute("bookingList");%>
-                <%if (bookingList != null) {%>
-                <%for (BookDTO book : bookingList) {%>
-                {
-                    title : '<%=book.getMemberId()%>',
-                    start : '<%=book.getBookingDate()%>',
-                    backgroundColor : "rgb(255, 0, 0)",
-                    textColor : "#FFFFFF"
-                },
-                <%}
-        }%>
-
-            ]
+                $.ajax({
+                    type: "GET",
+                    url: "/therapist/reservation",
+                    data: "{}",
+                    success: function (response){
+                        result = response.result
+                        for(i = 0; i<result.length; i++){
+                            calendar.addEvent({
+                                title: result[i]['memberId'],
+                                start: result[i]['bookingDate'],
+                                color: "#FF0000"
+                            })
+                        }
+                    }
+                })
+        ],
             eventClick: function showPopup() { window.open("reservPopup", "a", "width=420, height=600, left=350, top=210" ); }
         });
         calendar.render();

@@ -31,7 +31,7 @@
         <result property="postedDate" column="POSTED_DATE"/>
         <result property="deleteDate" column="DELETE_DATE"/>
         <result property="boardCode" column="BOARD_CODE"/>
-        <collection property="userId" column="USER_ID" resultMap="memberResultMap"/>
+        <result property="userId" column="USER_ID"/>
     </resultMap>
 
     <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
@@ -73,6 +73,7 @@
         FROM (  SELECT B.BOARD_CODE
                     ,B.TITLE
                     ,B.POSTED_DATE
+                    ,B.DELETE_DATE
                     ,B.BOARD_CATEGORY
                     ,B.VIEW_COUNT
                     ,B.USER_ID
@@ -80,26 +81,21 @@
                 <if test="searchSelect eq 'writer'">
                     JOIN MEMBER C ON(B.USER_ID = C.USER_ID)
                 </if>
-                <if test="searchSelect eq 'writer'">
-                    <where>
+                <where>
+                    <if test="searchSelect eq 'writer'">
                         C.NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
-                    </where>
-                </if>
-                <if test="searchSelect eq '커뮤니티'">
-                    <where>
+                    </if>
+                    <if test="searchSelect eq '커뮤니티'">
                         B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '커뮤니티'
-                    </where>
-                </if>
-                <if test="searchSelect eq '고민상담'">
-                    <where>
+                    </if>
+                    <if test="searchSelect eq '고민상담'">
                         B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '고민상담'
-                    </where>
-                </if>
-                <if test="searchSelect eq 'title'">
-                    <where>
+                    </if>
+                    <if test="searchSelect eq 'title'">
                         B.TITLE LIKE CONCAT('%', #{ searchValue }, '%')
-                    </where>
-                </if>
+                    </if>
+                    AND B.DELETE_DATE IS NULL
+                </where>
         ) A
         LEFT JOIN MEMBER C ON(A.USER_ID = C.USER_ID)
         ORDER BY A.BOARD_CODE DESC
@@ -122,25 +118,14 @@
 
     <select id="searchCommentList" resultMap="commentResultMap">
         SELECT A.COMMENT_CODE
-            ,A.COMMENT_CONTENT
-            ,A.POSTED_DATE
-            ,B.BOARD_CODE
-            ,C.NICKNAME
-        FROM (  SELECT A.COMMENT_CODE
-                    ,A.COMMENT_CONTENT
-                    ,B.BOARD_CODE
-                    ,B.TITLE
-                    ,B.POSTED_DATE
-                    ,B.BOARD_CATEGORY
-                    ,B.VIEW_COUNT
-                    ,B.USER_ID
-                    ,C.NICKNAME
-                FROM BOARD B
-                JOIN MEMBER_COMMENT A ON (B.BOARD_CODE = A.BOARD_CODE)
-                JOIN MEMBER C ON(B.USER_ID = C.USER_ID)
-        ) A
-        JOIN BOARD B ON (A.BOARD_CODE = B.BOARD_CODE)
-        JOIN MEMBER C ON(A.USER_ID = C.USER_ID)
+            , A.COMMENT_CONTENT
+            , A.POSTED_DATE
+            , A.BOARD_CODE
+            , A.USER_ID
+            , B.NICKNAME
+        FROM MEMBER_COMMENT A
+        LEFT JOIN MEMBER B ON (A.USER_ID = B.USER_ID)
+        WHERE A.BOARD_CODE = #{ boardCode } AND A.DELETE_DATE IS NULL
         ORDER BY A.POSTED_DATE DESC
     </select>
 
@@ -175,24 +160,23 @@
         WHERE BOARD_CODE = #{ boardCode }
     </update>
 
+    <update id="boardDelete">
+        UPDATE BOARD
+        SET DELETE_DATE = NOW()
+        WHERE BOARD_CODE = #{ boardCode }
+    </update>
+
+    <update id="commentDelete">
+        UPDATE MEMBER_COMMENT
+        SET DELETE_DATE = NOW()
+        WHERE COMMENT_CODE = #{ commentCode }
+    </update>
+
     <update id="viewCount">
         UPDATE BOARD
         SET VIEW_COUNT = VIEW_COUNT + 1
         WHERE BOARD_CODE = #{ boardCode }
     </update>
-
-
-    <delete id="boardDelete">
-        DELETE
-        FROM BOARD
-        WHERE BOARD_CODE = #{ boardCode }
-    </delete>
-
-
-    <delete id="commentDelete">
-        DELETE FROM MEMBER_COMMENT
-        WHERE COMMENT_CODE = #{ commentCode }
-    </delete>
 
 
 

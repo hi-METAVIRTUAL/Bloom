@@ -56,94 +56,7 @@
 <header class="header" th:include="components/Header.html"></header>
 <br><br>
 <h2>개인 정보 수정</h2><br>
-<!--<div th:if="${user != null}">-->
-<!--    <form align="center" method="post" th:action="@{/member/modifyMemberInfo}">-->
-<!--        <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">-->
-<!--            <a>*는 필수 입력입니다.</a><br><br>-->
-<!--            <colgroup>-->
-<!--                <col style="width: 20%">-->
-<!--                <col style="width: 60%">-->
-<!--                <col style="width: 20%">-->
-<!--            </colgroup>-->
-<!--            <input-->
-<!--                    type="hidden"-->
-<!--                    id="userId"-->
-<!--                    name="userId"-->
-<!--                    th:value="${ user.getUserId() }"-->
-<!--            >-->
-<!--            <tr>-->
-<!--                <td align="left">이름</td>-->
-<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${ user.getName() }"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">아이디</td>-->
-<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${ user.getUserId() }"><br>아이디는 변경 불가능합니다.</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">비밀번호</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" required >-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">닉네임</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:text="${ member.getNickname() }" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능-->
-<!--                </td>-->
-<!--                </td>-->
-<!--                <td align="right">-->
-<!--                    <button class="info-bt" id="duplicationCheck" value="중복 확인">중복확인</button>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">전화번호</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:text="${ user.getPhone() }" required>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">성별</td>-->
-<!--                <td align="center">-->
-<!--                    <input type="checkbox" name="gender" th:value="M" th:checked="true" th:if="${ user.getGender() } == 'M'" disabled> 남성-->
-<!--                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" th:checked="true" th:if="${ user.getGender() } == 'F'" disabled> 여성-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">이메일</td>-->
-<!--                <td>-->
-<!--                    * <input class="email" type="text" name="emailId" id="emailId" th:text="${#strings.substringBefore(user.getEmail(),'@')}" required>-->
-<!--                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(user.getEmail(),'@')}" required>-->
-<!--                    <select id="emailDomainSelect" onchange="updateEmailDomain(), combineEmail()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">-->
-<!--                        <option value="empty">선택하기</option>-->
-<!--                        <option value="naver.com">naver.com</option>-->
-<!--                        <option value="gmail.com">gmail.com</option>-->
-<!--                        <option value="yahoo.com">yahoo.com</option>-->
-<!--                        <option value="hotmail.com">hotmail.com</option>-->
-<!--                        <option value="">직접입력</option>-->
-<!--                    </select>-->
-<!--                </td>-->
-<!--                <td align="right">-->
-<!--                    <button class="info-bt" onclick="sendNumber()" id="sendBtn" name="sendBtn">본인인증</button>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr id="Confirm" name="Confirm" style="display: none;">-->
-<!--                <div id="mail_number" name="mail_number" style="display: none;">-->
-<!--                <td align="left">인증번호입력</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="text" name="number" id="number" required>-->
-<!--                </td>-->
-<!--                <td align="right">-->
-<!--                    <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>-->
-<!--                </td>-->
-<!--                </div>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--<br>-->
-<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">-->
-<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">-->
-<!--    </form>-->
-<!--</div>-->
-
-<div>
+<div th:if="${user != null}">
     <form align="center" method="post" th:action="@{/member/modifyMemberInfo}">
         <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">
             <a>*는 필수 입력입니다.</a><br><br>
@@ -156,15 +69,15 @@
                     type="hidden"
                     id="userId"
                     name="userId"
-                    th:value="${ chalse }"
+                    th:value="${ user.getUserId() }"
             >
             <tr>
                 <td align="left">이름</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="김철수"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${ user.getName() }"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
             </tr>
             <tr>
                 <td align="left">아이디</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="chalse"><br>아이디는 변경 불가능합니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${ user.getUserId() }"><br>아이디는 변경 불가능합니다.</td>
             </tr>
             <tr>
                 <td align="left">비밀번호</td>
@@ -175,7 +88,7 @@
             <tr>
                 <td align="left">닉네임</td>
                 <td>
-                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:value="철수" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
+                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:text="${ member.getNickname() }" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
                 </td>
                 </td>
                 <td align="right">
@@ -184,21 +97,21 @@
             <tr>
                 <td align="left">전화번호</td>
                 <td>
-                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="010-1111-1111" required>
+                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:text="${ user.getPhone() }" required>
                 </td>
             </tr>
             <tr>
                 <td align="left">성별</td>
                 <td align="center">
-                    <input type="checkbox" name="gender" th:value="M" th:checked="true" disabled> 남성
-                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" disabled> 여성
+                    <input type="checkbox" name="gender" th:value="M" th:checked="true" th:if="${ user.getGender() } == 'M'" disabled> 남성
+                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" th:checked="true" th:if="${ user.getGender() } == 'F'" disabled> 여성
                 </td>
             </tr>
             <tr>
                 <td align="left">이메일</td>
                 <td>
-                    * <input class="email" type="text" name="emailId" id="emailId" th:value="member1" required>
-                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="meta.com" required>
+                    * <input class="email" type="text" name="emailId" id="emailId" th:text="${#strings.substringBefore(user.getEmail(),'@')}" required>
+                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:text="${#strings.substringAfter(user.getEmail(),'@')}" required>
                     <select id="emailDomainSelect" onchange="updateEmailDomain(), combineEmail()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                         <option value="empty">선택하기</option>
                         <option value="naver.com">naver.com</option>
@@ -214,21 +127,108 @@
             </tr>
             <tr id="Confirm" name="Confirm" style="display: none;">
                 <div id="mail_number" name="mail_number" style="display: none;">
-                    <td align="left">인증번호입력</td>
-                    <td>
-                        * <input class="round-input" type="text" name="number" id="number" required>
-                    </td>
-                    <td align="right">
-                        <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>
-                    </td>
+                <td align="left">인증번호입력</td>
+                <td>
+                    * <input class="round-input" type="text" name="number" id="number" required>
+                </td>
+                <td align="right">
+                    <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>
+                </td>
                 </div>
             </tr>
         </table>
-        <br>
+<br>
         <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
         <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">
     </form>
 </div>
+
+<!--<div>-->
+<!--    <form align="center" method="post" th:action="@{/member/modifyMemberInfo}">-->
+<!--        <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">-->
+<!--            <a>*는 필수 입력입니다.</a><br><br>-->
+<!--            <colgroup>-->
+<!--                <col style="width: 20%">-->
+<!--                <col style="width: 60%">-->
+<!--                <col style="width: 20%">-->
+<!--            </colgroup>-->
+<!--            <input-->
+<!--                    type="hidden"-->
+<!--                    id="userId"-->
+<!--                    name="userId"-->
+<!--                    th:value="${ chalse }"-->
+<!--            >-->
+<!--            <tr>-->
+<!--                <td align="left">이름</td>-->
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="김철수"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">아이디</td>-->
+<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="chalse"><br>아이디는 변경 불가능합니다.</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">비밀번호</td>-->
+<!--                <td>-->
+<!--                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" required >-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">닉네임</td>-->
+<!--                <td>-->
+<!--                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:value="철수" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능-->
+<!--                </td>-->
+<!--                </td>-->
+<!--                <td align="right">-->
+<!--                    <button class="info-bt" id="duplicationCheck" value="중복 확인">중복확인</button>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">전화번호</td>-->
+<!--                <td>-->
+<!--                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="010-1111-1111" required>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">성별</td>-->
+<!--                <td align="center">-->
+<!--                    <input type="checkbox" name="gender" th:value="M" th:checked="true" disabled> 남성-->
+<!--                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" disabled> 여성-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td align="left">이메일</td>-->
+<!--                <td>-->
+<!--                    * <input class="email" type="text" name="emailId" id="emailId" th:value="member1" required>-->
+<!--                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="meta.com" required>-->
+<!--                    <select id="emailDomainSelect" onchange="updateEmailDomain(), combineEmail()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">-->
+<!--                        <option value="empty">선택하기</option>-->
+<!--                        <option value="naver.com">naver.com</option>-->
+<!--                        <option value="gmail.com">gmail.com</option>-->
+<!--                        <option value="yahoo.com">yahoo.com</option>-->
+<!--                        <option value="hotmail.com">hotmail.com</option>-->
+<!--                        <option value="">직접입력</option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--                <td align="right">-->
+<!--                    <button class="info-bt" onclick="sendNumber()" id="sendBtn" name="sendBtn">본인인증</button>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr id="Confirm" name="Confirm" style="display: none;">-->
+<!--                <div id="mail_number" name="mail_number" style="display: none;">-->
+<!--                    <td align="left">인증번호입력</td>-->
+<!--                    <td>-->
+<!--                        * <input class="round-input" type="text" name="number" id="number" required>-->
+<!--                    </td>-->
+<!--                    <td align="right">-->
+<!--                        <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>-->
+<!--                    </td>-->
+<!--                </div>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <br>-->
+<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">-->
+<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">-->
+<!--    </form>-->
+<!--</div>-->
 
 <br><br>
 <footer>

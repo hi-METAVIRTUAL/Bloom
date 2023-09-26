@@ -18,92 +18,11 @@
 <header class="header" th:include="components/Header.html"></header>
 <br><br>
 
-<!--<div align="center" th:if="${user != null && therapist != null}">-->
-<!--    <div style="display: inline-block; padding-right: 120px; vertical-align: middle;" align="center">-->
-<!--        <form id="pfImgForm" th:action="@{/therapist/imgUpload}" th:method="post" enctype="multipart/form-data">-->
-<!--            <div id="profileImgArea">-->
-<!--            <img th:if="${profileFile != null}" th:src="@{${profileFile.filePath}}" id="profileImg" alt="상담사 사진" class="dome"/>-->
-<!--            </div>-->
-<!--            <br><br><br>-->
-<!--            <div>-->
-<!--                <label for="therapistImage">-->
-<!--                    <div class="btn-upload">사진 선택</div>-->
-<!--                </label>-->
-<!--                <input type="file" name="therapistImage" id="therapistImage" accept="image/*" style="display: none;" onchange="loadImg(this,1)">-->
-<!--            </div>-->
-<!--            &lt;!&ndash;    <img id="imgId" th:src="${data.imgUrl}" alt="상담사 사진" th:if="${data.imgUrl != null}" />-->
-<!--                    <br><br><br>-->
-<!--                    <label for="imgFile">-->
-<!--                    <div class="btn-upload">사진 변경</div>-->
-<!--                    </label>>-->
-<!--                    <input type="file" th:id="imgFile" th:name="imgFile" accept=".jpg, .png">&ndash;&gt;-->
-<!--            <button type="submit" value="프로필 사진 등록" class="btn-upload"></button>-->
-<!--        </form>-->
-<!--    </div>-->
-
-<!--    <diV style="display: inline-block; vertical-align: middle;" align="center">-->
-<!--        <div class="simple-info" align="center">-->
-<!--            <p th:text="${user.getName()}"></p>-->
-<!--            <p th:text="${user.getPhone()}"></p>-->
-<!--            <input type="button" value="개인 정보 수정" onclick="location.href='modifyTherapistInfo'" style="background-color: #C09A81; border: none; border-radius: 10px; color: #FFFFFF; width: 180px; height: 30px; cursor: pointer;"/>-->
-<!--            <p><a style="font-size: 19px; font-weight: bold">주요 경력</a></p> &lt;!&ndash;관리자가 작성&ndash;&gt;-->
-<!--            <p>메타대 심리학과 박사</P>-->
-<!--            <P>현) 메타심리상담소 원장</P>-->
-<!--            <P>한국상담심리학회 상담심리사 1급</P>-->
-<!--        </div>-->
-<!--        <br><br><br>-->
-<!--        <div align="center">-->
-<!--        <input type="button" id="updateActivationStatus" value="활동여부변경" style="background-color: #C09A81; border-radius: 10px; border: none; color: #FFFFFF; height: 27px; width: 100px;"/><br><br> &lt;!&ndash;알림창 띄우기&ndash;&gt;-->
-<!--        <input type="button" onclick="location.href='reservManage'" value="상담예약관리" style="background-color: #FFFFFF; border-radius: 10px; border: none; color: #C09A81; height: 27px; width: 100px;"/>-->
-<!--        <br><br><br>-->
-<!--        </div>-->
-<!--    </diV>-->
-
-<!--    <div style="display: inline-block; padding-left: 120px; vertical-align: middle;" align="center">-->
-
-<!--        <div style="color: #C09A81;">-->
-<!--            <div style="width: 230px; height: 100px; border: none; float: left; background-color: #FFFFFF; border-radius: 10px;">-->
-<!--                <br><a style="font-size: 19px; font-weight: bold;">전문 분야</a>-->
-<!--                <br>-->
-<!--                <hr class="profile-hr">-->
-<!--                <a th:if="${therapist.getDepressionCK()} == 'Y'">우울&nbsp;</a>-->
-<!--                <a th:if="${therapist.getAnxietyCK()} == 'Y'">&nbsp;불안&nbsp;</a>-->
-<!--                <a th:if="${therapist.getBipolarCK()} == 'Y'">&nbsp;양극성&nbsp;</a>-->
-<!--                <a th:if="${therapist.getOcd_CK()} == 'Y'">&nbsp;강박성&nbsp;</a>-->
-<!--                <a th:if="${therapist.getRelationCK()} == 'Y'">&nbsp;대인관계</a>-->
-<!--            </div>-->
-<!--            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
-<!--            <div style="width: 230px; height: 100px; border: none; float: right; background-color: #FFFFFF; border-radius: 10px;">-->
-<!--                <br><a style="font-size: 19px; font-weight: bold;">상담 방법</a>-->
-<!--                <br>-->
-<!--                <hr class="profile-hr">-->
-<!--                <a th:if="${therapist.getRelationCK()} == 'Y'">화상&nbsp;</a>-->
-<!--                <a th:if="${therapist.getSessionChatCK()} == 'Y'">&nbsp;채팅&nbsp;</a>-->
-<!--                <a th:if="${therapist.getSessionInPersonCK()} == 'Y'">&nbsp;대면</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <br><br><br><br><br>-->
-<!--        <div style="width: 500px; height: 440px; overflow: hidden; border: none; background-color: #FFFFFF; color: #C09A81; border-radius: 10px;">-->
-<!--            <h3>Q&A</h3>-->
-<!--            <hr class="profile-hr">-->
-<!--            <b>Q1. 상담사님 간단하게 자기소개 부탁드립니다.</b>-->
-<!--            <p th:text="${therapist.getTherapistQ1()}"></p><br>-->
-<!--            <b>Q2. 내담자에게 어떤 방식으로 다가가시나요?</b>-->
-<!--            <p th:text="${therapist.getTherapistQ2()}"></p><br>-->
-<!--            <b>Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?</b>-->
-<!--            <p th:text="${therapist.getTherapistQ3()}"></p>-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <input type="button" onclick="location.href='modifyTherapistProfile'" value="프로필 수정" style="border: none; border-radius: 10px; background-color: #C09A81; color: white; height: 30px; width: 100px;">-->
-
-<!--    </div>-->
-<!--</div>-->
-
-<div align="center">
+<div align="center" th:if="${user != null && therapist != null}">
     <div style="display: inline-block; padding-right: 120px; vertical-align: middle;" align="center">
         <form id="pfImgForm" th:action="@{/therapist/imgUpload}" th:method="post" enctype="multipart/form-data">
             <div id="profileImgArea">
-                <img src="../images/mypage/user/flower.png" id="profileImg" alt="상담사 사진" class="dome"/>
+            <img th:if="${profileFile != null}" th:src="@{${profileFile.filePath}}" id="profileImg" alt="상담사 사진" class="dome"/>
             </div>
             <br><br><br>
             <div>
@@ -111,21 +30,21 @@
                     <div class="btn-upload">사진 선택</div>
                 </label>
                 <input type="file" name="therapistImage" id="therapistImage" accept="image/*" style="display: none;" onchange="loadImg(this,1)">
-            </div><br><br>
+            </div>
             <!--    <img id="imgId" th:src="${data.imgUrl}" alt="상담사 사진" th:if="${data.imgUrl != null}" />
                     <br><br><br>
                     <label for="imgFile">
                     <div class="btn-upload">사진 변경</div>
                     </label>>
                     <input type="file" th:id="imgFile" th:name="imgFile" accept=".jpg, .png">-->
-            <button type="submit" value="사진 등록" class="btn-upload">사진 등록</button>
+            <button type="submit" value="프로필 사진 등록" class="btn-upload"></button>
         </form>
     </div>
 
     <diV style="display: inline-block; vertical-align: middle;" align="center">
         <div class="simple-info" align="center">
-            <p>김영희</p>
-            <p>010-2222-2222</p>
+            <p th:text="${user.getName()}"></p>
+            <p th:text="${user.getPhone()}"></p>
             <input type="button" value="개인 정보 수정" onclick="location.href='modifyTherapistInfo'" style="background-color: #C09A81; border: none; border-radius: 10px; color: #FFFFFF; width: 180px; height: 30px; cursor: pointer;"/>
             <p><a style="font-size: 19px; font-weight: bold">주요 경력</a></p> <!--관리자가 작성-->
             <p>메타대 심리학과 박사</P>
@@ -134,9 +53,9 @@
         </div>
         <br><br><br>
         <div align="center">
-            <input type="button" id="updateActivationStatus" value="활동여부변경" style="background-color: #C09A81; border-radius: 10px; border: none; color: #FFFFFF; height: 27px; width: 100px;"/><br><br> <!--알림창 띄우기-->
-            <input type="button" onclick="location.href='reservManage'" value="상담예약관리" style="background-color: #FFFFFF; border-radius: 10px; border: none; color: #C09A81; height: 27px; width: 100px;"/>
-            <br><br><br>
+        <input type="button" id="updateActivationStatus" value="활동여부변경" style="background-color: #C09A81; border-radius: 10px; border: none; color: #FFFFFF; height: 27px; width: 100px;"/><br><br> <!--알림창 띄우기-->
+        <input type="button" onclick="location.href='reservManage'" value="상담예약관리" style="background-color: #FFFFFF; border-radius: 10px; border: none; color: #C09A81; height: 27px; width: 100px;"/>
+        <br><br><br>
         </div>
     </diV>
 
@@ -147,17 +66,20 @@
                 <br><a style="font-size: 19px; font-weight: bold;">전문 분야</a>
                 <br>
                 <hr class="profile-hr">
-                <a>&nbsp;불안&nbsp;</a>
-                <a>&nbsp;양극성&nbsp;</a>
-                <a>&nbsp;대인관계</a>
+                <a th:if="${therapist.getDepressionCK()} == 'Y'">우울&nbsp;</a>
+                <a th:if="${therapist.getAnxietyCK()} == 'Y'">&nbsp;불안&nbsp;</a>
+                <a th:if="${therapist.getBipolarCK()} == 'Y'">&nbsp;양극성&nbsp;</a>
+                <a th:if="${therapist.getOcd_CK()} == 'Y'">&nbsp;강박성&nbsp;</a>
+                <a th:if="${therapist.getRelationCK()} == 'Y'">&nbsp;대인관계</a>
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div style="width: 230px; height: 100px; border: none; float: right; background-color: #FFFFFF; border-radius: 10px;">
                 <br><a style="font-size: 19px; font-weight: bold;">상담 방법</a>
                 <br>
                 <hr class="profile-hr">
-                <a>&nbsp;채팅&nbsp;</a>
-                <a>&nbsp;대면</a>
+                <a th:if="${therapist.getRelationCK()} == 'Y'">화상&nbsp;</a>
+                <a th:if="${therapist.getSessionChatCK()} == 'Y'">&nbsp;채팅&nbsp;</a>
+                <a th:if="${therapist.getSessionInPersonCK()} == 'Y'">&nbsp;대면</a>
             </div>
         </div>
         <br><br><br><br><br>
@@ -165,17 +87,95 @@
             <h3>Q&A</h3>
             <hr class="profile-hr">
             <b>Q1. 상담사님 간단하게 자기소개 부탁드립니다.</b>
-            <p>자기소개~~~~~~~~~~~~~~~~~~~~~~~~~~~</p><br>
+            <p th:text="${therapist.getTherapistQ1()}"></p><br>
             <b>Q2. 내담자에게 어떤 방식으로 다가가시나요?</b>
-            <p>다가가는 방식~~~~~~~~~~~~~~~~~~~~~~~~~~~~~다가가는 방식~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p><br>
+            <p th:text="${therapist.getTherapistQ2()}"></p><br>
             <b>Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?</b>
-            <p>중요하다고 생각하는 가치관~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~중요하다고 생각하는 가치관~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+            <p th:text="${therapist.getTherapistQ3()}"></p>
         </div>
         <br>
         <input type="button" onclick="location.href='modifyTherapistProfile'" value="프로필 수정" style="border: none; border-radius: 10px; background-color: #C09A81; color: white; height: 30px; width: 100px;">
 
     </div>
 </div>
+
+<!--<div align="center">-->
+<!--    <div style="display: inline-block; padding-right: 120px; vertical-align: middle;" align="center">-->
+<!--        <form id="pfImgForm" th:action="@{/therapist/imgUpload}" th:method="post" enctype="multipart/form-data">-->
+<!--            <div id="profileImgArea">-->
+<!--                <img src="../images/mypage/user/flower.png" id="profileImg" alt="상담사 사진" class="dome"/>-->
+<!--            </div>-->
+<!--            <br><br><br>-->
+<!--            <div>-->
+<!--                <label for="therapistImage">-->
+<!--                    <div class="btn-upload">사진 선택</div>-->
+<!--                </label>-->
+<!--                <input type="file" name="therapistImage" id="therapistImage" accept="image/*" style="display: none;" onchange="loadImg(this,1)">-->
+<!--            </div><br><br>-->
+<!--            &lt;!&ndash;    <img id="imgId" th:src="${data.imgUrl}" alt="상담사 사진" th:if="${data.imgUrl != null}" />-->
+<!--                    <br><br><br>-->
+<!--                    <label for="imgFile">-->
+<!--                    <div class="btn-upload">사진 변경</div>-->
+<!--                    </label>>-->
+<!--                    <input type="file" th:id="imgFile" th:name="imgFile" accept=".jpg, .png">&ndash;&gt;-->
+<!--            <button type="submit" value="사진 등록" class="btn-upload">사진 등록</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+<!--    <diV style="display: inline-block; vertical-align: middle;" align="center">-->
+<!--        <div class="simple-info" align="center">-->
+<!--            <p>김영희</p>-->
+<!--            <p>010-2222-2222</p>-->
+<!--            <input type="button" value="개인 정보 수정" onclick="location.href='modifyTherapistInfo'" style="background-color: #C09A81; border: none; border-radius: 10px; color: #FFFFFF; width: 180px; height: 30px; cursor: pointer;"/>-->
+<!--            <p><a style="font-size: 19px; font-weight: bold">주요 경력</a></p> &lt;!&ndash;관리자가 작성&ndash;&gt;-->
+<!--            <p>메타대 심리학과 박사</P>-->
+<!--            <P>현) 메타심리상담소 원장</P>-->
+<!--            <P>한국상담심리학회 상담심리사 1급</P>-->
+<!--        </div>-->
+<!--        <br><br><br>-->
+<!--        <div align="center">-->
+<!--            <input type="button" id="updateActivationStatus" value="활동여부변경" style="background-color: #C09A81; border-radius: 10px; border: none; color: #FFFFFF; height: 27px; width: 100px;"/><br><br> &lt;!&ndash;알림창 띄우기&ndash;&gt;-->
+<!--            <input type="button" onclick="location.href='reservManage'" value="상담예약관리" style="background-color: #FFFFFF; border-radius: 10px; border: none; color: #C09A81; height: 27px; width: 100px;"/>-->
+<!--            <br><br><br>-->
+<!--        </div>-->
+<!--    </diV>-->
+
+<!--    <div style="display: inline-block; padding-left: 120px; vertical-align: middle;" align="center">-->
+
+<!--        <div style="color: #C09A81;">-->
+<!--            <div style="width: 230px; height: 100px; border: none; float: left; background-color: #FFFFFF; border-radius: 10px;">-->
+<!--                <br><a style="font-size: 19px; font-weight: bold;">전문 분야</a>-->
+<!--                <br>-->
+<!--                <hr class="profile-hr">-->
+<!--                <a>&nbsp;불안&nbsp;</a>-->
+<!--                <a>&nbsp;양극성&nbsp;</a>-->
+<!--                <a>&nbsp;대인관계</a>-->
+<!--            </div>-->
+<!--            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--            <div style="width: 230px; height: 100px; border: none; float: right; background-color: #FFFFFF; border-radius: 10px;">-->
+<!--                <br><a style="font-size: 19px; font-weight: bold;">상담 방법</a>-->
+<!--                <br>-->
+<!--                <hr class="profile-hr">-->
+<!--                <a>&nbsp;채팅&nbsp;</a>-->
+<!--                <a>&nbsp;대면</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <br><br><br><br><br>-->
+<!--        <div style="width: 500px; height: 440px; overflow: hidden; border: none; background-color: #FFFFFF; color: #C09A81; border-radius: 10px;">-->
+<!--            <h3>Q&A</h3>-->
+<!--            <hr class="profile-hr">-->
+<!--            <b>Q1. 상담사님 간단하게 자기소개 부탁드립니다.</b>-->
+<!--            <p>자기소개~~~~~~~~~~~~~~~~~~~~~~~~~~~</p><br>-->
+<!--            <b>Q2. 내담자에게 어떤 방식으로 다가가시나요?</b>-->
+<!--            <p>다가가는 방식~~~~~~~~~~~~~~~~~~~~~~~~~~~~~다가가는 방식~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p><br>-->
+<!--            <b>Q3. 상담사에게 있어서 중요하다고 생각하는 가치관은 무엇인가요?</b>-->
+<!--            <p>중요하다고 생각하는 가치관~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~중요하다고 생각하는 가치관~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <input type="button" onclick="location.href='modifyTherapistProfile'" value="프로필 수정" style="border: none; border-radius: 10px; background-color: #C09A81; color: white; height: 30px; width: 100px;">-->
+
+<!--    </div>-->
+<!--</div>-->
 
 <br><br>
 <footer>
