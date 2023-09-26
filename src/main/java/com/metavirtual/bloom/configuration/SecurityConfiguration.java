@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -44,21 +43,21 @@ public class SecurityConfiguration {
          http.csrf().disable();
 
          http.authorizeRequests()
-                 .mvcMatchers("/","/mail", "/introduction/**", "/terms/**", "/user/category", "/user/registCategory"
+                 .mvcMatchers("/**", "/mail", "/introduction/**", "/terms/**", "/user/category", "/user/registCategory"
                          ,"user/memberRegist","user/findId","user/findPassword","/user/login", "/user/loginfail"
                          ,"user/therapistRegist","user/therapistRegist2", "psychological/match/introduceTherapy"
-                         , "psychological/match/therapyList"
+                         , "psychological/match/therapyList", "/"
                          ,"/user/loginfail", "/user/idDupCheck")
                  .permitAll()
                 .antMatchers("/psychological/psychometry/**")
                 .hasAnyAuthority("MEMBER")// .denyAll(), rememberMe(), hasIpAddress()
                 .antMatchers("/psychological/match/therapyRecommend")
                 .hasAnyAuthority("MEMBER")
-                .antMatchers("/mypage/admin/**")
+                .antMatchers("/mypage/adminPage/**")
                 .hasAnyAuthority("ADMIN")
-                .antMatchers("/mypage/member/**")
+                .antMatchers("/mypage/memberPage/**")
                 .hasAnyAuthority("MEMBER")
-                .antMatchers("/mypage/therapist/**")
+                .antMatchers("/mypage/therapistPage/**")
                 .hasAnyAuthority("THERAPIST")
                 .antMatchers("/booking/**")
                 .hasAnyAuthority("MEMBER")
