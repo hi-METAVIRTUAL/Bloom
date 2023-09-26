@@ -12,6 +12,19 @@ body {
     font-size: 20px;
     height: 30px;
 }
+.inputs-board {
+    border-color: #C09A81;
+    border-radius: 5px;
+    resize: none;
+    color: #C09A81;
+    height: 25px;
+}
+
+.table {
+    display: flex;
+    justify-content: center;
+    font-size: 23px;
+}
 
 .search-bar {
     display: flex;

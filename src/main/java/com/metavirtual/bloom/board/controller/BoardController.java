@@ -114,9 +114,13 @@ public class BoardController {
 
         if(title != "" && boardCategory != "" && boardContent != "") {
             boardService.boardNewPosting(newPosting);
-            rttr.addFlashAttribute("message", "게시글 등록에 성공하였습니다");
-        } else {
-            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다");
+            rttr.addFlashAttribute("message", "게시글 등록에 성공하였습니다.");
+        } else if (title == "") {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다. 제목을 입력해주세요.");
+        } else if (boardContent == "") {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다. 글 내용을 입력해주세요.");
+        } else if (boardCategory == "") {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다. 분류를 선택해주세요.");
         }
 
         return "redirect:/board/searchList";
@@ -165,7 +169,7 @@ public class BoardController {
     }
 
     /* 댓글 등록 메서드 */
-    @PostMapping(value = "/commentPosting")
+    @PostMapping(value = "/commentPosting" )
     public ResponseEntity<List<MemberCommentDTO>> commentNewPosting(@RequestBody MemberCommentDTO newComment) throws CommentPostingException {
 
         System.out.println("댓글 파라미터 값 ? : " + newComment);
@@ -184,53 +188,17 @@ public class BoardController {
         return ResponseEntity.ok(commentList);
     }
 
+    /* 신고 사유 등록 메서드 */
+    /*@PostMapping("/reportInsert")
+    public String  boardReportPosting(@RequestParam String title
+            , @RequestParam String boardCategory
+            , @RequestParam String boardContent
+            , @ModelAttribute MemberBoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
+
+        System.out.println("파라미터 값? : " + newPosting);
 
 
-    @GetMapping("/singo")
-    public String singo() {
-        return "board/singo";
-    }
-
-    @GetMapping("/singoResult")
-    public String singojupsu() {
-        return "board/singoResult";
-    }
-
-    @GetMapping("/gomin")
-    public String gominSangdamSo() {
-        return "board/gominMain";
-    }
-
-    @GetMapping("/gominInsert")
-    public String gominInsert() {
-        return "board/gominInsert";
-    }
-
-
-    @GetMapping("/gominselectone")
-    public String gominselectone() {
-        return "/board/gominSelectOne";
-    }
-
-    @GetMapping("/gominwait")
-    public String gominwait() {
-        return "/board/gominWait";
-    }
-
-    @GetMapping("/center")
-    public String center() {
-        return "/board/customerCenter";
-    }
-
-    @GetMapping("/customerInsert")
-    public String centerInsert() {
-        return "/board/customerInsert";
-    }
-
-    @GetMapping("/customerSelectOne")
-    public String centerSelectOne() {
-        return "/board/customerSelectOne";
-    }
+*/
 
 }
 
