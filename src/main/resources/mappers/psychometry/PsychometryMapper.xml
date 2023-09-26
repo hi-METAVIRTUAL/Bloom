@@ -20,8 +20,8 @@
     </select>
 
     <insert id="saveAnswers">
-        INSERT INTO TEST_RESULT (ANSWER_SCORE,TEST_CATEGORY,USER_ID)
-        VALUES (#{answer}, #{category},'gao')
+        INSERT INTO TEST_RESULT (ANSWER_SCORE,TEST_CATEGORY,USER_ID,TEST_DATE)
+        VALUES (#{answer}, #{category},'gao',CURDATE())
 
     </insert>
 
@@ -63,6 +63,6 @@
         SELECT SUM(ANSWER_SCORE)
         FROM TEST_RESULT
         WHERE USER_ID = 'gao'
-
+        order by TEST_DATE desc limit 1
     </select>
 </mapper>

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>List</title>
     <link rel="stylesheet" type="text/css" href="/css/match/therapyList.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 </head>
@@ -29,7 +30,7 @@
 </div>
 <!-- 검색 -->
 <div style="margin: 0 auto; width: 70%">
-    <div >
+    <div>
         <div class="search-bar">
             <input type="search" placeholder="상담사 성함을 검색 해주세요." class="search-input"/>
             <button type="submit" class="search-button" onclick="">
@@ -37,20 +38,26 @@
             </button>
         </div>
     </div>
-<!--프로필 -->
-    <div class="parent" th:each="therapistInfo:${therapistInfo}">
+    <!--프로필 -->
+    <div id="therapists-container" class="parent" th:each="therapistInfo:${therapistInfo}">
         <div class="our-team">
             <div class="picture">
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
+                <th:block th:text="${therapistInfo.therapistQ1}"></th:block>
             </div>
             <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
+                <h3 th:text="${therapistInfo.name}"></h3>
+                <h4 th:if="${therapistInfo.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
+                <h4 th:if="${therapistInfo.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
+                <h4 th:if="${therapistInfo.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
+                <h4 th:if="${therapistInfo.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a>
+                </li>
             </ul>
         </div>
+
         <div class="our-team">
             <div class="picture">
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
@@ -61,7 +68,8 @@
                 <h4>전문 분야</h4>
             </div>
             <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a>
+                </li>
             </ul>
         </div>
 
@@ -94,7 +102,28 @@
             url: `/psychological/match/therapyList?page=${currentPage}&pageSize=${itemsPerPage}`,
             method: "GET",
             success: function (data) {
-                // 데이터를 가져온 후 처리
+                data.forEach(function (therapistInfo) {
+                    const therapistHtml = `
+                        <div class="our-team">
+                            <div class="picture">
+                                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
+                                <span>${therapistInfo.therapistQ1}</span>
+                            </div>
+                            <div class="team-content">
+                                <h3>${therapistInfo.name}</h3>
+                                <h4>${therapistInfo.depressionCK == 'Y' ? '우울' : ''}</h4>
+                                <h4>${therapistInfo.anxietyCK == 'Y' ? '불안' : ''}</h4>
+                                <h4>${therapistInfo.bipolarCK == 'Y' ? '양극성' : ''}</h4>
+                                <h4>${therapistInfo.ocdCK == 'Y' ? '강박성' : ''}</h4>
+                            </div>
+                            <ul class="social">
+                                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                            </ul>
+                        </div>
+                    `;
+                    $("#therapists-container").append(therapistHtml);
+                });
+
                 if (data.length > 0) {
                     // 상담사 데이터를 화면에 추가
                     appendTherapistsToDOM(data);
@@ -137,7 +166,7 @@
         `;
 
                 // 상담사를 화면에 추가
-                parentElement.insertAdjacentHTML("beforeend", therapistHtml);
+                $("#therapists-container").append(therapistHtml);
             }
         });
     }

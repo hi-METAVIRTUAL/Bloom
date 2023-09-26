@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>list</title>
@@ -8,9 +9,13 @@
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
-<h3 style="margin-top: 50px;">메타님에게 맞춘 상담사들을 추천드려요!</h3>
+<th:block sec:authorize="isAuthenticated()">
+    <div class="section1-2">
+        <h3 style="margin-top: 50px;"><span sec:authentication="principal.name"></span>님에게 맞춘 상담사들을 추천드려요!</h3>
+    </div>
+</th:block>
 <div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
-    <div class="parent" th:each="therapistInfo:${therapistInfo}" >
+    <div id="therapists-container" class="parent" th:each="therapistInfo:${therapistInfo}" >
         <div class="our-team">
             <div class="picture">
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
@@ -27,66 +32,54 @@
                 <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
             </ul>
         </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                <span th:text="${therapistInfo.therapistQ1}"></span>
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
-        </div>
     </div>
 </div>
 <div>
     <a style="color: #C08181; text-align: center; font-weight: bold;" href="/psychological/match/therapyList">또 다른 훌륭한 상담사들 보기</a>
 </div>
+<input type="hidden" id="userId" value="${userId}">
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
+<script>
+    const maxValue = Math.max()
+    const userId = $("#userId").val();
+    $(document).ready(function () {
 
+        $.ajax({
+            url:"getScore",
+            data:{ userId: userId },
+
+            success: function (data, status, xhr){
+                data.forEach(function (therapistInfo) {
+                    const therapistHtml = `
+                        <div class="our-team">
+                            <div class="picture">
+                                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
+                                <span>${therapistInfo.therapistQ1}</span>
+                            </div>
+                            <div class="team-content">
+                                <h3>${therapistInfo.name}</h3>
+                                <h4>${therapistInfo.depressionCK == 'Y' ? '우울' : ''}</h4>
+                                <h4>${therapistInfo.anxietyCK == 'Y' ? '불안' : ''}</h4>
+                                <h4>${therapistInfo.bipolarCK == 'Y' ? '양극성' : ''}</h4>
+                                <h4>${therapistInfo.ocdCK == 'Y' ? '강박성' : ''}</h4>
+                            </div>
+                            <ul class="social">
+                                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                            </ul>
+                        </div>
+                    `;
+                    $("#therapists-container").append(therapistHtml);
+                });
+            },
+            error: function (xhr, status, error){
+
+            },
+
+        });
+
+    });
+</script>
 </body>
 </html>
