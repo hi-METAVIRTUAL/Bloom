@@ -1,12 +1,14 @@
 body {
     font-family: 'Noto Sans KR';
 }
-.table * {
-    border-collapse: collapse;
+.table {
+    display: flex;
+    flex-direction: column;
 }
 .boardListBox {
-    margin: auto;
+    border-collapse: collapse;
 }
+
 .table-th {
     background-color: #C09A81;
     text-align: center;
@@ -23,14 +25,11 @@ body {
 
 
 .paging {
-    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40px;
     font-size: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto;
-    border-radius: 10px;
 }
 
 .paging select {
