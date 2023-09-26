@@ -23,10 +23,10 @@
                 </tr>
                 <tr>
                     <td>내용</td>
-                    <td colspan="2"><textarea th:text="${ board.boardContent }"></textarea></td>
+                    <td colspan="2"><textarea th:text="${ board.boardContent }" readonly style="resize: none"></textarea></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><button type="button" style="text-align: right;">신고하기</button></td>
+                    <!--<td colspan="2"><button type="button" style="text-align: right;">신고하기</button></td>-->
                 </tr>
             </table>
             <div>
@@ -128,7 +128,7 @@
                     },
                     body: JSON.stringify(
                         {
-                            userId: 'a123!',
+                            userId: 'Test123',
                             boardCode: boardNo,
                             commentContent: commentContent
                         }
