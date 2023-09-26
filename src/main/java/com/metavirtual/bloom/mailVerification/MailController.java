@@ -1,12 +1,10 @@
 package com.metavirtual.bloom.mailVerification;
 
+import com.metavirtual.bloom.user.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,4 +22,14 @@ public class MailController {
 
         return num;
     }
+
+
+/*    @ResponseBody
+    @PostMapping("/mail/findId")
+    public String sendId(@RequestParam("nickName") String nickName, @RequestParam("email") String email, @ModelAttribute UserDTO userDTO) {
+
+        String findDetails = mailService.findDetails(nickName, email);
+
+        return null;
+    }*/
 }

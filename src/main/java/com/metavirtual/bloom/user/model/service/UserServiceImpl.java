@@ -207,5 +207,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    public int emailDupCheck(String email) {
+
+        log.info(email);
+
+        return userMapper.emailDupCheck(email);
+    }
 }
 

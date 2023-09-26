@@ -274,18 +274,18 @@ CREATE UNIQUE INDEX `THERAPIST_COMMENT_PK` ON `THERAPIST_COMMENT`
 
 
 CREATE TABLE `USER`
-(
-    `USER_ID`    VARCHAR(20) NOT NULL COMMENT '아이디',
-    `NAME`    VARCHAR(20) NOT NULL COMMENT '이름',
-    `GENDER`    CHAR(20) NOT NULL COMMENT '성별',
-    `PWD`    VARCHAR(200) NOT NULL COMMENT '비밀번호',
-    `EMAIL`    VARCHAR(50) NOT NULL COMMENT '이메일',
-    `PHONE`    VARCHAR(20) NOT NULL COMMENT '전화번호',
-    `REGIST_DATE`    VARCHAR(20) NOT NULL COMMENT '가입일시',
-    `UNREGIST_DATE`    VARCHAR(20) COMMENT '탈퇴일시',
-    `AUTHORITY_CODE`    INT NOT NULL COMMENT '권한코드',
- PRIMARY KEY ( `USER_ID` )
-) COMMENT = '회원정보';
+              (
+                  `USER_ID`    VARCHAR(20) NOT NULL COMMENT '아이디',
+                  `NAME`    VARCHAR(20) NOT NULL COMMENT '이름',
+                  `GENDER`    CHAR(20) NOT NULL COMMENT '성별',
+                  `PWD`    VARCHAR(200) NOT NULL COMMENT '비밀번호',
+                  `EMAIL`    VARCHAR(50) NOT NULL COMMENT '이메일',
+                  `PHONE`    VARCHAR(20) NOT NULL COMMENT '전화번호',
+                  `REGIST_DATE`    VARCHAR(20) NOT NULL COMMENT '가입일시',
+                  `UNREGIST_DATE`    VARCHAR(20) COMMENT '탈퇴일시',
+                  `AUTHORITY_CODE`    INT NOT NULL COMMENT '권한코드',
+               PRIMARY KEY ( `USER_ID` )
+              ) COMMENT = '회원정보';
 
-CREATE UNIQUE INDEX `USER_PK` ON `USER`
-( `USER_ID` );
+              CREATE UNIQUE INDEX `USER_PK` ON `USER`
+              ( `USER_ID` );

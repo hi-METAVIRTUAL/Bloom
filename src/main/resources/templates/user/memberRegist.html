@@ -83,7 +83,7 @@
                                 <option value="">직접입력</option>
                             </select>
                         </td>
-                        <td><button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
+                        <td><button type="button" name="sendBtn" id="sendBtn" onclick="emailDupCheckAndSendNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button></td>
                     </tr>
 
                     <script>
@@ -93,7 +93,7 @@
 
                             if (emailDomainSelect.value === "") {
                                 emailDomainInput.value = emailDomainInput.value.trim();
-                            } else if(emailDomainSelect.value !== 'empty'){
+                            } else if (emailDomainSelect.value !== 'empty') {
                                 emailDomainInput.value = emailDomainSelect.value;
                                 // Handle the case where "직접입력" is selected, or any other logic you want.
                             }
@@ -110,9 +110,8 @@
                         }
 
                         // Function to send the email and receive the confirmation number
-                        function sendNumber() {
+                        function sendNumber(email) {
                             $("#mail_number").css("display", "block");
-                            const email = combineEmail(); /*Combine emailId and emailDomain*/
                             $.ajax({
                                 url: "/mail",
                                 type: "POST",
@@ -145,7 +144,33 @@
                                 alert("인증번호가 일치하지 않습니다. 올바른 인증번호를 입력해주세요");
                             }
                         }
+
+                        // Function to check email duplication and then send the verification number
+                        function emailDupCheckAndSendNumber() {
+                            const email = combineEmail();
+                            // Perform email duplication check
+                            $.ajax({
+                                type: 'POST',
+                                url: '/user/emailDupCheck',
+                                data: email,
+                                contentType: 'plain/text',
+                                success: function (response) {
+                                    if (response.check === 0) {
+                                        // Email is not a duplicate, send the verification number
+                                        sendNumber(email);
+                                    } else {
+                                        // Email is a duplicate, display an alert
+                                        alert("중복된 이메일 주소입니다.");
+                                    }
+                                },
+                                error: function (error) {
+                                    console.error('AJAX error:', error);
+                                    // Handle the error as needed
+                                }
+                            });
+                        }
                     </script>
+
                 </table>
 
             </div>

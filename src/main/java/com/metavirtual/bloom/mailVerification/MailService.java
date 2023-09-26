@@ -1,5 +1,6 @@
 package com.metavirtual.bloom.mailVerification;
 
+import com.metavirtual.bloom.user.model.dao.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -13,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 @RequiredArgsConstructor
 public class MailService {
 
+    private final UserMapper userMapper;
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
     private static final String senderEmail= "metavirtual.bloom@gmail.com";
@@ -54,5 +56,12 @@ public class MailService {
         javaMailSender.send(message);
 
         return number;
+    }
+
+    public String findDetails(String nickName, String email) {
+
+       String findDetails = userMapper.findDetails(nickName, email);
+        return null;
+
     }
 }
