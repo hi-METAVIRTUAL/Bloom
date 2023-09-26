@@ -2,10 +2,13 @@ package com.metavirtual.bloom.match.controller;
 
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.match.model.service.MatchService;
+import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
+import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,5 +42,14 @@ public class MatchController {
 
 
         return "psychological/match/therapyList";
+    }
+    @GetMapping("getScore")
+    public String getTotalScore(@RequestParam("userId") String userId){
+
+        List<MemberTestResultDTO> memberTestResult = matchService.getTotalScore(userId);
+
+
+        System.out.println(memberTestResult);
+        return "";
     }
 }

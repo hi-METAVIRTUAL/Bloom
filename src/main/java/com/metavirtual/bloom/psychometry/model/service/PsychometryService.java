@@ -39,9 +39,7 @@ public class PsychometryService {
     @Transactional
     public void hopeTherapist(MemberDTO member) {
 
-        System.out.println(member+ "서비스");
         psychometryMapper.hopeTherapist(member);
-        System.out.println(member);
     }
 
     public int getTotalScore(String userId) {
