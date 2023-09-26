@@ -17,11 +17,9 @@ import java.util.List;
 @Service
 public class TherapistPageServiceImpl implements TherapistPageService{
 
-    private SqlSession sqlSession;
     private final TherapistPageMapper mapper;
     public TherapistPageServiceImpl(TherapistPageMapper mapper, SqlSession sqlSession){
         this.mapper = mapper;
-        this.sqlSession = sqlSession;
     }
 
     @Override
@@ -96,9 +94,9 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
-    public List<BookDTO> getBooking() throws Exception {
+    public List<BookDTO> bookingList() throws Exception {
         List<BookDTO> book = null;
-        book = sqlSession.selectList("Book.bookingList");
+        book = mapper.bookingList();
 
         return book;
     }

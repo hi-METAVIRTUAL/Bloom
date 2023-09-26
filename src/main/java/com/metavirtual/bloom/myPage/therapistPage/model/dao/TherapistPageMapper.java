@@ -32,5 +32,5 @@ public interface TherapistPageMapper {
 
     int declineReservation(int bookingCode);
 
-    List<BookDTO> getBooking();
+    List<BookDTO> bookingList();
 }

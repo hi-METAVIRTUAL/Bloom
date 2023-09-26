@@ -5,14 +5,14 @@
 <mapper namespace="com.metavirtual.bloom.myPage.therapistPage.model.dao.TherapistPageMapper">
 
     <resultMap id="generalBoardResultMap" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO">
-        <id property="bookingCode" column="BOOKING_CODE"/>
-        <result property="name" column="NAME"/>
-        <result property="gender" column="GENDER"/>
-        <result property="bookingDate" column="BOOKING_DATE"/>
-        <result property="phone" column="PHONE"/>
+        <id property="bookingDTO.bookingCode" column="BOOKING_CODE"/>
+        <result property="userDTO.name" column="NAME"/>
+        <result property="userDTO.gender" column="GENDER"/>
+        <result property="bookingDTO.bookingDate" column="BOOKING_DATE"/>
+        <result property="userDTO.phone" column="PHONE"/>
     </resultMap>
 
-    <resultMap id="book" type="BookDTO">
+    <resultMap id="book" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO">
         <result property="bookingDate" column="BOOKING_DATE"/>
         <result property="memberId" column="MEMBER_ID"/>
     </resultMap>
@@ -107,7 +107,7 @@
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 
-    <select id="getBooking" resultMap="book">
+    <select id="bookingList" resultMap="book">
         SELECT
             BOOKING_DATE
             , MEMBER_ID

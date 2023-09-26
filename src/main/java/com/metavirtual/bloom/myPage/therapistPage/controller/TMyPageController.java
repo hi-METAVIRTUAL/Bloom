@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TMyPageController {
 
-    @GetMapping("/therapistInfo")
-    public String therapistInfo(Model model, Authentication authentication){
-        if (authentication != null && authentication.isAuthenticated()){
-            UserDTO user = (UserDTO) authentication.getPrincipal();
-            model.addAttribute("user", user);
+//    @GetMapping("/therapistInfo")
+//    public String therapistInfo(Model model, Authentication authentication){
+//        if (authentication != null && authentication.isAuthenticated()){
+//            UserDTO user = (UserDTO) authentication.getPrincipal();
+//            model.addAttribute("user", user);
+//
+//            TherapistDTO therapist = (TherapistDTO) authentication.getPrincipal();
+//            model.addAttribute("therapist", therapist);
+//        }
+//        return "therapistInfo";
+//    }
 
-            TherapistDTO therapist = (TherapistDTO) authentication.getPrincipal();
-            model.addAttribute("therapist", therapist);
-        }
-        return "therapistInfo";
-    }
-
-    @GetMapping("/modifyTherapistInfo")
-    public String modifyTherapistInfo(Model model, Authentication authentication){
-        if (authentication != null && authentication.isAuthenticated()){
-            UserDTO user = (UserDTO) authentication.getPrincipal();
-            model.addAttribute("user", user);
-        }
-        return "modifyTherapistInfo";
-    }
+//    @GetMapping("/modifyTherapistInfo")
+//    public String modifyTherapistInfo(Model model, Authentication authentication){
+//        if (authentication != null && authentication.isAuthenticated()){
+//            UserDTO user = (UserDTO) authentication.getPrincipal();
+//            model.addAttribute("user", user);
+//        }
+//        return "modifyTherapistInfo";
+//    }
 }
