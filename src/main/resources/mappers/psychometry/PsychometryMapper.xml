@@ -54,12 +54,15 @@
 
    </update>
     <resultMap id="getTotalScore" type="com.metavirtual.bloom.psychometry.model.dto.TestResultDTO">
+        <id property="answerCode" column="ANSWER_CODE"/>
+        <result property="answerScore" column="AMSWERSCORE"/>
+        <result property="totalScore" column="TOTAL_SCORE"/>
     </resultMap>
 
-    <select id="getTotalScore" resultMap="getTotalScore">
+    <select id="getTotalScore" resultType="java.lang.Integer">
         SELECT SUM(ANSWER_SCORE)
         FROM TEST_RESULT
-        WHERE USER_ID = 'userId'
+        WHERE USER_ID = 'gao'
 
     </select>
 </mapper>

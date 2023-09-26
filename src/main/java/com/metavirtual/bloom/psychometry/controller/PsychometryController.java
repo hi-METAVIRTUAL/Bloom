@@ -63,28 +63,21 @@ public class PsychometryController {
         for (int i = 0; i < categories.size(); i++){
             String category = categories.get(i);
             int answer = Integer.parseInt(answers.get(i));
-            System.out.println(category+"카테");
-            if ("D".equals(category)) {
+            if (category.equals("D")) {
                 totalD += answer;
-                System.out.println(totalD + "토탈1");
-            } else if ("A".equals(category)) {
+            } else if (category.equals("A")) {
                 totalA += answer;
-            } else if ("B".equals(category)) {
+            } else if (category.equals("B")) {
                 totalB += answer;
-            } else if ("O".equals(category)) {
+            } else if (category.equals("O")) {
                 totalO += answer;
             }
             psychometryService.saveAnswers(answer,category);
 
-            System.out.println(totalD + "토탈");
         }
         psychometryService.saveTotalScore(totalD,totalA,totalB,totalO,userId);
 
 
-        System.out.println(categories);
-        System.out.println(answers);
-        // categories 및 answers 데이터를 원하는 방식으로 처리
-        // 응답을 반환하거나 추가 처리 수행
         Map<String, String> response = new HashMap<>();
         response.put("message", "데이터 전송 성공");
 
@@ -103,10 +96,11 @@ public class PsychometryController {
         return "psychological/psychometry/lodingPage";
     }
     @GetMapping("result")
-    public String resultTestPage(HttpSession session){
+    public String resultTestPage(HttpSession session, Model model){
+
         String userId=(String) session.getAttribute("userId");
         int totalScore = psychometryService.getTotalScore(userId);
-
+        model.addAttribute("sum", totalScore);
         return "psychological/psychometry/resultTest";
     }
 }
