@@ -18,6 +18,7 @@ public class UserImpl extends User {
     private String unregistDate;
     private int authorityCode;
 
+
     public UserImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
