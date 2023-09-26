@@ -51,19 +51,10 @@ public class MemberPageController {
     @GetMapping("/memberInfo")
     public String memberInfo (Model model, Authentication authentication){
         if (authentication != null && authentication.isAuthenticated()){
-            Object principal = authentication.getPrincipal();
-            if(principal instanceof UserDTO){
-                UserDTO user = (UserDTO) principal;
-                model.addAttribute("user", user);
-            }else if(principal instanceof BookingDTO){
-                BookingDTO booking = (BookingDTO) principal;
-                model.addAttribute("booking", booking);
-            }
-//            UserDTO user = (UserDTO) authentication.getPrincipal();
-//            model.addAttribute("user", user);
-//
-//            BookingDTO booking = (BookingDTO) authentication.getPrincipal();
-//            model.addAttribute("booking", booking);
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            BookingDTO booking = new BookingDTO();
+            model.addAttribute("user", user);
+            model.addAttribute("booking", booking);
         }
         return "mypage/member/memberInfo";
     }
