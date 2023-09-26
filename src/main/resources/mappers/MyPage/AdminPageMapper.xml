@@ -10,13 +10,13 @@
         <result property="registDate" column="REGIST_DATE"/>
     </resultMap>
 
-    <resultMap id="therapistResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistList">
+<!--    <resultMap id="therapistResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistList">
         <id property="userId" column="USER_ID"/>
         <result property="name" column="Name"/>
         <result property="registDate" column="REGIST_DATE"/>
 
         <association property="confirmedStatus" resultMap="resultMap"/>
-    </resultMap>
+    </resultMap>-->
 
     <resultMap id="resultMap" type="com.metavirtual.bloom.user.model.dto.TherapistDTO">
         <id property="userId" column="USER_ID"/>
@@ -57,7 +57,7 @@
         FROM USER
         WHERE AUTHORITY_CODE = 2
     </select>
-
+<!--
     <select id="selectTherapistList" resultMap="therapistResultMap">
         SELECT
             U.USER_ID
@@ -68,6 +68,6 @@
         JOIN THERAPIST T ON U.USER_ID = T.USER_ID
         WHERE AUTHORITY_CODE = 2
         ORDER BY U.REGIST_DATE DESC
-    </select>
+    </select>-->
 
 </mapper>

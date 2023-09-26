@@ -12,8 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,14 +23,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.StringUtils;
+import org.thymeleaf.context.Context;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.thymeleaf.TemplateEngine;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static java.lang.String.valueOf;
+import static javax.swing.text.html.parser.DTDConstants.NUMBERS;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,11 +45,23 @@ public class UserServiceImpl implements UserService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private final JavaMailSender javaMailSender;
+    private final TemplateEngine templateEngine;
+    private static final String senderEmail = "metavirtual.bloom@gmail.com";
+    private static int number;
+
+
+    private static final String CAPITAL_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvwxyz";
+    private static final String SYMBOLS = "!@$%&*";
+    private static final String ALLOWED_CHARACTERS = CAPITAL_LETTERS + LOWERCASE_LETTERS + SYMBOLS;
 
     @Autowired
-    public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserMapper userMapper, PasswordEncoder passwordEncoder, JavaMailSender javaMailSender, TemplateEngine templateEngine) {
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.javaMailSender = javaMailSender;
+        this.templateEngine = templateEngine;
     }
 
 //    @Transactional
@@ -202,8 +221,8 @@ public class UserServiceImpl implements UserService {
 
         log.info("userId : " + userId);
 
-        return  userMapper.bookingStatus(userId);
 
+        return userMapper.bookingStatus(userId);
     }
 
 
@@ -212,6 +231,87 @@ public class UserServiceImpl implements UserService {
         log.info(email);
 
         return userMapper.emailDupCheck(email);
+    }
+
+
+
+    public static String generateRandomString(int length) {
+        SecureRandom random = new SecureRandom();
+        StringBuilder randomString = new StringBuilder();
+
+        // Ensure at least one capital letter
+        randomString.append(CAPITAL_LETTERS.charAt(random.nextInt(CAPITAL_LETTERS.length())));
+
+        // Ensure at least one symbol
+        randomString.append(SYMBOLS.charAt(random.nextInt(SYMBOLS.length())));
+
+        // Ensure at least one number
+        int randomNumber = random.nextInt(NUMBERS);
+        randomString.append(randomNumber);
+
+        // Fill the rest of the string with a random selection of allowed characters
+        for (int i = 3; i < length; i++) {
+            randomString.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        }
+
+        return randomString.toString();
+    }
+
+    public MimeMessage sendNewPwdToEmail(String userId, String email, String name) {
+        String temporaryPwd = generateRandomString(10);
+        System.out.println(temporaryPwd);
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setFrom(senderEmail);
+            helper.setTo(email);
+            helper.setSubject("임시 비밀번호 이메일 전송");
+
+            // Create a context to hold variables to be replaced in the template
+            Context context = new Context();
+            context.setVariable("content", temporaryPwd);
+            context.setVariable("name", String.valueOf(name));
+
+
+            // Process the HTML template with Thymeleaf
+            String htmlContent = templateEngine.process("/user/sendNewPwdToEmail", context);
+
+            // Set the email content as HTML
+            helper.setText(htmlContent, true);
+
+            // 임시 비밀번호 변경
+            System.out.println(temporaryPwd);
+
+            UserDTO user = new UserDTO();
+            user.setPwd(passwordEncoder.encode(temporaryPwd));
+            user.setUserId(userId);
+            user.setEmail(email);
+
+            userMapper.changePwd(user);
+
+
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return message;
+    }
+
+
+    public String setNewPwd(String userId, String email) {
+
+        String name = userMapper.findUserDetails(userId, email);
+
+        if (name != null) {
+            MimeMessage message = sendNewPwdToEmail(userId, email, name);
+            javaMailSender.send(message);
+            return name;
+        }else {
+            return "이메일 또는 아이디가 존재하지 않습니다.";
+        }
     }
 }
 

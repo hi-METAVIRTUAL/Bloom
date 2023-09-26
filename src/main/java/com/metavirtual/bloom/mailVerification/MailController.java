@@ -5,10 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import java.util.logging.Logger;
 
 @Controller
 @RequiredArgsConstructor
 public class MailController {
+
+    Logger log;
 
     private final MailService mailService;
 
@@ -24,12 +27,17 @@ public class MailController {
     }
 
 
-/*    @ResponseBody
+
     @PostMapping("/mail/findId")
-    public String sendId(@RequestParam("nickName") String nickName, @RequestParam("email") String email, @ModelAttribute UserDTO userDTO) {
+    public String sendId(@RequestParam("name") String name, @RequestParam("email") String email
+            , @ModelAttribute UserDTO userDTO) {
 
-        String findDetails = mailService.findDetails(nickName, email);
+        System.out.println("이름 : " + name);
+        System.out.println("이메일 : " + email);
 
-        return null;
-    }*/
+        String findDetails = mailService.findDetails(name, email);
+
+        return "/user/verificationIdSent";
+    }
+
 }
