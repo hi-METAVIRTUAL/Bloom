@@ -3,114 +3,27 @@ body {
     color: #C09A81;
     background-color: #FFF6E2;
 }
-/* 게시판 h1 공통 */
-.title {
-    font-size: 32px;
-    width: 80%;
-    text-align: left;
-    margin-top: 5%;
-    margin-left: 10%;
-}
 
-/* 게시판 공통 페이지 버튼 */
-.insert-button {
-    height: 30px;
+.buttons-board {
     border-radius: 10px;
-    width: 220px;
-    background: #C09A81;
-    border: none;
-}
-.insert-button span {
+    background-color: #C09A81;
     color: #FFFFFF;
-    font-size: 18px;
+    border: none;
+    font-size: 20px;
+    height: 30px;
 }
 
-/* 게시판 검색 박스 공통 */
 .search-bar {
-     border-radius: 10px;
- }
-
-
-.search-icon{
-    width: 23px;
-    height: 23px;
-}
-
-
-.searchBox1 {
-    width: 70%;
-    height: 30px;
-    margin: auto;
-    justify-content: space-around;
     display: flex;
-    gap: 30px;
+    justify-content: center;
 }
-.searchBox1 select {
-    border-radius: 10px;
+.search-bar select {
     border-color: #C09A81;
+    border-radius: 10px;
     color: #C09A81;
 }
-
-.searchBox1 input{
-    /*background: url("/images/review/search.png") no-repeat right center #FFF6E2;*/
-    width: 100%;
-    background-size: 23px;
+.search-bar input {
     border-color: #C09A81;
-    background-color: white;
-    z-index: 2;
+    border-radius: 10px;
     color: #C09A81;
-    font-size: 15px;
-    border-radius: 10px;
-}
-
-.searchBox1 input::placeholder {
-    text-indent: 10px;
-}
-
-/* 글 등록 페이지 공통 */
-
-.title-box {
-    margin: auto;
-    width: 80%;
-    display: flex;
-}
-
-.insert-input {
-    margin-left: 5%;
-    margin-right: 27%;
-    width: 50%;
-    height: 30px;
-    font-size: 18px;
-    color: #C09A81;
-    border-radius: 10px;
-    border-color: #C09A81;
-}
-
-.title-insert {
-    font-size: 23px;
-}
-
-.textarea-field textarea{
-    margin-top: 2%;
-    margin-bottom: 2%;
-    font-size: 18px;
-    border-radius: 10px;
-    border-color: #C09A81;
-}
-
-/* 고객센터 메인페이지 */
-.center-insert-box {
-    width: 80%;
-    margin: auto;
-}
-.center-insert-button {
-    height: 30px;
-    border-radius: 10px;
-    width: 180px;
-    background: #C09A81;
-    border: none;
-}
-.center-insert-button span {
-    color: #FFFFFF;
-    font-size: 18px;
 }
