@@ -21,11 +21,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String defaultLocation(Model mode, Principal principal) {
+    public String defaultLocation() {
 
-
-
-        String userId = principal.getName();
 
         return "index";
     }

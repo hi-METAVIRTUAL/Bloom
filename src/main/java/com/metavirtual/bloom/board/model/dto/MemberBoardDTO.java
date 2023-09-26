@@ -1,7 +1,7 @@
 package com.metavirtual.bloom.board.model.dto;
 
 
-/* 게시글 등록용 객체 */
+/* 게시글 CRUD용 객체 */
 public class MemberBoardDTO {
     private int boardCode; // 게시글코드
     private String title; // 제목
