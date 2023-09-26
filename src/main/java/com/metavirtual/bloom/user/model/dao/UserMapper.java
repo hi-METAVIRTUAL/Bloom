@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -34,6 +35,10 @@ public interface UserMapper {
    int uploadDataFile(DataFileDTO dataFile);
 
    List<BookingDTO> bookingStatus(String userId);
+
+   String findDetails(String nickName, String email);
+
+   int emailDupCheck(String email);
 
    /*   AuthDetails findUserById(String username);*/
 

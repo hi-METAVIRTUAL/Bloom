@@ -115,6 +115,12 @@
         WHERE M.NICKNAME = #{ nickname }
     </select>
 
+    <select id="emailDupCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM USER U
+        WHERE U.EMAIL = #{ email }
+    </select>
+
     <select id="selectUserById" parameterType="String" resultMap="userResultMap">
         SELECT USER_ID
                 FROM USER
@@ -222,7 +228,11 @@
 
     </select>
 
-
+    <select id="findDetails" resultMap="userResultMap">
+        SELECT NICKNAME, EMAIL, USER_ID
+        FROM USER
+        WHERE NICKNAME = #{ nickname } AND EMAIL = #{ email };
+    </select>
 </mapper>
         <!--SELECT
             U.name AS name,

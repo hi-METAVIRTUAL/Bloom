@@ -114,6 +114,7 @@ public class UserController {
             throw new RuntimeException(e);
         }
 
+
         return "user/memberRegistSuccess";
     }
 
@@ -132,6 +133,8 @@ public class UserController {
         return map;
         }
 
+
+
         @PostMapping("/nicknameDupCheck")
         @ResponseBody
         public Map<Object, Object> nicknameDupCheck(@RequestBody String nickname) throws Exception {
@@ -148,6 +151,22 @@ public class UserController {
             return map;
         }
 
+
+    @PostMapping("/emailDupCheck")
+    @ResponseBody
+    public Map<Object, Object> emailDupCheck(@RequestBody String email) throws Exception {
+
+        System.out.println(email);
+        Map<Object,Object> map = new HashMap<Object, Object>();
+        int result = 0;
+        log.info(email);
+
+        result = userService.emailDupCheck(email);
+        System.out.println(result);
+        map.put("check", result);
+        System.out.println(email);
+        return map;
+    }
     @PostMapping("/memberRegistSuccess")
     public String regularRegistSuccess() {
         return "user/memberRegistSuccess"; }
@@ -228,12 +247,14 @@ public class UserController {
 
             return "index";
     }
-
     @GetMapping("/findId")
-    public String findId() { return "user/findId"; }
+    public String findId() {return "user/findId"; }
+
 
     @GetMapping("/findPassword")
     public String findPassword() {
+
+
         return "user/findPassword";
     }
 
