@@ -6,82 +6,139 @@
     <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/selectone.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
+    <th:block th:include="components/Header.html"></th:block>
+
     <div>
-        <h2>게시글</h2>
+        <h2 style="text-align: center">게시글</h2>
         <br>
         <div>
-            <table>
-                <tr style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
-                    <td colspan="2"><p th:text="${ board.boardCategory }"></p></td>
+            <table style="margin: auto">
+                <tr>
+                    <td class="detailTitle-board" colspan="2" th:text="${ board.title }"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"> 제목 | <p th:text="${ board.title }"></p></td>
-                </tr>
-                <tr class="view-id-date">
-                    <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; text-align: left;">작성자 |<span th:text="${ board.userId.nickname }"></span></td>
-                    <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; text-align: right;">작성일 |<span th:text="${ board.postedDate }"></span></td>
+                    <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; text-align: left;">작성자 | <span th:text="${ board.refNickname }"></span></td>
+                    <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; text-align: right;">작성일 | <span th:text="${ board.postedDate }"></span></td>
                 </tr>
                 <tr>
-                    <td>내용</td>
-                    <td colspan="2"><textarea th:text="${ board.boardContent }" readonly style="resize: none"></textarea></td>
+                    <th colspan="2" style="font-size: 23px">내용</th>
                 </tr>
                 <tr>
-                    <!--<td colspan="2"><button type="button" style="text-align: right;">신고하기</button></td>-->
+                    <td colspan="2"><textarea th:text="${ board.boardContent }" readonly class="detailsBox"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: right;"><button type="button" id="openModalBtn" class="button-open">신고하기</button></td>
                 </tr>
             </table>
-            <div>
-                <th:block> <!-- th:if="${ #authentication.getPrincipal().getUserId() == board.refUserId }" -->
-                    <button type="button" id="btnModify">수정하기</button>
-                    <button type="button" id="btnDelete">삭제하기</button>
-                </th:block>
+            <!--모달 창-->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span id="closeModalBtn" class="close">&times;</span>
+                    <div>
+                        <br>
+                        <h2>신고</h2>
+                        <hr>
+                        <h2> 제목 : <span th:text="${ board.title }"></span></h2>
+                        <h2> 작성자 : <span th:text="${ board.refNickname }"></span></h2>
+                        <hr>
+                        <div>신고사유</div>
+                        <hr>
+                        <form action="/board/reportInsert" method="post">
+                            <input type="checkbox" name="reportContent" value="영리목적/홍보">영리목적/홍보<br>
+                            <input type="checkbox" name="reportContent" value="개인정보노출">개인정보노출<br>
+                            <input type="checkbox" name="reportContent" value="음란성/선정성">음란성/선정성<br>
+                            <input type="checkbox" name="reportContent" value="불법적인정보">불법적인정보<br>
+                            <input type="checkbox" name="reportContent" value="욕설/인신공격">욕설/인신공격<br>
+                            <input type="checkbox" name="reportContent" value="같은내용도배">같은내용도배<br> <br>
+                            <div>신고 기능 악용 시 활동이 제재될 수 있습니다.</div><br>
+                            <textarea rows="3" cols="50" placeholder="기타내용작성 50자 이내" style="resize: none"></textarea><br>
+                            <input type="submit" value="신고하기">
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div>
-                <button type="button" class="insert-button" th:onclick="'location.href=\'/board/searchList\''">
-                    돌아가기
-                </button>
+            <div class="modal--bg hidden">
+                <div class="modal">
+                    <p class="modal__text">Modal</p>
+                    <button class="button--close">닫기</button>
+                </div>
             </div>
 
-            <table id="commentInsert">
-                <input type="hidden" id="boardNo" name="boardCode" th:value="${ board.boardCode }">
-                <tr>
-                    <td>댓글</td>
-                    <td>
-                        <textarea cols="40" rows="3" id="commentContent" style="resize: none;" readonly></textarea>
-                    </td>
-                    <td>
-                        <button type="button" id="insertComment">댓글작성</button>
-                    </td>
-                </tr>
-            </table>
-
-            <table id="commentResult">
-                <th:block th:if="${ commentList != null }">
-                    <th:block th:each="memberComment : ${ commentList }">
-                        <tr class="table-td1">
-                            <input type="hidden" id="${ memberComment.commentCode }" th:value="${ memberComment.commentCode }">
-                            <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
-                                th:text="${ memberComment.commentContent }"></td>
-                            <td th:text="${ memberComment.userId }"></td>
-                            <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
-                                th:text="${ memberComment.postedDate }"></td>
-                            <td>
-                                <th:block> <!--
-                                            th:if="${ #authentication.getPrincipal().getUserId() == memberComment.userId }"-->
-                                    <button type="button"
-                                            th:commentNo="${ memberComment.commentCode }"
-                                            th:onclick="commentDelete(this.getAttribute('commentNo'))">댓글삭제
-                                    </button>
-                                </th:block>
-                            </td>
-                        </tr>
-                    </th:block>
-                </th:block>
-            </table>
+            <br>
+            <div style="text-align: center">
+                <th:div sec:authorize="isAuthenticated()"
+                        th:if="${ #authentication.getPrincipal().getUserId() == board.refUserId }">
+                        <button type="button" id="btnModify" class="buttons-board">수정하기</button>
+                        <button type="button" id="btnDelete" class="buttons-board">삭제하기</button>
+                </th:div>
+                <button type="button" class="buttons-board" th:onclick="'location.href=\'/board/searchList\''">돌아가기</button>
+            </div>
+            <br><br>
         </div>
     </div>
 
+    <div class="commentContainer">
+        <table id="commentInsert">
+            <input type="hidden" id="boardNo" name="boardCode" th:value="${ board.boardCode }">
+            <tr>
+                <td>댓글</td>
+                <td>
+                    <textarea id="commentContent" class="commentBox"></textarea>
+                </td>
+                <th:td sec:authorize="isAuthenticated()">
+                    <button type="button" id="insertComment" class="buttons-board">댓글작성</button>
+                </th:td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div>
+        <table id="commentResult" class="datailTable">
+            <th:block th:if="${ commentList != null }">
+                <th:block th:each="memberComment : ${ commentList }">
+                    <tr class="table-td1">
+                        <input type="hidden" id="${ memberComment.commentCode }" th:value="${ memberComment.commentCode }">
+                        <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+                            th:text="${ memberComment.commentContent }"></td>
+                        <td
+                            th:text="${ memberComment.userId }"></td>
+                        <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
+                            th:text="${ memberComment.postedDate }"></td>
+                        <td>
+                            <th:block
+                                    sec:authorize="isAuthenticated()"
+                                    th:if="${ #authentication.getPrincipal().getUserId() == memberComment.userId }">
+                                <button type="button"
+                                        th:commentNo="${ memberComment.commentCode }"
+                                        th:onclick="commentDelete(this.getAttribute('commentNo'))">댓글삭제
+                                </button>
+                            </th:block>
+                        </td>
+                    </tr>
+                </th:block>
+            </th:block>
+        </table>
+    </div>
 
     <script th:inline="javascript">
+
+        /* 신고 모달 */
+
+        document.getElementById('openModalBtn').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'block';
+        });
+
+        // 모달 닫기 버튼 클릭 시 이벤트 처리
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('myModal').style.display = 'none';
+        });
+
+        // 모달 바깥 부분 클릭 시 모달 닫기
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('myModal')) {
+                document.getElementById('myModal').style.display = 'none';
+            }
+        });
 
         /* 게시글 수정 */
         $('#btnModify').click(function (){
@@ -108,6 +165,7 @@
             document.getElementById('deleteForm').submit();
         });
 
+
         /* 댓글 등록 */
         if(document.getElementById("insertComment")) {
 
@@ -131,7 +189,7 @@
                     },
                     body: JSON.stringify(
                         {
-                            userId: 'Test123',
+                            userId: '[[${#authentication.getPrincipal().getUserId()}]]',
                             boardCode: boardNo,
                             commentContent: commentContent
                         }
@@ -147,8 +205,11 @@
                             $commentContentTd = $("<td>").text(memberComment.commentContent);
                             $userIdTd = $("<td>").text(memberComment.userId);
                             $postedDateTd = $("<td>").text(memberComment.postedDate);
-                            $removeTd = $("<td>").append("<button type='button' onclick='commentDelete(" + memberComment.commentCode + ")'>댓글삭제</button>");
-
+                            if(memberComment.userId == '[[${#authentication.getPrincipal().getUserId()}]]' ) {
+                                $removeTd = $("<td>").append("<button type='button' class='buttons-board' onclick='commentDelete(" + memberComment.commentCode + ")'>댓글삭제</button>");
+                            } else {
+                                $removeTd = $("<td>");
+                            }
 
                             $tr.append("<input type='hidden' id=" + memberComment.commentCode + " value='" + memberComment.commentCode + "'>");
                             $tr.append($commentContentTd);
@@ -165,7 +226,7 @@
         }
 
 
-        async function commentDelete(commentNo){
+        function commentDelete(commentNo){
 
             let boardNo = document.getElementById("boardNo").value;
 
@@ -173,7 +234,7 @@
                 return false;
             }
 
-            await fetch("/board/commentDelete", {
+            fetch("/board/commentDelete", {
                 method: "PATCH",
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
@@ -197,7 +258,12 @@
                         $commentContentTd = $("<td>").text(memberComment.commentContent);
                         $userIdTd = $("<td>").text(memberComment.userId);
                         $postedDateTd = $("<td>").text(memberComment.postedDate);
-                        $removeTd = $("<td>").append("<button type='button' onclick='commentDelete(" + memberComment.commentCode + ")'>댓글삭제</button>");
+                        if(memberComment.userId == '[[${#authentication.getPrincipal().getUserId()}]]') {
+                            $removeTd = $("<td>").append("<button type='button' class='buttons-board' onclick='commentDelete(" + memberComment.commentCode + ")'>댓글삭제</button>");
+                        } else {
+                            $removeTd = $("<td>");
+                        }
+
 
 
                         $tr.append("<input type='hidden' id=" + memberComment.commentCode + " value='" + memberComment.commentCode + "'>");

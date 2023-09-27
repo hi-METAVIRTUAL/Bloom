@@ -1,7 +1,6 @@
 package com.metavirtual.bloom.board.model.dto;
 
 
-import com.metavirtual.bloom.user.model.dto.MemberDTO;
 
 public class MemberCommentDTO {
     private int commentCode;

@@ -21,7 +21,7 @@
                 <div class="search-bar">
                     <input type="hidden" name="currentPage" value="1">
                     <select id="searchSelect" name="searchSelect">
-                        <option value="title">제목</option>
+                        <option value="title1">제목</option>
                         <option value="writer">작성자</option>
                     </select>
                     <input style="width: 700px" type="search" id="searchValue" name="searchValue" placeholder="검색어를 입력해 주세요.">
@@ -34,7 +34,8 @@
     <div class="table">
 
         <table class="boardListBox" id="boardListTable">
-            <p style="text-align: right"><button type="button" class="buttons-board" style="width: 150px" onclick="location.href='/board/boardPosting'">글등록</button></p>
+            <th:p style="text-align: right" sec:authorize="isAuthenticated()"><button type="button" class="buttons-board" style="width: 150px" onclick="location.href='/board/boardPosting'">글등록</button></th:p>
+            <br>
             <tr class="table-th">
                 <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
                 <th style="width: 200px">유형</th>

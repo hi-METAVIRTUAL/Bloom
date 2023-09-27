@@ -5,34 +5,36 @@
 <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
+<th:block th:include="components/Header.html"></th:block>
 
-<h1 class="title">게시글 수정</h1>
-<div class="title-box">
+<h2 style="text-align: center">게시글 수정</h2>
+<div class="table">
     <form name="boardModifyForm" th:action="@{/board/boardModify}" method="post">
 
         <table>
             <tr>
                 <th>제목</th>
-                <td>
-                    <input type="text" id="title" name="title" class="insert-input" th:value="${ board.title }">
+                <td style="text-align: left; width: 70px;">
+                    <input type="text" id="title-board" name="title" class="inputs-board" style="width: 400px;" th:value="${ board.title }">
                 </td>
             </tr>
             <tr>
                 <th>분류</th>
-                <td>
-                    <div>
-                        <select id="boardCategory" name="boardCategory">
-                            <option value="">분류</option>
-                            <option value="커뮤니티" >커뮤니티</option>
-                            <option value="고민상담" >고민상담</option>
-                        </select>
-                    </div>
+                <td style="text-align: left;">
+                    <select id="boardCategory" name="boardCategory" class="inputs-board">
+                        <option value="">분류</option>
+                        <option value="커뮤니티" >커뮤니티</option>
+                        <option value="고민상담" >고민상담</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <th>내용</th>
+                <th colspan="2">내용</th>
+            </tr>
+            <tr>
+                <th></th>
                 <td>
-                    <textarea id="boardContent" name="boardContent" rows="22" cols="115" th:text="${ board.boardContent }"></textarea>
+                    <textarea id="boardContent" name="boardContent" rows="22" cols="120" th:text="${ board.boardContent }" style="resize: none; border-radius: 5px; border-color: #C09A81"></textarea>
                 </td>
             </tr>
             <tr>
@@ -44,20 +46,15 @@
         <!-- 게시글 정보 가져오기 -->
         <div>
             <input type="hidden" id="postedDate" name="postedDate">
-            <input type="hidden" id="userId" name="userId" value="a123!">
+            <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
             <input type="hidden" id="boardCode" name="boardCode" th:value="${ board.boardCode }">
-            <!-- th:value="${ #authentication.getPrincipal().getUserId() }" -->
         </div>
 
         <div>
-            <button id="btnModify" type="submit" class="insert-button">
-                <span>수정하기</span>
-            </button>
+            <button id="btnModify" type="submit" class="buttons-board">수정하기</button>
+            <button type="button" class="insert-button" onclick="location.href='/board/searchList'">돌아가기</button>
         </div>
     </form>
-    <button type="button" class="insert-button" onclick="location.href='/board/searchList'">
-        <span>돌아가기</span>
-    </button>
 </div>
 
 <script>

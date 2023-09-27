@@ -50,115 +50,126 @@
                 <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;&nbsp;계정탈퇴&nbsp;&nbsp;</th>
             </tr>
 
-            <tr style="color: #C09A81" align="center">
-                <td>1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
+            <tr style="color: #C09A81" align="center" th:each="therapist : ${ therapistList }" th:if="${therapistList} != null">
+                <td th:text="${index}"></td>
+                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'" th:text="${therapist.userId}"></td>
+                <td style="cursor: pointer;" onclick="location.href='therapistProfile'" th:text="${therapist.name}"></td>
+                <td th:text="${therapist.registDate}"></td>
+                <td th:text="${therapist.confirmedStatus}"></td>
                 <td>
                     <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick=""> <!--알림창 띄우기-->
                 </td>
             </tr>
 
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 대기</td>
-                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="color: #C09A81" align="center">-->
+<!--                <td>1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td>-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick=""> &lt;!&ndash;알림창 띄우기&ndash;&gt;-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="color: #C09A81" align="center">
-                <td>1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 대기</td>
-                <td>
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
+<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 대기</td>-->
+<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="color: #C09A81" align="center">-->
+<!--                <td>1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 대기</td>-->
+<!--                <td>-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="color: #C09A81" align="center">
-                <td>1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td>
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
+<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="color: #C09A81" align="center">-->
+<!--                <td>1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td>-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="color: #C09A81" align="center">
-                <td>1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td>
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
+<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="color: #C09A81" align="center">-->
+<!--                <td>1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td>-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="color: #C09A81" align="center">
-                <td>1</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td>
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
+<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
-            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">
-                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">10</td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>
-                <td>2023/04/24</td>
-                <td>승인 완료</td>
-                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">
-                </td>
-            </tr>
+<!--            <tr style="color: #C09A81" align="center">-->
+<!--                <td>1</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td>-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
+
+<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
+<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">10</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
+<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
+<!--                <td>2023/04/24</td>-->
+<!--                <td>승인 완료</td>-->
+<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
+<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
+<!--                </td>-->
+<!--            </tr>-->
 
 <!--            <tr style="color: #C09A81" align="center">-->
 <!--                <td>1</td>-->
@@ -174,20 +185,45 @@
         </table>
 
         <br><br>
-        <table align="center" style="color: #C09A81;">
-            <td style="cursor: pointer"><&nbsp;</td>
-            <td>&nbsp;1&nbsp;</td>
-            <td>&nbsp;2&nbsp;</td>
-            <td>&nbsp;3&nbsp;</td>
-            <td>&nbsp;4&nbsp;</td>
-            <td>&nbsp;5&nbsp;</td>
-            <td>&nbsp;6&nbsp;</td>
-            <td>&nbsp;7&nbsp;</td>
-            <td>&nbsp;8&nbsp;</td>
-            <td>&nbsp;9&nbsp;</td>
-            <td>&nbsp;10&nbsp;</td>
-            <td style="cursor: pointer">&nbsp;></td>
-        </table>
+        <div class="pagingArea" align="center">
+            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.startPage}}+'\''"
+                    th:disabled="${selectCriteria.pageNo == 1}">
+                <<
+            </button>
+            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.pageNo - 1}}+'\''"
+                    th:disabled="${selectCriteria.pageNo == 1}">
+                <
+            </button>
+            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+                <button th:text="${ page }"
+                        th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${page}}+'\''"
+                        th:disabled="${ selectCriteria.pageNo eq page }">
+                </button>
+            </th:block>
+            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.pageNo = 1}}+'\''"
+                    th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}">
+                >
+            </button>
+            <button th:onclick="'location.href\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.lastPage}}+'\''"
+                    th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}">
+                >>
+            </button>
+            <br><br>
+        </div>
+<!--        <table align="center" style="color: #C09A81;">-->
+<!--            <td style="cursor: pointer"><&nbsp;</td>-->
+<!--            <td>&nbsp;1&nbsp;</td>-->
+<!--            <td>&nbsp;2&nbsp;</td>-->
+<!--            <td>&nbsp;3&nbsp;</td>-->
+<!--            <td>&nbsp;4&nbsp;</td>-->
+<!--            <td>&nbsp;5&nbsp;</td>-->
+<!--            <td>&nbsp;6&nbsp;</td>-->
+<!--            <td>&nbsp;7&nbsp;</td>-->
+<!--            <td>&nbsp;8&nbsp;</td>-->
+<!--            <td>&nbsp;9&nbsp;</td>-->
+<!--            <td>&nbsp;10&nbsp;</td>-->
+<!--            <td style="cursor: pointer">&nbsp;></td>-->
+<!--        </table>-->
     </div>
 </div>
 <footer>
