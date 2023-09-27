@@ -6,13 +6,9 @@ import com.metavirtual.bloom.myPage.therapistPage.model.dto.DataFileDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Mapper
 public interface UserMapper {
@@ -36,9 +32,13 @@ public interface UserMapper {
 
    List<BookingDTO> bookingStatus(String userId);
 
-   String findDetails(String nickName, String email);
+   String findDetails(String name, String email);
 
    int emailDupCheck(String email);
+
+   String findUserDetails(String userId, String email);
+
+   void changePwd(UserDTO user);
 
    /*   AuthDetails findUserById(String username);*/
 

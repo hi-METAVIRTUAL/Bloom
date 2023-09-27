@@ -24,12 +24,31 @@
 
     <h1>아이디 찾기</h1>
     <form th:action="@{/mail/findId}" method="post">
-        <input type="text" placeholder="가입 시 입력한 닉네임을 입력해 주세요" name="nickName" style="width: 500px; height: 40px; text-align:center; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid; margin-bottom: 10px;">
+        <input type="text" placeholder="가입 시 입력한 이름을 입력해 주세요" name="name" style="width: 500px; height: 40px; text-align:center; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid; margin-bottom: 10px;">
         <br>
         <input type="text" placeholder="가입 시 입력한 이메일을 입력해 주세요" name="email" style="width: 500px; height: 40px; text-align:center; color: #C09A81; border-color: #C09A81; border-radius: 10px; border-style: solid;">
         <br>
         <button type="submit" name="findId" style="width: 500px; height: 40px; margin-top: 10px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;"><span style="font-weight: bolder;">아이디 찾기</span></button>
     </form>
+<!--<script>
+    function sendNumber(name, email) {
+    $.ajax({
+    url: "/mail/findId",
+    type: "POST",
+    dataType: "json",
+    data: { "mail": email, "name": name },
+    success: function (data) {
+        alert("이메일 발송");
+    },
+    error: function () {
+    console.log(email);
+    console.log("존재하지 않는 이메일입니다")
+
+    alert("존재하지 않는 이메일입니다");
+    }
+    });
+    }
+</script>div-->
 
 </div>
 <footer>
