@@ -1,6 +1,7 @@
 package com.metavirtual.bloom.board.model.dao;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
@@ -22,13 +23,19 @@ public interface BoardMapper {
     int boardModify(MemberBoardDTO modifyBoard);
     int boardDelete(MemberBoardDTO deleteBoard);
 
-    int viewCount(int boardCode);
 
     List<MemberCommentDTO> searchCommentList(int boardCode);
 
     int commentPosting(MemberCommentDTO newComment);
 
     int commentDelete(int commentCode);
+
+    int reportInsert(BoardReportDTO newReport);
+
+
+    int viewCount(int boardCode);
+
+    void reportCount(int boardCode);
 }
 
 

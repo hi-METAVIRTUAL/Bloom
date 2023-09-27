@@ -190,15 +190,18 @@ public class BoardController {
     }
 
     /* 게시글 신고 사유 등록 메서드 */
-    /*@PostMapping("/reportInsert")
-    public String  boardReportPosting(@RequestParam String reportContent, @ModelAttribute BoardReportDTO newReport, RedirectAttributes rttr) {
+    @PostMapping("/reportInsert")
+    public String boardReportPosting(@RequestParam(required = false) String reportCategory
+                    , @ModelAttribute BoardReportDTO newReport, RedirectAttributes rttr) throws ReportInsertException {
 
-        System.out.println("신고 사유 값 : " + newReport);
-
-        boardService.reportInsert(newReport);
-        rttr.addFlashAttribute("message", "신고가 접수되었습니다.");
-
+        System.out.println("신고 파라미터 값 : " + newReport);
+        if(reportCategory != null && reportCategory != "") {
+            boardService.reportInsert(newReport);
+            rttr.addFlashAttribute("message", "신고가 접수되었습니다.");
+        } else {
+            rttr.addFlashAttribute("message", "신고가 접수되지 않았습니다. 신고사유 카테고리중 하나를 선택해주세요.");
+        }
         return "redirect:/board/searchList";
-    }*/
+    }
 }
 
