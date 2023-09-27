@@ -55,8 +55,8 @@
 
             <tr style="color: #C09A81;" align="center" th:each="member, iterator : ${ memberList }" th:if="${memberList} != null">
                 <td th:text="${selectCriteria.totalBoardCount - (((selectCriteria.pageNo - 1) * selectCriteria.limitPerPage) + iterator.index)}"></td>
-                <td style="cursor: pointer;" id="selectMember" th:text="${member.userId}"></td>
-                <td style="cursor: pointer;" onclick="showPopup();" th:text="${member.name}"></td>
+                <td id="selectMember" style="cursor: pointer;" th:text="${member.userId}"></td>
+                <td id="bookingInfo" style="cursor: pointer;" th:text="${member.name}"></td>
                 <td>
                     <p th:if="${member.unregistDate == null}" th:text="${member.registDate}"></p>
                     <p th:unless="${member.unregistDate == null}" th:text="${member.unregistDate}"></p>
@@ -282,11 +282,21 @@
     }
 
     if(document.querySelectorAll("#selectMember")){
-        const $tds = document.querySelectorAll("#selectMember");
-        for(let i = 0; i<tds.length; i++){
-            $tds[i].onclick = function(){
+        const $sm = document.querySelectorAll("#selectMember");
+        for(let i = 0; i<$sm.length; i++){
+            $sm[i].onclick = function(){
                 const userId = this.innerText;
-                location.href = "/admin/editMemberInfo?id="+userId;
+                location.href = "/admin/editMemberInfo?userId="+userId;
+            }
+        }
+    }
+
+    if(document.querySelectorAll("#bookingInfo")){
+        const $bi = document.querySelectorAll("#bookingInfo");
+        for(let i = 0; i<$bi.length; i++){
+            $bi[i].onclick = function (){
+                const userId = document.getElementById('selectMember');
+                window.open("reservePopup", "b", "width=420, height=600, left=350, top=210" );
             }
         }
     }

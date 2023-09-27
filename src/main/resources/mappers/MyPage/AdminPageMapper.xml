@@ -72,7 +72,7 @@
             , REGIST_DATE
             , UNREGIST_DATE
         FROM USER
-        WHERE UNREGIST_DATE != '';
+        WHERE UNREGIST_DATE IS NOT NULL
         AND AUTHORITY_CODE = 1
     </select>
 
