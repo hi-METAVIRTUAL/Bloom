@@ -63,7 +63,7 @@
                 </td>
                 <td>
                     <input th:if="${#strings.isEmpty(member.unregistDate)}" type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" th:memberId="${member.userId}" th:onclick="unregistMember(this.getAttribute('memberId'))">
-                    <input th:unless="${#strings.isEmpty(member.unregistDate)}" th:text="${탈퇴회원}">
+                    <a th:unless="${#strings.isEmpty(member.unregistDate)}">탈퇴회원</a>
                 </td>
             </tr>
 
@@ -295,7 +295,7 @@
         const $bi = document.querySelectorAll("#bookingInfo");
         for(let i = 0; i<$bi.length; i++){
             $bi[i].onclick = function (){
-                const userId = document.getElementById('selectMember');
+                const userId = document.getElementById('selectMember').innerText;
                 window.open("reservePopup", "b", "width=420, height=600, left=350, top=210" );
             }
         }

@@ -11,6 +11,48 @@
         <result property="postedDate" column="POSTED_DATE"/>
     </resultMap>
 
+    <resultMap id="bookingInfo" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo">
+        <result property="name" column="NAME"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="phone" column="PHONE"/>
+        <result property="bookingStatus" column="BOOKING_STATUS"/>
+    </resultMap>
+
+    <resultMap id="memberInfo" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo">
+        <result property="name" column="NAME"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="pwd" column="PWD"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="phone" column="PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="email" column="EMAIL"/>
+    </resultMap>
+
+    <select id="memberBookingInfo" resultMap="bookingInfo" parameterType="java.lang.String">
+        SELECT
+            U.NAME
+            , B.BOOKING_DATE
+            , U.PHONE
+            , B.BOOKING_STATUS
+        FROM BOOKING B
+        JOIN USER U ON B.THERAPIST_ID = U.USER_ID
+        WHERE B.MEMBER_ID = #{name}
+    </select>
+
+    <select id="memberInfo" resultMap="memberInfo" parameterType="java.lang.String">
+        SELECT
+            U.NAME
+            , U.USER_ID
+            , U.PWD
+            , M.NICKNAME
+            , U.PHONE
+            , U.GENDER
+            , U.EMAIL
+        FROM USER U
+        JOIN MEMBER M ON U.USER_ID = M.USER_ID
+        WHERE U.USER_ID = #{name}
+    </select>
+
     <update id="modifyUserInfo" parameterType="UserDTO">
         UPDATE USER U
         SET PWD = #{ pwd }

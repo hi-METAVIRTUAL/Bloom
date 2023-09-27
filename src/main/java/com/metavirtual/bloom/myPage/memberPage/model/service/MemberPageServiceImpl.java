@@ -1,31 +1,46 @@
 package com.metavirtual.bloom.myPage.memberPage.model.service;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MemberPageServiceImpl implements MemberPageService{
 
     private final MemberPageMapper mapper;
+
     public MemberPageServiceImpl(MemberPageMapper mapper){
         this.mapper = mapper;
     }
 
     @Override
-    public void modifyMemberInfo(MemberDTO member, UserDTO user) throws ModifyInfoException {
-        int result1 = mapper.modifyUserInfo(user);
-        int result2 = mapper.modifyMemberInfo(member);
+    public MemberBookingInfo memberBookingInfo(String name){
+        MemberBookingInfo bookingInfo = mapper.memberBookingInfo(name);
+        return bookingInfo;
+    }
+
+    @Override
+    public MemberInfo memberInfo(String name){
+        MemberInfo Info = mapper.memberInfo(name);
+        return Info;
+    }
+
+    @Override
+    public void modifyMemberInfo(MemberInfo memberInfo) throws ModifyInfoException {
+        int result1 = mapper.modifyUserInfo(memberInfo);
+        int result2 = mapper.modifyMemberInfo(memberInfo);
 
         if(!(result1>0 && result2>0)){
             throw new ModifyInfoException("❌회원 정보 수정 실패❌");
