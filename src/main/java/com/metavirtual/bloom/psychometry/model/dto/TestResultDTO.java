@@ -7,30 +7,18 @@ public class TestResultDTO {
 
     private int totalScore;
 
-    public int getTotalScore() {
-        return totalScore;
-    }
-
-    public void setTotalScore(int totalScore) {
-        this.totalScore = totalScore;
-    }
-
     private String testCategory;
-    private String USER_ID;
+    private String userId;
 
     public TestResultDTO() {
     }
 
-    public TestResultDTO(int answerScore, String testCategory) {
-        this.answerScore = answerScore;
-        this.testCategory = testCategory;
-    }
-
-    public TestResultDTO(int answerCode, int answerScore, String testCategory, String USER_ID) {
+    public TestResultDTO(int answerCode, int answerScore, int totalScore, String testCategory, String userId) {
         this.answerCode = answerCode;
         this.answerScore = answerScore;
+        this.totalScore = totalScore;
         this.testCategory = testCategory;
-        this.USER_ID = USER_ID;
+        this.userId = userId;
     }
 
     public int getAnswerCode() {
@@ -49,6 +37,14 @@ public class TestResultDTO {
         this.answerScore = answerScore;
     }
 
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
     public String getTestCategory() {
         return testCategory;
     }
@@ -57,12 +53,12 @@ public class TestResultDTO {
         this.testCategory = testCategory;
     }
 
-    public String getUSER_ID() {
-        return USER_ID;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUSER_ID(String USER_ID) {
-        this.USER_ID = USER_ID;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -70,8 +66,9 @@ public class TestResultDTO {
         return "TestResultDTO{" +
                 "answerCode=" + answerCode +
                 ", answerScore=" + answerScore +
+                ", totalScore=" + totalScore +
                 ", testCategory='" + testCategory + '\'' +
-                ", USER_ID='" + USER_ID + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

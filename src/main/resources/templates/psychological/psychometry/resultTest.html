@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/psychological/resultTest.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body style="text-align: center">
 <header class="header" th:include="components/Header.html"></header>
@@ -34,7 +35,7 @@
             </div>-->
             <div class="showresult"></div>
             결과 <br>
-            내 점수 : <span th:text="${sum}"></span>
+            내 점수 : <span th:text="${totalScore}"></span>
 
         </div>
         <div class="explanation">'신경증'은 당신이 얼마나 민감한지 보여주는 성격 요소입니다.
@@ -104,6 +105,9 @@
                 </div>
             </div>
         </div>
+        <div name="hiddenInfo">
+            <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
+        </div>
         <br>
         <button class="matchingbutton" onclick="location.href='/psychological/match/therapyRecommend'"> 매칭 결과 보러가기
         </button>
@@ -114,12 +118,5 @@
     </div>
 </div>
 </body>
-<script>
-    /*    $(document).ready(function (){
-            $.ajax({
-                url:"",
-                data:"userId"
-            });
-        });*/
-</script>
+
 </html>

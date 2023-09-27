@@ -1,5 +1,6 @@
 package com.metavirtual.bloom.match.model.dto;
 
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
@@ -22,11 +23,12 @@ public class TherapistInfoDTO {
     private String organization;
     private UserDTO name;
     private UserDTO gender;
+    private ProfileFileDTO filePath;
 
     public TherapistInfoDTO() {
     }
 
-    public TherapistInfoDTO(String userId, String therapistQ1, String therapistQ2, String therapistQ3, char activationStatus, char confirmedStatus, char sessionVidCallCK, char sessionChatCK, char sessionInPersonCK, char depressionCK, char anxietyCK, char bipolarCK, char ocdCK, char relationCK, String organization, UserDTO name, UserDTO gender) {
+    public TherapistInfoDTO(String userId, String therapistQ1, String therapistQ2, String therapistQ3, char activationStatus, char confirmedStatus, char sessionVidCallCK, char sessionChatCK, char sessionInPersonCK, char depressionCK, char anxietyCK, char bipolarCK, char ocdCK, char relationCK, String organization, UserDTO name, UserDTO gender, ProfileFileDTO filePath) {
         this.userId = userId;
         this.therapistQ1 = therapistQ1;
         this.therapistQ2 = therapistQ2;
@@ -44,6 +46,15 @@ public class TherapistInfoDTO {
         this.organization = organization;
         this.name = name;
         this.gender = gender;
+        this.filePath = filePath;
+    }
+
+    public ProfileFileDTO getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(ProfileFileDTO filePath) {
+        this.filePath = filePath;
     }
 
     public String getUserId() {
@@ -202,6 +213,7 @@ public class TherapistInfoDTO {
                 ", organization='" + organization + '\'' +
                 ", name=" + name +
                 ", gender=" + gender +
+                ", filePath=" + filePath +
                 '}';
     }
 }

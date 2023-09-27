@@ -26,7 +26,7 @@
         <!--<input type="checkbox" name="etc" value="기타">기타 -->
         <input placeholder="기타내용작성 50자 이내" name="etcContent" class="textBox"/><br>
 
-        <input type="hidden" name="userId" value="qwer1234!">
+        <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
         <input type="hidden" name="relationCK" value="">
         <input class="roundbutton" type="submit" value="제출하기"><br>
     </form>

@@ -39,62 +39,42 @@
         </div>
     </div>
     <!--프로필 -->
-    <div id="therapists-container" class="parent" th:each="therapistInfo:${therapistInfo}">
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                <th:block th:text="${therapistInfo.therapistQ1}"></th:block>
+    <div style="margin: 0 auto; width: 90%">
+        <div id="therapists-container" class="parent">
+            <div th:each="therapistInfo : ${therapistInfo}" class="our-team">
+                <div class="picture">
+                    <!--<img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">-->
+                    <img class="img-fluid" src="/images/psychological/testpicture.jpg" alt="상담사 프로필">
+                    <h4 th:if="${therapistInfo.depressionCK} == 'Y'" th:text="우울"></h4>
+                    <h4 th:if="${therapistInfo.anxietyCK} == 'Y'" th:text="불안" ></h4>
+                    <h4 th:if="${therapistInfo.bipolarCK} == 'Y'" th:text="양극성"></h4>
+                    <h4 th:if="${therapistInfo.ocdCK} == 'Y'" th:text="강박성"></h4>
+                    <h4 th:if="${therapistInfo.relationCK} == 'Y'" th:text="대인관계"></h4>
+                </div>
+                <div th:text="${therapistInfo.therapistQ1}"></div>
+                <div class="team-content">
+                    <h3 th:text="${therapistInfo.name.name}">상담사 이름</h3>
+                </div>
+                <ul class="social">
+                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapistInfo.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                </ul>
             </div>
-            <div class="team-content">
-                <h3 th:text="${therapistInfo.name}"></h3>
-                <h4 th:if="${therapistInfo.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
-                <h4 th:if="${therapistInfo.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
-                <h4 th:if="${therapistInfo.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
-                <h4 th:if="${therapistInfo.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a>
-                </li>
-            </ul>
         </div>
-
-        <div class="our-team">
-            <div class="picture">
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                한줄소개한줄소개한줄소개한줄소개한줄소개
-            </div>
-            <div class="team-content">
-                <h3>상담사 이름</h3>
-                <h4>전문 분야</h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a>
-                </li>
-            </ul>
-        </div>
-
     </div>
-
 </div>
-
+<button id="load-more-button">더 보기</button>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
 </footer>
 <script>
-
-    // 클라이언트 측 코드
-
     let currentPage = 1; // 초기 페이지 번호
-    const itemsPerPage = 12; // 페이지 당 아이템 수
+    const itemsPerPage = 4; // 페이지 당 아이템 수
 
     // 더 보기 버튼 클릭 이벤트
     document.getElementById("load-more-button").addEventListener("click", () => {
         currentPage++; // 페이지 번호 증가
         loadMoreTherapists();
     });
-
-    // 초기 페이지 로드
-    loadMoreTherapists();
 
     function loadMoreTherapists() {
         // Ajax 호출하여 상담사 데이터 가져오기
@@ -106,28 +86,25 @@
                     const therapistHtml = `
                         <div class="our-team">
                             <div class="picture">
-                                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                                <span>${therapistInfo.therapistQ1}</span>
+                                <img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">
                             </div>
                             <div class="team-content">
-                                <h3>${therapistInfo.name}</h3>
-                                <h4>${therapistInfo.depressionCK == 'Y' ? '우울' : ''}</h4>
-                                <h4>${therapistInfo.anxietyCK == 'Y' ? '불안' : ''}</h4>
-                                <h4>${therapistInfo.bipolarCK == 'Y' ? '양극성' : ''}</h4>
-                                <h4>${therapistInfo.ocdCK == 'Y' ? '강박성' : ''}</h4>
+                                <h3 th:text="${therapistInfo.name.name}">상담사 이름</h3>
+                                <h4 th:if="${therapistInfo.depressionCK} == 'Y'" th:text="우울"></h4>
+                                <h4 th:if="${therapistInfo.anxietyCK} == 'Y'" th:text="불안" ></h4>
+                                <h4 th:if="${therapistInfo.bipolarCK} == 'Y'" th:text="양극성"></h4>
+                                <h4 th:if="${therapistInfo.ocdCK} == 'Y'" th:text="강박성"></h4>
+                                <h4 th:if="${therapistInfo.relationCK} == 'Y'" th:text="대인관계"></h4>
                             </div>
                             <ul class="social">
-                                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                                <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapistInfo.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
                             </ul>
                         </div>
                     `;
                     $("#therapists-container").append(therapistHtml);
                 });
 
-                if (data.length > 0) {
-                    // 상담사 데이터를 화면에 추가
-                    appendTherapistsToDOM(data);
-                } else {
+                if (data.length === 0) {
                     // 더 이상 데이터가 없을 경우 더 보기 버튼 숨기기
                     document.getElementById("load-more-button").style.display = "none";
                 }
@@ -137,41 +114,6 @@
             },
         });
     }
-
-    function appendTherapistsToDOM(therapists) {
-        const parentElement = document.querySelector(".parent");
-
-        therapists.forEach((therapist) => {
-            // 이미 존재하는 프로필 정보를 중복해서 추가하지 않도록 확인
-            const existingProfile = parentElement.querySelector(`.our-team h3:contains('${therapist.name}')`);
-            if (!existingProfile) {
-                // 상담사 데이터를 HTML에 추가
-                const therapistHtml = `
-            <div class="our-team">
-                <div class="picture">
-                    <img class="img-fluid" src="${therapist.imageUrl}">
-                    <span th:text="${therapist.therapistQ1}"></span>
-                </div>
-                <div class="team-content">
-                    <h3>${therapist.name}</h3>
-                    <h4 th:if="${therapist.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
-                    <h4 th:if="${therapist.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
-                    <h4 th:if="${therapist.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
-                    <h4 th:if="${therapist.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
-                </div>
-                <ul class="social">
-                    <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-                </ul>
-            </div>
-        `;
-
-                // 상담사를 화면에 추가
-                $("#therapists-container").append(therapistHtml);
-            }
-        });
-    }
-
-
     const scrollTop = function () {
         // create HTML button element
         const scrollBtn = document.createElement("button");
@@ -200,10 +142,3 @@
 </script>
 </body>
 </html>
-
-<!-- 상담사 찾기 버튼
-<div>
-    <div style="position:fixed; top: 200px; right: 5px;">
-        <a id="toTop" href="#" ><img class="icons" src="../images/psychological/search.png" title="위로가기"></a><br>
-    </div>
-</div>-->

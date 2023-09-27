@@ -51,15 +51,16 @@ public class PsychometryController {
     }
     @PostMapping(value = "saveAnswers", produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public ResponseEntity<String> SaveAnswers(@RequestBody Map<String, Object> dataToSend,
-                                              HttpSession session) throws JsonProcessingException {
+    public ResponseEntity<String> SaveAnswers(@RequestBody Map<String, Object> dataToSend) throws JsonProcessingException {
         int totalD = 0;
         int totalA = 0;
         int totalB = 0;
         int totalO = 0;
-        String userId=(String) session.getAttribute("userId");
+
         List<String> categories = (List<String>) dataToSend.get("categories");
         List<String> answers = (List<String>) dataToSend.get("answers");
+        String userId = (String) dataToSend.get("userId");
+
         for (int i = 0; i < categories.size(); i++){
             String category = categories.get(i);
             int answer = Integer.parseInt(answers.get(i));
@@ -72,7 +73,7 @@ public class PsychometryController {
             } else if (category.equals("O")) {
                 totalO += answer;
             }
-            psychometryService.saveAnswers(answer,category);
+            psychometryService.saveAnswers(answer,category,userId);
 
         }
         psychometryService.saveTotalScore(totalD,totalA,totalB,totalO,userId);
@@ -91,16 +92,22 @@ public class PsychometryController {
     public String matchingPage(MemberDTO member, RedirectAttributes rttr){
 
         psychometryService.hopeTherapist(member);
-        rttr.addFlashAttribute("successMessage", "신규 메뉴 등록에 성공 했습니다.");
+        //rttr.addFlashAttribute("successMessage", "신규 메뉴 등록에 성공 했습니다.");
 
         return "psychological/psychometry/lodingPage";
     }
     @GetMapping("result")
-    public String resultTestPage(HttpSession session, Model model){
+    public String resultTestPage(){
 
-        String userId=(String) session.getAttribute("userId");
+        return "psychological/psychometry/resultTest";
+    }
+    @GetMapping("result2")
+    public String  resultTestPage2(@RequestParam String userId, Model model) {
+
         int totalScore = psychometryService.getTotalScore(userId);
-        model.addAttribute("sum", totalScore);
+
+        model.addAttribute("totalScore", totalScore);
+        System.out.println(totalScore + "누구");
         return "psychological/psychometry/resultTest";
     }
 }

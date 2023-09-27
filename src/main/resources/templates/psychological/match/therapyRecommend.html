@@ -6,6 +6,7 @@
     <title>list</title>
     <link rel="stylesheet" type="text/css" href="/css/match/therapyRecommend.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
@@ -15,18 +16,18 @@
     </div>
 </th:block>
 <div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
-    <div id="therapists-container" class="parent" th:each="therapistInfo:${therapistInfo}" >
-        <div class="our-team">
-            <div class="picture">
+    <div id="therapists-container" class="parent" th:each="memberTestResult : ${memberTestResult}" >
+        <div class="our-team" >
+            <div class="picture" >
                 <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                <th:block th:text="${therapistInfo.therapistQ1}"></th:block>
+                <th:block th:text="${memberTestResult.therapistQ1}"></th:block>
             </div>
             <div class="team-content">
-                <h3 th:text="${therapistInfo.name}"></h3>
-                <h4 th:if="${therapistInfo.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
-                <h4 th:if="${therapistInfo.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
-                <h4 th:if="${therapistInfo.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
-                <h4 th:if="${therapistInfo.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
+                <h3 th:text="${memberTestResult.name}"></h3>
+                <h4 th:if="${memberTestResult.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
+                <h4 th:if="${memberTestResult.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
+                <h4 th:if="${memberTestResult.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
+                <h4 th:if="${memberTestResult.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
             </div>
             <ul class="social">
                 <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
@@ -37,41 +38,22 @@
 <div>
     <a style="color: #C08181; text-align: center; font-weight: bold;" href="/psychological/match/therapyList">또 다른 훌륭한 상담사들 보기</a>
 </div>
-<input type="hidden" id="userId" value="${userId}">
+<input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 <script>
-    const maxValue = Math.max()
-    const userId = $("#userId").val();
-    $(document).ready(function () {
 
+    $(document).ready(function () {
+        let userId = $("#userId").val();
+        console.log(userId)
         $.ajax({
             url:"getScore",
             data:{ userId: userId },
 
-            success: function (data, status, xhr){
-                data.forEach(function (therapistInfo) {
-                    const therapistHtml = `
-                        <div class="our-team">
-                            <div class="picture">
-                                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                                <span>${therapistInfo.therapistQ1}</span>
-                            </div>
-                            <div class="team-content">
-                                <h3>${therapistInfo.name}</h3>
-                                <h4>${therapistInfo.depressionCK == 'Y' ? '우울' : ''}</h4>
-                                <h4>${therapistInfo.anxietyCK == 'Y' ? '불안' : ''}</h4>
-                                <h4>${therapistInfo.bipolarCK == 'Y' ? '양극성' : ''}</h4>
-                                <h4>${therapistInfo.ocdCK == 'Y' ? '강박성' : ''}</h4>
-                            </div>
-                            <ul class="social">
-                                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-                            </ul>
-                        </div>
-                    `;
-                    $("#therapists-container").append(therapistHtml);
-                });
+            success: function (data, status, xhr) {
+                console.log(data);
+
             },
             error: function (xhr, status, error){
 
