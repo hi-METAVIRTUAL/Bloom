@@ -6,10 +6,7 @@ import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.*;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
@@ -38,9 +35,9 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
     @Override
-    public void modifyMemberInfo(MemberInfo memberInfo) throws ModifyInfoException {
-        int result1 = mapper.modifyUserInfo(memberInfo);
-        int result2 = mapper.modifyMemberInfo(memberInfo);
+    public void modifyMemberInfo(MemberInfo member) throws ModifyInfoException {
+        int result1 = mapper.modifyUserInfo(member);
+        int result2 = mapper.modifyMemberInfo(member);
 
         if(!(result1>0 && result2>0)){
             throw new ModifyInfoException("❌회원 정보 수정 실패❌");
@@ -53,39 +50,45 @@ public class MemberPageServiceImpl implements MemberPageService{
         return result != null? true : false;
     }
 
+//    @Override
+//    public MemberBoard memberAllBoard(String userId){
+//        MemberBoard board = mapper.memberAllBoard(userId);
+//        return board;
+//    }
+
     @Override
-    public int selectTotalPostCount(){
-        int result = mapper.selectTotalPostCount();
+    public int selectTotalPostCount(String userId){
+        int result = mapper.selectTotalPostCount(userId);
         return result;
     }
 
     @Override
-    public int selectTotalCommentCount(){
-        int result = mapper.selectTotalCommentCount();
+    public int selectTotalCommentCount(String userId){
+        int result = mapper.selectTotalCommentCount(userId);
         return result;
     }
 
     @Override
-    public int selectTotalReviewCount(){
-        int result = mapper.selectTotalReviewCount();
+    public int selectTotalReviewCount(String userId){
+        int result = mapper.selectTotalReviewCount(userId);
         return result;
     }
 
     @Override
-    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria){
-        List<BoardDTO> myPostList = mapper.selectPostList(selectCriteria);
+    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId){
+        List<BoardDTO> myPostList = mapper.selectPostList(selectCriteria, userId);
         return myPostList;
     }
 
     @Override
-    public List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria){
-        List<CommentListDTO> myCommentList = mapper.selectCommentList(selectCriteria);
+    public List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria, String userId){
+        List<CommentListDTO> myCommentList = mapper.selectCommentList(selectCriteria, userId);
         return myCommentList;
     }
 
     @Override
-    public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria){
-        List<ReviewListDTO> myReviewList = mapper.selectReviewList(selectCriteria);
+    public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria, String userId){
+        List<ReviewListDTO> myReviewList = mapper.selectReviewList(selectCriteria, userId);
         return myReviewList;
     }
 

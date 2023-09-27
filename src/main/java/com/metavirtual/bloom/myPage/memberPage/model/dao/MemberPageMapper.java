@@ -5,10 +5,7 @@ import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.*;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,23 +21,25 @@ public interface MemberPageMapper {
 
     MemberInfo memberInfo(String name);
 
-    int modifyMemberInfo(MemberInfo memberInfo);
+    int modifyMemberInfo(MemberInfo member);
 
     int modifyUserInfo(MemberInfo memberInfo);
 
     String selectMemberByNickname(String nickname);
 
-    int selectTotalPostCount();
+//    MemberBoard memberAllBoard(String userId);
 
-    int selectTotalCommentCount();
+    int selectTotalPostCount(String userId);
 
-    int selectTotalReviewCount();
+    int selectTotalCommentCount(String userId);
 
-    List<BoardDTO> selectPostList(SelectCriteria selectCriteria);
+    int selectTotalReviewCount(String userId);
 
-    List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria);
+    List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId);
 
-    List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria);
+    List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria, String userId);
+
+    List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria, String userId);
 
     int deleteMyPost(String boardCode);
 

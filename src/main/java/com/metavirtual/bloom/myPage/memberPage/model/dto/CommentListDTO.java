@@ -4,38 +4,60 @@ import com.metavirtual.bloom.board.model.dto.BoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 
 public class CommentListDTO {
-    private MemberCommentDTO commentDTO;
-    private BoardDTO boardDTO;
+    private int commentCode;
+    private String title;
+    private String commentContent;
+    private String postedDate;
 
     public CommentListDTO() {
     }
 
-    public CommentListDTO(MemberCommentDTO commentDTO, BoardDTO boardDTO) {
-        this.commentDTO = commentDTO;
-        this.boardDTO = boardDTO;
+    public CommentListDTO(int commentCode, String title, String commentContent, String postedDate) {
+        this.commentCode = commentCode;
+        this.title = title;
+        this.commentContent = commentContent;
+        this.postedDate = postedDate;
     }
 
-    public MemberCommentDTO getCommentDTO() {
-        return commentDTO;
+    public int getCommentCode() {
+        return commentCode;
     }
 
-    public void setCommentDTO(MemberCommentDTO commentDTO) {
-        this.commentDTO = commentDTO;
+    public void setCommentCode(int commentCode) {
+        this.commentCode = commentCode;
     }
 
-    public BoardDTO getBoardDTO() {
-        return boardDTO;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBoardDTO(BoardDTO boardDTO) {
-        this.boardDTO = boardDTO;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCommentContent() {
+        return commentContent;
+    }
+
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
+    public String getPostedDate() {
+        return postedDate;
+    }
+
+    public void setPostedDate(String postedDate) {
+        this.postedDate = postedDate;
     }
 
     @Override
     public String toString() {
         return "CommentListDTO{" +
-                "commentDTO=" + commentDTO +
-                ", boardDTO=" + boardDTO +
+                "commentCode=" + commentCode +
+                ", title='" + title + '\'' +
+                ", commentContent='" + commentContent + '\'' +
+                ", postedDate='" + postedDate + '\'' +
                 '}';
     }
 }

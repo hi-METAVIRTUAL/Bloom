@@ -4,38 +4,60 @@ import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
 public class ReviewListDTO {
-    private ReviewDTO reviewDTO;
-    private UserDTO userDTO;
+    private int bookingCode;
+    private String name;
+    private int reviewScore;
+    private String reviewContent;
 
     public ReviewListDTO() {
     }
 
-    public ReviewListDTO(ReviewDTO reviewDTO, UserDTO userDTO) {
-        this.reviewDTO = reviewDTO;
-        this.userDTO = userDTO;
+    public ReviewListDTO(int bookingCode, String name, int reviewScore, String reviewContent) {
+        this.bookingCode = bookingCode;
+        this.name = name;
+        this.reviewScore = reviewScore;
+        this.reviewContent = reviewContent;
     }
 
-    public ReviewDTO getReviewDTO() {
-        return reviewDTO;
+    public int getBookingCode() {
+        return bookingCode;
     }
 
-    public void setReviewDTO(ReviewDTO reviewDTO) {
-        this.reviewDTO = reviewDTO;
+    public void setBookingCode(int bookingCode) {
+        this.bookingCode = bookingCode;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
+    public String getName() {
+        return name;
     }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getReviewScore() {
+        return reviewScore;
+    }
+
+    public void setReviewScore(int reviewScore) {
+        this.reviewScore = reviewScore;
+    }
+
+    public String getReviewContent() {
+        return reviewContent;
+    }
+
+    public void setReviewContent(String reviewContent) {
+        this.reviewContent = reviewContent;
     }
 
     @Override
     public String toString() {
         return "ReviewListDTO{" +
-                "reviewDTO=" + reviewDTO +
-                ", userDTO=" + userDTO +
+                "bookingCode=" + bookingCode +
+                ", name='" + name + '\'' +
+                ", reviewScore=" + reviewScore +
+                ", reviewContent='" + reviewContent + '\'' +
                 '}';
     }
 }
