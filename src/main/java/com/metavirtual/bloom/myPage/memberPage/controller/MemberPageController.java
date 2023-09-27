@@ -9,6 +9,8 @@ import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageService;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
@@ -50,12 +52,14 @@ public class MemberPageController {
 
     @GetMapping("/memberInfo")
     public String memberInfo (Model model, Authentication authentication){
-        if (authentication != null && authentication.isAuthenticated()){
+        if (authentication != null && authentication.isAuthenticated()) {
             UserImpl user = (UserImpl) authentication.getPrincipal();
-            BookingDTO booking = new BookingDTO();
             model.addAttribute("user", user);
+
+            MemberBookingInfo booking = memberPageService.memberBookingInfo(authentication.getName());
             model.addAttribute("booking", booking);
         }
+
         return "mypage/member/memberInfo";
     }
 
@@ -65,26 +69,26 @@ public class MemberPageController {
             UserImpl user = (UserImpl) authentication.getPrincipal();
             model.addAttribute("user", user);
 
-            MemberDTO member = (MemberDTO) authentication.getPrincipal();
+            MemberInfo member = memberPageService.memberInfo(authentication.getName());
             model.addAttribute("member", member);
         }
         return "mypage/member/modifyMemberInfo";
     }
 
     @PostMapping("/modifyMemberInfo")
-    public String changeMemberInfo(@ModelAttribute MemberDTO member, UserDTO user, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr) throws ModifyInfoException {
+    public String changeMemberInfo(@ModelAttribute MemberInfo memberInfo, UserDTO user, MemberDTO member, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr) throws ModifyInfoException {
         log.info("");
         log.info("");
         log.info("[MemberPageController] modifyMemberInfo ========");
 
-        user.setPwd(passwordEncoder.encode(user.getPwd()));
+        user.setPwd(passwordEncoder.encode(memberInfo.getPwd()));
         user.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
-        member.setNickname(member.getNickname());
-        user.setPhone(request.getParameter("phonef")+"-"+request.getParameter("phonem")+"-"+request.getParameter("phonel"));
+        member.setNickname(memberInfo.getNickname());
+        user.setPhone(memberInfo.getPhone());
 
         log.info("[MemberPageController] modifyMemberInfo request Member, User : " + member + user);
 
-        memberPageService.modifyMemberInfo(member, user);
+        memberPageService.modifyMemberInfo(memberInfo);
 
         rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
 
