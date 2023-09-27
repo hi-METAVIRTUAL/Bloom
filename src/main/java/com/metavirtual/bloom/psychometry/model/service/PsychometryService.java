@@ -2,14 +2,12 @@ package com.metavirtual.bloom.psychometry.model.service;
 
 import com.metavirtual.bloom.psychometry.model.dao.PsychometryMapper;
 import com.metavirtual.bloom.psychometry.model.dto.TestQDTO;
-import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class PsychometryService {
@@ -28,9 +26,9 @@ public class PsychometryService {
 
 
     @Transactional
-    public void saveAnswers(int answer,String category) {
+    public void saveAnswers(int answer, String category, String userId) {
 
-            psychometryMapper.saveAnswers(answer,category);
+            psychometryMapper.saveAnswers(answer,category,userId);
     }
     public void saveTotalScore(int totalD, int totalA, int totalB, int totalO, String userId) {
         psychometryMapper.saveTotalScore(totalD,totalA,totalB,totalO,userId);
@@ -43,20 +41,7 @@ public class PsychometryService {
     }
 
     public int getTotalScore(String userId) {
-
         return psychometryMapper.getTotalScore(userId);
     }
 
 }
-
-
-/*public void saveAnswers(Map<String, String> answers, String category) {
-        for (Map.Entry<String, String> entry : answers.entrySet()) {
-            String testCategory = entry.getKey();
-            String answerScore = entry.getValue();
-
-            // 데이터베이스에 저장 로직 구현
-            // testCategory와 answerScore를 이용하여 TestResults 테이블에 저장
-            psychometryMapper.saveAnswers(category, testCategory, answerScore);
-        }
-    }*/

@@ -5,7 +5,7 @@
 <mapper namespace="com.metavirtual.bloom.match.model.dao.MatchMapper">
 
     <resultMap id="resultInfo" type="com.metavirtual.bloom.match.model.dto.TherapistInfoDTO">
-        <id property="therapistQ1" column="TEHRAPIST_Q1"/>
+        <id property="therapistQ1" column="THERAPIST_Q1"/>
         <result property="activationStatus" column="ACTIVATION_STATUS"/>
         <result property="sessionVidCallCK" column="SESSION_VIDCALL_CK"/>
         <result property="depressionCK" column="DEPRESSION_CK"/>
@@ -15,7 +15,7 @@
         <result property="relationCK" column="RELATION_CK"/>
         <collection property="name" column="USER_ID" resultMap="userInfo"/>
         <collection property="gender" column="USER_GENDER" resultMap="userInfo"/>
-      <!--  <collection property="filePath" column="FILE_PATH" resultMap="profileInfo"/>-->
+        <collection property="filePath" column="FILE_PATH" resultMap="profileInfo"/>
     </resultMap>
 
     <resultMap id="userInfo" type="com.metavirtual.bloom.user.model.dto.UserDTO">
@@ -26,7 +26,7 @@
 
     <resultMap id="profileInfo" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO">
         <id property="fileNumber" column="FILE_NUMBER"/>
-       <!-- <result property="filePath" column="FILE_PATH"/>-->
+        <result property="filePath" column="FILE_PATH"/>
     </resultMap>
 
     <select id="findAllTherapist" resultMap="resultInfo">
@@ -81,6 +81,7 @@
         WHERE (USER_ID, TEST_DATE) IN (
         SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
         FROM MEMBER_TEST_RESULT
+        WHERE USER_ID = #{ userId }
         GROUP BY USER_ID
         )
     </select>

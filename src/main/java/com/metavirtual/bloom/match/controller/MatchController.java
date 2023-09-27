@@ -40,16 +40,16 @@ public class MatchController {
         List<TherapistInfoDTO> therapistInfo = matchService.findAllTherapist();
         model.addAttribute("therapistInfo", therapistInfo);
 
+        System.out.println(therapistInfo);
 
         return "psychological/match/therapyList";
     }
     @GetMapping("getScore")
-    public String getTotalScore(@RequestParam("userId") String userId){
-
-        List<MemberTestResultDTO> memberTestResult = matchService.getTotalScore(userId);
-
-
+    public String getTotalScore(@RequestParam("userId") String userId, Model model){
+        List<TherapistInfoDTO> memberTestResult = matchService.getTotalScore(userId);
         System.out.println(memberTestResult);
-        return "";
+
+        model.addAttribute("memberTestResult", memberTestResult);
+        return "psychological/match/therapyRecommend";
     }
 }
