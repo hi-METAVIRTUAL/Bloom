@@ -101,7 +101,7 @@ public class PsychometryController {
 
         return "psychological/psychometry/resultTest";
     }
-    @GetMapping("result2")
+    @PostMapping("result")
     public String  resultTestPage2(@RequestParam String userId, Model model) {
 
         int totalScore = psychometryService.getTotalScore(userId);
