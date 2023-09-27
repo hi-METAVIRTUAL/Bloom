@@ -1,23 +1,27 @@
 package com.metavirtual.bloom.myPage.adminPage.controller;
 
+import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.adminPage.model.service.AdminPageServiceImpl;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
+import org.apache.ibatis.annotations.Update;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-@Controller
 @RequestMapping("/admin")
+@Controller
 public class AdminPageController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final AdminPageServiceImpl adminPageService;
@@ -83,6 +87,21 @@ public class AdminPageController {
         log.info("[AdminPageController] ========");
 
         return mv;
+    }
+
+    @PatchMapping("/unregistMember")
+    public ResponseEntity<List<UserDTO>> unregistMember(@RequestBody UserDTO unregistMember) throws ModifyInfoException {
+
+        log.info("");
+        log.info("[AdminPageController] ========");
+        log.info("[AdminPageController] unregistMember Request : " + unregistMember);
+
+        List<UserDTO> unregistList = adminPageService.unregistMember(unregistMember);
+
+        log.info("[AdminPageController] unregistList : " + unregistList);
+        log.info("[AdminPageController] ========");
+
+        return ResponseEntity.ok(unregistList);
     }
 
     @GetMapping("/inquireTherapist")
