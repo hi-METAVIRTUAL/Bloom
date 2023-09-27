@@ -236,11 +236,12 @@ public class UserController {
         return mv;
     }
 
-    @GetMapping("/bookingStat")
-    public String bookingDetails(@RequestParam("userId")String userId, Model model){
+    @PostMapping("/bookingStat")
+    public String bookingDetails(@RequestParam("userIdInput")String userId, Model model){
 
             List<BookingDTO> data = userService.bookingStatus(userId);
 
+            log.info(userId);
             log.info(data.toString());
 
             model.addAttribute("data", data);
@@ -257,7 +258,18 @@ public class UserController {
 
         return "user/findPassword";
     }
+    @PostMapping("/setNewPwd")
+    public String sendNewPwd(@RequestParam("userId")String userId
+            ,@RequestParam("email")String email, @ModelAttribute UserDTO userDTO) {
 
+        System.out.println("아이디 : " + userId);
+        System.out.println("이메일 : " + email);
+
+        String setNewPwd = userService.setNewPwd(userId, email);
+
+        return "/user/verificationPasswordSent";
+
+    }
     @GetMapping("/verificationIdSent")
     public String idSentToEmail() { return "user/verificationIdsent"; }
 

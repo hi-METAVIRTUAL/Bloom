@@ -2,6 +2,7 @@
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.board.model.service.BoardService;
@@ -114,9 +115,13 @@ public class BoardController {
 
         if(title != "" && boardCategory != "" && boardContent != "") {
             boardService.boardNewPosting(newPosting);
-            rttr.addFlashAttribute("message", "게시글 등록에 성공하였습니다");
-        } else {
-            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다");
+            rttr.addFlashAttribute("message", "게시글 등록에 성공하였습니다.");
+        } else if (title == "") {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다. 제목을 입력해주세요.");
+        } else if (boardContent == "") {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다. 글 내용을 입력해주세요.");
+        } else if (boardCategory == "") {
+            rttr.addFlashAttribute("message", "게시글 등록에 실패하였습니다. 분류를 선택해주세요.");
         }
 
         return "redirect:/board/searchList";
@@ -165,7 +170,7 @@ public class BoardController {
     }
 
     /* 댓글 등록 메서드 */
-    @PostMapping(value = "/commentPosting")
+    @PostMapping(value = "/commentPosting" )
     public ResponseEntity<List<MemberCommentDTO>> commentNewPosting(@RequestBody MemberCommentDTO newComment) throws CommentPostingException {
 
         System.out.println("댓글 파라미터 값 ? : " + newComment);
@@ -184,53 +189,16 @@ public class BoardController {
         return ResponseEntity.ok(commentList);
     }
 
+    /* 게시글 신고 사유 등록 메서드 */
+    /*@PostMapping("/reportInsert")
+    public String  boardReportPosting(@RequestParam String reportContent, @ModelAttribute BoardReportDTO newReport, RedirectAttributes rttr) {
 
+        System.out.println("신고 사유 값 : " + newReport);
 
-    @GetMapping("/singo")
-    public String singo() {
-        return "board/singo";
-    }
+        boardService.reportInsert(newReport);
+        rttr.addFlashAttribute("message", "신고가 접수되었습니다.");
 
-    @GetMapping("/singoResult")
-    public String singojupsu() {
-        return "board/singoResult";
-    }
-
-    @GetMapping("/gomin")
-    public String gominSangdamSo() {
-        return "board/gominMain";
-    }
-
-    @GetMapping("/gominInsert")
-    public String gominInsert() {
-        return "board/gominInsert";
-    }
-
-
-    @GetMapping("/gominselectone")
-    public String gominselectone() {
-        return "/board/gominSelectOne";
-    }
-
-    @GetMapping("/gominwait")
-    public String gominwait() {
-        return "/board/gominWait";
-    }
-
-    @GetMapping("/center")
-    public String center() {
-        return "/board/customerCenter";
-    }
-
-    @GetMapping("/customerInsert")
-    public String centerInsert() {
-        return "/board/customerInsert";
-    }
-
-    @GetMapping("/customerSelectOne")
-    public String centerSelectOne() {
-        return "/board/customerSelectOne";
-    }
-
+        return "redirect:/board/searchList";
+    }*/
 }
 

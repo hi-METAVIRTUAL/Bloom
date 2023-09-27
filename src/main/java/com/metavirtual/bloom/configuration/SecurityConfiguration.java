@@ -61,7 +61,7 @@ public class SecurityConfiguration {
                 .hasAnyAuthority("THERAPIST")
                 .antMatchers("/booking/**")
                 .hasAnyAuthority("MEMBER")
-                .antMatchers("/user/memberRegistSuccess").hasAnyAuthority("MEMBER")
+                .antMatchers("user/memberRegistSuccess").hasAnyAuthority("MEMBER")
                 .antMatchers("user/therapistRegistSuccess").hasAnyAuthority("THERAPIST")
                 .anyRequest().permitAll()
                  .and()
@@ -76,9 +76,8 @@ public class SecurityConfiguration {
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/index")
-
                 .permitAll();
-        return http.build();
+         return http.build();
     }
 
 

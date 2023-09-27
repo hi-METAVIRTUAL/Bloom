@@ -16,4 +16,8 @@ public interface AdminPageMapper {
     int selectTherapistCount();
 
     List<UserDTO> selectTherapistList(SelectCriteria selectCriteria);
+
+    int unregistMember(String userId, String unregistDate);
+
+    List<UserDTO> selectunregistList(String userId);
 }

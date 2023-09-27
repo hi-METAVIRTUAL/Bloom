@@ -212,27 +212,39 @@
     </update>
     <select id="bookingStatus" resultMap="bookingResultMap">
         SELECT
-        B.booking_date,
-        U.name AS therapist_name,
-        U.phone AS therapist_phone,
-        M.name AS member_name,
-        M.phone AS member_phone
+            B.booking_date,
+            U.name AS therapist_name,
+            U.phone AS therapist_phone,
+            M.name AS member_name,
+            M.phone AS member_phone
         FROM
-        Booking B
+            Booking B
         JOIN
-        User U ON B.therapist_id = U.user_id
+            User U ON B.therapist_id = U.user_id
         JOIN
-        User M ON B.member_id = M.user_Id
+            User M ON B.member_id = M.user_id
         WHERE
-        B.member_id = #{userId};
+            B.member_id = #{userId};
 
     </select>
 
-    <select id="findDetails" resultMap="userResultMap">
-        SELECT NICKNAME, EMAIL, USER_ID
+    <select id="findDetails" resultType="String">
+        SELECT USER_ID
         FROM USER
-        WHERE NICKNAME = #{ nickname } AND EMAIL = #{ email };
+        WHERE NAME = #{ name } AND EMAIL = #{ email };
     </select>
+
+    <select id="findUserDetails" resultType="String">
+        SELECT NAME
+        FROM USER
+        WHERE USER_ID = #{ userId } AND EMAIL = #{ email };
+    </select>
+
+    <update id="changePwd" parameterType="UserDTO">
+        UPDATE USER U
+        SET PWD = #{ pwd }
+        WHERE U.USER_ID = #{ userId } AND EMAIL = #{ email };
+    </update>
 </mapper>
         <!--SELECT
             U.name AS name,

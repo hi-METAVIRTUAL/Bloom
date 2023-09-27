@@ -1,5 +1,6 @@
 package com.metavirtual.bloom.myPage.adminPage.model.service;
 
+import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.adminPage.model.dao.AdminPageMapper;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
@@ -34,7 +35,21 @@ public class AdminPageServiceImpl implements AdminPageService{
 
     @Override
     public List<UserDTO> selectTherapistList(SelectCriteria selectCriteria) {
-        List<UserDTO> selectTherapistList = mapper.selectMemberList(selectCriteria);
+        List<UserDTO> selectTherapistList = mapper.selectTherapistList(selectCriteria);
         return selectTherapistList;
+    }
+
+    @Override
+    public List<UserDTO> unregistMember(UserDTO unregistMember) throws  ModifyInfoException{
+        List<UserDTO> unregistList = null;
+
+        int result = mapper.unregistMember(unregistMember.getUserId(), unregistMember.getUnregistDate());
+
+        if(!(result>0)){
+            throw new ModifyInfoException(("❌회원 탈퇴 처리 실패❌"));
+        } else {
+            unregistList = mapper.selectunregistList(unregistMember.getUserId());
+        }
+        return unregistList;
     }
 }

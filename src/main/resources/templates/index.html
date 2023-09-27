@@ -139,6 +139,45 @@
             transition: opacity 0.5s, transform 0.5s;
             z-index: 4;
         }
+
+        #booking_btn {
+            margin-top: 10px;
+            block-size: 30px;
+            border: none;
+            background-color: #FFF;
+            color:#C09A81;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            width: 300px;
+            font-size: 15px;
+        }
+
+        .text-container {
+            padding: 10px;
+            background: rgb(60,91,75);
+            background: linear-gradient(90deg, rgba(60,91,75,1) 0%, rgba(193,155,130,1) 73%, rgba(254,222,204,1) 100%);
+            width: 280px;
+            height: 100px;
+            color: #FFF6E2;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        #date_section {
+            text-align: left;
+            margin-top: 18px;
+        }
+
+
+        #clock_icon {
+            margin-left: -100px;
+            margin-bottom: 50px;
+        }
+
+        #booking_date {
+            margin-top: -30px;
+        }
+
     </style>
 </head>
 <body>
@@ -174,20 +213,54 @@
     <div class="section1-2">
 
         <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
-        <form th:action="@{/user/bookStat}" id="bookingForm" method="GET">
 
+        <form th:action="@{/user/bookingStat}" id="bookingForm" method="post">
+            <button type="submit" id="booking_btn">예약 현황 보기</button>
+
+            <div  style="display: flex; justify-content: center;">
             <input type="hidden" id="userIdInput" name="userIdInput" th:value="${ #authentication.getPrincipal().getUserId }">
-            <div th:each="data : ${ data }">
-                <div th:text="${data.therapist.name}"></div>
-                <div th:text="${data.therapist.phone}"></div>
-                <div th:text="${data.booking_date}"></div>
+
+            <div th:each="data : ${ data }" class="data-item">
+                <div class="text-container">
+                    <span th:text="${data.therapist.name}"/> 상담사<br>
+                    <span th:text="${data.therapist.phone}"/><br>
+                    <img id="clock_icon">📅&ensp;
+                    <span th:text="${data.bookingDate}" id="booking_date"/>
+                </div>
+                </div>
             </div>
         </form>
-<!--
+
+            <!--<div th:each="data : ${ data }" class="background-div" >
+                <img class="image" src="/images/mainPage/bookingStat.png" id="bookingStat">
+                <div th:text="${data.therapist.name}"></div>
+                <div th:text="${data.therapist.phone}"></div>
+                <div th:text="${data.bookingDate}"></div>
+            </div>-->
+
+        </form>
+
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                // Automatically submit the form when the page loads
+            if (!sessionStorage.getItem("formSubmitted")) {
+                // Mark the form as submitted to prevent resubmission
+                sessionStorage.setItem("formSubmitted", "true");
+
+                // Submit the form
                 document.getElementById("bookingForm").submit();
+            }
+        </script>
+    </div>
+</th:block>
+ <!--       <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Check if the form has already been submitted
+                var form = document.getElementById("bookingForm");
+
+                if (!form.getAttribute("data-submitted")) {
+                    // If not, submit the form and set the "data-submitted" attribute to indicate submission
+                    form.submit();
+                    form.setAttribute("data-submitted", "true");
+                }
             });
         </script>-->
 
@@ -200,21 +273,15 @@
             <div th:text="${booking.therapist.phone}"></div>
             <div th:text="${booking.bookingStatus}"></div>
             <div>Data received in the loop</div>-->
-        </div>
+
         <!--<tr th:each="data : ${ data }">
             <td th:text="${data.name}"></td>
             <td th:text="${data.phone}"></td>
             <td th:text="${data.booking_date}"></td>
         </tr>-->
 
-</th:block>
 
-<th:block sec:authorize="isAuthenticated()">
-    <div id="section1-3">
 
-        <img class="image" src="/images/mainPage/Ellipse.png">
-    </div>
-</th:block>
 <!--<script>
 
     var xhr = new XMLHttpRequest();
