@@ -151,6 +151,17 @@
         VALUES(#{ commentContent }, NOW(), #{ boardCode }, #{ userId })
     </insert>
 
+    <insert id="reportInsert">
+        INSERT INTO BOARD_REPORT(
+        REPORTED_DATE
+        ,REPORT_CONTENT
+        ,USER_ID
+        ,BOARD_CODE
+        ,REPORT_CATEGORY
+        )
+        VALUES(NOW(), #{ reportContent }, #{ userId }, #{ boardCode }, #{ reportCategory })
+    </insert>
+
     <update id="boardModify">
         UPDATE BOARD
         SET TITLE = #{ title }
@@ -172,10 +183,19 @@
         WHERE COMMENT_CODE = #{ commentCode }
     </update>
 
+
     <update id="viewCount">
         UPDATE BOARD
         SET VIEW_COUNT = VIEW_COUNT + 1
         WHERE BOARD_CODE = #{ boardCode }
+    </update>
+
+    <update id="reportCount">
+        UPDATE MEMBER A
+        SET A.REPORT_COUNT = A.REPORT_COUNT + 1
+        WHERE A.USER_ID = (SELECT B.USER_ID
+                            FROM BOARD B
+                            WHERE B.BOARD_CODE = #{ boardCode })
     </update>
 
 

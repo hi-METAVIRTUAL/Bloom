@@ -2,6 +2,7 @@ package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.common.exception.board.*;
@@ -108,7 +109,6 @@ public class BoardService {
     }
 
     /* 댓글 삭제 */
-
     @Transactional
     public List<MemberCommentDTO> commentDelete(MemberCommentDTO commentDelete) throws CommentDeleteException {
 
@@ -123,6 +123,21 @@ public class BoardService {
         }
 
         return commentList;
+    }
+
+    /* 게시글 신고 */
+    @Transactional
+    public void reportInsert(BoardReportDTO newReport) throws ReportInsertException {
+
+
+        int result = boardMapper.reportInsert(newReport);
+
+        if (result > 0) {
+            boardMapper.reportCount(newReport.getBoardCode());
+        } else {
+            throw new ReportInsertException("게시글 등록에 실패하였습니다");
+        }
+
     }
 }
 
