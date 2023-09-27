@@ -220,6 +220,12 @@
             <div  style="display: flex; justify-content: center;">
             <input type="hidden" id="userIdInput" name="userIdInput" th:value="${ #authentication.getPrincipal().getUserId }">
 
+            <div th:if="${data.isEmpty()}" class="no-data">
+                <div class="text-container">
+                    <p>예약 내역이 없습니다.</p>
+                </div>
+            </div>
+
             <div th:each="data : ${ data }" class="data-item">
                 <div class="text-container">
                     <span th:text="${data.therapist.name}"/> 상담사<br>

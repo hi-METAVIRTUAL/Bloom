@@ -46,8 +46,8 @@ window.onload = function() {
     const idInput = document.getElementById("username");
     const idError = document.getElementById("id-error");
     const idInputBox = document.getElementById("username");
-    const idPattern = /^[a-zA-Z0-9]{1,20}$/;
-    const idErrorMessage = "아이디는 최대 20자, 영문은 필수이며 (공백, 한글, 특수기호는 불가)";
+    const idPattern = /^(?=.*[A-Za-z])[A-Za-z0-9@$!%*?&]{1,20}$/;
+    const idErrorMessage = "아이디는 최대 20자, 영문은 필수이며 (공백, 한글 불가)";
     handleInputValidation(idInput, idError, idPattern, idInputBox, idErrorMessage);
 
 // Call the function for phone input

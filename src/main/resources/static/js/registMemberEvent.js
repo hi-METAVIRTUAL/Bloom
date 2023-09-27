@@ -43,15 +43,15 @@ window.onload = function() {
     const idInput = document.getElementById("username");
     const idError = document.getElementById("id-error");
     const idInputBox = document.getElementById("username");
-    const idPattern = /^[a-zA-Z0-9]{1,20}$/;
-    const idErrorMessage = "아이디는 최대 20자, 영문은 필수이며 (공백, 한글, 특수기호는 불가)";
+    const idPattern = /^(?=.*[A-Za-z])[A-Za-z0-9@$!%*?&]{1,20}$/;
+    const idErrorMessage = "아이디는 최대 20자, 영문은 필수이며 (공백, 한글 불가)";
     handleInputValidation(idInput, idError, idPattern, idInputBox, idErrorMessage);
 
 // Call the function for nickname input
     const nicknameInput = document.getElementById("nickname");
     const nicknameError = document.getElementById("nickname-error");
     const nicknameInputBox = document.getElementById("nickname");
-    const nicknamePattern = /^[a-zA-Z가-힣]{1,10}$/;
+    const nicknamePattern = /^[A-Za-z가-힣0-9]{1,10}$/;
     const nicknameErrorMessage = "닉네임은 최대 10자, 영문 또는 한글 가능하며 (공백, 특수기호는 불가)";
     handleInputValidation(nicknameInput, nicknameError, nicknamePattern, nicknameInputBox, nicknameErrorMessage);
 

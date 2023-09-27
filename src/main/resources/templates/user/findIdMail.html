@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+    <style>
+        body {
+            text-align: left;
+            font-family: 'Raleway',serif;
+        }
+
+        #bodyBox {
+            background-color: #FFF6E2;
+            padding: 50px 100px 50px 100px;
+        }
+
+        .bloom {
+            color:#C09A81;
+            font-size:50px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div id=bodyBox>
+
+    <div class="bloom">Bloom</div>
+
+    <h2 class="title">아이디 찾기</h2>
+
+    <p th:text="${ name }">님 안녕하세요<br>
+        Bloom에서 가입하신 아이디를 보내드립니다.<br><br>
+        아이디를 요청하지 않으셨다면 무시해주세요.</p>
+
+    <div>
+        <h4 style="color:#C09A81; justify-content: center; width: 200px;" id="codeBox"> 아이디 : </h4>
+        <h2 th:text="${ content }"></h2>
+    </div>
+</div><br>
+
+
+
+
+</body>
+</html>

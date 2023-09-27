@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+  <style>
+    body {
+      text-align: left;
+      font-family: 'Raleway',serif;
+    }
+
+    #bodyBox {
+      background-color: #FFF6E2;
+      padding: 50px 100px 50px 100px;
+    }
+
+    .bloom {
+      color:#C09A81;
+      font-size:50px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<div id=bodyBox>
+
+  <div class="bloom">Bloom</div>
+
+  <h2 class="title">임시 비밀범호 발급</h2>
+
+  <p th:text="${ name }">님 안녕하세요<br>
+    Bloom에서 임시 비밀번호를 발급해드렸습니다.<br>
+    해당 임시 비밀번호로 로그인 하신 후 비밀번호 변경을 해주시길 바랍니다.<br>
+    비밀번호를 요청하지 않으셨다면 관리자에게 문의해주세요. 비밀번호는 절대 공유 하지 마세요.</p>
+
+  <div>
+    <h4 style="color:#C09A81; justify-content: center; width: 200px;" id="codeBox"> 임시 비밀범호 : </h4>
+    <h2 th:text="${ content }"></h2>
+  </div>
+</div><br>
+
+
+
+
+</body>
+</html>
