@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
 
 
+
     void registUser(UserDTO user, MemberDTO member) throws UserRegistException;
 
     void registTherapist(UserDTO user, TherapistDTO therapist, DataFileDTO dataFile, List<MultipartFile> therapistFiles) throws UserRegistException, ModifyInfoException;

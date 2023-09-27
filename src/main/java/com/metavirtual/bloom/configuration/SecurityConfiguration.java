@@ -1,15 +1,11 @@
 package com.metavirtual.bloom.configuration;
 
 import com.metavirtual.bloom.application.controller.AuthFailHandler;
-import com.metavirtual.bloom.user.model.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -19,8 +15,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration {
     private final AuthFailHandler authFailHandler;
 
+
+
     public SecurityConfiguration(AuthFailHandler authFailHandler) {
         this.authFailHandler = authFailHandler;
+
     }
 
     /* 비밀번호 암호화에 사용할 객체 BCryptPasswordEncoder bean 등록 */
@@ -70,6 +69,12 @@ public class SecurityConfiguration {
                 .failureHandler(authFailHandler)
                 .usernameParameter("username")
                 .passwordParameter("password")
+                 /*.and()
+                 .rememberMe() // 사용자 계정 저장
+                 .rememberMeParameter("remember") // default 파라미터는 remember-me
+                 .tokenValiditySeconds(604800) // 7일(default 14일)
+                 .alwaysRemember(false) // remember-me 기능 항상 실행
+                 .userDetailsService(rememberMeService) // 사용자 계정 조회*/
                 .and()
                 .logout()
                  .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
