@@ -91,7 +91,7 @@
                     <if test="searchSelect eq '고민상담'">
                         B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '고민상담'
                     </if>
-                    <if test="searchSelect eq 'title'">
+                    <if test="searchSelect eq 'title1'">
                         B.TITLE LIKE CONCAT('%', #{ searchValue }, '%')
                     </if>
                     AND B.DELETE_DATE IS NULL

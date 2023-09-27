@@ -1,53 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>후기</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{ /css/reviewPage/review.css}">
-</head>
-<body>
-<div th:with="loggedIn=false, reservationMade=false">
-    <div class="header" th:if="${loggedIn && reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
-    <div class="header" th:unless="${loggedIn}" th:include="components/Header.html" th:with="includeSection1=false"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <th:block th:include="components/Header.html"></th:block>
+
+<h2>후기</h2>
+<!-- 후기 보드 테이블 -->
+<div class="table">
+
+    <table class="reviewBox" id="boardListTable">
+        <th:p style="text-align: right" sec:authorize="isAuthenticated()"><button type="button" class="buttons-board" style="width: 150px" onclick="location.href='/booking/reviewPosting'">후기등록</button></th:p>
+        <br>
+        <tr class="table-th">
+            <th style="width: 100px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">No</th>
+            <th style="width: 200px">유형</th>
+            <th style="width: 700px">제목</th>
+            <th style="width: 200px">작성자</th>
+            <th style="width: 200px">작성일</th>
+            <th style="width: 100px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">조회수</th>
+        </tr>
+
+        <tr th:each="board : ${ boardList }" class="table-td1">
+            <td style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;"
+                th:text="${ board.boardCode }"></td>
+            <td th:text="${ board.boardCategory }"></td>
+            <td th:text="${ board.title }"></td>
+            <td th:text="${ board.userId.nickname }"></td>
+            <td th:text="${ board.postedDate }"></td>
+            <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;"
+                th:text="${ board.viewCount }"></td>
+        </tr>
+    </table>
 </div>
 
-<h1 class="title">후기</h1>
+<!-- 페이징 처리 -->
+<div class="paging">
+    <div style="display: flex;">
+        <!-- 맨 앞으로 이동 -->
+        <!-- th:disabled = 1 페이지일 경우 버튼 안보이게 -->
+        <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.startPage }} + '\''"
+                th:disabled="${ selectCriteria.pageNo == 1 }"><img src="../images/board/previousfirst.png"></button>
 
+        <!-- 이전 페이지로 이동 -->
+        <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.pageNo - 1 }} + '\''"
+                th:disabled="${ selectCriteria.pageNo == 1 }"><img src="../images/board/previous.png"></button>
 
-<div class="review-text-box-container1">
-    <div>
-        <img src="../images/review/yellowstar.png" class="star-icon">오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
-    </div>
-    <div>
-        <img src="../images/review/yellowstar.png" class="star-icon">오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
-    </div>
-    <div>
-        <img src="../images/review/yellowstar.png" class="star-icon">오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
+        <!-- 숫자 버튼 -->
+        <th:block th:each="page : ${ #numbers.sequence(selectCriteria.startPage, selectCriteria.endPage) }">
+            <button style="color: #C09A81;"
+                    th:text="${ page }"
+                    th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ page }} + '\''"
+                    th:disabled="${ selectCriteria.pageNo eq page }">
+            </button>
+        </th:block>
+
+        <!-- 다음 페이지로 이동 -->
+        <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.pageNo + 1 }} + '\''"
+                th:disabled="${ selectCriteria.pageNo == selectCriteria.lastPage }"><img src="../images/board/next.png"></button>
+
+        <!-- 마지막 페이지로 이동 -->
+        <button th:onclick="'location.href=\'/board/searchList?currentPage='+ @{${ selectCriteria.lastPage }} + '\''"
+                th:disabled="${ selectCriteria.pageNo == selectCriteria.lastPage }"><img src="../images/board/nextlist.png"></button>
     </div>
 </div>
-<div class="review-text-box-container2">
-    <div>
-        <img src="../images/review/yellowstar.png" class="star-icon">오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
-    </div>
-    <div>
-        <img src="../images/review/yellowstar.png" class="star-icon">오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
-    </div>
-    <div>
-        <img src="../images/review/yellowstar.png" class="star-icon">오지라퍼스 상담사님께 상담을 받고 왔다! 뭔가 심리, 상담 이런게 문턱이 높게 느껴졌는데 그런 고민을 싹 해결할 수 있는 플랫폼을 발···
-    </div>
-</div>
-<div>
-    <ul class="ul-items">
-            <li class="li-items"><a href="">1</a></li>
-            <li class="li-items"><a href="">2</a></li>
-            <li class="li-items"><a href="">3</a></li>
-            <li class="li-items"><a href="">4</a></li>
-            <li class="li-items"><a href="">5</a></li>
-    </ul>
-</div>
 
-<th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
-</body>
+<script th:inline="javascript">
+
+    /* CRUD 메시지 알림 창 */
+    const message = '[[${ message }]]';
+    if (message != null && message !== 'null'){
+        alert(message);
+    }
+
+</script>
 </html>

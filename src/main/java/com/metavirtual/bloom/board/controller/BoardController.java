@@ -151,10 +151,13 @@ public class BoardController {
         if(title != "" && boardCategory != "" && boardContent != "") {
             boardService.boardModify(modifyBoard);
             rttr.addFlashAttribute("message", "게시글 수정에 성공하였습니다");
-        } else {
-            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다");
+        } else if (boardCategory == "") {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다. 분류를 선택해주세요.");
+        } else if (title == "") {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다. 제목을 입력해주세요.");
+        } else if (boardContent == "") {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다. 글 내용을 입력해주세요.");
         }
-
         return "redirect:/board/searchList";
     }
 
@@ -180,7 +183,7 @@ public class BoardController {
     }
 
     /* 댓글 삭제 메서드 */
-    @PatchMapping(value = "/commentDelete")
+    @PostMapping(value = "/commentDelete")
     public ResponseEntity<List<MemberCommentDTO>> commentDelete(@RequestBody MemberCommentDTO commentDelete) throws CommentDeleteException {
 
         System.out.println("댓글 파라미터 값 ? : " + commentDelete);

@@ -45,9 +45,10 @@ public class BoardService {
         BoardDTO selectOne = null;
 
         int result = boardMapper.viewCount(boardCode);
-
+        System.out.println("서비스확인 : " + result);
         if(result > 0) {
             selectOne = boardMapper.boardSelectOne(boardCode);
+            System.out.println("서비스확인2: " + selectOne);
         }
 
         return selectOne;
