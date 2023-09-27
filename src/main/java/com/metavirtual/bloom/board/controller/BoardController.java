@@ -2,6 +2,7 @@
 package com.metavirtual.bloom.board.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
 import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
 import com.metavirtual.bloom.board.model.service.BoardService;
@@ -188,17 +189,16 @@ public class BoardController {
         return ResponseEntity.ok(commentList);
     }
 
-    /* 신고 사유 등록 메서드 */
+    /* 게시글 신고 사유 등록 메서드 */
     /*@PostMapping("/reportInsert")
-    public String  boardReportPosting(@RequestParam String title
-            , @RequestParam String boardCategory
-            , @RequestParam String boardContent
-            , @ModelAttribute MemberBoardDTO newPosting, RedirectAttributes rttr) throws BoardPostingException {
+    public String  boardReportPosting(@RequestParam String reportContent, @ModelAttribute BoardReportDTO newReport, RedirectAttributes rttr) {
 
-        System.out.println("파라미터 값? : " + newPosting);
+        System.out.println("신고 사유 값 : " + newReport);
 
+        boardService.reportInsert(newReport);
+        rttr.addFlashAttribute("message", "신고가 접수되었습니다.");
 
-*/
-
+        return "redirect:/board/searchList";
+    }*/
 }
 
