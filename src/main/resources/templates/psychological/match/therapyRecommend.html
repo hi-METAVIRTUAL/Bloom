@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>list</title>
     <link rel="stylesheet" type="text/css" href="/css/match/therapyRecommend.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
@@ -15,28 +16,33 @@
         <h3 style="margin-top: 50px;"><span sec:authentication="principal.name"></span>님에게 맞춘 상담사들을 추천드려요!</h3>
     </div>
 </th:block>
-<div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
-    <div id="therapists-container" class="parent" th:each="memberTestResult : ${memberTestResult}" >
-        <div class="our-team" >
-            <div class="picture" >
-                <img class="img-fluid" src="/images/psychological/testpicture.jpg">
-                <th:block th:text="${memberTestResult.therapistQ1}"></th:block>
+<div>
+    <div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
+        <div id="therapists-container" class="parent">
+            <div th:each="therapyRecommend : ${therapyRecommend}" class="our-team">
+                <div class="picture">
+                    <!--<img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">-->
+                    <img class="img-fluid" src="/images/psychological/testpicture.jpg" alt="상담사 프로필">
+                    <h4 th:if="${therapyRecommend.depressionCK} == 'Y'" th:text="우울"></h4>
+                    <h4 th:if="${therapyRecommend.anxietyCK} == 'Y'" th:text="불안"></h4>
+                    <h4 th:if="${therapyRecommend.bipolarCK} == 'Y'" th:text="양극성"></h4>
+                    <h4 th:if="${therapyRecommend.ocdCK} == 'Y'" th:text="강박성"></h4>
+                    <h4 th:if="${therapyRecommend.relationCK} == 'Y'" th:text="대인관계"></h4>
+                </div>
+                <div th:text="${therapyRecommend.therapistQ1}"></div>
+                <div class="team-content">
+                    <h3 th:text="${therapyRecommend.name.name}">상담사 이름</h3>
+                </div>
+                <ul class="social">
+                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapyRecommend.userId})}"
+                           class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                </ul>
             </div>
-            <div class="team-content">
-                <h3 th:text="${memberTestResult.name}"></h3>
-                <h4 th:if="${memberTestResult.depressionCK == 'Y'}" th:text="${'우울'}"></h4>
-                <h4 th:if="${memberTestResult.anxietyCK == 'Y'}" th:text="${'불안'}"></h4>
-                <h4 th:if="${memberTestResult.bipolarCK == 'Y'}" th:text="${'양극성'}"></h4>
-                <h4 th:if="${memberTestResult.ocdCK == 'Y'}" th:text="${'강박성'}"></h4>
-            </div>
-            <ul class="social">
-                <li><a href="/psychological/match/introduceTherapy" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-            </ul>
         </div>
     </div>
-</div>
-<div>
-    <a style="color: #C08181; text-align: center; font-weight: bold;" href="/psychological/match/therapyList">또 다른 훌륭한 상담사들 보기</a>
+    <div>
+        <a style="color: #C08181; text-align: center; font-weight: bold;" href="/psychological/match/therapyList">또 다른 훌륭한 상담사들 보기</a>
+    </div>
 </div>
 <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
 <footer>
@@ -46,21 +52,16 @@
 
     $(document).ready(function () {
         let userId = $("#userId").val();
-        console.log(userId)
         $.ajax({
-            url:"getScore",
-            data:{ userId: userId },
+            url: "therapyRecommend",
+            type: "POST",
+            data: {userId: userId},
 
             success: function (data, status, xhr) {
-                console.log(data);
-
             },
-            error: function (xhr, status, error){
-
+            error: function (xhr, status, error) {
             },
-
         });
-
     });
 </script>
 </body>

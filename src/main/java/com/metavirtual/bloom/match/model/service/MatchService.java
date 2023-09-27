@@ -21,15 +21,23 @@ public class MatchService {
     }
 
     public List<TherapistInfoDTO> findAllTherapist() {
-
         return matchMapper.findAllTherapist();
     }
-
     public List<TherapistInfoDTO> getTotalScore(String userId) {
+        List<TherapistInfoDTO> memberTestResults = matchMapper.getTotalScore(userId);
+        return memberTestResults;
+    }
 
-        List<MemberTestResultDTO> memberTestResults = matchMapper.getTotalScore(userId);
 
-        int maxScore = Integer.MIN_VALUE;
+    public List<TherapistInfoDTO> therapyRecommend() {
+
+        List<TherapistInfoDTO> therapyRecommend = matchMapper.therapyRecommend();
+        return therapyRecommend;
+    }
+}
+
+/*
+* int maxScore = Integer.MIN_VALUE;
         String maxCategory = null;
 
         for (MemberTestResultDTO result : memberTestResults) {
@@ -89,14 +97,14 @@ public class MatchService {
         }
 
         return null; // 예외 처리 필요
-    }
-
-    private boolean isCategoryMatch(TherapistInfoDTO therapist, String maxCategory) {
+       }
+         private boolean isCategoryMatch(TherapistInfoDTO therapist, String maxCategory) {
         // 상담사의 강점 카테고리와 최대 카테고리를 비교하여 일치 여부 확인
         // maxCategory와 therapist의 카테고
         return true;
     }
-}
+    * */
+
 
 /*
 *  List<MemberTestResultDTO> memberTestResult = matchMapper.getTotalScore(userId);

@@ -6,9 +6,7 @@ import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
 import com.metavirtual.bloom.psychometry.model.dto.TestResultDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,8 +24,19 @@ public class MatchController {
     public String matchingPage(){
         return "psychological/match/matchingPage";
     }
-    @GetMapping("/therapyRecommend")
-    public String matchingResultPage(){
+    @GetMapping("therapyRecommend")
+    public String matchingResultPage(String userId, Model model){
+        List<TherapistInfoDTO> therapyRecommendList = matchService.getTotalScore(userId);
+
+        model.addAttribute("therapyRecommendList", therapyRecommendList);
+        return "psychological/match/therapyRecommend";
+    }
+    @PostMapping("therapyRecommend")
+    public String therapyRecommendPage(Model model){
+        List<TherapistInfoDTO> therapyRecommend = matchService.therapyRecommend();
+        model.addAttribute("therapyRecommend", therapyRecommend);
+        System.out.println(therapyRecommend);
+
         return "psychological/match/therapyRecommend";
     }
     @GetMapping("/introduceTherapy")
@@ -44,12 +53,12 @@ public class MatchController {
 
         return "psychological/match/therapyList";
     }
-    @GetMapping("getScore")
+    /*@GetMapping("getScore")
     public String getTotalScore(@RequestParam("userId") String userId, Model model){
-        List<TherapistInfoDTO> memberTestResult = matchService.getTotalScore(userId);
-        System.out.println(memberTestResult);
+        List<TherapistInfoDTO> therapyRecommendList = matchService.getTotalScore(userId);
+        System.out.println(therapyRecommendList);
 
-        model.addAttribute("memberTestResult", memberTestResult);
+        model.addAttribute("memberTestResult", therapyRecommendList);
         return "psychological/match/therapyRecommend";
-    }
+    }*/
 }

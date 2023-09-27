@@ -29,6 +29,7 @@
         <result property="filePath" column="FILE_PATH"/>
     </resultMap>
 
+    <!-- 상담사 전체 조회 -->
     <select id="findAllTherapist" resultMap="resultInfo">
         SELECT
         T.THERAPIST_Q1
@@ -45,22 +46,8 @@
         FROM THERAPIST T
         LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
-
     </select>
 
-    <select id="">
-        SELECT USER_ID,
-        DEPRESSION_TOTAL_SCORE,
-        ANXIETY_TOTAL_SCORE,
-        BIPOLAR_TOTAL_SCORE,
-        OCD_TOTAL_SCORE
-        FROM MEMBER_TEST_RESULT
-        WHERE (USER_ID, TEST_DATE) IN (
-        SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
-        FROM MEMBER_TEST_RESULT
-        GROUP BY USER_ID
-        )
-    </select>
     <resultMap id="scoreResult" type="com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO">
         <id property="resultCode" column="RESULT_CODE"/>
         <result property="testDate" column="TEST_DATE"/>
@@ -85,4 +72,24 @@
         GROUP BY USER_ID
         )
     </select>
+
+    <select id="therapyRecommend" resultMap="resultInfo">
+        SELECT
+        T.THERAPIST_Q1
+        , T.ACTIVATION_STATUS
+        , T.SESSION_VIDCALL_CK
+        , T.DEPRESSION_CK
+        , T.ANXIETY_CK
+        , T.BIPOLAR_CK
+        , T.OCD_CK
+        , T.RELATION_CK
+        , U.NAME
+        , U.GENDER
+        , P.FILE_PATH
+        FROM THERAPIST T
+        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
+        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+    </select>
+
+
 </mapper>

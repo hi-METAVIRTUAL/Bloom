@@ -10,5 +10,8 @@ import java.util.List;
 public interface MatchMapper {
     List<TherapistInfoDTO> findAllTherapist();
 
-    List<MemberTestResultDTO> getTotalScore(String userId);
+    List<TherapistInfoDTO> getTotalScore(String userId);
+
+    List<TherapistInfoDTO> therapyRecommend();
+
 }
