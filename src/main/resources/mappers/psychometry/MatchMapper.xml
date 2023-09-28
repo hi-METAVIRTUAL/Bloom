@@ -44,9 +44,42 @@
         , U.GENDER
         , P.FILE_PATH
         FROM THERAPIST T
-        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
+         JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+        <!--<if test="categoryD eq 'D'">
+            <where>
+                T.DEPRESSION_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryA eq 'A'">
+            <where>
+                T.ANXIETY_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryB eq 'B'">
+            <where>
+                T.BIPOLAR_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryO eq 'O'">
+            <where>
+                T.OCD_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryR eq 'R'">
+            <where>
+                T.RELATION_CK = 'Y'
+            </where>
+        </if>-->
+       <!-- <where>
+            <if test="searchValue IS NOT NULL">
+                U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>-->
+        <!--ORDER BY A.BOARD_CODE DESC-->
+        LIMIT #{startRow }, #{limitPerPage}
     </select>
+
 
     <resultMap id="scoreResult" type="com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO">
         <id property="resultCode" column="RESULT_CODE"/>
@@ -58,19 +91,20 @@
         <result property="userId" column="USER_ID"/>
     </resultMap>
 
-    <select id="getTotalScore" resultMap="scoreResult">
-        SELECT USER_ID,
-        DEPRESSION_TOTAL_SCORE,
-        ANXIETY_TOTAL_SCORE,
-        BIPOLAR_TOTAL_SCORE,
-        OCD_TOTAL_SCORE
+    <select id="findMemberTest" resultMap="scoreResult">
+        SELECT
+        M.USER_ID,
+        M.TEST_DATE,
+        M.DEPRESSION_TOTAL_SCORE,
+        M.ANXIETY_TOTAL_SCORE,
+        M.BIPOLAR_TOTAL_SCORE,
+        M.OCD_TOTAL_SCORE
+        FROM MEMBER_TEST_RESULT M
+        WHERE M.TEST_DATE = (
+        SELECT MAX(TEST_DATE)
         FROM MEMBER_TEST_RESULT
-        WHERE (USER_ID, TEST_DATE) IN (
-        SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
-        FROM MEMBER_TEST_RESULT
-        WHERE USER_ID = #{ userId }
-        GROUP BY USER_ID
-        )
+        WHERE USER_ID = M.USER_ID) and
+        user_id = #{ userId }
     </select>
 
     <select id="therapyRecommend" resultMap="resultInfo">
@@ -91,5 +125,57 @@
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
     </select>
 
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT COUNT(*)
+        FROM THERAPIST T
+        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
+        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+        <!--<if test="categoryD eq 'D'">
+            <where>
+                T.DEPRESSION_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryA eq 'A'">
+            <where>
+                T.ANXIETY_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryB eq 'B'">
+            <where>
+                T.BIPOLAR_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryO eq 'O'">
+            <where>
+                T.OCD_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryR eq 'R'">
+            <where>
+                T.RELATION_CK = 'Y'
+            </where>
+        </if>
+        <if test="searchValue != ''">
+            <where>
+                U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </where>
+        </if>-->
+    </select>
 
 </mapper>
+
+<!--
+
+        SELECT USER_ID,
+        DEPRESSION_TOTAL_SCORE,
+        ANXIETY_TOTAL_SCORE,
+        BIPOLAR_TOTAL_SCORE,
+        OCD_TOTAL_SCORE
+        FROM MEMBER_TEST_RESULT
+        WHERE (USER_ID, TEST_DATE) IN (
+        SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
+        FROM MEMBER_TEST_RESULT
+        WHERE USER_ID = #{ userId }
+        GROUP BY USER_ID
+        )
+        -->

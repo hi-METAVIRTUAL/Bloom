@@ -19,22 +19,22 @@
 <div>
     <div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
         <div id="therapists-container" class="parent">
-            <div th:each="therapyRecommend : ${therapyRecommend}" class="our-team">
+            <div class="our-team" th:each="recommend : ${therapyRecommend}" >
                 <div class="picture">
                     <!--<img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">-->
                     <img class="img-fluid" src="/images/psychological/testpicture.jpg" alt="상담사 프로필">
-                    <h4 th:if="${therapyRecommend.depressionCK} == 'Y'" th:text="우울"></h4>
-                    <h4 th:if="${therapyRecommend.anxietyCK} == 'Y'" th:text="불안"></h4>
-                    <h4 th:if="${therapyRecommend.bipolarCK} == 'Y'" th:text="양극성"></h4>
-                    <h4 th:if="${therapyRecommend.ocdCK} == 'Y'" th:text="강박성"></h4>
-                    <h4 th:if="${therapyRecommend.relationCK} == 'Y'" th:text="대인관계"></h4>
+                    <h4 th:if="${ recommend.depressionCK} == 'Y'" th:text="우울"></h4>
+                    <h4 th:if="${ recommend.anxietyCK} == 'Y'" th:text="불안"></h4>
+                    <h4 th:if="${ recommend.bipolarCK} == 'Y'" th:text="양극성"></h4>
+                    <h4 th:if="${ recommend.ocdCK} == 'Y'" th:text="강박성"></h4>
+                    <h4 th:if="${ recommend.relationCK} == 'Y'" th:text="대인관계"></h4>
                 </div>
-                <div th:text="${therapyRecommend.therapistQ1}"></div>
+                <div th:text="${ recommend.therapistQ1}"></div>
                 <div class="team-content">
-                    <h3 th:text="${therapyRecommend.name.name}">상담사 이름</h3>
+                    <h3 th:text="${ recommend.name.getName()}">상담사 이름</h3>
                 </div>
                 <ul class="social">
-                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapyRecommend.userId})}"
+                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${recommend.userId})}"
                            class="profilebutton" aria-hidden="true">프로필 보기</a></li>
                 </ul>
             </div>
@@ -49,12 +49,11 @@
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 <script>
-
     $(document).ready(function () {
         let userId = $("#userId").val();
         $.ajax({
             url: "therapyRecommend",
-            type: "POST",
+            type: "get",
             data: {userId: userId},
 
             success: function (data, status, xhr) {
