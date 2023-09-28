@@ -73,16 +73,16 @@
             >
             <tr>
                 <td align="left">이름</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${ user.getName() }"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="name" th:value="${ user.getName() }"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
             </tr>
             <tr>
                 <td align="left">아이디</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${ user.getUserId() }"><br>아이디는 변경 불가능합니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled name="userId" th:value="${ user.getUserId() }"><br>아이디는 변경 불가능합니다.</td>
             </tr>
             <tr>
                 <td align="left">비밀번호</td>
                 <td>
-                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" required >
+                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="pwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" required >
                 </td>
             </tr>
             <tr>
@@ -112,7 +112,7 @@
                 <td>
                     * <input class="email" type="text" name="emailId" id="emailId" th:value="${#strings.substringBefore(user.getEmail(),'@')}" required>
                     @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="${#strings.substringAfter(user.getEmail(),'@')}" required>
-                    <select id="emailDomainSelect" onchange="updateEmailDomain(), combineEmail()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                    <select id="emailDomainSelect" onchange="updateEmailDomain()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                         <option value="empty">선택하기</option>
                         <option value="naver.com">naver.com</option>
                         <option value="gmail.com">gmail.com</option>
@@ -122,14 +122,14 @@
                     </select>
                 </td>
                 <td align="right">
-                    <button class="info-bt" onclick="emailDupCheckAndSendNumber()" id="sendBtn" name="sendBtn">본인인증</button>
+                    <button class="info-bt" id="sendBtn" name="sendBtn">본인인증</button>
                 </td>
             </tr>
             <tr id="Confirm" name="Confirm" style="display: none;">
                 <div id="mail_number" name="mail_number" style="display: none;">
                 <td align="left">인증번호입력</td>
                 <td>
-                    * <input class="round-input" type="text" name="number" id="number" required>
+                    <input class="round-input" type="text" name="number" id="number">
                 </td>
                 <td align="right">
                     <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>
@@ -256,6 +256,18 @@
         }
     });
 
+    const showLoadingBtn = document.getElementById("sendBtn");
+    showLoadingBtn.addEventListener("click", emailDupCheckAndSendNumber);
+
+    function showLoadingOverlay() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "flex";
+    }
+
+    function hideLoadingOverlay() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "none";
+    }
     function updateEmailDomain() {
         const emailDomainSelect = document.getElementById('emailDomainSelect');
         const emailDomainInput = document.getElementById('emailDomain');
@@ -268,6 +280,8 @@
         }
         return emailDomainInput.value;
     }
+
+    // Function to concatenate emailId and emailDomain with '@'
     function combineEmail() {
         const emailId = document.getElementById('emailId').value.trim();
         let emailDomain = updateEmailDomain();
@@ -275,7 +289,12 @@
         const completeEmail = emailId + '@' + emailDomain;
         return completeEmail.toString();
     }
+
+    // Function to send the email and receive the confirmation number
     function sendNumber(email) {
+
+        $("#loadingSpinner").show();
+
         $("#mail_number").css("display", "block");
         $.ajax({
             url: "/mail",
@@ -283,10 +302,18 @@
             dataType: "json",
             data: { "mail": email },
             success: function (data) {
+
+                $("#loadingSpinner").hide()
+                hideLoadingOverlay();
+
                 alert("인증번호 발송");
                 $("#Confirm").attr("value", data);
+                emailVerificationSent = true;
             },
             error: function () {
+
+                $("#loadingSpinner").hide();
+
                 console.log(email);
                 console.log("verification Code send Failed")
 
@@ -310,29 +337,36 @@
         }
     }
 
+    let emailVerificationSent = false;
     // Function to check email duplication and then send the verification number
     function emailDupCheckAndSendNumber() {
-        const email = combineEmail();
-        // Perform email duplication check
-        $.ajax({
-            type: 'POST',
-            url: '/user/emailDupCheck',
-            data: email,
-            contentType: 'plain/text',
-            success: function (response) {
-                if (response.check === 0) {
-                    // Email is not a duplicate, send the verification number
-                    sendNumber(email);
-                } else {
-                    // Email is a duplicate, display an alert
-                    alert("중복된 이메일 주소입니다.");
+        if (!emailVerificationSent) {
+            showLoadingOverlay();
+            const email = combineEmail();
+            // Perform email duplication check
+            $.ajax({
+                type: 'POST',
+                url: '/user/emailDupCheck',
+                data: email,
+                contentType: 'plain/text',
+                success: function (response) {
+                    if (response.check === 0) {
+                        // Email is not a duplicate, send the verification number
+                        sendNumber(email);
+                    } else {
+                        // Email is a duplicate, display an alert
+                        alert("중복된 이메일 주소입니다.");
+                        hideLoadingOverlay();
+                    }
+                },
+                error: function (error) {
+                    console.error('AJAX error:', error);
+                    // Handle the error as needed
                 }
-            },
-            error: function (error) {
-                console.error('AJAX error:', error);
-                // Handle the error as needed
-            }
-        });
+            });
+        } else {
+            alert("이미 이메일 인증번호를 전송했습니다.")
+        }
     }
 </script>
 </body>

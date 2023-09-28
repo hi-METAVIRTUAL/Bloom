@@ -4,11 +4,25 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
 
-    <resultMap id="generalPostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
+    <resultMap id="PostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
         <id property="boardCode" column="BOARD_CODE"/>
         <result property="title" column="TITLE"/>
         <result property="boardCategory" column="BOARD_CATEGORY"/>
         <result property="postedDate" column="POSTED_DATE"/>
+    </resultMap>
+
+    <resultMap id="CommentResultMap" type="com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO">
+        <id property="commentCode" column="COMMENT_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="commentContent" column="COMMENT_CONTENT"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+    </resultMap>
+
+    <resultMap id="ReviewResultMap" type="com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="name" column="NAME"/>
+        <result property="reviewScore" column="REVIEW_SCORE"/>
+        <result property="reviewContent" column="REVIEW_CONTENT"/>
     </resultMap>
 
     <resultMap id="bookingInfo" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo">
@@ -27,6 +41,13 @@
         <result property="gender" column="GENDER"/>
         <result property="email" column="EMAIL"/>
     </resultMap>
+
+<!--    <resultMap id="memberBoard" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBoard">-->
+<!--        <id property="boardCode" column="BOARD_CODE"/>-->
+<!--        <result property="title" column="TITLE"/>-->
+<!--        <result property="boardCategory" column="BOARD_CATEGORY"/>-->
+<!--        <result property="postedDate" column="POSTED_DATE"/>-->
+<!--    </resultMap>-->
 
     <select id="memberBookingInfo" resultMap="bookingInfo" parameterType="java.lang.String">
         SELECT
@@ -73,56 +94,68 @@
         WHERE A.MEMBER_NICKNAME = #{ nickname }
     </select>
 
-    <select id="selectTotalPostCount" resultType="_int">
+<!--    <select id="memberAllBoard" resultMap="memberBoard" parameterType="java.lang.String">-->
+<!--        SELECT-->
+<!--            BOARD_CODE-->
+<!--            , TITLE-->
+<!--            , BOARD_CATEGORY-->
+<!--            , POSTED_DATE-->
+<!--        FROM BOARD-->
+<!--        WHERE USER_ID = #{ userId }-->
+<!--    </select>-->
+
+    <select id="selectTotalPostCount" resultType="_int" parameterType="java.lang.String">
         SELECT COUNT(*)
         FROM BOARD
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
     </select>
 
-    <select id="selectTotalCommentCount" resultType="_int">
+    <select id="selectTotalCommentCount" resultType="_int" parameterType="java.lang.String">
         SELECT COUNT(*)
         FROM MEMBER_COMMENT
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
     </select>
 
-    <select id="selectTotalReviewCount" resultType="_int">
+    <select id="selectTotalReviewCount" resultType="_int" parameterType="java.lang.String">
         SELECT COUNT(*)
-        FROM REVIEW
-        WHERE USER_ID = #{ sessionId }
+        FROM REVIEW R
+        JOIN BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
+        WHERE B.MEMBER_ID = #{ userId }
     </select>
 
-    <select id="selectPostList" resultMap="generalPostResultMap">
+    <select id="selectPostList" resultMap="PostResultMap">
         SELECT
                 BOARD_CODE
                 , TITLE
                 , BOARD_CATEGORY
                 , POSTED_DATE
         FROM BOARD
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
+        AND DELETE_DATE IS NULL
     </select>
 
-    <select id="selectCommentList" resultMap="generalPostResultMap">
+    <select id="selectCommentList" resultMap="CommentResultMap">
         SELECT
-            C.COMMENT_CODE
+            M.COMMENT_CODE
             , B.TITLE
-            , C.COMMENT_CONTENT
-            , C.POSTED_DATE
-        FROM BOARD B
-        INNER JOIN
-            MEMBER_COMMENT C ON B.BOARD_CODE = C.BOARD_CODE
+            , M.COMMENT_CONTENT
+            , M.POSTED_DATE
+        FROM MEMBER_COMMENT M
+        JOIN BOARD B ON M.BOARD_CODE = B.BOARD_CODE
+        WHERE M.USER_ID = #{ userId }
+        AND M.DELETE_DATE IS NULL
     </select>
 
-    <select id="selectReviewList" resultMap="generalPostResultMap">
+    <select id="selectReviewList" resultMap="ReviewResultMap">
         SELECT
             R.BOOKING_CODE
             , U.NAME
             , R.REVIEW_SCORE
             , R.REVIEW_CONTENT
         FROM REVIEW R
-        INNER JOIN
-            BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
-        INNER JOIN
-            USER U ON B.THERAPIST_ID = U.USER_ID
+        JOIN BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
+        JOIN USER U ON B.THERAPIST_ID = U.USER_ID
+        WHERE U.USER_ID = #{ userId }
     </select>
 
     <delete id="deleteMyPost">

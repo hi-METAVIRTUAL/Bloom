@@ -5,10 +5,7 @@ import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.*;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
@@ -20,21 +17,23 @@ public interface MemberPageService {
 
     public MemberInfo memberInfo(String name);
 
-    public void modifyMemberInfo(MemberInfo memberInfo) throws ModifyInfoException;
+    public void modifyMemberInfo(MemberInfo member) throws ModifyInfoException;
 
     public boolean selectMemberByNickname(String nickname);
 
-    public int selectTotalPostCount();
+//    public MemberBoard memberAllBoard(String userId);
 
-    public int selectTotalCommentCount();
+    public int selectTotalPostCount(String userId);
 
-    public int selectTotalReviewCount();
+    public int selectTotalCommentCount(String userId);
 
-    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria);
+    public int selectTotalReviewCount(String userId);
 
-    public List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria);
+    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId);
 
-    public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria);
+    public List<CommentListDTO> selectCommentList(SelectCriteria selectCriteria, String userId);
+
+    public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria, String userId);
 
     public void deleteMyPost(String boardCode) throws DeleteException;
 

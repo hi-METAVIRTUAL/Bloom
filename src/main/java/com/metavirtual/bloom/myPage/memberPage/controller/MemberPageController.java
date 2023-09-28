@@ -8,10 +8,7 @@ import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.*;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageService;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
@@ -76,23 +73,32 @@ public class MemberPageController {
     }
 
     @PostMapping("/modifyMemberInfo")
-    public String changeMemberInfo(@ModelAttribute MemberInfo memberInfo, UserDTO user, MemberDTO member, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr) throws ModifyInfoException {
+    public String changeMemberInfo(@ModelAttribute MemberInfo member, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr, Model model, Authentication authentication) throws ModifyInfoException {
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
+
         log.info("");
         log.info("");
         log.info("[MemberPageController] modifyMemberInfo ========");
 
-        user.setPwd(passwordEncoder.encode(memberInfo.getPwd()));
-        user.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
-        member.setNickname(memberInfo.getNickname());
-        user.setPhone(memberInfo.getPhone());
+        member.setName(member.getName());
+        member.setUserId(member.getUserId());
+        member.setPwd(passwordEncoder.encode(member.getPwd()));
+        member.setNickname(member.getNickname());
+        member.setPhone(member.getPhone());
+        member.setGender(member.getGender());
+        member.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
 
-        log.info("[MemberPageController] modifyMemberInfo request Member, User : " + member + user);
+        log.info("[MemberPageController] modifyMemberInfo request MemberInfo : " + member );
 
-        memberPageService.modifyMemberInfo(memberInfo);
+        memberPageService.modifyMemberInfo(member);
 
         rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
 
-        return "redirect:/mypage/member/memberInfo";
+        return "/mypage/member/memberInfo";
     }
 
     @PostMapping("/nickDuplCK")
@@ -115,54 +121,64 @@ public class MemberPageController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/postList")
-    public String postList(){
-        return "mypage/member/postList";
-    }
+//    @GetMapping("/postList")
+//    public String postList(Model model, Authentication authentication,HttpServletRequest request
+//                            , @RequestParam(value = "currentPage", defaultValue = "1") int pageNo, ModelAndView mv){
+//
+//        if(authentication != null && authentication.isAuthenticated()){
+//            UserImpl user = (UserImpl) authentication.getPrincipal();
+//            model.addAttribute("user", user);
+//
+//            MemberBoard board = memberPageService.memberAllBoard(authentication.getName());
+//            model.addAttribute("board", board);
+//        }
+//
+//        return "mypage/member/postList";
+//    }
 
-    @GetMapping(value = "/myPost")
-    public ModelAndView myPost(HttpServletRequest request
-                                ,@RequestParam(value = "currentPage", defaultValue = "1") int pageNo
+    @GetMapping("/postList")
+    public ModelAndView myPost(Model model, Authentication authentication, HttpServletRequest request
+                                ,@RequestParam(name = "pcurrentPage", defaultValue = "1") int ppageNo
+                                ,@RequestParam(name = "ccurrentPage", defaultValue = "1") int cpageNo
+                                ,@RequestParam(name = "rcurrentPage", defaultValue = "1") int rpageNo
                                ,ModelAndView mv){
+
+        if(authentication != null && authentication.isAuthenticated()) {
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
 
         log.info("");
         log.info("");
         log.info("[MemberPageController] ========");
 
-//        Map<String, String> searchMap = new HashMap<>();
-//        searchMap.put("searchCondition", searchCondition);
-//        searchMap.put("searchValue", searchValue);
-//
-//        log.info("[MemberPageController] 컨트롤러에서 검색조건 확인하기 : " +searchMap);
-
-        int totalPostCount = memberPageService.selectTotalPostCount();
-        int totalCommentCount = memberPageService.selectTotalCommentCount();
-        int totalReviewCount = memberPageService.selectTotalReviewCount();
+        int totalPostCount = memberPageService.selectTotalPostCount(authentication.getName());
+        int totalCommentCount = memberPageService.selectTotalCommentCount(authentication.getName());
+        int totalReviewCount = memberPageService.selectTotalReviewCount(authentication.getName());
         log.info("[MemberPageController] totalMyPostCount : "+totalPostCount);
-        log.info("[MemberPageController] totalMyPostCount : "+totalCommentCount);
-        log.info("[MemberPageController] totalMyPostCount : "+totalReviewCount);
+        log.info("[MemberPageController] totalMyCommentCount : "+totalCommentCount);
+        log.info("[MemberPageController] totalMyReviewCount : "+totalReviewCount);
 
-        int limitPerPage = 5;
+        int limitPerPage1 = 5;
+        int buttonAmount1 = 5;
 
-        int buttonAmount = 5;
+        int limitPerPage2 = 5;
+        int buttonAmount2 = 5;
 
-        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(pageNo, totalPostCount, limitPerPage, buttonAmount);
-        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(pageNo, totalCommentCount, limitPerPage, buttonAmount);
-        SelectCriteria selectCriteria3 = Paging.getSelectCriteria(pageNo, totalReviewCount, limitPerPage, buttonAmount);
+        int limitPerPage3 = 5;
+        int buttonAmount3 = 5;
 
-//        if(searchCondition != null && !"".equals(searchCondition)){
-//            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCondition, searchValue);
-//        } else {
-//            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount);
-//        }
+        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(ppageNo, totalPostCount, limitPerPage1, buttonAmount1);
+        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(cpageNo, totalCommentCount, limitPerPage2, buttonAmount2);
+        SelectCriteria selectCriteria3 = Paging.getSelectCriteria(rpageNo, totalReviewCount, limitPerPage3, buttonAmount3);
 
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria1);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria2);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria3);
+        log.info("[MemberPageController] selectCriteria1 : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria2 : "+selectCriteria2);
+        log.info("[MemberPageController] selectCriteria3 : "+selectCriteria3);
 
-        List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria1);
-        List<CommentListDTO> myCommentList = memberPageService.selectCommentList(selectCriteria2);
-        List<ReviewListDTO> myReviewList = memberPageService.selectReviewList(selectCriteria3);
+        List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria1, authentication.getName());
+        List<CommentListDTO> myCommentList = memberPageService.selectCommentList(selectCriteria2, authentication.getName());
+        List<ReviewListDTO> myReviewList = memberPageService.selectReviewList(selectCriteria3, authentication.getName());
 
         log.info("[MemberPageController] myPostList : "+myPostList);
         log.info("[MemberPageController] myCommentList : "+myCommentList);
@@ -171,12 +187,12 @@ public class MemberPageController {
         mv.addObject("myPostList", myPostList);
         mv.addObject("myCommentList", myCommentList);
         mv.addObject("myReviewList", myReviewList);
-        mv.addObject("selectCriteria", selectCriteria1);
-        mv.addObject("selectCriteria", selectCriteria2);
-        mv.addObject("selectCriteria", selectCriteria3);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria1);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria2);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria3);
+        mv.addObject("selectCriteria1", selectCriteria1);
+        mv.addObject("selectCriteria2", selectCriteria2);
+        mv.addObject("selectCriteria3", selectCriteria3);
+        log.info("[MemberPageController] selectCriteria1 : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria2 : "+selectCriteria2);
+        log.info("[MemberPageController] selectCriteria3 : "+selectCriteria3);
         mv.setViewName("mypage/member/postList");
 
         log.info("[MemberPageController] ========");
