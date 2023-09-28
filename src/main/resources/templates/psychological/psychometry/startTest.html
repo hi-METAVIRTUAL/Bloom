@@ -17,7 +17,7 @@
 <!-- 질문 -->
 <form class="theme-checker">
     <div id="testBox">
-        <div th:each="test, testIndex : ${testQ}">
+        <div id="title" th:each="test, testIndex : ${testQ}">
             <!-- 질문 내용 ~ -->
         </div>
     </div>
@@ -43,12 +43,24 @@
     let userId = $("#userId").val();
 
 
+
+
     $(document).ready(function () {
+        $('input.roundbutton').click(function(){//버튼을 클릭하면
+            let error='';
+            $('div.title').each(function(){
+                let checkBtn=$(this).find('input[type="radio"]:checked');//체크한 것들
+                if(!checkBtn.length){//체크하지 않았으면
+                    error = '전부 선택하시기 바랍니다.';//경고문저장
+                    return;
+                }
+            });
+            if(error) alert(error);//경고문이 있으면 경고하기
+        });
         let testCategory = selectCategory[currentPage]; // 다음 카테고리 가져오기
         loadQuestions(testCategory);
 
         function loadQuestions(testCategory) {
-            let categoryGet =$(this).next().val();
             // 점수 배열로 저장
             $("input[type='radio']:checked").each(function () {
                 let answerScore = $(this).val();
@@ -76,7 +88,7 @@
 
                     /* 질문 반복 */
                     testQ.forEach(function (testQ) {
-                        const questionDiv = $('<div>');
+                        const questionDiv = $('<div>').addClass('title');
                         const answerDiv1 = $('<div>').append('전혀그렇지않다');
                         const answerDiv2 = $('<div>').append('매우그렇다');
 

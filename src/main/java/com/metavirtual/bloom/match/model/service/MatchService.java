@@ -1,14 +1,14 @@
 package com.metavirtual.bloom.match.model.service;
 
+import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.match.model.dao.MatchMapper;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MatchService {
@@ -20,20 +20,25 @@ public class MatchService {
         this.matchMapper = matchMapper;
     }
 
-    public List<TherapistInfoDTO> findAllTherapist() {
-        return matchMapper.findAllTherapist();
-    }
-    public List<TherapistInfoDTO> getTotalScore(String userId) {
-        List<TherapistInfoDTO> memberTestResults = matchMapper.getTotalScore(userId);
-        return memberTestResults;
-    }
+    public int selectTotalCount(Map<String, String> searchMap) {
 
+        int result = matchMapper.selectTotalCount(searchMap);
+        return result;
+    }
+    public List<TherapistInfoDTO> findAllTherapist(SelectCriteria selectCriteria) {
+        List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(selectCriteria);
+        return therapistList;
+    }
+    public List<MemberTestResultDTO> findMemberTest(String userId) {
+        List<MemberTestResultDTO> findMemberTest = matchMapper.findMemberTest(userId);
+        return findMemberTest;
+    }
 
     public List<TherapistInfoDTO> therapyRecommend() {
-
-        List<TherapistInfoDTO> therapyRecommend = matchMapper.therapyRecommend();
-        return therapyRecommend;
+        return  matchMapper.therapyRecommend();
     }
+
+
 }
 
 /*

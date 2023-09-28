@@ -109,7 +109,7 @@
             <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
         </div>
         <br>
-        <button class="matchingbutton" onclick="next()"> 매칭 결과 보러가기
+        <button class="matchingbutton" onclick="location.href='/psychological/match/therapyRecommend'"> 매칭 결과 보러가기
         </button>
         <br><br><br>
         <footer>
@@ -117,24 +117,22 @@
         </footer>
     </div>
 </div>
-<script>
+<!--<script>
 
     function next(){
-        location.href="/psychological/match/therapyRecommend"
-       /* let userId = $("#userId").val();
-        console.log(userId);
+        let userId = $("#userId").val();
         $.ajax({
             url: "/psychological/match/therapyRecommend",
-            method: "GET",
-            data: { userId: userId },
-            success: function (data) {
+            type: "get",
+            data: {userId: userId},
+            success: function (data, status, xhr) {
+                location.href='/psychological/match/therapyRecommend'
             },
-            error:function (xhr,status,error){
-                console.error(error);
+            error: function (xhr, status, error) {
             },
-        });*/
+        });
     }
-</script>
+</script>-->
 </body>
 
 </html>
