@@ -46,8 +46,12 @@ public class MemberPageServiceImpl implements MemberPageService{
 
     @Override
     public boolean selectMemberByNickname(String nickname){
-        String result = mapper.selectMemberByNickname(nickname);
-        return result != null? true : false;
+        int result = mapper.selectMemberByNickname(nickname);
+        if(result>0){
+            return false;
+        } else {
+            return true;
+        }
     }
 
 //    @Override
@@ -93,28 +97,34 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
     @Override
-    public void deleteMyPost(String boardCode) throws DeleteException {
+    public boolean deleteMyPost(int boardCode) throws DeleteException {
         int result = mapper.deleteMyPost(boardCode);
 
-        if(!(result>0)){
+        if(result>0){
+            return true;
+        } else {
             throw new DeleteException("❌선택 게시글 삭제 실패❌");
         }
     }
 
     @Override
-    public void deleteMyComment(int commentCode) throws DeleteException{
+    public boolean deleteMyComment(int commentCode) throws DeleteException{
         int result = mapper.deleteMyComment(commentCode);
 
-        if(!(result>0)){
+        if(result>0){
+            return true;
+        } else {
             throw new DeleteException("❌선택 댓글 삭제 실패❌");
         }
     }
 
     @Override
-    public void deleteMyReview(int bookingCode) throws DeleteException{
+    public boolean deleteMyReview(int bookingCode) throws DeleteException{
         int result = mapper.deleteMyReview(bookingCode);
 
-        if(!(result>0)){
+        if(result>0){
+            return true;
+        } else {
             throw new DeleteException("❌선택 후기 삭제 실패❌");
         }
     }

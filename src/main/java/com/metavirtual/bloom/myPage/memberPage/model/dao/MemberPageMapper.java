@@ -25,7 +25,7 @@ public interface MemberPageMapper {
 
     int modifyUserInfo(MemberInfo memberInfo);
 
-    String selectMemberByNickname(String nickname);
+    int selectMemberByNickname(String nickname);
 
 //    MemberBoard memberAllBoard(String userId);
 
@@ -41,7 +41,7 @@ public interface MemberPageMapper {
 
     List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria, String userId);
 
-    int deleteMyPost(String boardCode);
+    int deleteMyPost(int boardCode);
 
     int deleteMyComment(int commentCode);
 

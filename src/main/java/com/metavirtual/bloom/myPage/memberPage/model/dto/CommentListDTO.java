@@ -8,15 +8,17 @@ public class CommentListDTO {
     private String title;
     private String commentContent;
     private String postedDate;
+    private int boardCode;
 
     public CommentListDTO() {
     }
 
-    public CommentListDTO(int commentCode, String title, String commentContent, String postedDate) {
+    public CommentListDTO(int commentCode, String title, String commentContent, String postedDate, int boardCode) {
         this.commentCode = commentCode;
         this.title = title;
         this.commentContent = commentContent;
         this.postedDate = postedDate;
+        this.boardCode = boardCode;
     }
 
     public int getCommentCode() {
@@ -51,6 +53,14 @@ public class CommentListDTO {
         this.postedDate = postedDate;
     }
 
+    public int getBoardCode() {
+        return boardCode;
+    }
+
+    public void setBoardCode(int boardCode) {
+        this.boardCode = boardCode;
+    }
+
     @Override
     public String toString() {
         return "CommentListDTO{" +
@@ -58,6 +68,7 @@ public class CommentListDTO {
                 ", title='" + title + '\'' +
                 ", commentContent='" + commentContent + '\'' +
                 ", postedDate='" + postedDate + '\'' +
+                ", boardCode='" + boardCode + '\'' +
                 '}';
     }
 }

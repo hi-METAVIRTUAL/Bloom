@@ -35,9 +35,9 @@ public interface MemberPageService {
 
     public List<ReviewListDTO> selectReviewList(SelectCriteria selectCriteria, String userId);
 
-    public void deleteMyPost(String boardCode) throws DeleteException;
+    public boolean deleteMyPost(int boardCode) throws DeleteException;
 
-    public void deleteMyComment(int commentCode) throws DeleteException;
+    public boolean deleteMyComment(int commentCode) throws DeleteException;
 
-    public void deleteMyReview(int bookingCode) throws DeleteException;
+    public boolean deleteMyReview(int bookingCode) throws DeleteException;
 }
