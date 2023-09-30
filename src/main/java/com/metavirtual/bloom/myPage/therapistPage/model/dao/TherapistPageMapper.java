@@ -13,16 +13,19 @@ import java.util.List;
 
 @Mapper
 public interface TherapistPageMapper {
+    UserDTO userInfo(String userId);
+    TherapistDTO therapistInfo(String userId);
+    ProfileFileDTO profileInfo(String userId);
 
     int uploadPfImg(ProfileFileDTO profileFileDTO);
 
-    int updatePfImg(ProfileFileDTO profileFileDTO);
+//    int updatePfImg(ProfileFileDTO profileFileDTO);
 
     int modifyTherapistInfo(UserDTO user);
 
     int modifyTherapistProfile(TherapistDTO therapist);
 
-    int modifyActivationStatus(char activationStatus);
+    int modifyActivationStatus(char activationStatus, String userId);
 
     int selectReservationCount();
 

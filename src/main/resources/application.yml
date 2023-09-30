@@ -26,10 +26,10 @@ spring:
     multipart:
       enabled: true
       max-file-size: 10MB
-      location: C:/Blommmmm/
+      location: C:/dev/Bloom/src/main/resources/static/
 
 image:
-  image-dir: img
+  image-dir: images
 
 file:
   file-dir: dataFile/upload/therapistDataFile
