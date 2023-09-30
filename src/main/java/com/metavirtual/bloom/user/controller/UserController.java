@@ -17,7 +17,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
         /*import org.springframework.security.crypto.password.PasswordEncoder;*/
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,7 +54,6 @@ public class UserController {
     @PostMapping("/login")
     public String loginPost(@RequestParam("username") String userId, @RequestParam("password") String pwd, HttpServletRequest request) {
 //            userService.loadUserByUsername(userId, pwd,)
-
         return "redirect:/";
     }
     private final PasswordEncoder passwordEncoder;
@@ -236,18 +238,39 @@ public class UserController {
         return mv;
     }
 
-    @PostMapping("/bookingStat")
-    public String bookingDetails(@RequestParam("userIdInput")String userId, Model model){
+/*    @GetMapping("/bookingStat")
+    public String bookingDetails(@AuthenticationPrincipal User authenticatedUser, Model model) {
+        String userId = authenticatedUser.getUsername();
 
-            List<BookingDTO> data = userService.bookingStatus(userId);
+        List<BookingDTO> data = userService.bookingStatus(userId);
 
-            log.info(userId);
-            log.info(data.toString());
+        log.info(userId);
+        log.info(data.toString());
 
-            model.addAttribute("data", data);
+        model.addAttribute("data", data);
 
-            return "index";
+        return "index";
+    }*/
+
+    @GetMapping("/bookingStat")
+    @ResponseBody // This annotation indicates that the method should return JSON
+    public ResponseEntity<?> bookingDetails(@AuthenticationPrincipal User authenticatedUser) {
+        String userId = authenticatedUser.getUsername();
+        List<BookingDTO> data = userService.bookingStatus(userId);
+
+        if (data != null && !data.isEmpty()) {
+            // Assuming data is a list and you want to return the first item
+            BookingDTO bookingDTO = data.get(0);
+            return ResponseEntity.ok(bookingDTO);
+        } else {
+            // Provide a custom message in the response body
+            Map<String, String> responseBody = new HashMap<>();
+            responseBody.put("message", "예약 내역이 없습니다.");
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(responseBody);
+        }
     }
+
     @GetMapping("/findId")
     public String findId() {return "user/findId"; }
 

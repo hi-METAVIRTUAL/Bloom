@@ -29,18 +29,23 @@ import org.thymeleaf.TemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import static java.lang.String.valueOf;
+import static java.lang.System.out;
 import static javax.swing.text.html.parser.DTDConstants.NUMBERS;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
-
+    HttpServletResponse response;
     private final PasswordEncoder passwordEncoder;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -92,7 +97,13 @@ public class UserServiceImpl implements UserService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if (user.getAuthorityCode() != 1 || user.getAuthorityCode() != 2) {
+        if (user.getUnregistDate() != null) {
+            return null;
+        }
+        if (user.getAuthorityCode() != 1 || user.getAuthorityCode() != 2 || user.getAuthorityCode() != 3) {
+
+            out.println("unregistData = " + user.getUnregistDate());
+            out.println("RegistData = " + user.getRegistDate());
             int authorityCode = user.getAuthorityCode();
 
             authorities.add(new SimpleGrantedAuthority(valueOf(authorityCode)));
@@ -105,16 +116,15 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Transactional
     public int idDupCheck(String userId) throws Exception {
-        System.out.println(userId);
+        out.println(userId);
         return userMapper.idDupCheck(userId);
     }
 
     @Transactional
     public int nicknameDupCheck(String nickname) {
-        System.out.println(nickname);
+        out.println(nickname);
         return userMapper.nicknameDupCheck(nickname);
 
     }
@@ -123,15 +133,15 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void registUser(UserDTO user, MemberDTO member) throws UserRegistException {
 
-        System.out.println("[UserService] 들어옴");
-        System.out.println("[UserService] Insert User : " + user);
-        System.out.println("[UserService] Insert Member : " + member);
+        out.println("[UserService] 들어옴");
+        out.println("[UserService] Insert User : " + user);
+        out.println("[UserService] Insert Member : " + member);
 
         int result1 = userMapper.insertUser(user);
         int result2 = userMapper.insertMember(member);
 
-        System.out.println("[UserService] Insert result1 : " + ((result1 > 0 ) ? "일반 회원가입 성공" : "일반 회원가입 실패"));
-        System.out.println("[UserService] Insert result2 : " + ((result2 > 0) ? "일반 member 회원가입 성공" : "일반 member 회원가입 실패"));
+        out.println("[UserService] Insert result1 : " + ((result1 > 0) ? "일반 회원가입 성공" : "일반 회원가입 실패"));
+        out.println("[UserService] Insert result2 : " + ((result2 > 0) ? "일반 member 회원가입 성공" : "일반 member 회원가입 실패"));
 
 
         if (!(result1 > 0 && result2 > 0)) {
@@ -176,7 +186,6 @@ public class UserServiceImpl implements UserService {
     }*/
 
 
-
     @Value("${image.image-dir}")
     private String FILE_DIR;
 
@@ -186,10 +195,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void registTherapist(UserDTO user, TherapistDTO therapist, DataFileDTO dataFile, List<MultipartFile> therapistFiles) throws UserRegistException, ModifyInfoException {
 
-        System.out.println("[UserService] 들어옴");
-        System.out.println("[UserService] Insert User : " + user);
-        System.out.println("[UserService] Insert Therapist : " + therapist);
-        System.out.println("[UserService] Insert dataFile : " + therapistFiles);
+        out.println("[UserService] 들어옴");
+        out.println("[UserService] Insert User : " + user);
+        out.println("[UserService] Insert Therapist : " + therapist);
+        out.println("[UserService] Insert dataFile : " + therapistFiles);
 
 
         userMapper.insertUser(user);
@@ -234,7 +243,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     public static String generateRandomString(int length) {
         SecureRandom random = new SecureRandom();
         StringBuilder randomString = new StringBuilder();
@@ -259,7 +267,7 @@ public class UserServiceImpl implements UserService {
 
     public MimeMessage sendNewPwdToEmail(String userId, String email, String name) {
         String temporaryPwd = generateRandomString(10);
-        System.out.println(temporaryPwd);
+        out.println(temporaryPwd);
 
         MimeMessage message = javaMailSender.createMimeMessage();
 
@@ -282,7 +290,7 @@ public class UserServiceImpl implements UserService {
             helper.setText(htmlContent, true);
 
             // 임시 비밀번호 변경
-            System.out.println(temporaryPwd);
+            out.println(temporaryPwd);
 
             UserDTO user = new UserDTO();
             user.setPwd(passwordEncoder.encode(temporaryPwd));
@@ -290,7 +298,6 @@ public class UserServiceImpl implements UserService {
             user.setEmail(email);
 
             userMapper.changePwd(user);
-
 
 
         } catch (MessagingException e) {
@@ -309,7 +316,7 @@ public class UserServiceImpl implements UserService {
             MimeMessage message = sendNewPwdToEmail(userId, email, name);
             javaMailSender.send(message);
             return name;
-        }else {
+        } else {
             return "이메일 또는 아이디가 존재하지 않습니다.";
         }
     }

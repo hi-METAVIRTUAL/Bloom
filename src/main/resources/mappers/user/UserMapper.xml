@@ -12,6 +12,7 @@
         <result property="email" column="EMAIL"/>
         <result property="phone" column="PHONE"/>
         <result property="registDate" column="REGIST_DATE"/>
+        <result property="unregistDate" column="UNREGIST_DATE"/>
         <result property="authorityCode" column="AUTHORITY_CODE"/>
     </resultMap>
 

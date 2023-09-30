@@ -65,7 +65,7 @@
                     <tr>
                         <td>닉네임</td>
                         <td>*<input type="text" name="nickname" id="nickname" class="input-field" placeholder="최대 10자 공백 / 특수기호 불가 / 영문 / 한글 가능" style="width: 500px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;" required></td>
-                        <td><input type="button" id="duplicationNicknameCheck" value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder;"></td>
+                        <td><input type="button" id="duplicationNicknameCheck"  value="중복확인" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid; font-weight: bolder;"></td>
                     </tr>
 
                     <tr>
@@ -99,6 +99,22 @@
                         <td><button type="button" name="sendBtn" id="sendBtn" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">본인인증</button>
                         </td>
                     </tr>
+                    <script>
+                        function updateEmailDomain() {
+                            const emailDomainSelect = document.getElementById('emailDomainSelect');
+                            const emailDomainInput = document.getElementById('emailDomain');
+
+                            if (emailDomainSelect.value === "") {
+                                emailDomainInput.value = emailDomainInput.value.trim();
+                            } else if (emailDomainSelect.value !== 'empty') {
+                                emailDomainInput.value = emailDomainSelect.value;
+                                // Handle the case where "직접입력" is selected, or any other logic you want.
+                            }
+                            return emailDomainInput.value;
+                        }
+
+                    </script>
+
                     <script>
                         const showLoadingBtn = document.getElementById("sendBtn");
                         showLoadingBtn.addEventListener("click", emailDupCheckAndSendNumber);
@@ -213,6 +229,7 @@
                             }
                         }
                     </script>
+
 
                     <div id="loadingOverlay">
                         <div id="loadingSpinner" style="display: none;">
@@ -407,7 +424,7 @@
         e-mail 에 의한 자료제공시 업무용 컴퓨터에서 사용하는 문서작성 도구의 자체 암호화 기능 등을 통하여 개인정보 파일을 암호화하여 제공
         자료제공시 반드시 내부결제를 득한 후 제공
         문서 출력물에 의해 직접 전달하는 경우 요청기관의 담당자 또는 직상급자에게 직접전달(수령자 인적사항 등을 반드시 기록하여 관리)</textarea></p>
-        <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<input type="submit" id="submitButton" value="회원가입" class="whiteButton" style="width:200px;" disabled>
+            <button onclick="goBack()" type="button" class="whiteButton" style="width:200px;">돌아가기</button>&ensp;&ensp;<button type="submit" id="submitButton" value="회원가입" class="whiteButton" style="width:200px;" disabled>회원가입</button>
     </form>
     </div>
     <script>
@@ -415,26 +432,6 @@
             function goBack() {
                 window.location.href="/";
             }
-                // Your JavaScript code here
-
-/*            function registerButton() {
-                const idInput = document.getElementById("username");
-                const idError = document.getElementById("id-error");
-                const nicknameInput = document.getElementById("nickname");
-                const nicknameError = document.getElementById("nickname-error");
-                const phoneInput = document.getElementById("phone");
-                const phoneError = document.getElementById("phone-error");
-
-                const isIdValid = isInputValid(idInput, idPattern);
-                const isNicknameValid = isInputValid(nicknameInput, nicknamePattern);
-                const isPhoneValid = handlePhoneValidation(phoneInput, phoneError, phoneInputBox);
-
-                if (isIdValid && isNicknameValid && isPhoneValid) {
-                    alert("회원가입 성공!")
-                }else {
-                    alert("올바른 형식으로 다시 입력해주세요.")
-                }
-            }*/
         </script>
     <th:block th:include="components/Footer.html" th:with="textColor='#FFF6E2'"></th:block>
 

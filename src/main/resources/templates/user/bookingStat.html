@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${bookings == null || #lists.isEmpty(bookings)}" class="no-data">
+  <p>No booking information available.</p>
+</div>
+<div th:if="${bookings != null && not #lists.isEmpty(bookings)}" class="booking-info">
+  <h3>Your Booking Information</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Booking Date</th>
+      <th>Therapist</th>
+      <!-- Add more table headers as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="booking : ${bookings}">
+      <td th:text="${booking.bookingDate}"></td>
+      <td th:text="${booking.therapist.name}"></td>
+      <!-- Add more table data cells as needed -->
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
