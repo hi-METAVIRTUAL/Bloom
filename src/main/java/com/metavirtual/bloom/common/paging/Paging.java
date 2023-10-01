@@ -3,7 +3,7 @@ package com.metavirtual.bloom.common.paging;
 
 public class Paging {
     public static SelectCriteria getSelectCriteria (int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount) {
-        return getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, null, null);
+        return getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount,null, null);
     }
 
     public static SelectCriteria getSelectCriteria (int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount, String searchSelect, String searchValue) {

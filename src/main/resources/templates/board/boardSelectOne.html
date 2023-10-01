@@ -26,11 +26,9 @@
                 <tr>
                     <td colspan="2"><textarea th:text="${ board.boardContent }" readonly class="detailsBox"></textarea></td>
                 </tr>
-                <tr>
-                    <td colspan="2" style="text-align: right;"><button type="button" id="openModalBtn" class="button-open">신고하기</button></td>
-                </tr>
             </table>
 
+            <th:block sec:authorize="isAuthenticated()"><button type="button" id="openModalBtn" class="button-open">신고하기</button></th:block>
             <!--모달 창-->
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -45,7 +43,6 @@
                         <div>신고사유</div>
                         <hr>
                         <form action="/board/reportInsert" method="post">
-                            <input type="hidden" id="loginId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
                             <input type="hidden" name="boardCode" th:value="${ board.boardCode }">
                             <input type="radio" name="reportCategory" value="영리목적/홍보">영리목적/홍보<br>
                             <input type="radio" name="reportCategory" value="개인정보노출">개인정보노출<br>
@@ -84,7 +81,6 @@
     <div class="commentContainer">
         <table id="commentInsert">
             <input type="hidden" id="boardNo" name="boardCode" th:value="${ board.boardCode }">
-            <input type="hidden" id="loginUser" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
             <tr>
                 <td>댓글</td>
                 <td>
@@ -113,7 +109,7 @@
                             <th:block
                                     sec:authorize="isAuthenticated()"
                                     th:if="${ #authentication.getPrincipal().getUserId() == memberComment.userId }">
-                                <button type="button"
+                                <button type="button" class="buttons-board"
                                         th:commentNo="${ memberComment.commentCode }"
                                         th:onclick="commentDelete(this.getAttribute('commentNo'))">댓글삭제
                                 </button>
@@ -184,7 +180,9 @@
                     return ;
                 }
 
-                let commentUserId = document.getElementById("loginUser").value;
+                let commentUserId = '[[${#authentication.getPrincipal().getUserId()}]]';
+                let userId = commentUserId.replaceAll("\"","");
+
                 let boardNo = document.getElementById("boardNo").value;
                 let commentContent = document.getElementById("commentContent").value;
 
@@ -236,7 +234,6 @@
                     })
                     .catch((error) => error.text().then((res) => alert(res)))
             }
-            $commentContent.value = '';
         }
 
 

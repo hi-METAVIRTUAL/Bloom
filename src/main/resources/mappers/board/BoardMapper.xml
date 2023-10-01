@@ -82,17 +82,17 @@
                     JOIN MEMBER C ON(B.USER_ID = C.USER_ID)
                 </if>
                 <where>
-                    <if test="searchSelect eq 'writer'">
-                        C.NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
+                    <if test="searchCategory eq 'commumity'">
+                        B.BOARD_CATEGORY = '커뮤니티'
                     </if>
-                    <if test="searchSelect eq '커뮤니티'">
-                        B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '커뮤니티'
-                    </if>
-                    <if test="searchSelect eq '고민상담'">
-                        B.TITLE LIKE CONCAT('%', #{ searchValue }, '%') AND B.BOARD_CATEGORY = '고민상담'
+                    <if test="searchCategory eq 'counseling'">
+                        B.BOARD_CATEGORY = '고민상담'
                     </if>
                     <if test="searchSelect eq 'title1'">
-                        B.TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+                        AND B.TITLE LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                    <if test="searchSelect eq 'writer'">
+                        AND C.NICKNAME LIKE CONCAT('%', #{ searchValue }, '%')
                     </if>
                     AND B.DELETE_DATE IS NULL
                 </where>

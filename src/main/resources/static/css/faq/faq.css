@@ -40,3 +40,10 @@ details p {
     color: #C09A81;
     font-size: 18px;
 }
+
+.faq-details-even {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    border-color: #FFFFFF;
+
+}
