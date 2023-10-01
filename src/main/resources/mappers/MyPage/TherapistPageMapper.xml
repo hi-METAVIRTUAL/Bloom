@@ -4,12 +4,51 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.therapistPage.model.dao.TherapistPageMapper">
 
-    <resultMap id="generalBoardResultMap" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO">
-        <id property="bookingDTO.bookingCode" column="BOOKING_CODE"/>
-        <result property="userDTO.name" column="NAME"/>
-        <result property="userDTO.gender" column="GENDER"/>
-        <result property="bookingDTO.bookingDate" column="BOOKING_DATE"/>
-        <result property="userDTO.phone" column="PHONE"/>
+    <resultMap id="bookingResultMap" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="memberName" column="NAME"/>
+        <result property="memberGender" column="GENDER"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="memberPhone" column="PHONE"/>
+    </resultMap>
+
+    <resultMap id="userInfo" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="pwd" column="PWD"/>
+        <result property="name" column="NAME"/>
+        <result property="gender" column="GENDER"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="registDate" column="REGIST_DATE"/>
+        <result property="unregistDate" column="UNREGIST_DATE"/>
+        <result property="authorityCode" column="AUTHORITY_CODE"/>
+    </resultMap>
+
+    <resultMap id="therapistInfo" type="com.metavirtual.bloom.user.model.dto.TherapistDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="therapistQ1" column="THERAPIST_Q1"/>
+        <result property="therapistQ2" column="THERAPIST_Q2"/>
+        <result property="therapistQ3" column="THERAPIST_Q3"/>
+        <result property="activationStatus" column="ACTIVATION_STATUS"/>
+        <result property="confirmedStatus" column="CONFIRMED_STATUS"/>
+        <result property="sessionVidCallCK" column="SESSION_VIDCALL_CK"/>
+        <result property="sessionChatCK" column="SESSION_CHAT_CK"/>
+        <result property="sessionInPersonCK" column="SESSION_INPERSON_CK"/>
+        <result property="depressionCK" column="DEPRESSION_CK"/>
+        <result property="anxietyCK" column="ANXIETY_CK"/>
+        <result property="bipolarCK" column="BIPOLAR_CK"/>
+        <result property="ocdCK" column="OCD_CK"/>
+        <result property="relationCK" column="RELATION_CK"/>
+        <result property="organization" column="ORGANIZATION"/>
+    </resultMap>
+
+    <resultMap id="profileInfo" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO">
+        <id property="fileNumber" column="FILE_NUMBER"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="filePath" column="FILE_PATH"/>
+        <result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+        <result property="fileChangedName" column="FILE_CHANGED_NAME"/>
+        <result property="fileSize" column="FILE_SIZE"/>
     </resultMap>
 
 
@@ -19,7 +58,57 @@
         <result property="memberId" column="MEMBER_ID"/>
     </resultMap>
 
-    <insert id="uploadPfImg">
+    <select id="userInfo" resultMap="userInfo" parameterType="java.lang.String">
+        SELECT
+            USER_ID
+            , NAME
+            , GENDER
+            , PWD
+            , EMAIL
+            , PHONE
+            , REGIST_DATE
+            , UNREGIST_DATE
+            , AUTHORITY_CODE
+        FROM USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="therapistInfo" resultMap="therapistInfo" parameterType="java.lang.String">
+        SELECT
+            USER_ID
+            , THERAPIST_Q1
+            , THERAPIST_Q2
+            , THERAPIST_Q3
+            , ACTIVATION_STATUS
+            , CONFIRMED_STATUS
+            , SESSION_VIDCALL_CK
+            , SESSION_CHAT_CK
+            , SESSION_INPERSON_CK
+            , DEPRESSION_CK
+            , ANXIETY_CK
+            , BIPOLAR_CK
+            , OCD_CK
+            , RELATION_CK
+            , ORGANIZATION
+        FROM THERAPIST
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="profileInfo" resultMap="profileInfo" parameterType="java.lang.String">
+        SELECT
+            FILE_NUMBER
+            , FILE_PATH
+            , FILE_ORIGIN_NAME
+            , FILE_CHANGED_NAME
+            , FILE_SIZE
+            , USER_ID
+        FROM PROFILE_FILE
+        WHERE USER_ID = #{userId}
+        ORDER BY FILE_NUMBER DESC
+        LIMIT 1
+    </select>
+
+    <insert id="uploadPfImg" parameterType="com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO">
         INSERT PROFILE_FILE (
                             FILE_NUMBER
                             , FILE_PATH
@@ -34,19 +123,19 @@
                 , #{fileOriginName}
                 , #{fileChangedName}
                 , #{fileSize}
-                , #{sessionId}
+                , #{userId}
                 )
     </insert>
 
-    <update id="updatePfImg">
-        UPDATE PROFILE_FILE
-        SET FILE_NUMBER = #{fileNumber}
-            , FILE_PATH = #{filePath}
-            , FILE_ORIGIN_NAME = #{fileOriginName}
-            , FILE_CHANGED_NAME = #{fileChangedName}
-            , FILE_SIZE = #{fileSize}
-        WHERE USER_ID = #{sessionId}
-    </update>
+<!--    <update id="updatePfImg" parameterType="com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO">-->
+<!--        UPDATE PROFILE_FILE-->
+<!--        SET FILE_NUMBER = #{fileNumber}-->
+<!--            , FILE_PATH = #{filePath}-->
+<!--            , FILE_ORIGIN_NAME = #{fileOriginName}-->
+<!--            , FILE_CHANGED_NAME = #{fileChangedName}-->
+<!--            , FILE_SIZE = #{fileSize}-->
+<!--        WHERE USER_ID = #{userId}-->
+<!--    </update>-->
 
     <update id="modifyTherapistInfo">
         UPDATE USER
@@ -56,17 +145,17 @@
         WHERE USER_ID = #{ userId }
     </update>
 
-    <update id="modifyTherapistProfile">
+    <update id="modifyTherapistProfile" parameterType="com.metavirtual.bloom.user.model.dto.TherapistDTO">
         UPDATE THERAPIST
         SET THERAPIST_Q1 = #{ therapistQ1 }
             , THERAPIST_Q2 = #{ therapistQ2 }
             , THERAPIST_Q3 = #{ therapistQ3 }
             , ORGANIZATION = #{ organization }
-            , DEPRESSION_CK r= #{ depressionCK }
+            , DEPRESSION_CK = #{ depressionCK }
             , ANXIETY_CK = #{ anxietyCK }
             , BIPOLAR_CK = #{ bipolarCK }
-            , OCD_CK = #{ ocd_CK }
-            , RELATION_CK = #{ relationCk }
+            , OCD_CK = #{ ocdCK }
+            , RELATION_CK = #{ relationCK }
             , SESSION_VIDCALL_CK = #{ sessionVidCallCK }
             , SESSION_CHAT_CK = #{ sessionChatCK }
             , SESSION_INPERSON_CK = #{ sessionInPersonCK }
@@ -76,17 +165,17 @@
     <update id="modifyActivationStatus">
         UPDATE THERAPIST
         SET ACTIVATION_STATUS = #{ activationStatus }
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
     </update>
 
     <select id="selectReservationCount" resultType="_int">
         SELECT COUNT(*)
         FROM BOOKING B
-        WHERE B.THERAPIST_ID = #{ sessionId }
-        AND B.BOOKING_STATUS = 'waiting'
+        WHERE B.THERAPIST_ID = #{ userId }
+        AND B.BOOKING_STATUS = "예약 대기"
     </select>
 
-    <select id="selectReservationList" resultMap="generalBoardResultMap">
+    <select id="selectReservationList" resultMap="bookingResultMap">
         SELECT
             B.BOOKING_CODE
             , U.NAME
@@ -95,17 +184,21 @@
             , U.PHONE
         FROM BOOKING B
         INNER JOIN USER U ON B.MEMBER_ID = U.USER_ID
+        WHERE B.THERAPIST_ID = #{userId}
+        AND B.BOOKING_STATUS = "예약 대기"
+        ORDER BY B.BOOKING_CODE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
     <update id="confirmReservation">
         UPDATE BOOKING
-        SET BOOKING_STATUS = 'CONFIRM'
+        SET BOOKING_STATUS = "예약 확정"
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 
     <update id="declineReservation">
         UPDATE BOOKING
-        SET BOOKING_STATUS = 'DECLINE'
+        SET BOOKING_STATUS = "예약 취소"
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 

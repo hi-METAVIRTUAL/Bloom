@@ -23,14 +23,27 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
-    public void uploadProfileImg(ProfileFileDTO profileFileDTO) throws ModifyInfoException{
-        int result;
+    public UserDTO userInfo(String userId) {
+        UserDTO userInfo = mapper.userInfo(userId);
+        return userInfo;
+    }
 
-        if(profileFileDTO.getFileNumber() == 0){
-            result = mapper.uploadPfImg(profileFileDTO);
-        } else {
-            result = mapper.updatePfImg(profileFileDTO);
-        }
+    @Override
+    public TherapistDTO therapistInfo(String userId) {
+        TherapistDTO therapistInfo = mapper.therapistInfo(userId);
+        return therapistInfo;
+    }
+
+    @Override
+    public ProfileFileDTO profileInfo(String userId) {
+        ProfileFileDTO profileInfo = mapper.profileInfo(userId);
+        return profileInfo;
+    }
+
+    @Override
+    public void uploadProfileImg(ProfileFileDTO uploadInfo) throws ModifyInfoException{
+        int result = mapper.uploadPfImg(uploadInfo);
+
         if(!(result>0)){
             throw new ModifyInfoException("❌프로필 사진 업로드 실패❌");
         }
@@ -55,23 +68,25 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
-    public void modifyActivationStatus(char activationStatus) throws ModifyInfoException{
-        int result = mapper.modifyActivationStatus(activationStatus);
+    public boolean modifyActivationStatus(char activationStatus, String userId) throws ModifyInfoException{
+        int result = mapper.modifyActivationStatus(activationStatus, userId);
 
-        if(!(result>0)){
+        if(result>0) {
+            return true;
+        } else {
             throw new ModifyInfoException(("❌상담활동 활성화 여부 변경 실패❌"));
         }
     }
 
     @Override
-    public int selectReservationCount(){
-        int result = mapper.selectReservationCount();
+    public int selectReservationCount(String userId){
+        int result = mapper.selectReservationCount(userId);
         return result;
     }
 
     @Override
-    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria){
-        List<ReservationDTO> reservationList = mapper.selectReservationList(selectCriteria);
+    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId){
+        List<ReservationDTO> reservationList = mapper.selectReservationList(selectCriteria, userId);
         return reservationList;
     }
 

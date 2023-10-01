@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Info Setting</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -66,6 +67,12 @@
                     name="userId"
                     th:value="${ user.getUserId() }"
             >
+            <input
+                    type="hidden"
+                    id="name"
+                    name="name"
+                    th:value="${ user.getName() }"
+            >
             <tr>
                 <td align="left">이름</td>
                 <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="${user.getName()}"><br>개명 회원은 고객센터로 문의 바랍니다</td>
@@ -77,30 +84,15 @@
             <tr>
                 <td align="left">비밀번호</td>
                 <td>
-                    * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="pwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >
-                    <br>8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가
+                    * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8~20자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="pwd" required >
+                    <br>8~20자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가
                 </td>
             </tr>
             <tr>
                 <td align="left">전화번호</td>
                 <td>
-                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="${ user.getPhone() }" required>
-                    <br>000-0000-0000 형식으로 입력해 주세요
-                </td>
-            </tr>
-            <tr>
-                <td align="left">이메일</td>
-                <td>
-                    * <input class="email" type="text" name="emailId" th:value="${#strings.substringBefore(user.getEmail(),'@')}" required>
-                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="${#strings.substringAfter(user.getEmail(),'@')}" required>
-                    <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
-                        <option value="empty">선택하기</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="yahoo.com">yahoo.com</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                        <option value="">직접입력</option>
-                    </select>
+                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="입력 형식 : 000-0000-0000" name="phone" th:value="${ user.getPhone() }" required>
+                    <br>입력 형식 : 000-0000-0000
                 </td>
             </tr>
             <tr>
@@ -110,91 +102,159 @@
                     &nbsp;&nbsp;<input type="radio" name="gender" id="female" value="F" th:checked="${user.getGender().toString() == 'F'}" th:disabled="${user.getGender().toString() == 'M'}"> 여성
                 </td>
             </tr>
+            <tr>
+                <td align="left">이메일</td>
+                <td>
+                    * <input class="email" type="text" name="emailId" id="emailId" th:value="${#strings.substringBefore(user.getEmail(),'@')}" required>
+                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="${#strings.substringAfter(user.getEmail(),'@')}" required>
+                    <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                        <option value="empty">선택하기</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="">직접입력</option>
+                    </select>
+                    <br>실제 사용하는 이메일이 아니라면 변경 바랍니다
+                </td>
+                <td align="right">
+                    <input type="button" class="info-bt" id="sendBtn" name="sendBtn" value="본인인증">
+                </td>
+            </tr>
+            <div id="loadingOverlay">
+                <div id="loadingSpinner" style="display: none;">
+                    <img src="/images/regist/loading.gif" alt="Loading..." />
+                </div>
+            </div>
         </table>
+        <div>
+            <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+            <div id="mail_number" name="mail_number" style="display: none">
+                <input type="text" name="number" id="number" placeholder="인증번호 입력" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                <button type="button" name="confirmBtn" id="submitButton" onclick="confirmNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;">이메일 인증</button>
+            </div>
+        </div>
 <br>
-        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
-        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='therapistInfo'">
+        <input class="sub-btn" type="submit" value="수정 완료">
+        <input class="sub-btn" type="button" value="돌아가기" onclick="location.href='therapistInfo'">
     </form>
-
-<!--<div>-->
-<!--<form align="center" method="post" th:action="@{/therapist/modifyTherapistInfo}">-->
-<!--    <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">-->
-<!--        <a>*는 필수 입력입니다.</a><br><br>-->
-<!--        <colgroup>-->
-<!--            <col style="width: 30%">-->
-<!--            <col style="width: 70%">-->
-<!--        </colgroup>-->
-<!--        <input-->
-<!--                type="hidden"-->
-<!--                id="userId"-->
-<!--                name="userId"-->
-<!--                th:value="${ YHkimmm }"-->
-<!--        >-->
-<!--        <tr>-->
-<!--            <td align="left">이름</td>-->
-<!--            <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistName" th:value="김영희"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td align="left">아이디</td>-->
-<!--            <td>&nbsp;&nbsp;<input class="round-input" disabled name="therapistId" th:value="YHkimmm"><br>아이디는 변경 불가능합니다.</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td align="left">비밀번호</td>-->
-<!--            <td>-->
-<!--                * <input class="round-input" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호 필수 / 공백 불가" required >-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td align="left">이메일</td>-->
-<!--            <td>-->
-<!--                * <input class="email" type="text" name="emailId" th:value="member2" required>-->
-<!--                @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="meta.com" required>-->
-<!--                <select id="emailDomainSelect"  style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">-->
-<!--                    <option value="empty">선택하기</option>-->
-<!--                    <option value="naver.com">naver.com</option>-->
-<!--                    <option value="gmail.com">gmail.com</option>-->
-<!--                    <option value="yahoo.com">yahoo.com</option>-->
-<!--                    <option value="hotmail.com">hotmail.com</option>-->
-<!--                    <option value="">직접입력</option>-->
-<!--                </select>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td align="left">전화번호</td>-->
-<!--            <td>-->
-<!--                * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="010-2222-2222" required>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td align="left">성별</td>-->
-<!--            <td align="center">-->
-<!--                <input type="checkbox" name="gender" th:value="M" disabled> 남성-->
-<!--                &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" th:checked="true" disabled> 여성-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--    <br>-->
-<!--    <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">-->
-<!--    <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='therapistInfo'">-->
-<!--</form>-->
-<!--</div>-->
-
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js">
-    window.onload = function () {
-        // Get references to the select and input elements
+<script th:inline="javascript">
+    const showLoadingBtn = document.getElementById("sendBtn");
+    showLoadingBtn.addEventListener("click", emailDupCheckAndSendNumber);
+
+    function showLoadingOverlay() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "flex";
+    }
+
+    function hideLoadingOverlay() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "none";
+    }
+    function updateEmailDomain() {
         const emailDomainSelect = document.getElementById('emailDomainSelect');
         const emailDomainInput = document.getElementById('emailDomain');
-        // Add an event listener to the select element
-        emailDomainSelect.addEventListener('change', function () {
-            // Update the input field with the selected option's value
-            emailDomainInput.value = this.value;
-            emailDomainSelect.value = this.value;
-        })
+
+        if (emailDomainSelect.value === "") {
+            emailDomainInput.value = emailDomainInput.value.trim();
+        } else if (emailDomainSelect.value !== 'empty') {
+            emailDomainInput.value = emailDomainSelect.value;
+            // Handle the case where "직접입력" is selected, or any other logic you want.
+        }
+        return emailDomainInput.value;
+    }
+
+    // Function to concatenate emailId and emailDomain with '@'
+    function combineEmail() {
+        const emailId = document.getElementById('emailId').value.trim();
+        let emailDomain = updateEmailDomain();
+
+        const completeEmail = emailId + '@' + emailDomain;
+        return completeEmail.toString();
+    }
+
+    // Function to send the email and receive the confirmation number
+    function sendNumber(email) {
+
+        $("#loadingSpinner").show();
+
+        $("#mail_number").css("display", "block");
+        $.ajax({
+            url: "/mail",
+            type: "POST",
+            dataType: "json",
+            data: { "mail": email },
+            success: function (data) {
+
+                $("#loadingSpinner").hide()
+                hideLoadingOverlay();
+
+                alert("인증번호 발송");
+                $("#Confirm").attr("value", data);
+                emailVerificationSent = true;
+            },
+            error: function () {
+
+                $("#loadingSpinner").hide();
+
+                console.log(email);
+                console.log("verification Code send Failed")
+
+                alert("인증번호 발송 실패");
+            }
+        });
+    }
+
+    // Function to confirm the received number
+    function confirmNumber() {
+        const verificationBox = document.getElementById("number"); // Get the verificationBox button element
+        var number1 = $("#number").val();
+        var number2 = $("#Confirm").val();
+
+        if (number1 == number2) {
+            alert("본인인증이 완료되었습니다.");
+            verificationBox.style.borderColor = "green"; // Change the border color of the verificationBox button
+            document.getElementById("submitButton").disabled = false;
+        } else {
+            alert("인증번호가 일치하지 않습니다. 올바른 인증번호를 입력해주세요");
+        }
+    }
+
+    let emailVerificationSent = false;
+    // Function to check email duplication and then send the verification number
+    function emailDupCheckAndSendNumber() {
+        if (!emailVerificationSent) {
+            showLoadingOverlay();
+            const email = combineEmail();
+            // Perform email duplication check
+            $.ajax({
+                type: 'POST',
+                url: '/user/emailDupCheck',
+                data: email,
+                contentType: 'plain/text',
+                success: function (response) {
+                    if (response.check === 0) {
+                        // Email is not a duplicate, send the verification number
+                        sendNumber(email);
+                    } else {
+                        // Email is a duplicate, display an alert
+                        alert("중복된 이메일 주소입니다.");
+                        hideLoadingOverlay();
+                    }
+                },
+                error: function (error) {
+                    console.error('AJAX error:', error);
+                    // Handle the error as needed
+                }
+            });
+        } else {
+            alert("이미 이메일 인증번호를 전송했습니다.")
+        }
     }
 </script>
 </html>
