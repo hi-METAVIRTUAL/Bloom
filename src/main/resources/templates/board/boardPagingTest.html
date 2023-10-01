@@ -8,19 +8,25 @@
 
     <th:block th:include="components/Header.html"></th:block>
 
+
+
     <!-- 검색창 -->
-        <h2 style="text-align: center">게시판</h2>
         <div class="searchBox1">
-            <form id="searchForm">
+            <form id="searchForm" action="/board/searchList" method="get">
                 <div style="text-align: center">
-                    <button class="buttons-board" style="width: 150px" id="communityBtn">커뮤니티</button> |
-                    <button class="buttons-board" style="width: 150px" id="counselingBtn">고민상담</button>
-                    <span> <--- 이부분은 아직 동작하지 않습니다.. </span>
+                    <h2 style="text-align: center">게시판</h2>
+                    <br>
                 </div>
                 <br>
                 <div class="search-bar">
                     <input type="hidden" name="currentPage" value="1">
+                    <select id="searchCategory" name="searchCategory">
+                        <option value="allCategory">유형전체</option>
+                        <option value="commumity">커뮤니티</option>
+                        <option value="counseling">고민상담</option>
+                    </select>
                     <select id="searchSelect" name="searchSelect">
+                        <option value="allBoard">전체</option>
                         <option value="title1">제목</option>
                         <option value="writer">작성자</option>
                     </select>
@@ -99,6 +105,7 @@
 
     /* 커뮤니티 조회 */
    /* $("#communityBtn").click(function (){
+
 
     });
 */

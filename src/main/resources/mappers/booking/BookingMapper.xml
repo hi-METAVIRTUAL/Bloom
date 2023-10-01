@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metavirtual.bloom.booking.model.dao.BookingMapper">
+
+    <resultMap id="reviewResultMap" type="com.metavirtual.bloom.booking.model.dto.ReviewDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="reviewScore" column="REVIEW_SCORE"/>
+        <result property="deleteDate" column="DELETE_DATE"/>
+        <result property="reviewContent" column="REVIEW_CONTENT"/>
+    </resultMap>
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT COUNT(*)
+        FROM REVIEW
+    </select>
+
+    <select id="findAllReview" resultMap="reviewResultMap">
+        SELECT BOOKING_CODE
+            ,POSTED_DATE
+            ,REVIEW_SCORE
+            ,DELETE_DATE
+            ,REVIEW_CONTENT
+        FROM REVIEW
+        WHERE DELETE_DATE IS NULL
+        ORDER BY POSTED_DATE DESC
+        LIMIT #{ startRow }, 6
+    </select>
+
+    <insert id="newReviewPosting">
+        INSERT INTO REVIEW(
+        POSTED_DATE
+        ,REVIEW_SCORE
+        ,REVIEW_CONTENT
+        )
+        VALUES (NOW(), #{ reviewScore }, #{ reviewContent })
+    </insert>
+
+    <update id="reviewDelete">
+        UPDATE REVIEW
+        SET DELETE_DATE = NOW()
+        WHERE BOOKING_CODE = #{ bookingCode }
+    </update>
+
+</mapper>
