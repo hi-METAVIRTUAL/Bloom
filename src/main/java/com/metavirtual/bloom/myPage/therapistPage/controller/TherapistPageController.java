@@ -52,7 +52,6 @@ public class TherapistPageController {
     public String profile(Model model, Authentication authentication){
 
         if (authentication != null && authentication.isAuthenticated()){
-//            UserImpl user = (UserImpl) authentication.getPrincipal();
             UserDTO user = therapistPageService.userInfo(authentication.getName());
             model.addAttribute("user", user);
             TherapistDTO therapist = therapistPageService.therapistInfo(authentication.getName());
@@ -67,14 +66,11 @@ public class TherapistPageController {
     @PostMapping("/imgUpload")
     public String uploadProfileImg(HttpServletRequest request, @RequestParam("therapistImage") MultipartFile profileImage
                                     , RedirectAttributes rttr, Authentication authentication) throws ModifyInfoException{
-
         log.info("");
         log.info("[TherapistPageController] ========");
 
         String rootLocation = ROOT_LOCATION + IMAGE_DIR;
-
         String fileUploadDirectory = rootLocation + "/upload/profileImg";
-
         File directory = new File(fileUploadDirectory);
 
         log.info("[TherapistController] fileUploadDirectory : "+ directory);
@@ -103,8 +99,6 @@ public class TherapistPageController {
             e.printStackTrace();
             rttr.addFlashAttribute("prfErrorMessage", "사진 등록 실패. 문제가 계속될 경우 고객센터로 문의 바랍니다.");
         }
-
-
 
         log.info("[TherapistController] ========");
 
@@ -144,11 +138,11 @@ public class TherapistPageController {
 
     @RequestMapping("/modifyActivationStatus")
     @ResponseBody
-    public String modifyActivationStatus(@RequestBody char status, Authentication authentication) throws ModifyInfoException{
+    public String modifyActivationStatus(@RequestParam("status") String status, Authentication authentication) throws ModifyInfoException{
         boolean updateSuccess = false;
-        if(status == 'Y'){
+        if("Y".equals(status)){
             updateSuccess = therapistPageService.modifyActivationStatus('N', authentication.getName());
-        } else if(status == 'N') {
+        } else if("N".equals(status)) {
             updateSuccess = therapistPageService.modifyActivationStatus('Y', authentication.getName());
         }
         if(updateSuccess){
@@ -203,14 +197,14 @@ public class TherapistPageController {
     }
 
     @GetMapping("/reservManage")
-    public ModelAndView reservManage(HttpServletRequest request
+    public ModelAndView reservManage(HttpServletRequest request, Authentication authentication
                                 , @RequestParam(value = "currentPage", defaultValue = "1") int pageNo, ModelAndView mv){
 
         log.info("");
         log.info("");
         log.info("[TherapistController] ========");
 
-        int totalBoardCount = therapistPageService.selectReservationCount();
+        int totalBoardCount = therapistPageService.selectReservationCount(authentication.getName());
         log.info("[TherapistController] totalReservationCount : "+totalBoardCount);
 
         int limitPerPage = 5;
@@ -220,7 +214,7 @@ public class TherapistPageController {
 
         log.info("[TherapistController] selectCriteria : "+selectCriteria);
 
-        List<ReservationDTO> reservationList = therapistPageService.selectReservationList(selectCriteria);
+        List<ReservationDTO> reservationList = therapistPageService.selectReservationList(selectCriteria, authentication.getName());
 
         log.info("[TherapistController] reservationList : "+reservationList);
 
@@ -233,24 +227,22 @@ public class TherapistPageController {
         return mv;
     }
 
-    @PostMapping("/acceptReservation")
-    public String confirmReservation(HttpServletRequest request, HttpServletResponse response, BookingDTO bookingDTO) throws ModifyInfoException{
-        int bookingCode = Integer.parseInt(request.getParameter("bookingCode"));
-        bookingDTO.setBookingCode(bookingCode);
+    @RequestMapping("/acceptReservation")
+    @ResponseBody
+    public void confirmReservation(@RequestParam("bookingCode") String code) throws ModifyInfoException{
+        int bookingCode = Integer.parseInt(code);
 
         therapistPageService.confirmReservation(bookingCode);
 
-        return "redirect:/therapist/reservManage";
     }
 
-    @PostMapping("/rejectReservation")
-    public String declineReservation(HttpServletRequest request, HttpServletResponse response, BookingDTO bookingDTO) throws ModifyInfoException{
-        int bookingCode = Integer.parseInt(request.getParameter("bookingCode"));
-        bookingDTO.setBookingCode(bookingCode);
+    @RequestMapping("/rejectReservation")
+    @ResponseBody
+    public void declineReservation(@RequestParam("bookingCode") String code) throws ModifyInfoException{
+        int bookingCode = Integer.parseInt(code);
 
-        therapistPageService.confirmReservation(bookingCode);
+        therapistPageService.declineReservation(bookingCode);
 
-        return "redirect:/therapist/reservManage";
     }
 
     @GetMapping("/reservation")

@@ -27,9 +27,9 @@ public interface TherapistPageMapper {
 
     int modifyActivationStatus(char activationStatus, String userId);
 
-    int selectReservationCount();
+    int selectReservationCount(String userId);
 
-    List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria);
+    List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId);
 
     int confirmReservation(int bookingCode);
 

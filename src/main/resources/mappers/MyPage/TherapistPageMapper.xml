@@ -4,12 +4,12 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.therapistPage.model.dao.TherapistPageMapper">
 
-    <resultMap id="generalBoardResultMap" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO">
-        <id property="bookingDTO.bookingCode" column="BOOKING_CODE"/>
-        <result property="userDTO.name" column="NAME"/>
-        <result property="userDTO.gender" column="GENDER"/>
-        <result property="bookingDTO.bookingDate" column="BOOKING_DATE"/>
-        <result property="userDTO.phone" column="PHONE"/>
+    <resultMap id="bookingResultMap" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="memberName" column="NAME"/>
+        <result property="memberGender" column="GENDER"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="memberPhone" column="PHONE"/>
     </resultMap>
 
     <resultMap id="userInfo" type="com.metavirtual.bloom.user.model.dto.UserDTO">
@@ -171,11 +171,11 @@
     <select id="selectReservationCount" resultType="_int">
         SELECT COUNT(*)
         FROM BOOKING B
-        WHERE B.THERAPIST_ID = #{ sessionId }
-        AND B.BOOKING_STATUS = 'waiting'
+        WHERE B.THERAPIST_ID = #{ userId }
+        AND B.BOOKING_STATUS = "예약 대기"
     </select>
 
-    <select id="selectReservationList" resultMap="generalBoardResultMap">
+    <select id="selectReservationList" resultMap="bookingResultMap">
         SELECT
             B.BOOKING_CODE
             , U.NAME
@@ -184,17 +184,21 @@
             , U.PHONE
         FROM BOOKING B
         INNER JOIN USER U ON B.MEMBER_ID = U.USER_ID
+        WHERE B.THERAPIST_ID = #{userId}
+        AND B.BOOKING_STATUS = "예약 대기"
+        ORDER BY B.BOOKING_CODE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
     <update id="confirmReservation">
         UPDATE BOOKING
-        SET BOOKING_STATUS = 'CONFIRM'
+        SET BOOKING_STATUS = "예약 확정"
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 
     <update id="declineReservation">
         UPDATE BOOKING
-        SET BOOKING_STATUS = 'DECLINE'
+        SET BOOKING_STATUS = "예약 취소"
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 

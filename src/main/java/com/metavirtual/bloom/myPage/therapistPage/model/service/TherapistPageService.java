@@ -24,9 +24,9 @@ public interface TherapistPageService {
 
     public boolean modifyActivationStatus(char activationStatus, String userId) throws ModifyInfoException;
 
-    public int selectReservationCount();
+    public int selectReservationCount(String UserId);
 
-    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria);
+    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId);
 
     public void confirmReservation(int bookingCode) throws ModifyInfoException;
 

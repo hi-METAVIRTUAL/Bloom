@@ -44,11 +44,6 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     public void uploadProfileImg(ProfileFileDTO uploadInfo) throws ModifyInfoException{
         int result = mapper.uploadPfImg(uploadInfo);
 
-//        if(uploadInfo.getFileNumber() == 0){
-//            result = mapper.uploadPfImg(uploadInfo);
-//        } else {
-//            result = mapper.updatePfImg(uploadInfo);
-//        }
         if(!(result>0)){
             throw new ModifyInfoException("❌프로필 사진 업로드 실패❌");
         }
@@ -84,14 +79,14 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
-    public int selectReservationCount(){
-        int result = mapper.selectReservationCount();
+    public int selectReservationCount(String userId){
+        int result = mapper.selectReservationCount(userId);
         return result;
     }
 
     @Override
-    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria){
-        List<ReservationDTO> reservationList = mapper.selectReservationList(selectCriteria);
+    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId){
+        List<ReservationDTO> reservationList = mapper.selectReservationList(selectCriteria, userId);
         return reservationList;
     }
 

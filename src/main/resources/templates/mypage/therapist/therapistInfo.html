@@ -22,16 +22,17 @@
     <div style="display: inline-block; padding-right: 120px; vertical-align: middle;" align="center">
         <form id="pfImgForm" th:action="@{/therapist/imgUpload}" th:method="post" enctype="multipart/form-data">
             <div id="profileImgArea">
-            <img th:if="${profile} != null" th:src="'/images/upload/profileImg/' + ${profile.getFileChangedName()}" id="profileImg" alt="상담사 사진" class="dome"/>
+            <img th:if="${profile} != null" th:src="${profile.getFilePath()}" id="profileImg" alt="상담사 사진" class="dome"/>
             <img th:unless="${profile} != null" src="../images/mypage/therapist/sampleProfile.png" id="profileImg" alt="상담사 사진" class="dome"/>
             </div>
-            <br><br><br>
+            <br><br>
             <div>
                 <label for="therapistImage">
                     <div class="btn-upload">사진 선택</div>
                 </label>
                 <input type="file" name="therapistImage" id="therapistImage" accept="image/*" style="display: none;" onchange="loadImg(this,1)">
             </div>
+            <br>
             <div>
             <button type="submit" value="프로필 사진 등록" class="btn-upload">프로필 사진 등록</button>
             </div>
@@ -139,8 +140,9 @@
         $.ajax({
             type: "POST",
             url: "/therapist/modifyActivationStatus",
-            contentType:"application/json",
-            data:JSON.stringify(status),
+            // contentType:"application/json",
+            // data:JSON.stringify(status),
+            data: {status: status},
             success: function (data) {
                 if (data === "1") {
                     alert("예약 활성화 상태가 변경되었습니다!");
@@ -181,6 +183,7 @@
 <script th:if="${not #strings.isEmpty(prfErrorMessage)}">
     alert("[[${prfErrorMessage}]]");
 </script>
+
 </body>
 </html>
 
