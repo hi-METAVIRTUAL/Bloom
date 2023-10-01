@@ -18,7 +18,9 @@ import com.metavirtual.bloom.user.model.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +75,11 @@ public class MemberPageController {
     }
 
     @PostMapping("/modifyMemberInfo")
-    public String changeMemberInfo(@ModelAttribute MemberInfo member, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr, Model model, Authentication authentication) throws ModifyInfoException {
+    public String changeMemberInfo(@ModelAttribute MemberInfo member, HttpServletRequest request,
+                                   @RequestParam("name") String name, @RequestParam("userId") String userId,
+                                   @RequestParam("nickname") String nickname, @RequestParam("phone") String phone,
+                                   HttpServletResponse reponse, RedirectAttributes rttr, Model model,
+                                   Authentication authentication) throws ModifyInfoException {
 
         if (authentication != null && authentication.isAuthenticated()) {
             UserImpl user = (UserImpl) authentication.getPrincipal();
@@ -81,14 +87,13 @@ public class MemberPageController {
         }
 
         log.info("");
-        log.info("");
         log.info("[MemberPageController] modifyMemberInfo ========");
 
-        member.setName(member.getName());
-        member.setUserId(member.getUserId());
+        member.setName(name);
+        member.setUserId(userId);
         member.setPwd(passwordEncoder.encode(member.getPwd()));
-        member.setNickname(member.getNickname());
-        member.setPhone(member.getPhone());
+        member.setNickname(nickname);
+        member.setPhone(phone);
         member.setGender(member.getGender());
         member.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
 
@@ -98,49 +103,26 @@ public class MemberPageController {
 
         rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
 
-        return "/mypage/member/memberInfo";
+        return "redirect:/member/memberInfo";
     }
 
-    @PostMapping("/nickDuplCK")
-    public ResponseEntity<String> checkDuplication(@RequestBody MemberDTO memberDTO) throws JsonProcessingException{
-        log.info("");
-        log.info("");
-        log.info("[MemberPageController] checkDuplication ========");
+    @RequestMapping("/nickDuplCK")
+    @ResponseBody
+    public String checkDuplication(@RequestBody String nickname) throws ModifyInfoException{
 
-        String result = "⭕ 사용 가능한 닉네임입니다";
-        log.info("[MemberPageController] Request Check NICKNAME : "+memberDTO.getNickname());
-
-        if("".equals(memberDTO.getNickname())){
-            log.info("[MemberPageController] No Input Member NICKNAME");
-            result = "❗ 닉네임을 입력해 주세요";
-        }else if(memberPageService.selectMemberByNickname(memberDTO.getNickname())){
-            log.info("[MemberPageController] Already Exist");
-            result = "❌ 중복된 닉네임입니다";
+        boolean duplicationCK = memberPageService.selectMemberByNickname(nickname);
+        if (!duplicationCK){
+            return "0";
+        } else {
+            return "1";
         }
-        log.info("[MemberPageController] checkDuplication ========");
-        return ResponseEntity.ok(result);
     }
-
-//    @GetMapping("/postList")
-//    public String postList(Model model, Authentication authentication,HttpServletRequest request
-//                            , @RequestParam(value = "currentPage", defaultValue = "1") int pageNo, ModelAndView mv){
-//
-//        if(authentication != null && authentication.isAuthenticated()){
-//            UserImpl user = (UserImpl) authentication.getPrincipal();
-//            model.addAttribute("user", user);
-//
-//            MemberBoard board = memberPageService.memberAllBoard(authentication.getName());
-//            model.addAttribute("board", board);
-//        }
-//
-//        return "mypage/member/postList";
-//    }
 
     @GetMapping("/postList")
     public ModelAndView myPost(Model model, Authentication authentication, HttpServletRequest request
-                                ,@RequestParam(name = "pcurrentPage", defaultValue = "1") int ppageNo
-                                ,@RequestParam(name = "ccurrentPage", defaultValue = "1") int cpageNo
-                                ,@RequestParam(name = "rcurrentPage", defaultValue = "1") int rpageNo
+                                ,@RequestParam(name = "currentPage", defaultValue = "1") int ppageNo
+                                ,@RequestParam(name = "currentPage", defaultValue = "1") int cpageNo
+                                ,@RequestParam(name = "currentPage", defaultValue = "1") int rpageNo
                                ,ModelAndView mv){
 
         if(authentication != null && authentication.isAuthenticated()) {
@@ -199,36 +181,45 @@ public class MemberPageController {
         return mv;
     }
 
-    @RequestMapping(value="/deleteMyPost")
-    public String deleteMyPost(HttpServletRequest request) throws DeleteException {
+    @RequestMapping("/deleteMyPost")
+    @ResponseBody
+    public String deleteMyPost(@RequestBody int[] ajaxMsg1) throws DeleteException {
 
-        String[]ajaxMsg = request.getParameterValues("valueArr");
-        int size = ajaxMsg.length;
+        int size = ajaxMsg1.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyPost(ajaxMsg[i]);
+            boolean deleteSuccess1 = memberPageService.deleteMyPost(ajaxMsg1[i]);
+            if (!deleteSuccess1){
+                return "0";
+            }
         }
-        return "redirect:/mypage/member/postList";
+        return "1";
     }
 
     @RequestMapping("/deleteMyComment")
-    public String deleteMyComment(HttpServletRequest request) throws DeleteException{
+    @ResponseBody
+    public String deleteMyComment(@RequestBody int[] ajaxMsgC) throws DeleteException{
 
-        String[]ajaxMsg = request.getParameterValues("valueArr");
-        int size = ajaxMsg.length;
+        int size = ajaxMsgC.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyComment(Integer.parseInt(ajaxMsg[i]));
+            boolean deleteSuccess2 = memberPageService.deleteMyComment(ajaxMsgC[i]);
+            if (!deleteSuccess2){
+                return "0";
+            }
         }
-        return "redirect:/mypage/member/postList";
+        return "1";
     }
 
     @RequestMapping("/deleteMyReview")
-    public String deleteMyReview(HttpServletRequest request) throws DeleteException{
+    @ResponseBody
+    public String deleteMyReview(@RequestBody int[] ajaxMsgR) throws DeleteException{
 
-        String[]ajaxMsg = request.getParameterValues("valueArr");
-        int size = ajaxMsg.length;
+        int size = ajaxMsgR.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyReview(Integer.parseInt(ajaxMsg[i]));
+            boolean deleteSuccess3 = memberPageService.deleteMyReview(ajaxMsgR[i]);
+            if (!deleteSuccess3){
+                return "0";
+            }
         }
-        return "redirect:/mypage/member/postList";
+        return "1";
     }
 }
