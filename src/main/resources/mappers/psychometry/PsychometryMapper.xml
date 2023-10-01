@@ -51,9 +51,12 @@
        RELATION_CK = #{relationCK}
 
        WHERE USER_ID = #{ userId }
-
    </update>
-    <resultMap id="getTotalScore" type="com.metavirtual.bloom.psychometry.model.dto.TestResultDTO">
+
+</mapper>
+
+<!--
+   <resultMap id="getTotalScore" type="com.metavirtual.bloom.psychometry.model.dto.TestResultDTO">
         <id property="answerCode" column="ANSWER_CODE"/>
         <result property="answerScore" column="ANSWER_SCORE"/>
         <result property="totalScore" column="TOTAL_SCORE"/>
@@ -63,5 +66,4 @@
         SELECT SUM(ANSWER_SCORE)
         FROM TEST_RESULT
         WHERE USER_ID = #{ userId }
-    </select>
-</mapper>
+    </select>-->

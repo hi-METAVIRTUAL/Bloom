@@ -17,4 +17,6 @@ public interface MatchMapper {
     List<TherapistInfoDTO> therapyRecommend();
 
     int selectTotalCount(Map<String, String> searchMap);
+
+    String getDesiredField(String userId);
 }

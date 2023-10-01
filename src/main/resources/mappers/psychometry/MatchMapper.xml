@@ -46,37 +46,6 @@
         FROM THERAPIST T
          JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
-        <!--<if test="categoryD eq 'D'">
-            <where>
-                T.DEPRESSION_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryA eq 'A'">
-            <where>
-                T.ANXIETY_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryB eq 'B'">
-            <where>
-                T.BIPOLAR_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryO eq 'O'">
-            <where>
-                T.OCD_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryR eq 'R'">
-            <where>
-                T.RELATION_CK = 'Y'
-            </where>
-        </if>-->
-       <!-- <where>
-            <if test="searchValue IS NOT NULL">
-                U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
-            </if>
-        </where>-->
-        <!--ORDER BY A.BOARD_CODE DESC-->
         LIMIT #{startRow }, #{limitPerPage}
     </select>
 
@@ -161,6 +130,21 @@
             </where>
         </if>-->
     </select>
+    <resultMap id="resultDesired" type="com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO">
+        <id property="resultCode" column="RESULT_CODE"/>
+        <result property="testDate" column="TEST_DATE"/>
+        <result property="depressionTotalScore" column="DEPRESSION_TOTAL_SCORE"/>
+        <result property="anxietyTotalScore" column="ANXIETY_TOTAL_SCORE"/>
+        <result property="bipolarTotalScore" column="BIPOLAR_TOTAL_SCORE"/>
+        <result property="ocdTotalScore" column="OCD_TOTAL_SCORE"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+   <!-- <select id="getDesiredField" resultMap="resultDesired">
+        SELECT *
+        FROM MEMBER
+        WHERE USER_ID = # { userId }
+    </select>-->
 
 </mapper>
 

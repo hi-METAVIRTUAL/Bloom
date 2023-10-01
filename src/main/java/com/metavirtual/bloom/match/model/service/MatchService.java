@@ -39,6 +39,10 @@ public class MatchService {
     }
 
 
+    public String getDesiredField(String userId) {
+
+        return matchMapper.getDesiredField(userId);
+    }
 }
 
 /*
