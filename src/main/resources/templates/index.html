@@ -140,16 +140,13 @@
             z-index: 4;
         }
 
-        #booking_btn {
-            margin-top: 10px;
-            block-size: 30px;
-            border: none;
-            background-color: #FFF;
-            color:#C09A81;
+        #buttonss {
+            width: 300px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
-            width: 300px;
-            font-size: 15px;
+            color: #C09A81;
+            background-color: #FFFFFF;
+            margin-left: 570px;
         }
 
         .text-container {
@@ -183,19 +180,6 @@
 <body>
 <div class="header" th:include="components/Header.html"></div>
 
-
-<!--<div class="header" th:include="Components/Header.html"></div>
-&lt;!&ndash;첫번쨰 섹션&ndash;&gt;
-<div class="section1">
-    <img class="mainPhoto1" src="/images/mainPage/mainPhoto1.png">
-    <div class="introSection">
-        <div class="intro1"><h2>맞춤형 상담사 매칭</h2><h3>으로</h3></div>
-        <div class="intro1-1"><h2>당신의 변화를 지원합니다</h2></div>
-        <div class="intro1-2"><h4>당신의 마음과 정신 건강을<br>우리와 함께 케어하세요</h4></div>
-        <div class="intro1-3"><h4>심리적 지원의 시작,<br>우리와 함께 새로운 여정을 시작하세요</h4></div>
-    </div>
-</div>-->
-
 <!--두번쨰 섹션-->
 <th:block sec:authorize="isAuthenticated() == false">
 <div class="section1">
@@ -210,116 +194,166 @@
 </th:block>
 
 <th:block sec:authorize="isAuthenticated()">
-    <div class="section1-2">
+    <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
 
-        <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
+<!--        <form th:action="@{/user/bookingStat}" id="bookingForm" method="post">-->
 
-        <form th:action="@{/user/bookingStat}" id="bookingForm" method="post">
-            <button type="submit" id="booking_btn">예약 현황 보기</button>
-
-            <div  style="display: flex; justify-content: center;">
-            <input type="hidden" id="userIdInput" name="userIdInput" th:value="${ #authentication.getPrincipal().getUserId }">
-
-            <div th:if="${data.isEmpty()}" class="no-data">
-                <div class="text-container">
-                    <p>예약 내역이 없습니다.</p>
-                </div>
-            </div>
-
-            <div th:each="data : ${ data }" class="data-item">
-                <div class="text-container">
-                    <span th:text="${data.therapist.name}"/> 상담사<br>
-                    <span th:text="${data.therapist.phone}"/><br>
-                    <img id="clock_icon">📅&ensp;
-                    <span th:text="${data.bookingDate}" id="booking_date"/>
-                </div>
-                </div>
-            </div>
-        </form>
-
-            <!--<div th:each="data : ${ data }" class="background-div" >
-                <img class="image" src="/images/mainPage/bookingStat.png" id="bookingStat">
-                <div th:text="${data.therapist.name}"></div>
-                <div th:text="${data.therapist.phone}"></div>
-                <div th:text="${data.bookingDate}"></div>
-            </div>-->
-
-        </form>
-
-        <script>
-            if (!sessionStorage.getItem("formSubmitted")) {
-                // Mark the form as submitted to prevent resubmission
-                sessionStorage.setItem("formSubmitted", "true");
-
-                // Submit the form
-                document.getElementById("bookingForm").submit();
-            }
-        </script>
+    <div id="buttonss">
+    <a href="#" id="booking_btn">예약 현황 보기</a>
     </div>
-</th:block>
- <!--       <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                // Check if the form has already been submitted
-                var form = document.getElementById("bookingForm");
 
-                if (!form.getAttribute("data-submitted")) {
-                    // If not, submit the form and set the "data-submitted" attribute to indicate submission
-                    form.submit();
-                    form.setAttribute("data-submitted", "true");
+    <div style="display: flex; justify-content: center;">
+            <div class="booking-info" id="bookingInfoContainer" style="display: none;">
+
+                <!-- This is where the fetched data will be displayed -->
+            </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bookingBtn = document.getElementById('booking_btn');
+            const bookingInfoContainer = document.getElementById('bookingInfoContainer');
+            const messageContainer = document.getElementById('messageContainer');
+
+            bookingBtn.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent the default link behavior
+
+                // Create a new XMLHttpRequest object
+                const xhr = new XMLHttpRequest();
+
+                // Configure the request
+                xhr.open('GET', '/user/bookingStat', true);
+
+                // Set up the event handler for when the request is complete
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // Request was successful, handle the response
+                        const data = JSON.parse(xhr.responseText);
+
+                        if (data) {
+                            // Data is available, update the content
+                            bookingInfoContainer.style.display = 'block';
+
+                            // Here, you can use 'data' to update the content dynamically
+                            // For example:
+                            const therapistName = data.therapist.name;
+                            const therapistPhone = data.therapist.phone;
+                            const bookingDate = data.bookingDate;
+
+                            // Update the content inside bookingInfoContainer
+                            bookingInfoContainer.innerHTML = `
+                            <div class="text-container">
+                                <span>${therapistName} 상담사</span><br>
+                                <span>${therapistPhone}</span><br>
+                                <img id="clock_icon">📅&ensp;
+                                <span>${bookingDate}</span>
+                            </div>
+                        `;
+                        }
+                    } else {
+                            console.log("예약 내역 없음");
+                            bookingInfoContainer.style.display = 'block';
+                            bookingInfoContainer.innerHTML = `
+                            <div class="text-container">
+                                <p style="margin-top: 35px;">예약 내역이 없습니다.</p>
+                            </div>
+                            `;
+                        }
+                    }
+                // Send the request
+                xhr.send();
+                });
+        });
+    </script>
+
+<!--    <a href="/user/bookingStat" id="booking_btn">예약 현황 보기</a>
+
+    <div  style="display: flex; justify-content: center;">
+
+                <div class="section1-2" id="section1-2">
+                  &lt;!&ndash;  <div th:if="${data == null || #lists.isEmpty(data)}" class="no-data">
+                        <div class="text-container">
+                            <p>-</p>
+                        </div>
+                    </div>
+&ndash;&gt;
+                        <th:block>
+                            <div th:if="${data != null && not #lists.isEmpty(data)}" id="booking-info">
+                                <div th:each="data : ${data}" class="data-item">
+                                    <div class="text-container">
+                                        <span th:text="${data.therapist.name}"/> 상담사<br>
+                                        <span th:text="${data.therapist.phone}"/><br>
+                                        <img id="clock_icon">📅&ensp;
+                                        <span th:text="${data.bookingDate}" id="booking_date"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${data == null || #lists.isEmpty(data)}" id="noData" hidden>
+                                <p>예약 내역이 없습니다</p>
+                            </div>
+                        </th:block>
+                </div>
+    </div>
+    <script>
+        const yesData = document.getElementById("booking-info");
+        const noData = document.getElementById('noData');
+        const bookingBtn = document.getElementById('booking_btn');
+
+        bookingBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Remove the 'hidden' attribute to make the div visible
+            noData.removeAttribute('hidden');
+
+        });
+    </script>-->
+<!--    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const bookingBtn = document.getElementById('booking_btn');
+            const noDataContainer = document.getElementById('noDataContainer');
+            const noDataText = document.getElementById('noDataText'); // Get the text element
+
+            bookingBtn.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent the default link behavior
+
+                // Show the "예약 내역이 없습니다" message when the button is clicked
+                noDataContainer.style.display = 'block';
+
+                // Check if data is null or empty, and set the text accordingly
+
+                if (data == null || #lists.isEmpty(data)) {
+                    noDataText.textContent = "Custom text when data is null or empty";
                 }
+            })
+        });
+    </script>-->
+
+
+
+
+
+
+
+    <!--<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const bookingForm = document.getElementById('bookingForm');
+            const section12 = document.getElementById('section1-2');
+
+            // Initially hide section1-2
+            section12.style.display = 'none';
+
+            bookingForm.addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission behavior
+
+                // Show section1-2 when the button is clicked
+                section12.style.display = 'block';
             });
-        </script>-->
+        });
+    </script>-->
+</th:block>
 
 
-
-<!--        </th:block>-->
-
-<!--            <div th:text="${booking.bookingDate}"></div>
-            <div th:text="${booking.therapist.name}"></div>
-            <div th:text="${booking.therapist.phone}"></div>
-            <div th:text="${booking.bookingStatus}"></div>
-            <div>Data received in the loop</div>-->
-
-        <!--<tr th:each="data : ${ data }">
-            <td th:text="${data.name}"></td>
-            <td th:text="${data.phone}"></td>
-            <td th:text="${data.booking_date}"></td>
-        </tr>-->
-
-
-
-<!--<script>
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                try {
-                    var responseData = JSON.parse(xhr.responseText);
-                    // Handle and display the JSON data
-                    displayData(responseData);
-                } catch (e) {
-                    // Handle JSON parsing error
-                    console.error("Error parsing JSON response: " + e);
-                }
-            } else {
-                // Handle non-200 status codes (e.g., error responses)
-                console.error("HTTP error: " + xhr.status);
-            }
-        }
-    };
-
-    xhr.open("GET", "/user/bookingStat", true);
-    xhr.send();
-
-    function displayData(data) {
-        var resultDiv = document.getElementById("section1-2");
-        // Modify the content of the resultDiv using the received data
-        resultDiv.innerHTML = "Received data: " + data[0].bookingDate;
-        console.log(data);
-    }
-</script>-->
 
 
 <div class="section2">
@@ -507,8 +541,6 @@
 
 <!--다섯번쨰 섹션-->
 <div class="section5">
-
-
 </div>
 
 <a href="test">클릭</a>&nbsp; &nbsp; &nbsp; &nbsp;
@@ -519,6 +551,16 @@
 <a href="/admin/">관리자 페이지</a>&nbsp; &nbsp; &nbsp; &nbsp;
 <a href="/faq/faqMain">FAQ</a>&nbsp; &nbsp; &nbsp; &nbsp;
 <a href="/board/searchList">커뮤니티게시판</a>
+<!--<script>
+    const bookingForm = document.getElementById('bookingForm');
+    const hiddenElements = document.querySelector('.hidden-elements');
+
+    bookingForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+        hiddenElements.style.display = 'block'; // Display the hidden elements
+    });
+</script>-->
+
 </body>
 </html>
 <!---->

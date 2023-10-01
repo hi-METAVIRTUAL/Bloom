@@ -18,14 +18,12 @@ public class MainController {
     UserServiceImpl userService;
 
     @GetMapping("/index")
-    public void gomain() {
+    public String gomain() {
+        return "index";
     }
 
     @GetMapping("/")
     public String defaultLocation() {
-
-
-
         return "index";
     }
 
