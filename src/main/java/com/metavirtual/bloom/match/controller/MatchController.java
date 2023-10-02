@@ -1,10 +1,13 @@
 package com.metavirtual.bloom.match.controller;
 
+import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.match.model.dto.CategoryTotalScoreDTO;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.match.model.service.MatchService;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
+import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,54 +31,73 @@ public class MatchController {
         return "psychological/match/matchingPage";
     }
     @GetMapping("therapyRecommend")
-    public String matchingResultPage(HttpServletRequest request, Model model){
+    public ModelAndView matchingResultPage(HttpServletRequest request,ModelAndView mv){
         String userId = String.valueOf(request.getParameter("userId"));
 
-        // 1. 회원의 희망 상담사 성별과 분야를 가져옵니다.
-        String desiredGender = ""; // 여기서 회원의 희망 성별을 가져오는 코드를 추가하세요
-        String desiredField = ""; // 여기서 회원의 희망 분야를 가져오는 코드를 추가하세요
+
+        /* 희망 상담사 성별 */
+        List<MemberDTO> desiredField = matchService.getDesiredField(userId);
+        List<CategoryTotalScoreDTO> categoryTotalScore = matchService.getTotalSocre(userId);
 
 
-        //List<TherapistInfoDTO> therapyRecommend = matchService.therapyRecommend();
+        System.out.println(categoryTotalScore);
+        categoryTotalScore.sort(Comparator.comparingInt(CategoryTotalScoreDTO::getDepressionTotalScore));
+        System.out.println(categoryTotalScore);
+        int maxDepressionTotalScore = Integer.MIN_VALUE;
 
-        List<MemberTestResultDTO> findMemberTest = matchService.findMemberTest(userId);
-        List<TherapistInfoDTO> therapyRecommend = new ArrayList<>();
-        if (!(desiredField == null || desiredField.isEmpty())) {
-            desiredField = matchService.getDesiredField(userId);
-        }
-        /*if (!(findMemberTest == null || findMemberTest.isEmpty())) {
-           // therapyRecommend = findMatchingTherapists(desiredGender, desiredField, findMemberTest);
+        // 최대값을 저장할 필드의 이름을 저장하는 변수
+        String maxDepressionTotalScoreField = null;
 
-        }*/
+        int maxScore = Integer.MIN_VALUE; // 초기값을 가장 작은 정수로 설정
+        String maxScoreField = null; // 최대값을 가진 필드 이름을 저장할 변수
 
-
-        // 5. 무작위로 5명만 추천 회원을 선택합니다.
-        if (!therapyRecommend.isEmpty()) {
-            List<TherapistInfoDTO> randomRecommendations = new ArrayList<>();
-            int numberOfRecommendations = Math.min(5, therapyRecommend.size()); // 최대 5명까지 추천
-
-            Random random = new Random();
-            while (randomRecommendations.size() < numberOfRecommendations) {
-                int randomIndex = random.nextInt(therapyRecommend.size());
-                TherapistInfoDTO randomTherapist = therapyRecommend.get(randomIndex);
-
-                // 중복된 추천 회원을 피하기 위해 이미 선택한 회원은 제외
-                if (!randomRecommendations.contains(randomTherapist)) {
-                    randomRecommendations.add(randomTherapist);
-                }
+        for (CategoryTotalScoreDTO dto : categoryTotalScore) {
+            // CategoryTotalScoreDTO 객체의 각 필드 값을 비교
+            if (dto.getDepressionTotalScore() > maxScore) {
+                maxScore = dto.getDepressionTotalScore();
+                maxScoreField = "DEPRESSION_CK";
             }
-
-            // 선택된 추천 회원을 모델에 추가
-            model.addAttribute("therapyRecommend", randomRecommendations);
+            if (dto.getAnxietyTotalScore() > maxScore) {
+                maxScore = dto.getAnxietyTotalScore();
+                maxScoreField = "ANXIETY_CK";
+            }
+            if (dto.getBipolarTotalScore() > maxScore) {
+                maxScore = dto.getBipolarTotalScore();
+                maxScoreField = "BIPOLAR_CK";
+            }
+            if (dto.getOcdTotalScore() > maxScore) {
+                maxScore = dto.getOcdTotalScore();
+                maxScoreField = "OCD_CK";
+            }
         }
 
-        System.out.println(findMemberTest + "1");
+        System.out.println("최대값: " + maxScore);
+        System.out.println("최대값을 가진 키(필드 이름): " + maxScoreField);
 
-        return "psychological/match/therapyRecommend";
+        List<TherapistInfoDTO> recomendTherapist = matchService.recommendTherapist(maxScoreField);
+        System.out.println(recomendTherapist + " 추천");
+
+        mv.addObject("recomendTherapist", recomendTherapist);
+
+        mv.setViewName("psychological/match/therapyRecommend");
+
+        return mv;
+
     }
     @GetMapping("/introduceTherapy")
-    public String introduceTherapyPage(){
-        return "psychological/match/introduceTherapy";
+    public ModelAndView introduceTherapyPage(@RequestParam("userId") String userId, ModelAndView mv){
+        List<TherapistInfoDTO> selectOneTherapist = matchService.selectOneTherapist(userId);
+
+
+        mv.addObject("selectOneTherapist", selectOneTherapist);
+        mv.setViewName("psychological/match/introduceTherapy");
+
+        List<ReviewDTO> reviewList = matchService.findAllReview(userId);
+        System.out.println(reviewList);
+        mv.addObject("reviewList", reviewList);
+
+
+        return mv;
     }
     /* 상담사 전체 조회 */
     @GetMapping(value = "/therapyList")
