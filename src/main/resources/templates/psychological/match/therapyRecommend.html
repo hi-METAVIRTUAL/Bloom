@@ -18,26 +18,30 @@
 </th:block>
 <div>
     <div style="width: 70%; display: flex; margin: auto; margin-top: 50px;">
+        <!-- HTML 코드 중간부분 -->
         <div id="therapists-container" class="parent">
-            <div class="our-team" th:each="recommend : ${therapyRecommend}" >
-                <div class="picture">
-                    <!--<img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">-->
-                    <img class="img-fluid" src="/images/psychological/testpicture.jpg" alt="상담사 프로필">
-                    <h4 th:if="${ recommend.depressionCK} == 'Y'" th:text="우울"></h4>
-                    <h4 th:if="${ recommend.anxietyCK} == 'Y'" th:text="불안"></h4>
-                    <h4 th:if="${ recommend.bipolarCK} == 'Y'" th:text="양극성"></h4>
-                    <h4 th:if="${ recommend.ocdCK} == 'Y'" th:text="강박성"></h4>
-                    <h4 th:if="${ recommend.relationCK} == 'Y'" th:text="대인관계"></h4>
+            <!-- 'recomendTherapist' 데이터를 반복해서 화면에 출력 -->
+            <th:block th:each="recommend : ${recomendTherapist}">
+                <div class="our-team">
+                    <div class="picture">
+                        <img class="img-fluid" src="/images/psychological/testpicture.jpg" alt="상담사 프로필">
+                        <h4 th:if="${recommend.depressionCK} == 'Y'" th:text="우울"></h4>
+                        <h4 th:if="${recommend.anxietyCK} == 'Y'" th:text="불안"></h4>
+                        <h4 th:if="${recommend.bipolarCK} == 'Y'" th:text="양극성"></h4>
+                        <h4 th:if="${recommend.ocdCK} == 'Y'" th:text="강박성"></h4>
+                        <h4 th:if="${recommend.relationCK} == 'Y'" th:text="대인관계"></h4>
+                    </div>
+                    <div th:text="${recommend.therapistQ1}"></div>
+                    <div class="team-content">
+                        <!-- 상담사 이름을 출력 -->
+                        <h3 th:text="${recommend.name.getName()}">상담사 이름</h3>
+                    </div>
+                    <ul class="social">
+                        <!-- 상세 프로필 링크 -->
+                        <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${recommend.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                    </ul>
                 </div>
-                <div th:text="${ recommend.therapistQ1}"></div>
-                <div class="team-content">
-                    <h3 th:text="${ recommend.name.getName()}">상담사 이름</h3>
-                </div>
-                <ul class="social">
-                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${recommend.userId})}"
-                           class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-                </ul>
-            </div>
+            </th:block>
         </div>
     </div>
     <div>
@@ -57,6 +61,43 @@
             data: {userId: userId},
 
             success: function (data, status, xhr) {
+                for (let i = 0; i < 5; i++) {
+                    let recomendTherapist = data[i];
+
+                    // 새로운 상담사 요소를 생성
+                    let therapistElement = $("<div class='our-team'>");
+                    console.log(therapistElement)
+                    // 이미지 요소 추가
+                    let imgElement = $("<img class='img-fluid' alt='상담사 프로필'>");
+                    imgElement.attr("src", recomendTherapist.filePath);
+                    therapistElement.append(imgElement);
+
+                    // 우울, 불안, 양극성 등의 정보 추가
+                    if (recomendTherapist.depressionCK == 'Y') {
+                        therapistElement.append("<h4>우울</h4>");
+                    }
+                    if (recomendTherapist.anxietyCK == 'Y') {
+                        therapistElement.append("<h4>불안</h4>");
+                    }
+                    if (recomendTherapist.bipolarCK == 'Y') {
+                        therapistElement.append("<h4>양극성</h4>");
+                    }
+                    if (recomendTherapist.depressionCK == 'Y') {
+                        therapistElement.append("<h4>우울</h4>");
+                    }
+                    // 나머지 정보도 동일하게 추가
+
+                    // 상담사 이름 추가
+                    therapistElement.append("<h3>" + recomendTherapist.name + "</h3>");
+
+                    // 프로필 보기 링크 추가
+                    let profileLink = $("<a class='profilebutton' aria-hidden='true' target='_blank'>프로필 보기</a>");
+                    profileLink.attr("href", "/psychological/match/introduceTherapy/" + recomendTherapist.userId);
+                    therapistElement.append(profileLink);
+
+                    // 상담사 컨테이너에 상담사 요소 추가
+                    $("#therapists-container").append(therapistElement);
+                }
             },
             error: function (xhr, status, error) {
             },

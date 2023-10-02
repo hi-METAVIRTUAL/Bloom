@@ -1,9 +1,14 @@
 package com.metavirtual.bloom.match.model.service;
 
+
+import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
+import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.common.paging.MatchCriteria;
 import com.metavirtual.bloom.match.model.dao.MatchMapper;
+import com.metavirtual.bloom.match.model.dto.CategoryTotalScoreDTO;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
+import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,23 +34,40 @@ public class MatchService {
         List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(matchCriteria);
         return therapistList;
     }
-    public List<MemberTestResultDTO> findMemberTest(String userId) {
-        List<MemberTestResultDTO> findMemberTest = matchMapper.findMemberTest(userId);
-        return findMemberTest;
-    }
 
-    public List<TherapistInfoDTO> therapyRecommend() {
-        return  matchMapper.therapyRecommend();
-    }
+    public List<MemberDTO> getDesiredField(String userId) {
 
-
-    public String getDesiredField(String userId) {
 
         return matchMapper.getDesiredField(userId);
+    }
+
+    public List<CategoryTotalScoreDTO> getTotalSocre(String userId) {
+        List<CategoryTotalScoreDTO> getTotalSocre = matchMapper.getTotalSocre(userId);
+
+        return getTotalSocre;
+    }
+
+    public List<TherapistInfoDTO> recommendTherapist(String maxScoreField) {
+        List<TherapistInfoDTO> recommendTherapist = matchMapper.recommendTherapist(maxScoreField);
+        return recommendTherapist;
+    }
+
+    public List<TherapistInfoDTO> selectOneTherapist(String userId) {
+        List<TherapistInfoDTO> selectOneTherapist = matchMapper.selectOneTherapist(userId);
+        return selectOneTherapist;
+    }
+
+    public List<ReviewDTO> findAllReview(String userId) {
+        List<ReviewDTO> findAllReview = matchMapper.findAllReview(userId);
+        return findAllReview;
     }
 }
 
 /*
+    public List<TherapistInfoDTO> therapyRecommend() {
+        return  matchMapper.therapyRecommend();
+    }
+
 * int maxScore = Integer.MIN_VALUE;
         String maxCategory = null;
 
