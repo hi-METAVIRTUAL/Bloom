@@ -1,7 +1,7 @@
 package com.metavirtual.bloom.match.controller;
 
+import com.metavirtual.bloom.common.paging.MatchCriteria;
 import com.metavirtual.bloom.common.paging.Paging;
-import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.match.model.service.MatchService;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
@@ -79,21 +79,21 @@ public class MatchController {
     }
     /* 상담사 전체 조회 */
     @GetMapping(value = "/therapyList")
-    public ModelAndView alltherapyList(@RequestParam(required = false) String D,
-                                       @RequestParam(required = false) String A,
-                                       @RequestParam(required = false) String B,
-                                       @RequestParam(required = false) String O,
-                                       @RequestParam(required = false) String R,
+    public ModelAndView alltherapyList(@RequestParam(value = "d", defaultValue = " ") char d,
+                                       @RequestParam(value = "a", defaultValue = " ") char a,
+                                       @RequestParam(value = "b", defaultValue = " ") char b,
+                                       @RequestParam(value = "o", defaultValue = " ") char o,
+                                       @RequestParam(value = "r", defaultValue = " ") char r,
                                        @RequestParam(required = false) String searchValue,
                                        @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                        ModelAndView mv){
 
         Map<String, String> searchMap = new HashMap<>();
-        searchMap.put("categoryD", D);
-        searchMap.put("categoryA", A);
-        searchMap.put("categoryB", B);
-        searchMap.put("categoryO", O);
-        searchMap.put("categoryR", R);
+        searchMap.put("d", String.valueOf(d));
+        searchMap.put("a", String.valueOf(a));
+        searchMap.put("b", String.valueOf(b));
+        searchMap.put("o", String.valueOf(o));
+        searchMap.put("r", String.valueOf(r));
         searchMap.put("searchValue", searchValue);
 
         System.out.println("검색조건 : " + searchMap);
@@ -104,26 +104,17 @@ public class MatchController {
 
         int limitPerPage = 12;
         int buttonAmount = 5;
-        SelectCriteria selectCriteria;
+        MatchCriteria matchCriteria;
 
-        if(D != null && !"".equals(D)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalListCount, limitPerPage, buttonAmount, D, searchValue);
-        } else if (A != null && !"".equals(A)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalListCount, limitPerPage, buttonAmount, A, searchValue);
-        }else if (B != null && !"".equals(B)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalListCount, limitPerPage, buttonAmount, B, searchValue);
-        }else if (O != null && !"".equals(O)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalListCount, limitPerPage, buttonAmount, O, searchValue);
-        }else if (R != null && !"".equals(R)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalListCount, limitPerPage, buttonAmount, R, searchValue);
-        }
-        else {
-            selectCriteria = Paging.getSelectCriteria (pageNo, totalListCount, limitPerPage, buttonAmount);
+        if( d != ' ' || a != ' ' || b != ' ' || o != ' ' || r != ' ' || searchValue != null) {
+            matchCriteria = Paging.getMatchCriteria(pageNo, totalListCount, limitPerPage, buttonAmount, d, a, b, o, r, searchValue);
+        } else {
+            matchCriteria = Paging.getMatchCriteria(pageNo, totalListCount, limitPerPage, buttonAmount);
         }
 
-        List<TherapistInfoDTO> therapistInfo = matchService.findAllTherapist(selectCriteria);
+        List<TherapistInfoDTO> therapistInfo = matchService.findAllTherapist(matchCriteria);
         mv.addObject("therapistInfo", therapistInfo);
-        mv.addObject("selectCriteria", selectCriteria);
+        mv.addObject("selectCriteria", matchCriteria);
 
         System.out.println(therapistInfo);
         mv.setViewName("psychological/match/therapyList");

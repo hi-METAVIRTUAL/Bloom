@@ -1,6 +1,6 @@
 package com.metavirtual.bloom.common.paging;
 
-public class SelectCriteria {
+public class MatchCriteria {
 
     private int pageNo; // 선택한 페이지 번호
     private int totalBoardCount; // 전체 게시물 갯수
@@ -11,17 +11,20 @@ public class SelectCriteria {
     private int endPage; // 버튼 어마운트 끝 페이지
     private int startRow; // 조회 해야하는 시작 행의 숫자
     private int endRow; // 조회 해야하는 마지막 행의 숫자
-    
-    /* 검색 창 */
 
-    private String searchCategory; // 검색유형 옵션 (커뮤니티, 고민상담)
-    private String searchSelect; // 검색조건 옵션 (제목, 작성자)
+    /* 검색 조건 */
+    private char d;
+    private char a;
+    private char b;
+    private char o;
+    private char r;
+
     private String searchValue; // 검색 텍스트
 
-    public SelectCriteria() {
+    public MatchCriteria() {
     }
 
-    public SelectCriteria(int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount, int lastPage, int startPage, int endPage, int startRow, int endRow, String searchCategory, String searchSelect, String searchValue) {
+    public MatchCriteria(int pageNo, int totalBoardCount, int limitPerPage, int buttonAmount, int lastPage, int startPage, int endPage, int startRow, int endRow, char d, char a, char b, char o, char r, String searchValue) {
         this.pageNo = pageNo;
         this.totalBoardCount = totalBoardCount;
         this.limitPerPage = limitPerPage;
@@ -31,8 +34,11 @@ public class SelectCriteria {
         this.endPage = endPage;
         this.startRow = startRow;
         this.endRow = endRow;
-        this.searchCategory = searchCategory;
-        this.searchSelect = searchSelect;
+        this.d = d;
+        this.a = a;
+        this.b = b;
+        this.o = o;
+        this.r = r;
         this.searchValue = searchValue;
     }
 
@@ -108,20 +114,44 @@ public class SelectCriteria {
         this.endRow = endRow;
     }
 
-    public String getSearchCategory() {
-        return searchCategory;
+    public char getD() {
+        return d;
     }
 
-    public void setSearchCategory(String searchCategory) {
-        this.searchCategory = searchCategory;
+    public void setD(char d) {
+        this.d = d;
     }
 
-    public String getSearchSelect() {
-        return searchSelect;
+    public char getA() {
+        return a;
     }
 
-    public void setSearchSelect(String searchSelect) {
-        this.searchSelect = searchSelect;
+    public void setA(char a) {
+        this.a = a;
+    }
+
+    public char getB() {
+        return b;
+    }
+
+    public void setB(char b) {
+        this.b = b;
+    }
+
+    public char getO() {
+        return o;
+    }
+
+    public void setO(char o) {
+        this.o = o;
+    }
+
+    public char getR() {
+        return r;
+    }
+
+    public void setR(char r) {
+        this.r = r;
     }
 
     public String getSearchValue() {
@@ -134,7 +164,7 @@ public class SelectCriteria {
 
     @Override
     public String toString() {
-        return "SelectCriteria{" +
+        return "MatchCriteria{" +
                 "pageNo=" + pageNo +
                 ", totalBoardCount=" + totalBoardCount +
                 ", limitPerPage=" + limitPerPage +
@@ -144,8 +174,11 @@ public class SelectCriteria {
                 ", endPage=" + endPage +
                 ", startRow=" + startRow +
                 ", endRow=" + endRow +
-                ", searchCategory='" + searchCategory + '\'' +
-                ", searchSelect='" + searchSelect + '\'' +
+                ", d=" + d +
+                ", a=" + a +
+                ", b=" + b +
+                ", o=" + o +
+                ", r=" + r +
                 ", searchValue='" + searchValue + '\'' +
                 '}';
     }
