@@ -1,5 +1,6 @@
 package com.metavirtual.bloom.match.model.dao;
 
+import com.metavirtual.bloom.common.paging.MatchCriteria;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Mapper
 public interface MatchMapper {
-    List<TherapistInfoDTO> findAllTherapist(SelectCriteria selectCriteria);
+    List<TherapistInfoDTO> findAllTherapist(MatchCriteria matchCriteria);
 
     List<MemberTestResultDTO> findMemberTest(String userId);
 

@@ -1,6 +1,6 @@
 package com.metavirtual.bloom.match.model.service;
 
-import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.common.paging.MatchCriteria;
 import com.metavirtual.bloom.match.model.dao.MatchMapper;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
@@ -25,8 +25,8 @@ public class MatchService {
         int result = matchMapper.selectTotalCount(searchMap);
         return result;
     }
-    public List<TherapistInfoDTO> findAllTherapist(SelectCriteria selectCriteria) {
-        List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(selectCriteria);
+    public List<TherapistInfoDTO> findAllTherapist(MatchCriteria matchCriteria) {
+        List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(matchCriteria);
         return therapistList;
     }
     public List<MemberTestResultDTO> findMemberTest(String userId) {

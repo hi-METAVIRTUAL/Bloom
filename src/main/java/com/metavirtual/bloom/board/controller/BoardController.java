@@ -40,14 +40,17 @@ public class BoardController {
 
     /* 전체 게시글 조회 메서드*/
     @GetMapping(value = "/searchList")
-    public ModelAndView searchAllList(@RequestParam(required = false) String searchSelect,
-                                            @RequestParam(required = false) String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-                                            ModelAndView mv) {
+    public ModelAndView searchAllList(@RequestParam(required = false) String searchCategory,
+                                      @RequestParam(required = false) String searchSelect,
+                                      @RequestParam(required = false) String searchValue,
+                                      @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
+                                      ModelAndView mv) {
 
         /* 검색 조건을 객체에 담아 전송 */
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchSelect", searchSelect);
         searchMap.put("searchValue", searchValue);
+        searchMap.put("searchCategory", searchCategory);
 
 
         System.out.println("검색조건 : " + searchMap);
@@ -63,7 +66,7 @@ public class BoardController {
         SelectCriteria selectCriteria;
 
         if(searchSelect != null && !"".equals(searchSelect)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchSelect, searchValue);
+            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCategory, searchSelect, searchValue);
         } else {
             selectCriteria = Paging.getSelectCriteria (pageNo, totalBoardCount, limitPerPage, buttonAmount);
         }
