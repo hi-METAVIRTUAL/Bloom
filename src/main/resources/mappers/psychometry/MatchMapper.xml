@@ -40,6 +40,7 @@
         , T.BIPOLAR_CK
         , T.OCD_CK
         , T.RELATION_CK
+        , U.USER_ID
         , U.NAME
         , U.GENDER
         , P.FILE_PATH

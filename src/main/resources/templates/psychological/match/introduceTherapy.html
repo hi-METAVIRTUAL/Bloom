@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="/css/match/introduceTherapy.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 <header>
@@ -31,9 +33,22 @@
             <h2 style="">소개</h2>
             <img class="picture" src="/images/psychological/testpicture.jpg">
         </div>
-
+        <input th:name="therapistId" th:value="${userId}" hidden/>
         <h3>이름</h3>
-        <button class="roundbutton" onclick="location.href='/booking/reservation'">상담 예약</button>
+        <button class="roundbutton" id="reservationButton">상담 예약</button>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            const userId = /*[[${userId}]]*/ '';
+            /*]]>*/
+            $(document).ready(function () {
+                $("#reservationButton").click(function () {
+                    window.location.href = '/booking/reservation?therapistId=' + userId;
+                });
+            });
+        </script>
+
+
         <br><br>
         연락처<br>
         전화번호<br>

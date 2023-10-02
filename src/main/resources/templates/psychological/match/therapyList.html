@@ -56,7 +56,7 @@
                     <h3 th:text="${therapistInfo.name.name}">상담사 이름</h3>
                 </div>
                 <ul class="social">
-                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapistInfo.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
+                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapistInfo.name.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
                 </ul>
             </div>
         </div>

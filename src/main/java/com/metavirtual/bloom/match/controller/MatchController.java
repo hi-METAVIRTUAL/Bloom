@@ -39,8 +39,11 @@ public class MatchController {
 
         return "psychological/match/therapyRecommend";
     }
-    @GetMapping("/introduceTherapy")
-    public String introduceTherapyPage(){
+    @GetMapping("/introduceTherapy/{id}")
+    public String introduceTherapyPage(@PathVariable("id") String userId, Model model){
+        model.addAttribute("userId", userId);
+
+        System.out.println("match controller : " + userId);
         return "psychological/match/introduceTherapy";
     }
     @GetMapping("/therapyList")
