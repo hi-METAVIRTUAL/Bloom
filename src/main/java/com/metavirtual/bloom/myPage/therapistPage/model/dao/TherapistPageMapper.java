@@ -3,6 +3,7 @@ package com.metavirtual.bloom.myPage.therapistPage.model.dao;
 import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
@@ -31,9 +32,13 @@ public interface TherapistPageMapper {
 
     List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId);
 
+    List<ReservationDTO> selectConfirmList(String userId);
+
     int confirmReservation(int bookingCode);
 
     int declineReservation(int bookingCode);
 
-    List<BookDTO> bookingList();
+    List<BookDTO> bookingList(String userId);
+
+    BookInfo bookInfo(String memberId);
 }

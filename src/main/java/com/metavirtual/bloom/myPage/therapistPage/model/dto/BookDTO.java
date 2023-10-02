@@ -6,23 +6,26 @@ import java.util.Date;
 
 public class BookDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private java.util.Date bookingDate;
+    private String bookingDate;
 
     private String memberId;
+
+    private String memberName;
 
     public BookDTO() {
     }
 
-    public BookDTO(Date bookingDate, String memberId) {
+    public BookDTO(String bookingDate, String memberId, String memberName) {
         this.bookingDate = bookingDate;
         this.memberId = memberId;
+        this.memberName = memberName;
     }
 
-    public Date getBookingDate() {
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
 
@@ -34,11 +37,20 @@ public class BookDTO {
         this.memberId = memberId;
     }
 
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
     @Override
     public String toString() {
         return "BookDTO{" +
-                "bookingDate=" + bookingDate +
+                "bookingDate='" + bookingDate + '\'' +
                 ", memberId='" + memberId + '\'' +
+                ", memberName='" + memberName + '\'' +
                 '}';
     }
 }

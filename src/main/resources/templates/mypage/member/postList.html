@@ -454,8 +454,8 @@
         const $sr = document.querySelectorAll(".selectReview");
         for(let i = 0; i<$sr.length; i++){
             $sr[i].onclick = function(){
-                const boardCode = this.getAttribute("data-booking-code");
-                location.href = "/booking/reviewmain";
+                const bookingCode = this.getAttribute("data-booking-code");
+                location.href = "/psychological/match/introduceTherapy?bookingCode=" + bookingCode;
             }
         }
     }

@@ -52,7 +52,7 @@ public class MemberPageController {
     @GetMapping("/memberInfo")
     public String memberInfo (Model model, Authentication authentication){
         if (authentication != null && authentication.isAuthenticated()) {
-            UserImpl user = (UserImpl) authentication.getPrincipal();
+            UserDTO user = memberPageService.userInfo(authentication.getName());
             model.addAttribute("user", user);
 
             MemberBookingInfo booking = memberPageService.memberBookingInfo(authentication.getName());
@@ -99,9 +99,12 @@ public class MemberPageController {
 
         log.info("[MemberPageController] modifyMemberInfo request MemberInfo : " + member );
 
-        memberPageService.modifyMemberInfo(member);
-
-        rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
+        try {
+            memberPageService.modifyMemberInfo(member);
+            rttr.addFlashAttribute("infoMessage1", "개인 정보 수정에 성공하셨습니다!");
+        } catch(ModifyInfoException e) {
+            rttr.addFlashAttribute("infoMessage2", "❌개인 정보 수정 실패❌ 고객센터로 문의 바랍니다.");
+        }
 
         return "redirect:/member/memberInfo";
     }

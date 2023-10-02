@@ -4,6 +4,7 @@ import com.metavirtual.bloom.booking.model.dto.BookingDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
@@ -28,9 +29,13 @@ public interface TherapistPageService {
 
     public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId);
 
+    public List<ReservationDTO> selectConfirmList(String userId);
+
     public void confirmReservation(int bookingCode) throws ModifyInfoException;
 
     public void declineReservation(int bookingCode) throws ModifyInfoException;
 
-    public List<BookDTO> bookingList() throws Exception;
+    public List<BookDTO> bookingList(String userId) throws Exception;
+
+    public BookInfo bookInfo(String memberId);
 }

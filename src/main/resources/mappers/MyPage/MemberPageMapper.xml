@@ -4,6 +4,18 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
 
+    <resultMap id="userInfo" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="pwd" column="PWD"/>
+        <result property="name" column="NAME"/>
+        <result property="gender" column="GENDER"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="registDate" column="REGIST_DATE"/>
+        <result property="unregistDate" column="UNREGIST_DATE"/>
+        <result property="authorityCode" column="AUTHORITY_CODE"/>
+    </resultMap>
+
     <resultMap id="PostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
         <id property="boardCode" column="BOARD_CODE"/>
         <result property="title" column="TITLE"/>
@@ -51,6 +63,21 @@
 <!--        <result property="boardCategory" column="BOARD_CATEGORY"/>-->
 <!--        <result property="postedDate" column="POSTED_DATE"/>-->
 <!--    </resultMap>-->
+
+    <select id="userInfo" resultMap="userInfo" parameterType="java.lang.String">
+        SELECT
+        USER_ID
+        , NAME
+        , GENDER
+        , PWD
+        , EMAIL
+        , PHONE
+        , REGIST_DATE
+        , UNREGIST_DATE
+        , AUTHORITY_CODE
+        FROM USER
+        WHERE USER_ID = #{userId}
+    </select>
 
     <select id="memberBookingInfo" resultMap="bookingInfo" parameterType="java.lang.String">
         SELECT

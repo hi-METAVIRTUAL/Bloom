@@ -5,6 +5,7 @@ import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.service.TherapistPageServiceImpl;
@@ -218,9 +219,14 @@ public class TherapistPageController {
 
         log.info("[TherapistController] reservationList : "+reservationList);
 
+        List<ReservationDTO> confirm = therapistPageService.selectConfirmList(authentication.getName());
+
+        log.info("[TherapistController] confirm : "+confirm);
+
         mv.addObject("reservationList", reservationList);
         mv.addObject("selectCriteria", selectCriteria);
-        log.info("[TherapistController] SelectCriteria : "+selectCriteria);
+        mv.addObject("confirm", confirm);
+
         mv.setViewName("/mypage/therapist/reservManage");
 
         log.info("[TherapistController] ========");
@@ -245,14 +251,18 @@ public class TherapistPageController {
 
     }
 
-    @GetMapping("/reservation")
-    public List<BookDTO> bookingList() throws Exception {
-        List<BookDTO> bookingList = therapistPageService.bookingList();
+    @GetMapping(value = "/reservation", produces = "application/json")
+    @ResponseBody
+    public List<BookDTO> bookingList(Authentication authentication) throws Exception {
+        List<BookDTO> bookingList = therapistPageService.bookingList(authentication.getName());
+        log.info("[TherapistController] bookingList : " +bookingList);
         return bookingList;
     }
 
     @GetMapping("/reservPopup")
-    public String reservPopup() {
+    public String reservPopup(@RequestParam(name = "memberId") String memberId, Model model) {
+        BookInfo bookInfo = therapistPageService.bookInfo(memberId);
+        model.addAttribute("bookInfo", bookInfo);
         return "mypage/therapist/reservPopup";
     }
 }

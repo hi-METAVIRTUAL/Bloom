@@ -22,7 +22,7 @@
     <div style="display: inline-block; padding-right: 120px; vertical-align: middle;" align="center">
         <form id="pfImgForm" th:action="@{/therapist/imgUpload}" th:method="post" enctype="multipart/form-data">
             <div id="profileImgArea">
-            <img th:if="${profile} != null" th:src="${profile.getFilePath()}" id="profileImg" alt="상담사 사진" class="dome"/>
+            <img th:if="${profile} != null" th:src="'/profilepath/' + ${profile.getFileChangedName()}" id="profileImg" alt="상담사 사진" class="dome"/>
             <img th:unless="${profile} != null" src="../images/mypage/therapist/sampleProfile.png" id="profileImg" alt="상담사 사진" class="dome"/>
             </div>
             <br><br>

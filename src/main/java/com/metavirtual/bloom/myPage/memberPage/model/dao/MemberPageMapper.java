@@ -17,6 +17,8 @@ import java.util.Map;
 @Mapper
 public interface MemberPageMapper {
 
+    UserDTO userInfo(String userId);
+
     MemberBookingInfo memberBookingInfo(String name);
 
     MemberInfo memberInfo(String name);

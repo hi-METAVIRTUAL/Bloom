@@ -28,6 +28,9 @@ spring:
       max-file-size: 10MB
       location: C:/Blommmmm/
 
+myapp:
+  profilepath: file:/C:/Blommmmm/img/upload/profileImg/
+
 image:
   image-dir: img
 
