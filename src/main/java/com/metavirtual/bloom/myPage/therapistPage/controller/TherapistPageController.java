@@ -49,46 +49,56 @@ public class TherapistPageController {
     }
 
     @GetMapping("/therapistInfo")
-    public String profile(){
+    public String profile(Model model, Authentication authentication){
+
+        if (authentication != null && authentication.isAuthenticated()){
+            UserDTO user = therapistPageService.userInfo(authentication.getName());
+            model.addAttribute("user", user);
+            TherapistDTO therapist = therapistPageService.therapistInfo(authentication.getName());
+            model.addAttribute("therapist", therapist);
+            ProfileFileDTO profile = therapistPageService.profileInfo(authentication.getName());
+            model.addAttribute("profile", profile);
+        }
+
         return "mypage/therapist/therapistInfo";
     }
 
     @PostMapping("/imgUpload")
-    public String uploadProfileImg(HttpServletRequest request, @RequestParam("therapistImage") MultipartFile therapistImage,
-                                   RedirectAttributes rttr, String singleFileDescription, Model model,
-                                   @ModelAttribute ProfileFileDTO profileFileDTO) throws ModifyInfoException{
-
-        log.info("");
+    public String uploadProfileImg(HttpServletRequest request, @RequestParam("therapistImage") MultipartFile profileImage
+                                    , RedirectAttributes rttr, Authentication authentication) throws ModifyInfoException{
         log.info("");
         log.info("[TherapistPageController] ========");
 
         String rootLocation = ROOT_LOCATION + IMAGE_DIR;
-
         String fileUploadDirectory = rootLocation + "/upload/profileImg";
-
         File directory = new File(fileUploadDirectory);
 
         log.info("[TherapistController] fileUploadDirectory : "+ directory);
 
         if(!directory.exists()){
-            log.info("[TherapistController] 폴더 생성 : " + directory.mkdirs());
+            directory.mkdirs();
         }
 
-        String fileOriginName = therapistImage.getOriginalFilename();
+        String fileOriginName = profileImage.getOriginalFilename();
         String ext = fileOriginName.substring(fileOriginName.lastIndexOf("."));
         String fileChangedName = UUID.randomUUID().toString().replaceAll("-", "") + ext;
 
-        therapistPageService.uploadProfileImg(profileFileDTO);
+        ProfileFileDTO uploadInfo = new ProfileFileDTO();
+        uploadInfo.setFileChangedName(fileChangedName);
+        uploadInfo.setUserId(authentication.getName());
+        uploadInfo.setFileSize((int) profileImage.getSize());
+        uploadInfo.setFilePath(fileUploadDirectory);
+        uploadInfo.setFileOriginName(fileOriginName);
+
+        therapistPageService.uploadProfileImg(uploadInfo);
 
         try {
-            therapistImage.transferTo(new File(fileUploadDirectory + "/" + fileChangedName));
-            rttr.addFlashAttribute("message", "파일 업로드 성공!");
+            profileImage.transferTo(new File(fileUploadDirectory + "/" + fileChangedName));
+            rttr.addFlashAttribute("prfSuccessMessage", "사진이 정상적으로 등록되었습니다!");
         } catch (IOException e) {
             e.printStackTrace();
-            rttr.addFlashAttribute("message", "파일 업로드 실패.");
+            rttr.addFlashAttribute("prfErrorMessage", "사진 등록 실패. 문제가 계속될 경우 고객센터로 문의 바랍니다.");
         }
-
-
 
         log.info("[TherapistController] ========");
 
@@ -98,7 +108,7 @@ public class TherapistPageController {
     @GetMapping("/modifyTherapistInfo")
     public String therapistInfo(Model model, Authentication authentication){
         if (authentication != null && authentication.isAuthenticated()){
-            UserImpl user = (UserImpl) authentication.getPrincipal();
+            UserDTO user = therapistPageService.userInfo(authentication.getName());
             model.addAttribute("user", user);
         }
         return "mypage/therapist/modifyTherapistInfo";
@@ -116,32 +126,30 @@ public class TherapistPageController {
 
         log.info("[TherapistController] modifyTherapistInfo request User : "+user);
 
-        therapistPageService.modifyTherapistInfo(user);
+         try {
+            therapistPageService.modifyTherapistInfo(user);
+            rttr.addFlashAttribute("infoSuccessMessage", "개인 정보 수정에 성공하셨습니다!");
+        } catch(ModifyInfoException e) {
+             rttr.addFlashAttribute("infoErrorMessage", "❌상담사 정보 수정 실패❌");
+         }
 
-        rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
-
-        return "/mypage/therapist/therapistInfo";
+        return "redirect:/therapist/therapistInfo";
     }
 
-    @PostMapping(value = "/modifyActivationStatus")
-    public String modifyActivationStatus(HttpServletRequest request, @ModelAttribute TherapistDTO therapist, RedirectAttributes rttr) throws ModifyInfoException{
-        log.info("");
-        log.info("");
-        log.info("[TherapistController] modifyActivationStatus ========");
-
-        if(therapist.getActivationStatus() == 'Y'){
-            therapist.setActivationStatus('N');
-        } else {
-            therapist.setActivationStatus('Y');
+    @RequestMapping("/modifyActivationStatus")
+    @ResponseBody
+    public String modifyActivationStatus(@RequestParam("status") String status, Authentication authentication) throws ModifyInfoException{
+        boolean updateSuccess = false;
+        if("Y".equals(status)){
+            updateSuccess = therapistPageService.modifyActivationStatus('N', authentication.getName());
+        } else if("N".equals(status)) {
+            updateSuccess = therapistPageService.modifyActivationStatus('Y', authentication.getName());
         }
-
-        log.info("[TherapistController] modifyActivationStatus ========");
-
-        therapistPageService.modifyActivationStatus(therapist.getActivationStatus());
-
-        rttr.addFlashAttribute("message", "상담활동 활성화 여부 변경 성공!");
-
-        return "redirect:/mypage/therapist/therapistInfo";
+        if(updateSuccess){
+            return "1";
+        } else {
+            return "0";
+        }
     }
 
     @GetMapping("/modifyTherapistProfile")
@@ -149,47 +157,54 @@ public class TherapistPageController {
         if (authentication != null && authentication.isAuthenticated()){
             UserImpl user = (UserImpl) authentication.getPrincipal();
             model.addAttribute("user", user);
+            TherapistDTO therapist = therapistPageService.therapistInfo(authentication.getName());
+            model.addAttribute("therapist", therapist);
         }
             return "mypage/therapist/modifyTherapistProfile";
     }
 
     @PostMapping("/modifyTherapistProfile")
-    public String changeTherapistProfile(@ModelAttribute TherapistDTO therapist, HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr) throws ModifyInfoException{
-        log.info("");
+    public String changeTherapistProfile(@RequestParam(value="depressionCK", defaultValue = "N") String depressionCK
+            , @RequestParam(value="anxietyCK", defaultValue = "N") String anxietyCK , @RequestParam(value="bipolarCK", defaultValue = "N") String bipolarCK
+            , @RequestParam(value="ocdCK", defaultValue = "N") String ocdCK , @RequestParam(value="relationCK", defaultValue = "N") String relationCK
+            , @RequestParam(value="sessionVidCallCK", defaultValue = "N") String sessionVidCallCK , @RequestParam(value="sessionChatCK", defaultValue = "N") String sessionChatCK
+            , @RequestParam(value="sessionInPersonCK", defaultValue = "N") String sessionInPersonCk, @ModelAttribute TherapistDTO therapist, HttpServletRequest request
+            , HttpServletResponse response, RedirectAttributes rttr) throws ModifyInfoException{
         log.info("");
         log.info("[TherapistController] modifyTherapistProfile ========");
 
-        therapist.setTherapistQ1(request.getParameter("therapistQ1"));
-        therapist.setTherapistQ2(request.getParameter("therapistQ2"));
-        therapist.setTherapistQ3(request.getParameter("therapistQ3"));
-        therapist.setOrganization(request.getParameter("organization"));
-        therapist.setDepressionCK(request.getParameter("depressionCK").charAt(0));
-        therapist.setAnxietyCK(request.getParameter("anxietyCK").charAt(0));
-        therapist.setBipolarCK(request.getParameter("bipolarCK").charAt(0));
-        therapist.setOcdCK(request.getParameter("ocdCK").charAt(0));
-        therapist.setRelationCK(request.getParameter("relationCK").charAt(0));
-        therapist.setSessionVidCallCK(request.getParameter("sessionVidCallCK").charAt(0));
-        therapist.setSessionChatCK(request.getParameter("sessionChatCK").charAt(0));
-        therapist.setSessionInPersonCK(request.getParameter("sessionInPersonCK").charAt(0));
+        therapist.setDepressionCK(depressionCK.charAt(0));
+        therapist.setAnxietyCK(anxietyCK.charAt(0));
+        therapist.setBipolarCK(bipolarCK.charAt(0));
+        therapist.setOcdCK(ocdCK.charAt(0));
+        therapist.setRelationCK(relationCK.charAt(0));
+        therapist.setSessionVidCallCK(sessionVidCallCK.charAt(0));
+        therapist.setSessionChatCK(sessionChatCK.charAt(0));
+        therapist.setSessionInPersonCK(sessionInPersonCk.charAt(0));
 
         log.info("[TherapistController] modifyTherapistProfile request Therapist : "+therapist);
 
         therapistPageService.modifyTherapistProfile(therapist);
 
-        rttr.addFlashAttribute("message", "프로필 정보 수정에 성공하셨습니다!");
+        try {
+            therapistPageService.modifyTherapistProfile(therapist);
+            rttr.addFlashAttribute("profileSuccessMessage", "프로필 정보 수정에 성공하셨습니다!"); // 성공 메시지 추가
+        } catch (ModifyInfoException e) {
+            rttr.addFlashAttribute("profileErrorMessage", "❌상담사 프로필 수정 실패❌");
+        }
 
-        return "/mypage/therapist/therapistInfo";
+        return "redirect:/therapist/therapistInfo";
     }
 
     @GetMapping("/reservManage")
-    public ModelAndView reservManage(HttpServletRequest request
+    public ModelAndView reservManage(HttpServletRequest request, Authentication authentication
                                 , @RequestParam(value = "currentPage", defaultValue = "1") int pageNo, ModelAndView mv){
 
         log.info("");
         log.info("");
         log.info("[TherapistController] ========");
 
-        int totalBoardCount = therapistPageService.selectReservationCount();
+        int totalBoardCount = therapistPageService.selectReservationCount(authentication.getName());
         log.info("[TherapistController] totalReservationCount : "+totalBoardCount);
 
         int limitPerPage = 5;
@@ -199,7 +214,7 @@ public class TherapistPageController {
 
         log.info("[TherapistController] selectCriteria : "+selectCriteria);
 
-        List<ReservationDTO> reservationList = therapistPageService.selectReservationList(selectCriteria);
+        List<ReservationDTO> reservationList = therapistPageService.selectReservationList(selectCriteria, authentication.getName());
 
         log.info("[TherapistController] reservationList : "+reservationList);
 
@@ -212,24 +227,22 @@ public class TherapistPageController {
         return mv;
     }
 
-    @PostMapping("/acceptReservation")
-    public String confirmReservation(HttpServletRequest request, HttpServletResponse response, BookingDTO bookingDTO) throws ModifyInfoException{
-        int bookingCode = Integer.parseInt(request.getParameter("bookingCode"));
-        bookingDTO.setBookingCode(bookingCode);
+    @RequestMapping("/acceptReservation")
+    @ResponseBody
+    public void confirmReservation(@RequestParam("bookingCode") String code) throws ModifyInfoException{
+        int bookingCode = Integer.parseInt(code);
 
         therapistPageService.confirmReservation(bookingCode);
 
-        return "redirect:/therapist/reservManage";
     }
 
-    @PostMapping("/rejectReservation")
-    public String declineReservation(HttpServletRequest request, HttpServletResponse response, BookingDTO bookingDTO) throws ModifyInfoException{
-        int bookingCode = Integer.parseInt(request.getParameter("bookingCode"));
-        bookingDTO.setBookingCode(bookingCode);
+    @RequestMapping("/rejectReservation")
+    @ResponseBody
+    public void declineReservation(@RequestParam("bookingCode") String code) throws ModifyInfoException{
+        int bookingCode = Integer.parseInt(code);
 
-        therapistPageService.confirmReservation(bookingCode);
+        therapistPageService.declineReservation(bookingCode);
 
-        return "redirect:/therapist/reservManage";
     }
 
     @GetMapping("/reservation")

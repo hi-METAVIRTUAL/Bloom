@@ -8,10 +8,7 @@ import com.metavirtual.bloom.common.exception.myPage.DeleteException;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
-import com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.*;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageService;
 import com.metavirtual.bloom.myPage.memberPage.model.service.MemberPageServiceImpl;
 import com.metavirtual.bloom.user.model.dto.MemberDTO;
@@ -21,7 +18,9 @@ import com.metavirtual.bloom.user.model.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,93 +75,92 @@ public class MemberPageController {
     }
 
     @PostMapping("/modifyMemberInfo")
-    public String changeMemberInfo(@ModelAttribute MemberInfo memberInfo, UserDTO user, MemberDTO member, HttpServletRequest request, HttpServletResponse reponse, RedirectAttributes rttr) throws ModifyInfoException {
-        log.info("");
+    public String changeMemberInfo(@ModelAttribute MemberInfo member, HttpServletRequest request,
+                                   @RequestParam("name") String name, @RequestParam("userId") String userId,
+                                   @RequestParam("nickname") String nickname, @RequestParam("phone") String phone,
+                                   HttpServletResponse reponse, RedirectAttributes rttr, Model model,
+                                   Authentication authentication) throws ModifyInfoException {
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
+
         log.info("");
         log.info("[MemberPageController] modifyMemberInfo ========");
 
-        user.setPwd(passwordEncoder.encode(memberInfo.getPwd()));
-        user.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
-        member.setNickname(memberInfo.getNickname());
-        user.setPhone(memberInfo.getPhone());
+        member.setName(name);
+        member.setUserId(userId);
+        member.setPwd(passwordEncoder.encode(member.getPwd()));
+        member.setNickname(nickname);
+        member.setPhone(phone);
+        member.setGender(member.getGender());
+        member.setEmail(request.getParameter("emailId")+"@"+request.getParameter("emailDomain"));
 
-        log.info("[MemberPageController] modifyMemberInfo request Member, User : " + member + user);
+        log.info("[MemberPageController] modifyMemberInfo request MemberInfo : " + member );
 
-        memberPageService.modifyMemberInfo(memberInfo);
+        memberPageService.modifyMemberInfo(member);
 
         rttr.addFlashAttribute("message", "개인 정보 수정에 성공하셨습니다!");
 
-        return "redirect:/mypage/member/memberInfo";
+        return "redirect:/member/memberInfo";
     }
 
-    @PostMapping("/nickDuplCK")
-    public ResponseEntity<String> checkDuplication(@RequestBody MemberDTO memberDTO) throws JsonProcessingException{
-        log.info("");
-        log.info("");
-        log.info("[MemberPageController] checkDuplication ========");
+    @RequestMapping("/nickDuplCK")
+    @ResponseBody
+    public String checkDuplication(@RequestBody String nickname) throws ModifyInfoException{
 
-        String result = "⭕ 사용 가능한 닉네임입니다";
-        log.info("[MemberPageController] Request Check NICKNAME : "+memberDTO.getNickname());
-
-        if("".equals(memberDTO.getNickname())){
-            log.info("[MemberPageController] No Input Member NICKNAME");
-            result = "❗ 닉네임을 입력해 주세요";
-        }else if(memberPageService.selectMemberByNickname(memberDTO.getNickname())){
-            log.info("[MemberPageController] Already Exist");
-            result = "❌ 중복된 닉네임입니다";
+        boolean duplicationCK = memberPageService.selectMemberByNickname(nickname);
+        if (!duplicationCK){
+            return "0";
+        } else {
+            return "1";
         }
-        log.info("[MemberPageController] checkDuplication ========");
-        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/postList")
-    public String postList(){
-        return "mypage/member/postList";
-    }
-
-    @GetMapping(value = "/myPost")
-    public ModelAndView myPost(HttpServletRequest request
-                                ,@RequestParam(value = "currentPage", defaultValue = "1") int pageNo
+    public ModelAndView myPost(Model model, Authentication authentication, HttpServletRequest request
+                                ,@RequestParam(name = "currentPage", defaultValue = "1") int ppageNo
+                                ,@RequestParam(name = "currentPage", defaultValue = "1") int cpageNo
+                                ,@RequestParam(name = "currentPage", defaultValue = "1") int rpageNo
                                ,ModelAndView mv){
+
+        if(authentication != null && authentication.isAuthenticated()) {
+            UserImpl user = (UserImpl) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
 
         log.info("");
         log.info("");
         log.info("[MemberPageController] ========");
 
-//        Map<String, String> searchMap = new HashMap<>();
-//        searchMap.put("searchCondition", searchCondition);
-//        searchMap.put("searchValue", searchValue);
-//
-//        log.info("[MemberPageController] 컨트롤러에서 검색조건 확인하기 : " +searchMap);
-
-        int totalPostCount = memberPageService.selectTotalPostCount();
-        int totalCommentCount = memberPageService.selectTotalCommentCount();
-        int totalReviewCount = memberPageService.selectTotalReviewCount();
+        int totalPostCount = memberPageService.selectTotalPostCount(authentication.getName());
+        int totalCommentCount = memberPageService.selectTotalCommentCount(authentication.getName());
+        int totalReviewCount = memberPageService.selectTotalReviewCount(authentication.getName());
         log.info("[MemberPageController] totalMyPostCount : "+totalPostCount);
-        log.info("[MemberPageController] totalMyPostCount : "+totalCommentCount);
-        log.info("[MemberPageController] totalMyPostCount : "+totalReviewCount);
+        log.info("[MemberPageController] totalMyCommentCount : "+totalCommentCount);
+        log.info("[MemberPageController] totalMyReviewCount : "+totalReviewCount);
 
-        int limitPerPage = 5;
+        int limitPerPage1 = 5;
+        int buttonAmount1 = 5;
 
-        int buttonAmount = 5;
+        int limitPerPage2 = 5;
+        int buttonAmount2 = 5;
 
-        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(pageNo, totalPostCount, limitPerPage, buttonAmount);
-        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(pageNo, totalCommentCount, limitPerPage, buttonAmount);
-        SelectCriteria selectCriteria3 = Paging.getSelectCriteria(pageNo, totalReviewCount, limitPerPage, buttonAmount);
+        int limitPerPage3 = 5;
+        int buttonAmount3 = 5;
 
-//        if(searchCondition != null && !"".equals(searchCondition)){
-//            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCondition, searchValue);
-//        } else {
-//            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount);
-//        }
+        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(ppageNo, totalPostCount, limitPerPage1, buttonAmount1);
+        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(cpageNo, totalCommentCount, limitPerPage2, buttonAmount2);
+        SelectCriteria selectCriteria3 = Paging.getSelectCriteria(rpageNo, totalReviewCount, limitPerPage3, buttonAmount3);
 
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria1);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria2);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria3);
+        log.info("[MemberPageController] selectCriteria1 : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria2 : "+selectCriteria2);
+        log.info("[MemberPageController] selectCriteria3 : "+selectCriteria3);
 
-        List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria1);
-        List<CommentListDTO> myCommentList = memberPageService.selectCommentList(selectCriteria2);
-        List<ReviewListDTO> myReviewList = memberPageService.selectReviewList(selectCriteria3);
+        List<BoardDTO> myPostList = memberPageService.selectPostList(selectCriteria1, authentication.getName());
+        List<CommentListDTO> myCommentList = memberPageService.selectCommentList(selectCriteria2, authentication.getName());
+        List<ReviewListDTO> myReviewList = memberPageService.selectReviewList(selectCriteria3, authentication.getName());
 
         log.info("[MemberPageController] myPostList : "+myPostList);
         log.info("[MemberPageController] myCommentList : "+myCommentList);
@@ -171,48 +169,57 @@ public class MemberPageController {
         mv.addObject("myPostList", myPostList);
         mv.addObject("myCommentList", myCommentList);
         mv.addObject("myReviewList", myReviewList);
-        mv.addObject("selectCriteria", selectCriteria1);
-        mv.addObject("selectCriteria", selectCriteria2);
-        mv.addObject("selectCriteria", selectCriteria3);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria1);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria2);
-        log.info("[MemberPageController] selectCriteria : "+selectCriteria3);
+        mv.addObject("selectCriteria1", selectCriteria1);
+        mv.addObject("selectCriteria2", selectCriteria2);
+        mv.addObject("selectCriteria3", selectCriteria3);
+        log.info("[MemberPageController] selectCriteria1 : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria2 : "+selectCriteria2);
+        log.info("[MemberPageController] selectCriteria3 : "+selectCriteria3);
         mv.setViewName("mypage/member/postList");
 
         log.info("[MemberPageController] ========");
         return mv;
     }
 
-    @RequestMapping(value="/deleteMyPost")
-    public String deleteMyPost(HttpServletRequest request) throws DeleteException {
+    @RequestMapping("/deleteMyPost")
+    @ResponseBody
+    public String deleteMyPost(@RequestBody int[] ajaxMsg1) throws DeleteException {
 
-        String[]ajaxMsg = request.getParameterValues("valueArr");
-        int size = ajaxMsg.length;
+        int size = ajaxMsg1.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyPost(ajaxMsg[i]);
+            boolean deleteSuccess1 = memberPageService.deleteMyPost(ajaxMsg1[i]);
+            if (!deleteSuccess1){
+                return "0";
+            }
         }
-        return "redirect:/mypage/member/postList";
+        return "1";
     }
 
     @RequestMapping("/deleteMyComment")
-    public String deleteMyComment(HttpServletRequest request) throws DeleteException{
+    @ResponseBody
+    public String deleteMyComment(@RequestBody int[] ajaxMsgC) throws DeleteException{
 
-        String[]ajaxMsg = request.getParameterValues("valueArr");
-        int size = ajaxMsg.length;
+        int size = ajaxMsgC.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyComment(Integer.parseInt(ajaxMsg[i]));
+            boolean deleteSuccess2 = memberPageService.deleteMyComment(ajaxMsgC[i]);
+            if (!deleteSuccess2){
+                return "0";
+            }
         }
-        return "redirect:/mypage/member/postList";
+        return "1";
     }
 
     @RequestMapping("/deleteMyReview")
-    public String deleteMyReview(HttpServletRequest request) throws DeleteException{
+    @ResponseBody
+    public String deleteMyReview(@RequestBody int[] ajaxMsgR) throws DeleteException{
 
-        String[]ajaxMsg = request.getParameterValues("valueArr");
-        int size = ajaxMsg.length;
+        int size = ajaxMsgR.length;
         for(int i=0; i<size; i++){
-            memberPageService.deleteMyReview(Integer.parseInt(ajaxMsg[i]));
+            boolean deleteSuccess3 = memberPageService.deleteMyReview(ajaxMsgR[i]);
+            if (!deleteSuccess3){
+                return "0";
+            }
         }
-        return "redirect:/mypage/member/postList";
+        return "1";
     }
 }

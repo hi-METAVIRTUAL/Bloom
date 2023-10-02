@@ -13,6 +13,8 @@ import com.metavirtual.bloom.common.paging.SelectCriteria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +40,18 @@ public class BoardController {
 
     /* 전체 게시글 조회 메서드*/
     @GetMapping(value = "/searchList")
-    public ModelAndView searchCommunityList(@RequestParam(required = false) String searchSelect,
-                                            @RequestParam(required = false) String searchValue, @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
-                                            ModelAndView mv) {
+    public ModelAndView searchAllList(@RequestParam(required = false) String searchCategory,
+                                      @RequestParam(required = false) String searchSelect,
+                                      @RequestParam(required = false) String searchValue,
+                                      @RequestParam(value="currentPage", defaultValue = "1") int pageNo,
+                                      ModelAndView mv) {
 
         /* 검색 조건을 객체에 담아 전송 */
         Map<String, String> searchMap = new HashMap<>();
         searchMap.put("searchSelect", searchSelect);
         searchMap.put("searchValue", searchValue);
+        searchMap.put("searchCategory", searchCategory);
+
 
         System.out.println("검색조건 : " + searchMap);
 
@@ -60,7 +66,7 @@ public class BoardController {
         SelectCriteria selectCriteria;
 
         if(searchSelect != null && !"".equals(searchSelect)) {
-            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchSelect, searchValue);
+            selectCriteria = Paging.getSelectCriteria(pageNo, totalBoardCount, limitPerPage, buttonAmount, searchCategory, searchSelect, searchValue);
         } else {
             selectCriteria = Paging.getSelectCriteria (pageNo, totalBoardCount, limitPerPage, buttonAmount);
         }
@@ -76,6 +82,7 @@ public class BoardController {
 
         return mv;
     }
+
 
     /* 게시글 상세 조회 */
 
@@ -98,7 +105,7 @@ public class BoardController {
         return "board/boardSelectOne";
     }
 
-    /* 게시글 등록 화면*/
+    /* 게시글 등록 화면 */
     @GetMapping("/boardPosting")
     public String boardContentPosting() {
         return "board/boardInsert";
@@ -151,10 +158,13 @@ public class BoardController {
         if(title != "" && boardCategory != "" && boardContent != "") {
             boardService.boardModify(modifyBoard);
             rttr.addFlashAttribute("message", "게시글 수정에 성공하였습니다");
-        } else {
-            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다");
+        } else if (boardCategory == "") {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다. 분류를 선택해주세요.");
+        } else if (title == "") {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다. 제목을 입력해주세요.");
+        } else if (boardContent == "") {
+            rttr.addFlashAttribute("message", "게시글 수정에 실패하였습니다. 글 내용을 입력해주세요.");
         }
-
         return "redirect:/board/searchList";
     }
 
@@ -180,7 +190,7 @@ public class BoardController {
     }
 
     /* 댓글 삭제 메서드 */
-    @PatchMapping(value = "/commentDelete")
+    @PatchMapping (value = "/commentDelete")
     public ResponseEntity<List<MemberCommentDTO>> commentDelete(@RequestBody MemberCommentDTO commentDelete) throws CommentDeleteException {
 
         System.out.println("댓글 파라미터 값 ? : " + commentDelete);
@@ -192,8 +202,13 @@ public class BoardController {
     /* 게시글 신고 사유 등록 메서드 */
     @PostMapping("/reportInsert")
     public String boardReportPosting(@RequestParam(required = false) String reportCategory
-                    , @ModelAttribute BoardReportDTO newReport, RedirectAttributes rttr) throws ReportInsertException {
+                    , @ModelAttribute BoardReportDTO newReport, RedirectAttributes rttr,
+                                     Authentication authentication) throws ReportInsertException {
 
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String userId = userDetails.getUsername();
+        System.out.println("사용자 ID 가져오니?: " + userId);
+        newReport.setUserId(userId);
         System.out.println("신고 파라미터 값 : " + newReport);
         if(reportCategory != null && reportCategory != "") {
             boardService.reportInsert(newReport);

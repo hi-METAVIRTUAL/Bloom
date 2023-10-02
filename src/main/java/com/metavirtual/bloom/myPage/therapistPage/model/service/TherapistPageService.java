@@ -12,18 +12,21 @@ import com.metavirtual.bloom.user.model.dto.UserDTO;
 import java.util.List;
 
 public interface TherapistPageService {
+    public UserDTO userInfo(String userId);
+    public TherapistDTO therapistInfo(String userId);
+    public ProfileFileDTO profileInfo(String userId);
 
-    public void uploadProfileImg(ProfileFileDTO profileFileDTO) throws ModifyInfoException;
+    public void uploadProfileImg(ProfileFileDTO uploadInfo) throws ModifyInfoException;
 
     public void modifyTherapistInfo(UserDTO user) throws ModifyInfoException;
 
     public void modifyTherapistProfile(TherapistDTO therapist) throws ModifyInfoException;
 
-    public void modifyActivationStatus(char activationStatus) throws ModifyInfoException;
+    public boolean modifyActivationStatus(char activationStatus, String userId) throws ModifyInfoException;
 
-    public int selectReservationCount();
+    public int selectReservationCount(String UserId);
 
-    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria);
+    public List<ReservationDTO> selectReservationList(SelectCriteria selectCriteria, String userId);
 
     public void confirmReservation(int bookingCode) throws ModifyInfoException;
 

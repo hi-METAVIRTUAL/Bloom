@@ -45,9 +45,10 @@ public class BoardService {
         BoardDTO selectOne = null;
 
         int result = boardMapper.viewCount(boardCode);
-
+        System.out.println("서비스확인 : " + result);
         if(result > 0) {
             selectOne = boardMapper.boardSelectOne(boardCode);
+            System.out.println("서비스확인2: " + selectOne);
         }
 
         return selectOne;
@@ -59,7 +60,7 @@ public class BoardService {
 
         int result = boardMapper.boardNewPosting(newPosting);
         if(!(result > 0)) {
-            throw new BoardPostingException("게시글 등록에 실패하였습니다");
+            throw new BoardPostingException("게시글 등록에 실패하였습니다.");
         }
     }
 

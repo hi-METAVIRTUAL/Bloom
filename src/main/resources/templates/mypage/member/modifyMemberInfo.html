@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Info Setting</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/mypage/member/memberInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -71,40 +72,50 @@
                     name="userId"
                     th:value="${ user.getUserId() }"
             >
+            <input
+                    type="hidden"
+                    id="name"
+                    name="name"
+                    th:value="${ user.getName() }"
+            >
             <tr>
                 <td align="left">이름</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="${ user.getName() }"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled th:value="${ user.getName() }"><br>개명 회원은 고객센터로 문의 바랍니다.</td>
             </tr>
             <tr>
                 <td align="left">아이디</td>
-                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="${ user.getUserId() }"><br>아이디는 변경 불가능합니다.</td>
+                <td>&nbsp;&nbsp;<input class="round-input" disabled th:value="${ user.getUserId() }"><br>아이디는 변경 불가능합니다.</td>
             </tr>
             <tr>
                 <td align="left">비밀번호</td>
                 <td>
-                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" required >
+                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="pwd" required >
+                    <br>8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가
                 </td>
             </tr>
             <tr>
                 <td align="left">닉네임</td>
                 <td>
-                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:value="${ member.getNickname() }" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
+                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:value="${ member.getNickname() }" required>
+                    <br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능
                 </td>
                 </td>
                 <td align="right">
-                    <button class="info-bt" id="duplicationCheck" value="중복 확인">중복확인</button>
+                    <input type="button" class="info-bt" onclick="duplicationCheck()" value="중복 확인">
+                </td>
             </tr>
             <tr>
                 <td align="left">전화번호</td>
                 <td>
                     * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="${ user.getPhone() }" required>
+                    <br>000-0000-0000 형식으로 입력해 주세요.
                 </td>
             </tr>
             <tr>
                 <td align="left">성별</td>
                 <td align="center">
-                    <input type="checkbox" name="gender" th:value="M" th:checked="true" th:if="${ user.getGender() } == 'M'" disabled> 남성
-                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" th:checked="true" th:if="${ user.getGender() } == 'F'" disabled> 여성
+                    <input type="radio" name="gender" id="male" th:value="M" th:checked="${user.getGender().toString() == 'M'}" th:disabled="${user.getGender().toString() == 'F'}"> 남성
+                    &nbsp;&nbsp;<input type="radio" name="gender" id="female" th:value="F" th:checked="${user.getGender().toString() == 'F'}" th:disabled="${user.getGender().toString() == 'M'}"> 여성
                 </td>
             </tr>
             <tr>
@@ -112,7 +123,7 @@
                 <td>
                     * <input class="email" type="text" name="emailId" id="emailId" th:value="${#strings.substringBefore(user.getEmail(),'@')}" required>
                     @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="${#strings.substringAfter(user.getEmail(),'@')}" required>
-                    <select id="emailDomainSelect" onchange="updateEmailDomain(), combineEmail()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                    <select id="emailDomainSelect" onchange="updateEmailDomain()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
                         <option value="empty">선택하기</option>
                         <option value="naver.com">naver.com</option>
                         <option value="gmail.com">gmail.com</option>
@@ -122,140 +133,69 @@
                     </select>
                 </td>
                 <td align="right">
-                    <button class="info-bt" onclick="emailDupCheckAndSendNumber()" id="sendBtn" name="sendBtn">본인인증</button>
+                    <input type="button" class="info-bt" id="sendBtn" name="sendBtn" value="본인인증">
                 </td>
             </tr>
-            <tr id="Confirm" name="Confirm" style="display: none;">
-                <div id="mail_number" name="mail_number" style="display: none;">
-                <td align="left">인증번호입력</td>
-                <td>
-                    * <input class="round-input" type="text" name="number" id="number" required>
-                </td>
-                <td align="right">
-                    <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>
-                </td>
+            <div id="loadingOverlay">
+                <div id="loadingSpinner" style="display: none;">
+                    <img src="/images/regist/loading.gif" alt="Loading..." />
                 </div>
-            </tr>
+            </div>
         </table>
+        <div>
+            <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+            <div id="mail_number" name="mail_number" style="display: none">
+                <input type="text" name="number" id="number" placeholder="인증번호 입력" style="width: 190px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">
+                <button type="button" name="confirmBtn" id="submitButton" onclick="confirmNumber()" style="width: 100px; height: 30px; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 10px; border-style: solid;">이메일 인증</button>
+            </div>
+        </div>
+
 <br>
         <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">
         <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">
     </form>
 </div>
-
-<!--<div>-->
-<!--    <form align="center" method="post" th:action="@{/member/modifyMemberInfo}">-->
-<!--        <table align="center" class="info-table" style="vertical-align: central; table-layout: fixed;">-->
-<!--            <a>*는 필수 입력입니다.</a><br><br>-->
-<!--            <colgroup>-->
-<!--                <col style="width: 20%">-->
-<!--                <col style="width: 60%">-->
-<!--                <col style="width: 20%">-->
-<!--            </colgroup>-->
-<!--            <input-->
-<!--                    type="hidden"-->
-<!--                    id="userId"-->
-<!--                    name="userId"-->
-<!--                    th:value="${ chalse }"-->
-<!--            >-->
-<!--            <tr>-->
-<!--                <td align="left">이름</td>-->
-<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberName" th:value="김철수"><br>개명 회원은 고객센터로 문의 바랍니다.</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">아이디</td>-->
-<!--                <td>&nbsp;&nbsp;<input class="round-input" disabled name="memberId" th:value="chalse"><br>아이디는 변경 불가능합니다.</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">비밀번호</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$" title="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" name="memberPwd" placeholder="8 ~ 20 자 / 대소문자, 숫자, 특수기호(!@$%&*) 필수 / 공백 불가" required >-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">닉네임</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="text" pattern="^[A-Za-z가-힣]{1,10}$" title="최대 10자 / 공백, 특수기호 불가 / 영문, 한글 가능" name="nickname" id="nickname" th:value="철수" required><br>최대 10자 공백, 특수기호 불가 / 영문, 한글 가능-->
-<!--                </td>-->
-<!--                </td>-->
-<!--                <td align="right">-->
-<!--                    <button class="info-bt" id="duplicationCheck" value="중복 확인">중복확인</button>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">전화번호</td>-->
-<!--                <td>-->
-<!--                    * <input class="round-input" type="text" pattern="\d{3}-\d{3,4}-\d{4}" title="000-0000-0000 형식으로 입력해 주세요." name="phone" th:value="010-1111-1111" required>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">성별</td>-->
-<!--                <td align="center">-->
-<!--                    <input type="checkbox" name="gender" th:value="M" th:checked="true" disabled> 남성-->
-<!--                    &nbsp;&nbsp;<input type="checkbox" name="gender" th:value="F" disabled> 여성-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td align="left">이메일</td>-->
-<!--                <td>-->
-<!--                    * <input class="email" type="text" name="emailId" id="emailId" th:value="member1" required>-->
-<!--                    @ <input class="email" type="text" name="emailDomain" id="emailDomain" th:value="meta.com" required>-->
-<!--                    <select id="emailDomainSelect" onchange="updateEmailDomain(), combineEmail()" style="width: 90px; height: 30px; border-color: #C09A81; border-radius: 10px; border-style: solid;">-->
-<!--                        <option value="empty">선택하기</option>-->
-<!--                        <option value="naver.com">naver.com</option>-->
-<!--                        <option value="gmail.com">gmail.com</option>-->
-<!--                        <option value="yahoo.com">yahoo.com</option>-->
-<!--                        <option value="hotmail.com">hotmail.com</option>-->
-<!--                        <option value="">직접입력</option>-->
-<!--                    </select>-->
-<!--                </td>-->
-<!--                <td align="right">-->
-<!--                    <button class="info-bt" onclick="sendNumber()" id="sendBtn" name="sendBtn">본인인증</button>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr id="Confirm" name="Confirm" style="display: none;">-->
-<!--                <div id="mail_number" name="mail_number" style="display: none;">-->
-<!--                    <td align="left">인증번호입력</td>-->
-<!--                    <td>-->
-<!--                        * <input class="round-input" type="text" name="number" id="number" required>-->
-<!--                    </td>-->
-<!--                    <td align="right">-->
-<!--                        <button class="info-bt" onclick="confirmNumber()" id="confirmBtn" name="confirmBtn">인증확인</button>-->
-<!--                    </td>-->
-<!--                </div>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--        <br>-->
-<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="submit" value="수정 완료">-->
-<!--        <input style="width: 190px; height: 33px; border-radius: 30px; background-color: #FFFFFF; color: #C09A81; border-color: #C09A81;" type="button" value="마이페이지로 돌아가기" onclick="location.href='memberInfo'">-->
-<!--    </form>-->
-<!--</div>-->
-
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
-<script>
-    $(function duplicationCheck() {
-        if (document.getElementById("duplicationCheck")) {
-            const $duplication = document.getElementById("duplicationCheck");
+<script th:inline="javascript">
+    function duplicationCheck(){
+        var nickname = document.getElementById("nickname").value.trim();
 
-            $duplication.onclick = function () {
-                let nickname = document.getElementById("nickname").value.trim();
-
-                fetch("/member/nickDuplCK", {
-                    mehtod: "POST",
-                    headers: {
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    },
-                    body: JSON.stringify({nickname: nickname})
-                })
-                    .then(result => result.text())
-                    .then(result => alert(result))
-                    .catch((error) => error.text().then((res => alert(res))));
-            }
+        if(nickname == ""){
+            alert("닉네임을 입력해주세요.");
+        } else {
+            $.ajax({
+                url:"/member/nickDuplCK",
+                type:"POST",
+                contentType:"application/json",
+                data:JSON.stringify(nickname),
+                success:function(data){
+                    if(data==="1"){
+                        alert("사용 가능한 닉네임입니다.");
+                    } else if(data==="0"){
+                        alert("중복된 닉네임입니다. 다른 닉네임을 사용해주세요.");
+                    } else {
+                        alert("알 수 없는 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                    }
+                }
+            });
         }
-    });
+    }
 
+    const showLoadingBtn = document.getElementById("sendBtn");
+    showLoadingBtn.addEventListener("click", emailDupCheckAndSendNumber);
+
+    function showLoadingOverlay() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "flex";
+    }
+
+    function hideLoadingOverlay() {
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        loadingOverlay.style.display = "none";
+    }
     function updateEmailDomain() {
         const emailDomainSelect = document.getElementById('emailDomainSelect');
         const emailDomainInput = document.getElementById('emailDomain');
@@ -268,6 +208,8 @@
         }
         return emailDomainInput.value;
     }
+
+    // Function to concatenate emailId and emailDomain with '@'
     function combineEmail() {
         const emailId = document.getElementById('emailId').value.trim();
         let emailDomain = updateEmailDomain();
@@ -275,7 +217,12 @@
         const completeEmail = emailId + '@' + emailDomain;
         return completeEmail.toString();
     }
+
+    // Function to send the email and receive the confirmation number
     function sendNumber(email) {
+
+        $("#loadingSpinner").show();
+
         $("#mail_number").css("display", "block");
         $.ajax({
             url: "/mail",
@@ -283,10 +230,18 @@
             dataType: "json",
             data: { "mail": email },
             success: function (data) {
+
+                $("#loadingSpinner").hide()
+                hideLoadingOverlay();
+
                 alert("인증번호 발송");
                 $("#Confirm").attr("value", data);
+                emailVerificationSent = true;
             },
             error: function () {
+
+                $("#loadingSpinner").hide();
+
                 console.log(email);
                 console.log("verification Code send Failed")
 
@@ -310,29 +265,36 @@
         }
     }
 
+    let emailVerificationSent = false;
     // Function to check email duplication and then send the verification number
     function emailDupCheckAndSendNumber() {
-        const email = combineEmail();
-        // Perform email duplication check
-        $.ajax({
-            type: 'POST',
-            url: '/user/emailDupCheck',
-            data: email,
-            contentType: 'plain/text',
-            success: function (response) {
-                if (response.check === 0) {
-                    // Email is not a duplicate, send the verification number
-                    sendNumber(email);
-                } else {
-                    // Email is a duplicate, display an alert
-                    alert("중복된 이메일 주소입니다.");
+        if (!emailVerificationSent) {
+            showLoadingOverlay();
+            const email = combineEmail();
+            // Perform email duplication check
+            $.ajax({
+                type: 'POST',
+                url: '/user/emailDupCheck',
+                data: email,
+                contentType: 'plain/text',
+                success: function (response) {
+                    if (response.check === 0) {
+                        // Email is not a duplicate, send the verification number
+                        sendNumber(email);
+                    } else {
+                        // Email is a duplicate, display an alert
+                        alert("중복된 이메일 주소입니다.");
+                        hideLoadingOverlay();
+                    }
+                },
+                error: function (error) {
+                    console.error('AJAX error:', error);
+                    // Handle the error as needed
                 }
-            },
-            error: function (error) {
-                console.error('AJAX error:', error);
-                // Handle the error as needed
-            }
-        });
+            });
+        } else {
+            alert("이미 이메일 인증번호를 전송했습니다.")
+        }
     }
 </script>
 </body>

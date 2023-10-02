@@ -10,15 +10,26 @@
 <!--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/ko.global.min.js"></script>-->
     <style>
         #reservList {
-            counter-reset: count -1;
+            border-collapse: collapse;
+            width: 700px;
         }
+
         #reservList tr {
             height: 42px;
-            counter-increment: count;
+            text-align: center;
+            border-radius: 10px;
+            background-color: #C09A81;
+            color: #FFFFFF;
         }
-        #reservList tr td:nth-of-type(1)::before {
-            content: counter(count) " ";
+
+        #reservList td {
+            height: 40px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: #FFFFFF;
+            color: #C09A81;
         }
+
         #reservList th:nth-of-type(2) {
             display: none;
         }
@@ -64,90 +75,29 @@
             <h3 style="color: #C09A81;">예약 신청 내역</h3>
             <br><br>
             <div>
-                <table align="center" style="border-collapse: collapse; width: 700px;" id="reservList">
-                    <tr style="border-radius: 10px; background-color: #C09A81; color: #FFFFFF; height: 50px;">
+                <table align="center" id="reservList">
+                    <tr>
                         <th style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">&nbsp;No&nbsp;&nbsp;</th>
                         <th>&nbsp;&nbsp;예약코드&nbsp;&nbsp;</th>
                         <th>&nbsp;&nbsp;이름&nbsp;&nbsp;</th>
                         <th>&nbsp;&nbsp;성별&nbsp;&nbsp;</th>
-                        <th>&nbsp;&nbsp;희망에약일&nbsp;&nbsp;</th>
+                        <th>&nbsp;&nbsp;희망에약일시&nbsp;&nbsp;</th>
                         <th>&nbsp;&nbsp;전화번호&nbsp;&nbsp;</th>
                         <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;&nbsp;&nbsp;</th>
                     </tr>
-<!--            <tr th:if="${ user.getUserId() } == ${ booking.getTherapistId() } and ${ booking.getBookingStatus()} == 'waiting'" th:each="booking : ${bookingList}, user : ${userList}>-->
-<!--                <td></td>-->
-<!--                <td th:text="${ booking.getBookingCode() }" id="bCode"></td>-->
-<!--                <td th:if="${ booking.getMemberId() } == ${ user.getUserId() }" th:text="${ user.getName() }"></td>-->
-<!--                <td th:if="${ booking.getMemberId() } == ${ user.getUserId() }" th:text="${ user.getGender() }"></td>-->
-<!--                <td th:text="${ booking.getBookingDate() }"></td>-->
-<!--                <td th:if="${ booking.getMemberId() } == ${ user.getUserId() }" th:text="${ user.getPhone() }"></td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" id="acceptBtn">-->
-<!--                    <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" id="rejectBtn">-->
-<!--                </td>-->
-                    <!--            </tr>-->
-                    <tr style="color: #C09A81; height: 50px;" align="center">
-                        <td></td>
-                        <td id="bCode"></td>
-                        <td>홍길동</td>
-                        <td>남</td>
-                        <td>2023.04.24.</td>
-                        <td>010-1234-5678</td>
+                    <tr th:each="booking, iterator : ${reservationList}">
+                        <td th:text="${selectCriteria.totalBoardCount - (((selectCriteria.pageNo - 1) * selectCriteria.limitPerPage) + iterator.index)}"></td>
+                        <td th:text="${ booking.getBookingCode() }" id="bCode"></td>
+                        <td th:text="${ booking.getMemberName() }" id="name"></td>
                         <td>
-                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" id="acceptBtn">
-                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" id="rejectBtn">
+                            <div th:if="${ booking.getMemberGender() } == 'F'">여성</div>
+                            <div th:if="${ booking.getMemberGender() } == 'M'">남성</div>
                         </td>
-                    </tr>
-
-                    <tr style="color: #C09A81; height: 50px; background-color: white;" align="center">
-                        <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;"></td>
-                        <td id="bCode"></td>
-                        <td>홍길동</td>
-                        <td>남</td>
-                        <td>2023.04.24.</td>
-                        <td>010-1234-5678</td>
-                        <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" id="acceptBtn">
-                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" id="rejectBtn">
-                        </td>
-                    </tr>
-
-                    <tr style="color: #C09A81; height: 50px;" align="center">
-                        <td></td>
-                        <td id="bCode"></td>
-                        <td>홍길동</td>
-                        <td>남</td>
-                        <td>2023.04.24.</td>
-                        <td>010-1234-5678</td>
+                        <td th:text="${ booking.getBookingDate() }"></td>
+                        <td th:text="${ booking.getMemberPhone() }"></td>
                         <td>
-                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" id="acceptBtn">
-                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" id="rejectBtn">
-                        </td>
-                    </tr>
-
-                    <tr style="color: #C09A81; height: 50px; background-color: white;" align="center">
-                        <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;"></td>
-                        <td id="bCode"></td>
-                        <td>홍길동</td>
-                        <td>남</td>
-                        <td>2023.04.24.</td>
-                        <td>010-1234-5678</td>
-                        <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">
-                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" id="acceptBtn">
-                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" id="rejectBtn">
-                        </td>
-                    </tr>
-
-                    <tr style="color: #C09A81; height: 50px;" align="center">
-                        <td></td>
-                        <td id="bCode"></td>
-                        <td>홍길동</td>
-                        <td>남</td>
-                        <td>2023.04.24.</td>
-                        <td>010-1234-5678</td>
-                        <td>
-                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" id="acceptBtn">
-                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" id="rejectBtn">
+                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" onclick="acceptReservation()">
+                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" onclick="rejectReservation()">
                         </td>
                     </tr>
                 </table>
@@ -249,36 +199,46 @@
     function showPopup() { window.open("reservPopup", "a", "width=420, height=600, left=350, top=210" ); }
 
 
-    $("#acceptBtn").click(function (){
-        const bCode = $("#bCode").text();
+    function acceptReservation(){
+        const name = document.getElementById("name").innerText;
+        const bCode = document.getElementById("bCode").innerText;
+        var aChk = confirm(`${name}님의 상담 신청을 수락합니다.`);
         $.ajax({
             url: "/therapist/acceptReservation",
             type: "post",
             data: {bookingCode: bCode},
             success: function(data, textStatus, xhr){
-                alert("예약 승인 요청 성공!");
+                alert(`${name}님의 예약이 확정되었습니다.`);
+                console.log("예약 승인 요청 성공");
+                location.reload();
             },
             error: function(xhr, status, error){
-                console.log(error);
+                alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                console.log(error + " : 예약 승인 요청 실패");
             }
         });
-    });
+    }
 
 
-    $("#rejectBtn").click(function (){
-        const bCode = $("#bCode").text();
+    function rejectReservation(){
+        const name = document.getElementById("name").innerText;
+        const bCode = document.getElementById("bCode").innerText;
+        var rChk = confirm(`${name}님의 상담 신청을 거절합니다.`);
         $.ajax({
             url: "/therapist/rejectReservation",
             type: "post",
             data: {bookingCode: bCode},
             success: function(data, textStatus, xhr){
-                alert("예약 거부 요청 성공!");
+                alert(`${name}님의 예약이 취소되었습니다.`);
+                console.log("예약 거부 요청 성공");
+                location.reload();
             },
             error: function(xhr, status, error){
-                console.log(error);
+                alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                console.log(error + " : 예약 거부 요청 실패");
             }
         });
-    });
+    }
 
 </script>
 

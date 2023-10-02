@@ -6,6 +6,7 @@
 
     <resultMap id="resultInfo" type="com.metavirtual.bloom.match.model.dto.TherapistInfoDTO">
         <id property="therapistQ1" column="THERAPIST_Q1"/>
+        <result property="userId" column="USER_ID"/>
         <result property="activationStatus" column="ACTIVATION_STATUS"/>
         <result property="sessionVidCallCK" column="SESSION_VIDCALL_CK"/>
         <result property="depressionCK" column="DEPRESSION_CK"/>
@@ -14,7 +15,7 @@
         <result property="ocdCK" column="OCD_CK"/>
         <result property="relationCK" column="RELATION_CK"/>
         <collection property="name" column="USER_ID" resultMap="userInfo"/>
-        <collection property="gender" column="USER_GENDER" resultMap="userInfo"/>
+        <collection property="gender" column="GENDER" resultMap="userInfo"/>
         <collection property="filePath" column="FILE_PATH" resultMap="profileInfo"/>
     </resultMap>
 
@@ -22,6 +23,7 @@
         <id property="userId" column="USER_ID"/>
         <result property="name" column="NAME"/>
         <result property="gender" column="GENDER"/>
+        <result property="phone" column="PHONE"/>
     </resultMap>
 
     <resultMap id="profileInfo" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO">
@@ -32,7 +34,84 @@
     <!-- 상담사 전체 조회 -->
     <select id="findAllTherapist" resultMap="resultInfo">
         SELECT
-        T.THERAPIST_Q1
+        T. USER_ID
+        , T.THERAPIST_Q1
+        , T.ACTIVATION_STATUS
+        , T.SESSION_VIDCALL_CK
+        , T.DEPRESSION_CK
+        , T.ANXIETY_CK
+        , T.BIPOLAR_CK
+        , T.OCD_CK
+        , T.RELATION_CK
+        , U.USER_ID
+        , U.GENDER
+        , P.FILE_PATH
+        FROM (SELECT B.THERAPIST_Q1
+                    , B.ACTIVATION_STATUS
+                    , B.SESSION_VIDCALL_CK
+                    , B.DEPRESSION_CK
+                    , B.ANXIETY_CK
+                    , B.BIPOLAR_CK
+                    , B.OCD_CK
+                    , B.RELATION_CK
+                    , B.USER_ID
+                FROM THERAPIST B
+                <if test="searchValue neq null and searchValue neq ''">
+                    JOIN USER U ON (B.USER_ID = U.USER_ID)
+                </if>
+                <where>
+                    <if test="b eq 'b'">
+                        B.BIPOLAR_CK = 'Y'
+                    </if>
+                    <if test="r eq 'r'">
+                        AND B.RELATION_CK = 'Y'
+                    </if>
+                    <if test="d eq 'd'">
+                        AND B.DEPRESSION_CK = 'Y'
+                    </if>
+                    <if test="o eq 'o'">
+                        AND B.OCD_CK = 'Y'
+                    </if>
+                    <if test="a eq 'a'">
+                        AND B.ANXIETY_CK = 'Y'
+                    </if>
+                    <if test="searchValue neq null and searchValue neq ''">
+                        AND U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                </where>
+        ) T
+        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
+        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+        LIMIT #{startRow }, #{limitPerPage}
+    </select>
+
+
+    <resultMap id="scoreResult" type="com.metavirtual.bloom.match.model.dto.CategoryTotalScoreDTO">
+        <result property="depressionTotalScore" column="DEPRESSION_TOTAL_SCORE"/>
+        <result property="anxietyTotalScore" column="ANXIETY_TOTAL_SCORE"/>
+        <result property="bipolarTotalScore" column="BIPOLAR_TOTAL_SCORE"/>
+        <result property="ocdTotalScore" column="OCD_TOTAL_SCORE"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+    <select id="getTotalSocre" resultMap="scoreResult" parameterType="java.lang.String">
+        SELECT
+        DEPRESSION_TOTAL_SCORE,
+        ANXIETY_TOTAL_SCORE,
+        BIPOLAR_TOTAL_SCORE,
+        OCD_TOTAL_SCORE
+        FROM MEMBER_TEST_RESULT
+        WHERE (USER_ID, TEST_DATE) IN (
+        SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
+        FROM MEMBER_TEST_RESULT
+        WHERE USER_ID =  #{ userId }
+        )
+    </select>
+
+    <select id="therapyRecommend" resultMap="resultInfo">
+        SELECT
+        T. USER_ID
+        , T.THERAPIST_Q1
         , T.ACTIVATION_STATUS
         , T.SESSION_VIDCALL_CK
         , T.DEPRESSION_CK
@@ -49,17 +128,173 @@
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
     </select>
 
-    <resultMap id="scoreResult" type="com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO">
-        <id property="resultCode" column="RESULT_CODE"/>
-        <result property="testDate" column="TEST_DATE"/>
-        <result property="depressionTotalScore" column="DEPRESSION_TOTAL_SCORE"/>
-        <result property="anxietyTotalScore" column="ANXIETY_TOTAL_SCORE"/>
-        <result property="bipolarTotalScore" column="BIPOLAR_TOTAL_SCORE"/>
-        <result property="ocdTotalScore" column="OCD_TOTAL_SCORE"/>
-        <result property="userId" column="USER_ID"/>
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT COUNT(*)
+        FROM THERAPIST T
+        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
+        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+        <!--<if test="categoryD eq 'D'">
+            <where>
+                T.DEPRESSION_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryA eq 'A'">
+            <where>
+                T.ANXIETY_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryB eq 'B'">
+            <where>
+                T.BIPOLAR_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryO eq 'O'">
+            <where>
+                T.OCD_CK = 'Y'
+            </where>
+        </if>
+        <if test="categoryR eq 'R'">
+            <where>
+                T.RELATION_CK = 'Y'
+            </where>
+        </if>
+        <if test="searchValue != ''">
+            <where>
+                U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </where>
+        </if>-->
+    </select>
+    <resultMap id="resultDesired" type="com.metavirtual.bloom.user.model.dto.MemberDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="etcContent" column="ETC_CONTETNT"/>
+        <result property="testStatus" column="TEST_STATUS"/>
+        <result property="therapistGenderCK" column="THERAPIST_GENDER_CK"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="reportCount" column="REPORT_COUNT"/>
+        <result property="relationCK" column="RELATION_CK"/>
     </resultMap>
 
-    <select id="getTotalScore" resultMap="scoreResult">
+
+    <select id="getDesiredField" resultMap="resultDesired">
+        SELECT
+        USER_ID,
+        THERAPIST_GENDER_CK,
+        RELATION_CK
+        FROM MEMBER
+        WHERE USER_ID = #{ userId }
+    </select>
+    <select id="recommendTherapist" resultMap="resultInfo" parameterType="java.lang.String">
+        SELECT
+        T. USER_ID
+        , T.THERAPIST_Q1
+        , T.ACTIVATION_STATUS
+        , T.SESSION_VIDCALL_CK
+        , T.DEPRESSION_CK
+        , T.ANXIETY_CK
+        , T.BIPOLAR_CK
+        , T.OCD_CK
+        , T.RELATION_CK
+        , U.NAME
+        , U.GENDER
+        , P.FILE_PATH
+        FROM THERAPIST T
+        JOIN USER U ON (T.USER_ID = U.USER_ID)
+        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+        <choose>
+            <when test="maxScoreField == 'DEPRESSION_CK'">
+                WHERE DEPRESSION_CK = 'Y'
+            </when>
+            <when test="maxScoreField == 'ANXIETY_CK'">
+                WHERE ANXIETY_CK = 'Y'
+            </when>
+            <when test="maxScoreField == 'BIPOLAR_CK'">
+                WHERE BIPOLAR_CK = 'Y'
+            </when>
+            <when test="maxScoreField == 'OCD_CK'">
+                WHERE OCD_CK = 'Y'
+            </when>
+        </choose>
+        LIMIT 5
+
+    </select>
+
+    <resultMap id="TherapistProfile" type="com.metavirtual.bloom.match.model.dto.TherapistProfileDTO">
+        <id property="userId" column="USER_ID"/>
+        <result property="therapistQ1" column="THERAPIST_Q1"/>
+        <result property="therapistQ2" column="THERAPIST_Q2"/>
+        <result property="therapistQ3" column="THERAPIST_Q3"/>
+        <result property="activationStatus" column="ACTIVATION_STATUS"/>
+        <result property="sessionVidCallCK" column="SESSION_VIDCALL_CK"/>
+        <result property="depressionCK" column="DEPRESSION_CK"/>
+        <result property="anxietyCK" column="ANXIETY_CK"/>
+        <result property="bipolarCK" column="BIPOLAR_CK"/>
+        <result property="ocdCK" column="OCD_CK"/>
+        <result property="relationCK" column="RELATION_CK"/>
+        <collection property="name" column="USER_ID" resultMap="userInfo"/>
+        <collection property="phone" column="PHONE" resultMap="userInfo"/>
+        <collection property="filePath" column="FILE_PATH" resultMap="profileInfo"/>
+        <collection property="reviewScore" column="REVIEW_SCORE" resultMap="reviewResult"/>
+    </resultMap>
+    <resultMap id="reviewResult" type="com.metavirtual.bloom.booking.model.dto.ReviewDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="reviewScore" column="REVIEW_SCORE"/>
+        <result property="reviewContent" column="REVIEW_CONTENT"/>
+    </resultMap>
+
+    <select id="selectOneTherapist" resultMap="TherapistProfile">
+        SELECT
+         T.THERAPIST_Q1
+        , T.THERAPIST_Q2
+        , T.THERAPIST_Q3
+        , T.ACTIVATION_STATUS
+        , T.SESSION_VIDCALL_CK
+        , T.DEPRESSION_CK
+        , T.ANXIETY_CK
+        , T.BIPOLAR_CK
+        , T.OCD_CK
+        , T.RELATION_CK
+        , U.USER_ID
+        , U.NAME
+        , U.GENDER
+        , U.PHONE
+        , P.FILE_PATH
+        FROM THERAPIST T
+        JOIN USER U ON (T.USER_ID = U.USER_ID)
+        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
+        WHERE T.USER_ID = #{ userId }
+    </select>
+
+    <resultMap id="reviewResultMap" type="com.metavirtual.bloom.match.model.dto.TherapistReviewDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="reviewScore" column="REVIEW_SCORE"/>
+        <result property="deleteDate" column="DELETE_DATE"/>
+        <result property="reviewContent" column="REVIEW_CONTENT"/>
+        <collection property="therapistId" column="THERAPIST_ID" resultMap="bookingResult"/>
+    </resultMap>
+    <resultMap id="bookingResult" type="com.metavirtual.bloom.booking.model.dto.BookingDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="therapistId" column="THERAPIST_ID"/>
+    </resultMap>
+
+    <select id="findAllReview" resultMap="reviewResultMap" parameterType="java.lang.String">
+        SELECT
+        R.BOOKING_CODE
+        ,R.POSTED_DATE
+        ,R.REVIEW_SCORE
+        ,R.DELETE_DATE
+        ,R.REVIEW_CONTENT
+        ,B.THERAPIST_ID
+        FROM REVIEW R
+        LEFT JOIN BOOKING B ON (R.BOOKING_CODE = B.BOOKING_CODE)
+        WHERE R.DELETE_DATE IS NULL AND B.THERAPIST_ID = #{userId}
+        ORDER BY R.POSTED_DATE DESC
+    </select>
+
+</mapper>
+
+<!--
+
         SELECT USER_ID,
         DEPRESSION_TOTAL_SCORE,
         ANXIETY_TOTAL_SCORE,
@@ -72,25 +307,4 @@
         WHERE USER_ID = #{ userId }
         GROUP BY USER_ID
         )
-    </select>
-
-    <select id="therapyRecommend" resultMap="resultInfo">
-        SELECT
-        T.THERAPIST_Q1
-        , T.ACTIVATION_STATUS
-        , T.SESSION_VIDCALL_CK
-        , T.DEPRESSION_CK
-        , T.ANXIETY_CK
-        , T.BIPOLAR_CK
-        , T.OCD_CK
-        , T.RELATION_CK
-        , U.NAME
-        , U.GENDER
-        , P.FILE_PATH
-        FROM THERAPIST T
-        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
-        LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
-    </select>
-
-
-</mapper>
+        -->

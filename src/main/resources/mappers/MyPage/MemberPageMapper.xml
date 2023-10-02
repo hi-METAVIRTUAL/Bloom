@@ -4,11 +4,26 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.metavirtual.bloom.myPage.memberPage.model.dao.MemberPageMapper">
 
-    <resultMap id="generalPostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
+    <resultMap id="PostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
         <id property="boardCode" column="BOARD_CODE"/>
         <result property="title" column="TITLE"/>
         <result property="boardCategory" column="BOARD_CATEGORY"/>
         <result property="postedDate" column="POSTED_DATE"/>
+    </resultMap>
+
+    <resultMap id="CommentResultMap" type="com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO">
+        <id property="commentCode" column="COMMENT_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="commentContent" column="COMMENT_CONTENT"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="boardCode" column="BOARD_CODE"/>
+    </resultMap>
+
+    <resultMap id="ReviewResultMap" type="com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="name" column="NAME"/>
+        <result property="reviewScore" column="REVIEW_SCORE"/>
+        <result property="reviewContent" column="REVIEW_CONTENT"/>
     </resultMap>
 
     <resultMap id="bookingInfo" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo">
@@ -16,6 +31,8 @@
         <result property="bookingDate" column="BOOKING_DATE"/>
         <result property="phone" column="PHONE"/>
         <result property="bookingStatus" column="BOOKING_STATUS"/>
+        <result property="therapistId" column="THERAPIST_ID"/>
+        <result property="testStatus" column="TEST_STATUS"/>
     </resultMap>
 
     <resultMap id="memberInfo" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo">
@@ -28,14 +45,24 @@
         <result property="email" column="EMAIL"/>
     </resultMap>
 
+<!--    <resultMap id="memberBoard" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBoard">-->
+<!--        <id property="boardCode" column="BOARD_CODE"/>-->
+<!--        <result property="title" column="TITLE"/>-->
+<!--        <result property="boardCategory" column="BOARD_CATEGORY"/>-->
+<!--        <result property="postedDate" column="POSTED_DATE"/>-->
+<!--    </resultMap>-->
+
     <select id="memberBookingInfo" resultMap="bookingInfo" parameterType="java.lang.String">
         SELECT
             U.NAME
             , B.BOOKING_DATE
             , U.PHONE
             , B.BOOKING_STATUS
+            , B.THERAPIST_ID
+            , M.TEST_STATUS
         FROM BOOKING B
         JOIN USER U ON B.THERAPIST_ID = U.USER_ID
+        JOIN MEMBER M ON B.MEMBER_ID = M.USER_ID
         WHERE B.MEMBER_ID = #{name}
     </select>
 
@@ -67,79 +94,101 @@
         WHERE M.USER_ID = #{ userId }
     </update>
 
-    <select id="selectMemberByNickname" resultType="string">
-        SELECT A.MEMBER_NICKNAME
-        FROM MEMBER A
-        WHERE A.MEMBER_NICKNAME = #{ nickname }
+    <select id="selectMemberByNickname" resultType="_int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE NICKNAME = #{ nickname }
     </select>
 
-    <select id="selectTotalPostCount" resultType="_int">
+<!--    <select id="memberAllBoard" resultMap="memberBoard" parameterType="java.lang.String">-->
+<!--        SELECT-->
+<!--            BOARD_CODE-->
+<!--            , TITLE-->
+<!--            , BOARD_CATEGORY-->
+<!--            , POSTED_DATE-->
+<!--        FROM BOARD-->
+<!--        WHERE USER_ID = #{ userId }-->
+<!--    </select>-->
+
+    <select id="selectTotalPostCount" resultType="_int" parameterType="java.lang.String">
         SELECT COUNT(*)
         FROM BOARD
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
+        AND DELETE_DATE IS NULL
     </select>
 
-    <select id="selectTotalCommentCount" resultType="_int">
+    <select id="selectTotalCommentCount" resultType="_int" parameterType="java.lang.String">
         SELECT COUNT(*)
         FROM MEMBER_COMMENT
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
+        AND DELETE_DATE IS NULL
     </select>
 
-    <select id="selectTotalReviewCount" resultType="_int">
+    <select id="selectTotalReviewCount" resultType="_int" parameterType="java.lang.String">
         SELECT COUNT(*)
-        FROM REVIEW
-        WHERE USER_ID = #{ sessionId }
+        FROM REVIEW R
+        JOIN BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
+        WHERE B.MEMBER_ID = #{ userId }
+        AND DELETE_DATE IS NULL
     </select>
 
-    <select id="selectPostList" resultMap="generalPostResultMap">
+    <select id="selectPostList" resultMap="PostResultMap">
         SELECT
                 BOARD_CODE
                 , TITLE
                 , BOARD_CATEGORY
                 , POSTED_DATE
         FROM BOARD
-        WHERE USER_ID = #{ sessionId }
+        WHERE USER_ID = #{ userId }
+        AND DELETE_DATE IS NULL
+        ORDER BY POSTED_DATE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
-    <select id="selectCommentList" resultMap="generalPostResultMap">
+    <select id="selectCommentList" resultMap="CommentResultMap">
         SELECT
-            C.COMMENT_CODE
+            M.COMMENT_CODE
             , B.TITLE
-            , C.COMMENT_CONTENT
-            , C.POSTED_DATE
-        FROM BOARD B
-        INNER JOIN
-            MEMBER_COMMENT C ON B.BOARD_CODE = C.BOARD_CODE
+            , M.COMMENT_CONTENT
+            , M.POSTED_DATE
+            , B.BOARD_CODE
+        FROM MEMBER_COMMENT M
+        JOIN BOARD B ON M.BOARD_CODE = B.BOARD_CODE
+        WHERE M.USER_ID = #{ userId }
+        AND M.DELETE_DATE IS NULL
+        ORDER BY M.POSTED_DATE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
-    <select id="selectReviewList" resultMap="generalPostResultMap">
+    <select id="selectReviewList" resultMap="ReviewResultMap">
         SELECT
             R.BOOKING_CODE
             , U.NAME
             , R.REVIEW_SCORE
             , R.REVIEW_CONTENT
         FROM REVIEW R
-        INNER JOIN
-            BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
-        INNER JOIN
-            USER U ON B.THERAPIST_ID = U.USER_ID
+        JOIN BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
+        JOIN USER U ON B.THERAPIST_ID = U.USER_ID
+        WHERE U.USER_ID = #{ userId }
+        ORDER BY R.POSTED_DATE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
     <delete id="deleteMyPost">
-        DELETE
-        FROM BOARD
+        UPDATE BOARD
+        SET DELETE_DATE = NOW()
         WHERE BOARD_CODE = #{ boardCode }
     </delete>
 
     <delete id="deleteMyComment">
-        DELETE
-        FROM MEMBER_COMMENT
+        UPDATE MEMBER_COMMENT
+        SET DELETE_DATE = NOW()
         WHERE COMMENT_CODE = #{ commentCode }
     </delete>
 
     <delete id="deleteMyReview">
-        DELETE
-        FROM REVIEW
+        UPDATE REVIEW
+        SET DELETE_DATE = NOW()
         WHERE BOOKING_CODE = #{ bookingCode }
     </delete>
 

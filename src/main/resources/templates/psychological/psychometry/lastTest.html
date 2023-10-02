@@ -24,7 +24,7 @@
         <input type="checkbox" name="colleague" value="동료관계">동료관계
         <input type="checkbox" name="alone" value="소외감">소외감 <br><br>
         <!--<input type="checkbox" name="etc" value="기타">기타 -->
-        <input placeholder="기타내용작성 50자 이내" name="etcContent" class="textBox"/><br>
+        <input maxlength="50" ax placeholder="기타내용작성 50자 이내" name="etcContent" class="textBox"/><br>
 
         <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
         <input type="hidden" name="relationCK" value="">

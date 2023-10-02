@@ -1,14 +1,19 @@
 package com.metavirtual.bloom.match.model.service;
 
+
+import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
+import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.common.paging.MatchCriteria;
 import com.metavirtual.bloom.match.model.dao.MatchMapper;
+import com.metavirtual.bloom.match.model.dto.CategoryTotalScoreDTO;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
 import com.metavirtual.bloom.psychometry.model.dto.MemberTestResultDTO;
+import com.metavirtual.bloom.user.model.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MatchService {
@@ -20,23 +25,49 @@ public class MatchService {
         this.matchMapper = matchMapper;
     }
 
-    public List<TherapistInfoDTO> findAllTherapist() {
-        return matchMapper.findAllTherapist();
+    public int selectTotalCount(Map<String, String> searchMap) {
+
+        int result = matchMapper.selectTotalCount(searchMap);
+        return result;
     }
-    public List<TherapistInfoDTO> getTotalScore(String userId) {
-        List<TherapistInfoDTO> memberTestResults = matchMapper.getTotalScore(userId);
-        return memberTestResults;
+    public List<TherapistInfoDTO> findAllTherapist(MatchCriteria matchCriteria) {
+        List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(matchCriteria);
+        return therapistList;
     }
 
+    public List<MemberDTO> getDesiredField(String userId) {
 
-    public List<TherapistInfoDTO> therapyRecommend() {
 
-        List<TherapistInfoDTO> therapyRecommend = matchMapper.therapyRecommend();
-        return therapyRecommend;
+        return matchMapper.getDesiredField(userId);
+    }
+
+    public List<CategoryTotalScoreDTO> getTotalSocre(String userId) {
+        List<CategoryTotalScoreDTO> getTotalSocre = matchMapper.getTotalSocre(userId);
+
+        return getTotalSocre;
+    }
+
+    public List<TherapistInfoDTO> recommendTherapist(String maxScoreField) {
+        List<TherapistInfoDTO> recommendTherapist = matchMapper.recommendTherapist(maxScoreField);
+        return recommendTherapist;
+    }
+
+    public List<TherapistInfoDTO> selectOneTherapist(String userId) {
+        List<TherapistInfoDTO> selectOneTherapist = matchMapper.selectOneTherapist(userId);
+        return selectOneTherapist;
+    }
+
+    public List<ReviewDTO> findAllReview(String userId) {
+        List<ReviewDTO> findAllReview = matchMapper.findAllReview(userId);
+        return findAllReview;
     }
 }
 
 /*
+    public List<TherapistInfoDTO> therapyRecommend() {
+        return  matchMapper.therapyRecommend();
+    }
+
 * int maxScore = Integer.MIN_VALUE;
         String maxCategory = null;
 
