@@ -46,8 +46,41 @@
         , U.USER_ID
         , U.GENDER
         , P.FILE_PATH
-        FROM THERAPIST T
-         JOIN USER U ON (T.USER_ID = U.USER_ID)
+        FROM (SELECT B.THERAPIST_Q1
+                    , B.ACTIVATION_STATUS
+                    , B.SESSION_VIDCALL_CK
+                    , B.DEPRESSION_CK
+                    , B.ANXIETY_CK
+                    , B.BIPOLAR_CK
+                    , B.OCD_CK
+                    , B.RELATION_CK
+                    , B.USER_ID
+                FROM THERAPIST B
+                <if test="searchValue neq null and searchValue neq ''">
+                    JOIN USER U ON (B.USER_ID = U.USER_ID)
+                </if>
+                <where>
+                    <if test="b eq 'b'">
+                        B.BIPOLAR_CK = 'Y'
+                    </if>
+                    <if test="r eq 'r'">
+                        AND B.RELATION_CK = 'Y'
+                    </if>
+                    <if test="d eq 'd'">
+                        AND B.DEPRESSION_CK = 'Y'
+                    </if>
+                    <if test="o eq 'o'">
+                        AND B.OCD_CK = 'Y'
+                    </if>
+                    <if test="a eq 'a'">
+                        AND B.ANXIETY_CK = 'Y'
+                    </if>
+                    <if test="searchValue neq null and searchValue neq ''">
+                        AND U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
+                    </if>
+                </where>
+        ) T
+        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
         LIMIT #{startRow }, #{limitPerPage}
     </select>

@@ -6,19 +6,15 @@ body {
 
 .faq-list-title {
     margin: auto;
-    width: 80%;
+    width: 800px;
     height: 50px;
     background-color: #C09A81;
     border-radius: 10px;
 }
-.detailsBox {
-    display: flex;
-    flex-wrap: wrap;
-}
+
 details {
     margin: auto;
-    width: 80%;
-
+    width: 800px;
 }
 
 details summary {
@@ -27,23 +23,30 @@ details summary {
     height: 50px;
     cursor:pointer;
     transition:background 0.5s;
-    box-shadow: 1px 1px 2px #C09A81;
     background-color: #FFF6E2;
     color: #C09A81;
     border-radius: 10px;
     border-color: #C09A81;
-    font-size: 23px;
+    font-size: 21px;
+    padding-left: 10px;
 }
 details p {
-    border-radius: 3px;
     background-color: #FFF6E2;
     color: #C09A81;
-    font-size: 18px;
+    font-size: 19px;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.faq-details-even {
+.faq-summary-even {
     background-color: #FFFFFF;
     border-radius: 10px;
     border-color: #FFFFFF;
 
+}
+
+.faq-summary-odd {
+    border-color: #C09A81;
+    border-radius: 10px;
 }

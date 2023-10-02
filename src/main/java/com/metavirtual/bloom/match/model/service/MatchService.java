@@ -1,7 +1,9 @@
 package com.metavirtual.bloom.match.model.service;
 
+
 import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.common.paging.MatchCriteria;
 import com.metavirtual.bloom.match.model.dao.MatchMapper;
 import com.metavirtual.bloom.match.model.dto.CategoryTotalScoreDTO;
 import com.metavirtual.bloom.match.model.dto.TherapistInfoDTO;
@@ -28,8 +30,8 @@ public class MatchService {
         int result = matchMapper.selectTotalCount(searchMap);
         return result;
     }
-    public List<TherapistInfoDTO> findAllTherapist(SelectCriteria selectCriteria) {
-        List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(selectCriteria);
+    public List<TherapistInfoDTO> findAllTherapist(MatchCriteria matchCriteria) {
+        List<TherapistInfoDTO> therapistList= matchMapper.findAllTherapist(matchCriteria);
         return therapistList;
     }
 
