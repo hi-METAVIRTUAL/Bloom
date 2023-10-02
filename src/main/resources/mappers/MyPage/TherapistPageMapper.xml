@@ -51,11 +51,24 @@
         <result property="fileSize" column="FILE_SIZE"/>
     </resultMap>
 
-
     <resultMap id="book" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO">
-
+        <result property="memberName" column="NAME"/>
         <result property="bookingDate" column="BOOKING_DATE"/>
         <result property="memberId" column="MEMBER_ID"/>
+    </resultMap>
+
+    <resultMap id="bookInfo" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="name" column="NAME"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="phone" column="PHONE"/>
+        <result property="depressionTotalScore" column="DEPRESSION_TOTAL_SCORE"/>
+        <result property="anxietyTotalScore" column="ANXIETY_TOTAL_SCORE"/>
+        <result property="bipolarTotalScore" column="BIPOLAR_TOTAL_SCORE"/>
+        <result property="ocdTotalScore" column="OCD_TOTAL_SCORE"/>
+        <result property="etcContent" column="ETC_CONTENT"/>
+        <result property="relationCK" column="RELATION_CK"/>
     </resultMap>
 
     <select id="userInfo" resultMap="userInfo" parameterType="java.lang.String">
@@ -190,6 +203,19 @@
         LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
+    <select id="selectConfirmList" resultMap="bookingResultMap">
+        SELECT
+        B.BOOKING_CODE
+        , U.NAME
+        , U.GENDER
+        , B.BOOKING_DATE
+        , U.PHONE
+        FROM BOOKING B
+        INNER JOIN USER U ON B.MEMBER_ID = U.USER_ID
+        WHERE B.THERAPIST_ID = #{userId}
+        AND B.BOOKING_STATUS = "예약 확정"
+    </select>
+
     <update id="confirmReservation">
         UPDATE BOOKING
         SET BOOKING_STATUS = "예약 확정"
@@ -204,10 +230,40 @@
 
     <select id="bookingList" resultMap="book">
         SELECT
-            BOOKING_DATE
-            , MEMBER_ID
-        FROM BOOKING
-        WHERE THERAPIST_ID = #{ sessionId }
+            B.BOOKING_DATE
+            , B.MEMBER_ID
+            , U.NAME
+        FROM BOOKING B
+        JOIN USER U ON B.MEMBER_ID = U.USER_ID
+        WHERE THERAPIST_ID = #{ userId }
+        AND B.BOOKING_STATUS = "예약 확정"
+    </select>
+
+    <select id="bookInfo" resultMap="bookInfo" parameterType="java.lang.String">
+        SELECT
+            B.BOOKING_CODE
+            , B.BOOKING_DATE
+            , U.NAME
+            , B.MEMBER_ID
+            , U.PHONE
+            , R.DEPRESSION_TOTAL_SCORE
+            , R.ANXIETY_TOTAL_SCORE
+            , R.BIPOLAR_TOTAL_SCORE
+            , R.OCD_TOTAL_SCORE
+            , M.ETC_CONTENT
+            , M.RELATION_CK
+        FROM BOOKING B
+        JOIN USER U ON B.MEMBER_ID = U.USER_ID
+        JOIN MEMBER_TEST_RESULT R ON U.USER_ID = R.USER_ID
+        JOIN MEMBER M ON U.USER_ID = M.USER_ID
+        WHERE B.MEMBER_ID = #{ memberId }
+        AND (
+            R.TEST_DATE = (
+                SELECT MAX(TEST_DATE)
+                FROM MEMBER_TEST_RESULT
+                WHERE USER_ID = U.USER_ID
+            )
+        )
     </select>
 
 </mapper>

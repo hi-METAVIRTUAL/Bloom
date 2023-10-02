@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-<!--    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/ko.global.min.js"></script>-->
     <style>
         #reservList {
             border-collapse: collapse;
@@ -62,18 +61,19 @@
 <br><br>
 <h2 style="text-align: center; color: #C09A81;">예약 관리</h2>
 <div align="center">
-    <div style="display: inline-block;">
+    <div>
         <div style="color: #C09A81; width: 500px;" align="center">
             <h3>예약 정보 조회</h3>
             <div id='calendar'></div>
-            <p>예약된 일자는 <span style="color: red">빨간색</span>으로 표시됩니다</p>
+            <p th:if="${confirm} != null">클릭 시 상세 정보를 조회할 수 있습니다</p>
+            <p th:if="${confirm} == null">확정된 예약 내역이 존재하지 않습니다</p>
         </div>
     </div>
-
-    <div style="display: inline-block;">
-        <div style="width: 800px; float: right;">
+<br>
+    <div>
+        <div style="width: 800px;">
             <h3 style="color: #C09A81;">예약 신청 내역</h3>
-            <br><br>
+            <br>
             <div>
                 <table align="center" id="reservList">
                     <tr>
@@ -173,31 +173,39 @@
             selectable: true,
             businessHours: false,
             dayMaxEvents: true, // allow "more" link when too many events
+            eventBackgroundColor: 'red',
+            displayEventTime: 'false',
+            eventColor: 'red',
             events: [
                 $.ajax({
                     type: "GET",
                     url: "/therapist/reservation",
-                    data: "{}",
                     success: function (response){
-                        result = response.result
-                        for(i = 0; i<result.length; i++){
-                            calendar.addEvent({
-                                title: result[i]['memberId'],
-                                start: result[i]['bookingDate'],
-                                color: "#FF0000"
-                            })
+                        console.log(response);
+                        if(response && response.length>0){
+                            for(i = 0; i<response.length; i++){
+                                calendar.addEvent({
+                                    title: response[i]['memberName'],
+                                    start: response[i]['bookingDate'],
+                                    extendedProps: {
+                                        memberId: response[i]['memberId']
+                                    },
+                                    color: 'red'
+                                });
+                            }
+                        } else {
+                            console.log("예약 데이터가 존재하지 않습니다.");
                         }
                     }
                 })
-        ],
-            eventClick: function showPopup() { window.open("reservPopup", "a", "width=420, height=600, left=350, top=210" ); }
+            ],
+            eventClick: function showPopup(info) {
+                const memberId = info.event.extendedProps.memberId;
+                window.open("reservPopup?memberId=" + memberId, "a", "width=450, height=550, left=350, top=210" ); }
         });
         calendar.render();
     });
 </script><script>
-
-    function showPopup() { window.open("reservPopup", "a", "width=420, height=600, left=350, top=210" ); }
-
 
     function acceptReservation(){
         const name = document.getElementById("name").innerText;

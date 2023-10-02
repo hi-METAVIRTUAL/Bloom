@@ -5,6 +5,7 @@ import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.therapistPage.model.dao.TherapistPageMapper;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ProfileFileDTO;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.TherapistDTO;
@@ -91,6 +92,12 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
+    public List<ReservationDTO> selectConfirmList(String userId){
+        List<ReservationDTO> selectConfirmList = mapper.selectConfirmList(userId);
+        return selectConfirmList;
+    }
+
+    @Override
     public void confirmReservation(int bookingCode) throws ModifyInfoException{
         int result = mapper.confirmReservation(bookingCode);
 
@@ -109,10 +116,16 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
-    public List<BookDTO> bookingList() throws Exception {
+    public List<BookDTO> bookingList(String userId) throws Exception {
         List<BookDTO> book = null;
-        book = mapper.bookingList();
+        book = mapper.bookingList(userId);
 
         return book;
+    }
+
+    @Override
+    public BookInfo bookInfo(String memberId){
+        BookInfo bookInfo = mapper.bookInfo(memberId);
+        return bookInfo;
     }
 }

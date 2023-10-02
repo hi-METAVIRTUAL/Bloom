@@ -5,30 +5,83 @@
     <title>예약 내역 조회</title>
     <link rel="stylesheet" type="text/css" href="../css/mypage/therapist/therapistInfo.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        textarea {
+            width: 330px;
+            height: 30px;
+            line-height: 30px;
+            resize: none;
+            border: none;
+            color: #C09A81;
+            text-align: center;
+        }
+        input[type=button] {
+            color: #FFFFFF;
+            background-color: #C09A81;
+            border-color: #FFFFFF;
+            border-radius: 10px;
+            border-width: 1px;
+            width: 100px;
+            height: 30px;
+        }
+    </style>
 </head>
 <body style="background-color: #FFFFFF;">
-<div align="center" style="color: #C09A81;">
-    <h3>예약 정보 조회</h3>
+<div align="center" style="color: #C09A81;" th:if="${bookInfo != null}">
+    <br>
+    <h2>예약 정보 조회</h2>
+    <br>
+    <input th:value="${bookInfo.getBookingCode()}" type="hidden" id="bCode">
 
-    <h5>예약일자</h5>
-    2023.10.19.목
+    <h4>예약일자</h4>
+    <p th:text="${bookInfo.getBookingDate()}"/>
 
-    <h5>이름</h5>
-    홍길동
+    <h4>이름</h4>
+    <p th:text="${bookInfo.getName()}" id="name"/>
 
-    <h5>이메일</h5>
-    meta@hi.com
+    <h4>전화번호</h4>
+    <p th:text="${bookInfo.getPhone()}"/>
 
-    <h5>전화번호</h5>
-    010-1234-5678
-
-    <h5>특이사항</h5>
-    집중력, 우울감, (기타)아무것도 하기 싫고 잠만 자고 싶어요
-    <br><br>
-    <input type="button" value="예약취소" onclick="" style="color: #C09A81; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; border-width: 1px;"/>
-    <input type="button" value="닫 기" onclick="self.close();" style="color: #C09A81; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; border-width: 1px;"/>
+    <h4>특이사항</h4>
+    <div align="center">
+        <a th:if="${bookInfo.getDepressionTotalScore()} >= 25">우울감&nbsp;</a>
+        <a th:if="${bookInfo.getAnxietyTotalScore()} >= 25">&nbsp;불안감&nbsp;</a>
+        <a th:if="${bookInfo.getBipolarTotalScore()} >= 25">&nbsp;조울감&nbsp;</a>
+        <a th:if="${bookInfo.getOcdTotalScore()} >= 25">&nbsp;강박감</a>
+        <h4>(기타)</h4>
+        <p th:if="${bookInfo.getEtcContent() != null and bookInfo.getEtcContent() != ''}" th:text="${bookInfo.getEtcContent()}"></p>
+        <p th:if="${bookInfo.getEtcContent() == null or bookInfo.getEtcContent() == ''}">기타사항 없음.</p>
+    </div>
+    <br>
+    <p>예약 취소는 내담자와 연락 후 진행해 주세요</p>
+    <input type="button" value="예약취소" onclick="rejectReservation()">
+    <input type="button" value="닫   기" onclick="self.close();">
     <br><br>
 </div>
+
+<script>
+    function rejectReservation(){
+        const name = document.getElementById("name").innerText;
+        const bCode =document.getElementById("bCode").value;
+        var rChk = confirm(`${name}님의 상담 예약을 취소합니다.`);
+        $.ajax({
+            url: "/therapist/rejectReservation",
+            type: "post",
+            data: {bookingCode: bCode},
+            success: function(data, textStatus, xhr){
+                alert(`${name}님의 예약이 취소되었습니다.`);
+                console.log("예약 거부 요청 성공");
+                self.close();
+            },
+            error: function(xhr, status, error){
+                alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                console.log(error + " : 예약 거부 요청 실패");
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
 

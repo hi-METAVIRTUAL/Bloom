@@ -23,6 +23,12 @@ public class MemberPageServiceImpl implements MemberPageService{
     }
 
     @Override
+    public UserDTO userInfo(String userId) {
+        UserDTO userInfo = mapper.userInfo(userId);
+        return userInfo;
+    }
+
+    @Override
     public MemberBookingInfo memberBookingInfo(String name){
         MemberBookingInfo bookingInfo = mapper.memberBookingInfo(name);
         return bookingInfo;

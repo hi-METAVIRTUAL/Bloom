@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface MemberPageService {
 
+    public UserDTO userInfo(String userId);
+
     public MemberBookingInfo memberBookingInfo(String name);
 
     public MemberInfo memberInfo(String name);
