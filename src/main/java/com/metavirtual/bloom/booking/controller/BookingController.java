@@ -1,5 +1,12 @@
 package com.metavirtual.bloom.booking.controller;
 
+
+import com.metavirtual.bloom.booking.model.service.BookingService;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.ui.Model;
+
 import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
 import com.metavirtual.bloom.booking.model.service.BookingService;
 import com.metavirtual.bloom.common.exception.booking.ReviewDeleteException;
@@ -14,16 +21,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/booking")
 public class BookingController {
 
     private final BookingService bookingService;
 
-    @Autowired
-    public BookingController (BookingService bookingService) {
+
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
+
 
     /* 후기 조회 */
     @GetMapping("/reviewmain")
@@ -53,8 +62,28 @@ public class BookingController {
     }
 
     @GetMapping("/reservation")
-    public String reservationPage(){
-        return "booking/reservation";
+    public String reservationPage(Model model, @RequestParam("therapistId") String therapistId){
+
+        System.out.println("booking controller: "+ therapistId);
+
+        model.addAttribute(therapistId);
+        return "/booking/reservation";
+    }
+
+    @PostMapping(value = "/makeReservation", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String receiveReservationDateTime(@RequestParam("selectedDateTime") String selectedDateTime
+                                             ,@AuthenticationPrincipal User authenticatedUser
+                                            ,@RequestParam("therapistId") String therapistId, Model model) {
+
+        System.out.println("makeReservation controller");
+        System.out.println(therapistId);
+        String userId = authenticatedUser.getUsername();
+        model.addAttribute(therapistId);
+
+        System.out.println("Received selectedDateTime : " + selectedDateTime + " member: " + userId + " therapist: " + therapistId);
+
+       bookingService.makeBooking(therapistId, userId, selectedDateTime);
+        return "index";
     }
 
     /* 후기 등록 화면 */
@@ -62,6 +91,7 @@ public class BookingController {
     public String reviewPosting() {
         return "booking/reviewInsert";
     }
+
 
     /* 후기 등록 메서드 */
     @PostMapping("/reviewPosting")

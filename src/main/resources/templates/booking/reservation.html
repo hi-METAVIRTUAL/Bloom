@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>reservation</title>
-    <link rel="stylesheet" type="text/css" href="../css/reservation/calendar.css">
+    <link rel="stylesheet" type="text/css" href="/css/reservation/calendar.css">
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
@@ -12,12 +12,18 @@
     <div class="wrapper">
         <span style="color: #C08181; font-size: 12px;">*상담자와 상의 후 예약 바랍니다*</span>
         <h3 style="color: #C09A81;">상담 예약하기</h3>
-        <h4 style="color: #C09A81;">김철수</h4>
-        <div class="calendarbox">
+<!--        <h4 style="color: #C09A81;">김철수</h4>-->
+
+
+        <form action="/booking/makeReservation" th:action="@{/booking/makeReservation}" method="post">
+            <input type="text" name="therapistId" th:value="${param.therapistId}" hidden />
+            <p>Therapist ID: <span th:name="therapistId" th:text="${param.therapistId}"></span></p>
+
+            <div class="calendarbox">
             <div class="nav">
-                <button class="materialIcons"><</button>
-                <p class="currentDate">2023년 10월</p>
-                <button class="materialIcons">></button>
+                <button class="materialIcons" id="prevMonth" type="button"><</button>
+                <p class="currentDate"></p>
+                <button class="materialIcons" id="nextMonth" type="button">></button>
             </div>
             <div class="calendar">
                 <ul class="weeks">
@@ -30,65 +36,174 @@
                     <li>SAT</li>
                 </ul>
                 <ul class="days">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
-                    <li>9</li>
-                    <li>10</li>
-                    <li>11</li>
-                    <li>12</li>
-                    <li>13</li>
-                    <li>14</li>
-                    <li>15</li>
-                    <li>16</li>
-                    <li>17</li>
-                    <li>18</li>
-                    <li>19</li>
-                    <li>20</li>
-                    <li>21</li>
-                    <li>22</li>
-                    <li>23</li>
-                    <li>24</li>
-                    <li>25</li>
-                    <li>26</li>
-                    <li>27</li>
-                    <li>28</li>
-                    <li>29</li>
-                    <li>30</li>
-                    <li>31</li>
+                    <li class="active" value="1">1</li>
+                    <li class="active" value="2">2</li>
+                    <li class="active" value="3">3</li>
+                    <li class="active" value="4">4</li>
+                    <li class="active" value="5">5</li>
+                    <li class="active" value="6">6</li>
+                    <li class="active" value="7">7</li>
+                    <li class="active" value="8">8</li>
+                    <li class="active" value="9">9</li>
+                    <li class="active" value="10">10</li>
+                    <li class="active" value="11">11</li>
+                    <li class="active" value="12">12</li>
+                    <li class="active" value="13">13</li>
+                    <li class="active" value="14">14</li>
+                    <li class="active" value="15">15</li>
+                    <li class="active" value="16">16</li>
+                    <li class="active" value="17">17</li>
+                    <li class="active" value="18">18</li>
+                    <li class="active" value="19">19</li>
+                    <li class="active" value="20">20</li>
+                    <li class="active" value="21">21</li>
+                    <li class="active" value="22">22</li>
+                    <li class="active" value="23">23</li>
+                    <li class="active" value="24">24</li>
+                    <li class="active" value="25">25</li>
+                    <li class="active" value="26">26</li>
+                    <li class="active" value="27">27</li>
+                    <li class="active" value="28">28</li>
+                    <li class="active" value="29">29</li>
+                    <li class="active" value="30">30</li>
+                    <li class="active" value="31">31</li>
                 </ul>
             </div>
         </div>
-        <form action="" method="get"
-                style="font-size: 20px; word-spacing:20px; line-height: 200%">
-            <div>
-                <input type="checkbox" name="time" value="9">09시
-                <input type="checkbox" name="time" value="10">10시
-                <input type="checkbox" name="time" value="11">11시
-                <input type="checkbox" name="time" value="12">12시
+            <div class="timeCK" style="font-size: 20px; word-spacing:20px; line-height: 200%">
+                <input type="radio" name="time" value="9">09시
+                <input type="radio" name="time" value="10">10시
+                <input type="radio" name="time" value="11">11시
+                <input type="radio" name="time" value="12">12시
+                <br><input type="radio" name="time" value="13">13시
+                <input type="radio" name="time" value="14">14시
+                <input type="radio" name="time" value="15">15시
+                <input type="radio" name="time" value="16">16시
+                <br><input type="radio" name="time" value="17">17시
+                <input type="radio" name="time" value="18">18시
+                <input type="radio" name="time" value="19">19시
+                <input type="radio" name="time" value="20">20시
             </div>
-            <div>
-                <input type="checkbox" name="time" value="13">13시
-                <input type="checkbox" name="time" value="14">14시
-                <input type="checkbox" name="time" value="15">15시
-                <input type="checkbox" name="time" value="16">16시
-            </div>
-            <div>
-                <input type="checkbox" name="time" value="17">17시
-                <input type="checkbox" name="time" value="18">18시
-                <input type="checkbox" name="time" value="19">19시
-                <input type="checkbox" name="time" value="20">20시
-            </div>
-            <input class="roundbutton" type="submit" value="상담예약">
-        </form>
+            <button class="submitButton" type="submit">상담예약</button>
+
         <button class="roundbutton" onclick="location.href='/psychological/match/introduceTherapy'">돌아가기</button>
+        </form>
     </div>
     <br>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentDateElement = document.querySelector('.currentDate');
+            const prevMonthButton = document.getElementById('prevMonth');
+            const nextMonthButton = document.getElementById('nextMonth');
+            const calendar = document.querySelector('.calendar');
+            const daysList = calendar.querySelector('.days');
+            const months = [
+                '1월', '2월', '3월', '4월', '5월', '6월',
+                '7월', '8월', '9월', '10월', '11월', '12월'
+            ];
+            const currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+
+            // Function to update the calendar with the days of the selected month
+            function updateCalendar(month, year) {
+                // Clear the previous days
+                daysList.innerHTML = '';
+
+                // Set the current date to the 1st day of the selected month
+                const firstDayOfMonth = new Date(year, month, 1);
+                const lastDayOfMonth = new Date(year, month + 1, 0);
+
+                // Get the number of days in the selected month
+                const numberOfDays = lastDayOfMonth.getDate();
+
+                // Calculate the day of the week for the 1st day of the month (0 = Sunday, 1 = Monday, etc.)
+                const startingDay = firstDayOfMonth.getDay();
+
+                // Create the list of days
+                for (let i = 0; i < startingDay; i++) {
+                    daysList.innerHTML += '<li></li>';
+                }
+
+                for (let i = 1; i <= numberOfDays; i++) {
+                    const dayElement = document.createElement('li');
+                    dayElement.textContent = i;
+                    dayElement.addEventListener('click', () => {
+                        // Remove the 'active' class from all date elements
+                        const activeElements = document.querySelectorAll('.days li.active');
+                        activeElements.forEach(element => element.classList.remove('active'));
+
+                        // Add the 'active' class to the clicked date element
+                        dayElement.classList.add('active');
+
+                        // Get the selected date
+                        const selectedDate = dayElement.textContent;
+                        console.log(selectedDate); // Output the selected date
+                    });
+                    daysList.appendChild(dayElement);
+                }
+
+                // Update the current date display
+                currentDateElement.textContent = `${year}년 ${months[month]}`;
+            }
+
+            // Initial calendar display
+            updateCalendar(currentMonth, currentYear);
+
+            // Event listener for the "Previous Month" button
+            prevMonthButton.addEventListener('click', function () {
+                if (currentMonth > 0) {
+                    currentMonth--;
+                } else {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                updateCalendar(currentMonth, currentYear);
+            });
+
+            // Event listener for the "Next Month" button
+            nextMonthButton.addEventListener('click', function () {
+                if (currentMonth < 11) {
+                    currentMonth++;
+                } else {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                updateCalendar(currentMonth, currentYear);
+            });
+
+            const reservation_btn = document.querySelector('.submitButton');
+
+            reservation_btn.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                // Get the selected date
+                const selectedDateElement = document.querySelector('.days li.active');
+                if (selectedDateElement) {
+                    const selectedDate = selectedDateElement.textContent;
+                    // Get the selected time (assuming you have radio buttons for time selection)
+                    const selectedTime = document.querySelector('input[name="time"]:checked').value;
+
+                    // Format the selected date and time into "0000-00-00 00:00" format
+                    const formattedDateTime = `${currentYear}-${currentMonth + 1}-${selectedDate} ${selectedTime}:00`;
+
+                    // Set the formatted date and time as the value of a hidden input field
+                    const dateTimeInput = document.createElement('input');
+                    dateTimeInput.type = 'hidden';
+                    dateTimeInput.name = 'selectedDateTime'; // Change this to your desired input field name
+                    dateTimeInput.value = formattedDateTime;
+                    reservation_btn.form.appendChild(dateTimeInput);
+
+                    // Now, submit the form
+                    reservation_btn.form.submit();
+
+                } else {
+                    console.error('No date element with the "active" class found.');
+                }
+            });
+        });
+
+    </script>
 
 </div>
 <footer>

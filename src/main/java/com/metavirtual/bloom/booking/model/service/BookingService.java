@@ -1,26 +1,39 @@
 package com.metavirtual.bloom.booking.model.service;
 
 import com.metavirtual.bloom.booking.model.dao.BookingMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.metavirtual.bloom.booking.model.dto.ReviewDTO;
 import com.metavirtual.bloom.common.exception.booking.ReviewDeleteException;
 import com.metavirtual.bloom.common.exception.booking.ReviewInsertException;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 public class BookingService {
-
     private final BookingMapper bookingMapper;
 
     @Autowired
-    public BookingService (BookingMapper bookingMapper) {
+    public BookingService(BookingMapper bookingMapper) {
         this.bookingMapper = bookingMapper;
     }
+
+    public void makeBooking(String therapistId, String userId, String selectedDateTime) {
+
+       int makeBooking = bookingMapper.makeBooking(therapistId, userId, selectedDateTime);
+        System.out.println(therapistId + " " + userId + " " + selectedDateTime);
+
+       if(makeBooking > 0){
+           System.out.println("예약 성공!");
+       } else {
+           System.out.println("예약 실패");
+       }
 
     public int selectTotalCount() {
 

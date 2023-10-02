@@ -85,6 +85,14 @@ public class MatchController {
         return mv;
 
     }
+
+    @GetMapping("/introduceTherapy/{id}")
+    public String introduceTherapyPage(@PathVariable("id") String userId, Model model){
+        model.addAttribute("userId", userId);
+
+        System.out.println("match controller : " + userId);
+        return "psychological/match/introduceTherapy";
+
     @GetMapping("/introduceTherapy")
     public ModelAndView introduceTherapyPage(@RequestParam("userId") String userId, ModelAndView mv){
         List<TherapistInfoDTO> selectOneTherapist = matchService.selectOneTherapist(userId);
@@ -100,6 +108,7 @@ public class MatchController {
 
         return mv;
     }
+      
     /* 상담사 전체 조회 */
     @GetMapping(value = "/therapyList")
     public ModelAndView alltherapyList(@RequestParam(value = "d", defaultValue = " ") char d,

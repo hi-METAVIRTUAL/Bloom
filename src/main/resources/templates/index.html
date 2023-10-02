@@ -197,10 +197,11 @@
     <h2><span sec:authentication="principal.name"></span>님, 환영합니다<br>오늘의 하루를 나눠보세요</h2>
 
 <!--        <form th:action="@{/user/bookingStat}" id="bookingForm" method="post">-->
-
-    <div id="buttonss">
-    <a href="#" id="booking_btn">예약 현황 보기</a>
-    </div>
+    <th:block sec:authorize="${#authentication.getPrincipal().getAuthorityCode() == 1}">
+        <div id="buttonss">
+            <a href="#" id="booking_btn">예약 현황 보기</a>
+        </div>
+    </th:block>
 
     <div style="display: flex; justify-content: center;">
             <div class="booking-info" id="bookingInfoContainer" style="display: none;">
