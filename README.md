@@ -32,7 +32,7 @@
 * Role : Team Leader
 * Positon : Full-Stack
 * Stack : java, spring, mySql, TypeORM, Express, html, css
-* Works : <br> 제플린, adobeXD를 이용한 페이지 디자인 ,전반적인 페이지 디자인을 CSS를 사용하여 구현<br> spring framework, ajax, json, thymeleaf를 통해 회원가입, 로그인, 상담 예약 기능 구현, mybatis 이용하여 데이터베이스 연동, spring-security를 이용해 접근권한 제어 
+* Works : <br> figma를 이용한 페이지 디자인, 전반적인 페이지 디자인을 CSS를 사용하여 구현<br> spring framework, ajax, json, thymeleaf를 통해 회원가입, 로그인, 상담 예약 기능 구현, mybatis 이용하여 데이터베이스 연동, spring-security를 이용해 접근권한 제어 
 
 
 
