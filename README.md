@@ -76,7 +76,7 @@ EC2, 로드밸런서, route53, ACM을 사용하여 https 인증, <br>RDS를 이�
 ***
 [✈ Pointrip URL](https://pointrip.net)<br>
 
-[👾 Wiki](https://github.com/hi-METAVIRTUAL/Bloom.wiki.git)
+[👾 Wiki](https://github.com/hi-METAVIRTUAL/Bloom/wiki)
 
 [🗓 회의록](https://github.com/codestates/Pointrip/projects/4)
 
