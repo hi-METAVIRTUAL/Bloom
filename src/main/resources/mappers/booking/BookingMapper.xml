@@ -44,4 +44,19 @@
         WHERE BOOKING_CODE = #{ bookingCode }
     </update>
 
+    <insert id="makeBooking">
+        INSERT INTO BOOKING(
+        BOOKING_DATE,
+        BOOKING_STATUS,
+        MEMBER_ID,
+        THERAPIST_ID )
+        VALUES(
+        #{ selectedDateTime },
+        "예약 대기",
+        #{ userId },
+        #{ therapistId }
+        )
+
+    </insert>
+
 </mapper>

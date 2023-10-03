@@ -48,19 +48,19 @@
                 <div class="picture">
                     <!--<img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">-->
                     <img class="img-fluid" src="/images/psychological/testpicture.jpg" alt="상담사 프로필">
-                    <h4 th:if="${therapistInfo.depressionCK} == 'Y'" th:text="우울"></h4>
-                    <h4 th:if="${therapistInfo.anxietyCK} == 'Y'" th:text="불안"></h4>
-                    <h4 th:if="${therapistInfo.bipolarCK} == 'Y'" th:text="양극성"></h4>
-                    <h4 th:if="${therapistInfo.ocdCK} == 'Y'" th:text="강박성"></h4>
-                    <h4 th:if="${therapistInfo.relationCK} == 'Y'" th:text="대인관계"></h4>
+                    <div th:text="${therapistInfo.therapistQ1}"></div>
                 </div>
-                <div th:text="${therapistInfo.therapistQ1}"></div>
                 <div class="team-content">
+                    <span th:if="${therapistInfo.depressionCK} == 'Y'" th:text="우울 "></span>
+                    <span th:if="${therapistInfo.anxietyCK} == 'Y'" th:text="불안 "></span>
+                    <span th:if="${therapistInfo.bipolarCK} == 'Y'" th:text="양극성 "></span>
+                    <span th:if="${therapistInfo.ocdCK} == 'Y'" th:text="강박성"></span>
+                    <p></p>
+                    <span th:if="${therapistInfo.relationCK} == 'Y'" th:text="대인관계 "></span>
                     <h3 th:text="${therapistInfo.name.getName()}">상담사 이름</h3>
                 </div>
                 <ul class="social">
 <!-- yh -->
-                    <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapistInfo.name.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
 <!-- main -->
                     <li><a th:href="@{/psychological/match/introduceTherapy(userId=${therapistInfo.userId})}"
                            class="profilebutton" aria-hidden="true">프로필 보기</a></li>
@@ -106,53 +106,6 @@
     <th:block th:include="components/Footer.html" th:with="textColor='#FEEFCC'"></th:block>
 </footer>
 <script>
-    /*let currentPage = 1; // 초기 페이지 번호
-    const itemsPerPage = 4; // 페이지 당 아이템 수
-
-    // 더 보기 버튼 클릭 이벤트
-    document.getElementById("load-more-button").addEventListener("click", () => {
-        currentPage++; // 페이지 번호 증가
-        loadMoreTherapists();
-    });
-
-    function loadMoreTherapists() {
-        // Ajax 호출하여 상담사 데이터 가져오기
-        $.ajax({
-            url: `/psychological/match/therapyList?page=${currentPage}&pageSize=${itemsPerPage}`,
-            method: "GET",
-            success: function (data) {
-               /!* data.forEach(function (therapistInfo) {
-                    const therapistHtml = `
-                        <div class="our-team">
-                            <div class="picture">
-                                <img class="img-fluid" th:src="${therapistInfo.filePath}" alt="상담사 프로필">
-                            </div>
-                            <div class="team-content">
-                                <h3 th:text="${therapistInfo.name.name}">상담사 이름</h3>
-                                <h4 th:if="${therapistInfo.depressionCK} == 'Y'" th:text="우울"></h4>
-                                <h4 th:if="${therapistInfo.anxietyCK} == 'Y'" th:text="불안" ></h4>
-                                <h4 th:if="${therapistInfo.bipolarCK} == 'Y'" th:text="양극성"></h4>
-                                <h4 th:if="${therapistInfo.ocdCK} == 'Y'" th:text="강박성"></h4>
-                                <h4 th:if="${therapistInfo.relationCK} == 'Y'" th:text="대인관계"></h4>
-                            </div>
-                            <ul class="social">
-                                <li><a th:href="@{/psychological/match/introduceTherapy/{id}(id=${therapistInfo.userId})}" class="profilebutton" aria-hidden="true">프로필 보기</a></li>
-                            </ul>
-                        </div>
-                    `;
-                    $("#therapists-container").append(therapistHtml);
-                });
-
-                if (data.length === 0) {
-                    // 더 이상 데이터가 없을 경우 더 보기 버튼 숨기기
-                    document.getElementById("load-more-button").style.display = "none";
-                }*!/
-            },
-            error: function (error) {
-                console.error("Error loading therapists: " + error);
-            },
-        });
-    }*/
     const scrollTop = function () {
         // create HTML button element
         const scrollBtn = document.createElement("button");

@@ -12,8 +12,6 @@
     <div class="wrapper">
         <span style="color: #C08181; font-size: 12px;">*상담자와 상의 후 예약 바랍니다*</span>
         <h3 style="color: #C09A81;">상담 예약하기</h3>
-<!--        <h4 style="color: #C09A81;">김철수</h4>-->
-
 
         <form action="/booking/makeReservation" th:action="@{/booking/makeReservation}" method="post">
             <input type="text" name="therapistId" th:value="${param.therapistId}" hidden />

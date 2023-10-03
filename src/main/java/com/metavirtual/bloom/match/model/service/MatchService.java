@@ -47,8 +47,8 @@ public class MatchService {
         return getTotalSocre;
     }
 
-    public List<TherapistInfoDTO> recommendTherapist(String maxScoreField) {
-        List<TherapistInfoDTO> recommendTherapist = matchMapper.recommendTherapist(maxScoreField);
+    public List<TherapistInfoDTO> recommendTherapist(String maxScoreField, List<MemberDTO> desiredField) {
+        List<TherapistInfoDTO> recommendTherapist = matchMapper.recommendTherapist(maxScoreField, desiredField);
         return recommendTherapist;
     }
 

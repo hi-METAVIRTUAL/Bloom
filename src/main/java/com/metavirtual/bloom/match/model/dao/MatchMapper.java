@@ -22,7 +22,7 @@ public interface MatchMapper {
 
     List<MemberDTO> getDesiredField(String userId);
 
-    List<TherapistInfoDTO> recommendTherapist(String maxScoreField);
+    List<TherapistInfoDTO> recommendTherapist(String maxScoreField, List<MemberDTO> desiredField);
 
     List<TherapistInfoDTO> selectOneTherapist(String userId);
 
