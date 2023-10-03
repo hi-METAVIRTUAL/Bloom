@@ -56,11 +56,11 @@ EC2, 로드밸런서, route53, ACM을 사용하여 https 인증, <br>RDS를 이�
 
 
 ## 박지영
-* Github : https://github.com/privetin
+* Github : https://github.com/jiyeong08
 * Role : Team Member
 * Positon : Full-Stack
 * Stack : Node.js, TypeScript, MySQL, TypeORM, Express
-* Works : <br>BCrypt를 사용하여 암호 해싱, JWT를 사용하여 제한적 권한 부여, OAuth를 사용하여 소셜 로그인 구현,<br>EC2, 로드밸런서, route53, ACM을 사용하여 https 인증, RDS를 이용한 데이터 관리 (Mysql 사용),
+* Works : <br>회원 마이페이지 구현<br>관리자 페이지구현<br>mybatis를 이용하여 DB와 연동하고, spring framework, ajax, json, thymeleaf를 사용하여 회원의 개인정보와 활동정보 CRUD
  
 
 <br>
