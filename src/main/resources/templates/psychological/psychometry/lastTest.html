@@ -11,14 +11,13 @@
 <body>
 <header class="header" th:include="components/Header.html" th:with="textColor='#FEEFCC'"></header>
 
-<div class="box"><br>
-    해당사항이 있으면 체크해주세요.<br><br>
+<div class="box"><br><br>
     <h3>희망 상담사 성별</h3>
     <form action="loding" method="POST"><br>
         <input type="radio" name="therapistGenderCK" value="M">남자<br>
         <input type="radio" name="therapistGenderCK" value="W">여자<br>
         <input type="radio" name="therapistGenderCK" value="x">무관<br><br>
-        <h3>최근고민분야</h3><br>
+        <h3>최근고민분야<br>(해당되면 체크해주세요)</h3>
         <input type="checkbox" name="family" value="가족관계">가족관계
         <input type="checkbox" name="couple" value="연인관계">연인관계
         <input type="checkbox" name="colleague" value="동료관계">동료관계
