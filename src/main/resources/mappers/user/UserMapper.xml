@@ -214,6 +214,7 @@
     <select id="bookingStatus" resultMap="bookingResultMap">
         SELECT
             B.booking_date,
+            B.booking_status,
             U.name AS therapist_name,
             U.phone AS therapist_phone,
             M.name AS member_name,

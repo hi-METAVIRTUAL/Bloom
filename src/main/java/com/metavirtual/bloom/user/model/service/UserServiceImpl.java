@@ -30,13 +30,18 @@ import org.thymeleaf.TemplateEngine;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 
 import static java.lang.String.valueOf;
 import static java.lang.System.out;
@@ -186,10 +191,13 @@ public class UserServiceImpl implements UserService {
     }*/
 
 
-    @Value("${image.image-dir}")
+    @Value("/documents")
     private String FILE_DIR;
 
-    @Value("${spring.servlet.multipart.location}")
+/*    @Value("${spring.servlet.multipart.location}")
+    private String ROOT_LOCATION; */
+
+    @Value("/Users/babyybiss/Documents/FullStackJava/Bloom/src/main/resources/static/images/uploads")
     private String ROOT_LOCATION;
 
     @Transactional
@@ -213,11 +221,24 @@ public class UserServiceImpl implements UserService {
                 String fileChangedName = UUID.randomUUID().toString().replaceAll("-", "") + ext;
                 long fileSize = therapistFile.getSize();
 
+                String rootLocation = ROOT_LOCATION + FILE_DIR;
+                File directory = new File(rootLocation);
+
+                if(!directory.exists()){
+                    directory.mkdirs();
+                }
+                try {
+                    Path destinationPath = Paths.get(rootLocation, fileChangedName);
+                    Files.copy(therapistFile.getInputStream(), destinationPath);
+                } catch (IOException e) {
+                    // Handle the exception appropriately
+                    e.printStackTrace();
+                }
 
                 newDataFile.setFileOriginName(fileOriginName);
                 newDataFile.setFileChangedName(fileChangedName);
                 newDataFile.setFileSize(fileSize);
-                newDataFile.setFilePath(FILE_DIR); // Set the appropriate file directory
+                newDataFile.setFilePath(String.valueOf(directory));
                 newDataFile.setUserId(user.getUserId());
 
                 userMapper.uploadDataFile(newDataFile);

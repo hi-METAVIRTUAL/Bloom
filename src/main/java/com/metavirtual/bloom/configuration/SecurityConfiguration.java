@@ -69,12 +69,6 @@ public class SecurityConfiguration {
                 .failureHandler(authFailHandler)
                 .usernameParameter("username")
                 .passwordParameter("password")
-                 /*.and()
-                 .rememberMe() // 사용자 계정 저장
-                 .rememberMeParameter("remember") // default 파라미터는 remember-me
-                 .tokenValiditySeconds(604800) // 7일(default 14일)
-                 .alwaysRemember(false) // remember-me 기능 항상 실행
-                 .userDetailsService(rememberMeService) // 사용자 계정 조회*/
                 .and()
                 .logout()
                  .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
@@ -92,3 +86,10 @@ public class SecurityConfiguration {
                         , "psychological/match/therapyList"
                         ,"/user/loginfail", "/user/idDupCheck"
                 )*/
+
+                 /*.and()
+                 .rememberMe() // 사용자 계정 저장
+                 .rememberMeParameter("remember") // default 파라미터는 remember-me
+                 .tokenValiditySeconds(604800) // 7일(default 14일)
+                 .alwaysRemember(false) // remember-me 기능 항상 실행
+                 .userDetailsService(rememberMeService) // 사용자 계정 조회*/

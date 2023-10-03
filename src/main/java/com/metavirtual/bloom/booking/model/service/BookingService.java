@@ -26,14 +26,16 @@ public class BookingService {
 
     public void makeBooking(String therapistId, String userId, String selectedDateTime) {
 
-       int makeBooking = bookingMapper.makeBooking(therapistId, userId, selectedDateTime);
+        int makeBooking = bookingMapper.makeBooking(therapistId, userId, selectedDateTime);
         System.out.println(therapistId + " " + userId + " " + selectedDateTime);
 
-       if(makeBooking > 0){
-           System.out.println("예약 성공!");
-       } else {
-           System.out.println("예약 실패");
-       }
+        if (makeBooking > 0) {
+            System.out.println("예약 성공!");
+        } else {
+            System.out.println("예약 실패");
+        }
+    }
+
 
     public int selectTotalCount() {
 
@@ -52,10 +54,11 @@ public class BookingService {
     @Transactional
     public void newReviewPosting(ReviewDTO newReview) throws ReviewInsertException {
         int result = bookingMapper.newReviewPosting(newReview);
-        if(!(result > 0)) {
+        if (!(result > 0)) {
             throw new ReviewInsertException("후기 등록에 실패하였습니다.");
         }
     }
+
 
     /* 후기 삭제 */
     @Transactional
@@ -67,3 +70,4 @@ public class BookingService {
         }
     }
 }
+

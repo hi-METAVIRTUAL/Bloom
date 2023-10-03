@@ -62,12 +62,14 @@ public class BookingController {
     }
 
     @GetMapping("/reservation")
-    public String reservationPage(Model model, @RequestParam("therapistId") String therapistId){
+    public ModelAndView reservationPage(ModelAndView mv, @RequestParam("userId") String therapistId){
 
         System.out.println("booking controller: "+ therapistId);
 
-        model.addAttribute(therapistId);
-        return "/booking/reservation";
+        mv.addObject("therapistId", therapistId);
+        mv.setViewName("/booking/reservation");
+
+        return mv;
     }
 
     @PostMapping(value = "/makeReservation", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

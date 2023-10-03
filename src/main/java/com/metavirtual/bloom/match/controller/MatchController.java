@@ -86,12 +86,13 @@ public class MatchController {
 
     }
 
-    @GetMapping("/introduceTherapy/{id}")
-    public String introduceTherapyPage(@PathVariable("id") String userId, Model model){
+/*    @GetMapping("/introduceTherapy/{id}")
+    public String introduceTherapyPage(@PathVariable("id") String userId, Model model) {
         model.addAttribute("userId", userId);
 
         System.out.println("match controller : " + userId);
         return "psychological/match/introduceTherapy";
+    }*/
 
     @GetMapping("/introduceTherapy")
     public ModelAndView introduceTherapyPage(@RequestParam("userId") String userId, ModelAndView mv){
@@ -102,7 +103,7 @@ public class MatchController {
         mv.setViewName("psychological/match/introduceTherapy");
 
         List<ReviewDTO> reviewList = matchService.findAllReview(userId);
-        System.out.println(reviewList);
+        System.out.println("MatchingController: " + reviewList);
         mv.addObject("reviewList", reviewList);
 
 
