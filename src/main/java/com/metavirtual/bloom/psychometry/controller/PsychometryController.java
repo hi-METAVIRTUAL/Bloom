@@ -107,7 +107,6 @@ public class PsychometryController {
         int totalScore = psychometryService.getTotalScore(userId);
 
         model.addAttribute("totalScore", totalScore);
-        System.out.println(totalScore + "누구");
         return "psychological/psychometry/resultTest";
     }
 }

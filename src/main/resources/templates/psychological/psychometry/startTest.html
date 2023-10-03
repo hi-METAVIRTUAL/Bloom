@@ -47,19 +47,20 @@
 
     $(document).ready(function () {
         $('input.roundbutton').click(function(){//버튼을 클릭하면
-            let error='';
+            let error = false;
             $('div.title').each(function(){
                 let checkBtn=$(this).find('input[type="radio"]:checked');//체크한 것들
                 if(!checkBtn.length){//체크하지 않았으면
-                    error = '전부 선택하시기 바랍니다.';//경고문저장
-                    return;
+                    error = true; // 선택되지 않은 라디오 버튼이 있으면 에러 설정
+                    return false;
                 }
             });
-            if(error) alert(error);//경고문이 있으면 경고하기
+            if(error) {
+                alert("전부 선택하시기 바랍니다.");//경고문이 있으면 경고하기
+            }
         });
         let testCategory = selectCategory[currentPage]; // 다음 카테고리 가져오기
         loadQuestions(testCategory);
-
         function loadQuestions(testCategory) {
             // 점수 배열로 저장
             $("input[type='radio']:checked").each(function () {

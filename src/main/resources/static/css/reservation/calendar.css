@@ -83,16 +83,7 @@ p{
     align-content: center;
     flex-direction: column;
 }
-.roundbutton{
-    border-radius: 30px;
-    color:#C09A81;
-    background: #FFFFFF;
-    border-color: #C09A81;
-    width: 150px;
-    height: 30px;
-    font-family: 'Noto Sans KR';
-    font-size: 20px;
-}
+
 
 .grass {
     position: fixed;

@@ -44,41 +44,42 @@
         , T.OCD_CK
         , T.RELATION_CK
         , U.USER_ID
+        , U.NAME
         , U.GENDER
         , P.FILE_PATH
         FROM (SELECT B.THERAPIST_Q1
-                    , B.ACTIVATION_STATUS
-                    , B.SESSION_VIDCALL_CK
-                    , B.DEPRESSION_CK
-                    , B.ANXIETY_CK
-                    , B.BIPOLAR_CK
-                    , B.OCD_CK
-                    , B.RELATION_CK
-                    , B.USER_ID
-                FROM THERAPIST B
-                <if test="searchValue neq null and searchValue neq ''">
-                    JOIN USER U ON (B.USER_ID = U.USER_ID)
-                </if>
-                <where>
-                    <if test="b eq 'b'">
-                        B.BIPOLAR_CK = 'Y'
-                    </if>
-                    <if test="r eq 'r'">
-                        AND B.RELATION_CK = 'Y'
-                    </if>
-                    <if test="d eq 'd'">
-                        AND B.DEPRESSION_CK = 'Y'
-                    </if>
-                    <if test="o eq 'o'">
-                        AND B.OCD_CK = 'Y'
-                    </if>
-                    <if test="a eq 'a'">
-                        AND B.ANXIETY_CK = 'Y'
-                    </if>
-                    <if test="searchValue neq null and searchValue neq ''">
-                        AND U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
-                    </if>
-                </where>
+        , B.ACTIVATION_STATUS
+        , B.SESSION_VIDCALL_CK
+        , B.DEPRESSION_CK
+        , B.ANXIETY_CK
+        , B.BIPOLAR_CK
+        , B.OCD_CK
+        , B.RELATION_CK
+        , B.USER_ID
+        FROM THERAPIST B
+        <if test="searchValue neq null and searchValue neq ''">
+            JOIN USER U ON (B.USER_ID = U.USER_ID)
+        </if>
+        <where>
+            <if test="b eq 'b'">
+                B.BIPOLAR_CK = 'Y'
+            </if>
+            <if test="r eq 'r'">
+                AND B.RELATION_CK = 'Y'
+            </if>
+            <if test="d eq 'd'">
+                AND B.DEPRESSION_CK = 'Y'
+            </if>
+            <if test="o eq 'o'">
+                AND B.OCD_CK = 'Y'
+            </if>
+            <if test="a eq 'a'">
+                AND B.ANXIETY_CK = 'Y'
+            </if>
+            <if test="searchValue neq null and searchValue neq ''">
+                AND U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+        </where>
         ) T
         LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
@@ -93,7 +94,7 @@
         <result property="ocdTotalScore" column="OCD_TOTAL_SCORE"/>
         <result property="userId" column="USER_ID"/>
     </resultMap>
-
+    <!-- 회원 카테고리별 총합-->
     <select id="getTotalSocre" resultMap="scoreResult" parameterType="java.lang.String">
         SELECT
         DEPRESSION_TOTAL_SCORE,
@@ -104,10 +105,11 @@
         WHERE (USER_ID, TEST_DATE) IN (
         SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
         FROM MEMBER_TEST_RESULT
-        WHERE USER_ID =  #{ userId }
+        WHERE USER_ID = #{ userId }
         )
     </select>
 
+    <!-- 상담사 추천매칭-->
     <select id="therapyRecommend" resultMap="resultInfo">
         SELECT
         T. USER_ID
@@ -133,36 +135,7 @@
         FROM THERAPIST T
         LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
-        <!--<if test="categoryD eq 'D'">
-            <where>
-                T.DEPRESSION_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryA eq 'A'">
-            <where>
-                T.ANXIETY_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryB eq 'B'">
-            <where>
-                T.BIPOLAR_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryO eq 'O'">
-            <where>
-                T.OCD_CK = 'Y'
-            </where>
-        </if>
-        <if test="categoryR eq 'R'">
-            <where>
-                T.RELATION_CK = 'Y'
-            </where>
-        </if>
-        <if test="searchValue != ''">
-            <where>
-                U.NAME LIKE CONCAT('%', #{ searchValue }, '%')
-            </where>
-        </if>-->
+
     </select>
     <resultMap id="resultDesired" type="com.metavirtual.bloom.user.model.dto.MemberDTO">
         <id property="userId" column="USER_ID"/>
@@ -175,6 +148,7 @@
     </resultMap>
 
 
+    <!-- 희망 상담사 성별-->
     <select id="getDesiredField" resultMap="resultDesired">
         SELECT
         USER_ID,
@@ -183,9 +157,9 @@
         FROM MEMBER
         WHERE USER_ID = #{ userId }
     </select>
-    <select id="recommendTherapist" resultMap="resultInfo" parameterType="java.lang.String">
+    <select id="recommendTherapist" resultMap="resultInfo">
         SELECT
-        T. USER_ID
+        T.USER_ID
         , T.THERAPIST_Q1
         , T.ACTIVATION_STATUS
         , T.SESSION_VIDCALL_CK
@@ -200,22 +174,40 @@
         FROM THERAPIST T
         JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
-        <choose>
-            <when test="maxScoreField == 'DEPRESSION_CK'">
-                WHERE DEPRESSION_CK = 'Y'
-            </when>
-            <when test="maxScoreField == 'ANXIETY_CK'">
-                WHERE ANXIETY_CK = 'Y'
-            </when>
-            <when test="maxScoreField == 'BIPOLAR_CK'">
-                WHERE BIPOLAR_CK = 'Y'
-            </when>
-            <when test="maxScoreField == 'OCD_CK'">
-                WHERE OCD_CK = 'Y'
-            </when>
-        </choose>
+        <where>
+            <foreach collection="desiredField" item="item" separator=" AND ">
+                <if test="item.therapistGenderCK == 'M' ">
+                    AND U.GENDER = 'M'
+                </if>
+                <if test="item.therapistGenderCK == 'W' ">
+                    AND U.GENDER = 'W'
+                </if>
+                <if test="item.therapistGenderCK == 'x' ">
+                </if>
+            <choose>
+                <when test="item.relationCk == 'Y'">
+                    AND T.RELATION_CK = 'Y'
+                </when>
+                <when test="item.relationCk == 'N'">
+                    <choose>
+                        <when test="maxScoreField == 'DEPRESSION_CK'">
+                            AND T.DEPRESSION_CK = 'Y'
+                        </when>
+                        <when test="maxScoreField == 'ANXIETY_CK'">
+                            AND T.ANXIETY_CK = 'Y'
+                        </when>
+                        <when test="maxScoreField == 'BIPOLAR_CK'">
+                            AND T.BIPOLAR_CK = 'Y'
+                        </when>
+                        <when test="maxScoreField == 'OCD_CK'">
+                            AND T.OCD_CK = 'Y'
+                        </when>
+                    </choose>
+                </when>
+            </choose>
+            </foreach>
+        </where>
         LIMIT 5
-
     </select>
 
     <resultMap id="TherapistProfile" type="com.metavirtual.bloom.match.model.dto.TherapistProfileDTO">
@@ -243,9 +235,8 @@
 
     <select id="selectOneTherapist" resultMap="TherapistProfile">
         SELECT
-         T.THERAPIST_Q1
-        , T.THERAPIST_Q2
-        , T.THERAPIST_Q3
+        T. USER_ID
+        , T.THERAPIST_Q1
         , T.ACTIVATION_STATUS
         , T.SESSION_VIDCALL_CK
         , T.DEPRESSION_CK
@@ -254,12 +245,19 @@
         , T.OCD_CK
         , T.RELATION_CK
         , U.USER_ID
-        , U.NAME
         , U.GENDER
-        , U.PHONE
         , P.FILE_PATH
-        FROM THERAPIST T
-        JOIN USER U ON (T.USER_ID = U.USER_ID)
+        FROM (SELECT B.THERAPIST_Q1
+        , B.ACTIVATION_STATUS
+        , B.SESSION_VIDCALL_CK
+        , B.DEPRESSION_CK
+        , B.ANXIETY_CK
+        , B.BIPOLAR_CK
+        , B.OCD_CK
+        , B.RELATION_CK
+        , B.USER_ID
+        FROM THERAPIST B) T
+        LEFT JOIN USER U ON (T.USER_ID = U.USER_ID)
         LEFT JOIN PROFILE_FILE P ON (P.USER_ID = T.USER_ID)
         WHERE T.USER_ID = #{ userId }
     </select>
@@ -292,19 +290,3 @@
     </select>
 
 </mapper>
-
-<!--
-
-        SELECT USER_ID,
-        DEPRESSION_TOTAL_SCORE,
-        ANXIETY_TOTAL_SCORE,
-        BIPOLAR_TOTAL_SCORE,
-        OCD_TOTAL_SCORE
-        FROM MEMBER_TEST_RESULT
-        WHERE (USER_ID, TEST_DATE) IN (
-        SELECT USER_ID, MAX(TEST_DATE) AS MAX_TEST_DATE
-        FROM MEMBER_TEST_RESULT
-        WHERE USER_ID = #{ userId }
-        GROUP BY USER_ID
-        )
-        -->

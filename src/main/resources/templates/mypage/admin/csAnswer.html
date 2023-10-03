@@ -11,41 +11,39 @@
 <br><br>
 
 <div style="background-color: #C09A81; color: #FFFFFF; border-radius: 10px; height: 50px; width: 1000px; text-align: left; margin:0 auto; line-height: 50px;" align="center">
-    비밀번호가 찾아지지 않습니다!
+    <h4 th:text="${csDetail.getTitle()}"/>
 </div>
 <div style="width: 1000px; color: #C09A81; margin:0 auto;">
-    <a style="float: left;">작성자 : 홍길동</a>
-    <a style="float: right;">작성일시 : 2023-09-04 11:11:11</a>
+    <a style="float: left;" th:text="'작성자 : ' + ${csDetail.getName()}"/>
+    <a style="float: right;" th:text="'작성일시 : ' + ${csDetail.getPostedDate()}"/>
 </div>
 <div align="center">
-    <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 250px; color: #C09A81" readonly="readonly">비밀번호를 찾고 싶은데 이메일이 오지 않습니다. 어떻게 비밀번호를 찾을 수 있을까요? 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요. 비밀번호 찾아주세요.</textarea>
+    <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 250px; color: #C09A81" readonly="readonly" th:text="${csDetail.getBoardContent()}"/>
 </div>
 <br><br>
-<div align="center">
-    <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 200px;" placeholder="답변"></textarea>
+<div th:if="${csDetail.getCommentContent()} != null">
+    <div align="center">
+        <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 200px; color: #C09A81;" th:text="${csDetail.getCommentContent()}"/>
+    </div>
+    <br><br>
+    <div align="center">
+        <input style="background-color: #C09A81; color: #FFFFFF; width: 200px; height: 40px; border: none; border-radius: 10px;" type="button" value="돌아가기" onclick="history.back(-1);" />
+    </div>
 </div>
-
-<!--<div style="background-color: #C09A81; color: #FFFFFF; border-radius: 10px; height: 50px; width: 1000px; text-align: left; margin:0 auto;" align="center">-->
-<!--    <a th:text="${boardTitle}" />-->
-<!--</div>-->
-<!--<div style="width: 1000px; color: #C09A81; margin:0 auto;">-->
-<!--    <a style="float: left;" th:text="${userName}" />-->
-<!--    <a style="float: right;" th:text="${writeDate}" />-->
-<!--</div>-->
-<!--<div>-->
-<!--    <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 250px; color: #C09A81" readonly="readonly" th:text="${boardContents}" />-->
-<!--</div>-->
-<!--<br><br>-->
-<!--<div>-->
-<!--    <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 200px;" placeholder="답변"></textarea>-->
-<!--</div>-->
-
-<br><br>
-<div align="center">
-    <input style="background-color: #C09A81; color: #FFFFFF; width: 100px; height: 40px; border: none; border-radius: 10px;" type="submit" value="등록" /> <!--등록완료 알림 띄우기-->
-    <input style="background-color: #C09A81; color: #FFFFFF; width: 100px; height: 40px; border: none; border-radius: 10px;" type="button" value="취소" onclick="history.back(-1);" />
+<div th:unless="${csDetail.getCommentContent()} != null">
+    <form method="post" th:action="@{/admin/csAnswer}">
+        <input type="hidden" th:value="${csDetail.getBoardCode()}" id="boardCode" name="boardCode"/>
+        <input type="hidden" th:value="${user.userId}" id="userId" name="userId"/>
+        <div align="center">
+            <textarea style="resize: none; background-color: #FFFFFF; border-color: #C09A81; border-radius: 10px; width: 1000px; height: 200px; color: #C09A81;" placeholder="답변을 작성하세요" id="commentContent" name="commentContent"></textarea>
+        </div>
+        <br><br>
+        <div align="center">
+            <input style="background-color: #C09A81; color: #FFFFFF; width: 100px; height: 40px; border: none; border-radius: 10px;" type="submit" value="등록" th:if="${csDetail.getCommentContent()} != null" /> <!--등록완료 알림 띄우기-->
+            <input style="background-color: #C09A81; color: #FFFFFF; width: 100px; height: 40px; border: none; border-radius: 10px;" type="button" value="취소" onclick="history.back(-1);" />
+        </div>
+    </form>
 </div>
-
 <br><br>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>

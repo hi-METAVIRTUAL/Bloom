@@ -217,6 +217,7 @@
                                             // Email is a duplicate, display an alert
                                             alert("중복된 이메일 주소입니다.");
                                             hideLoadingOverlay();
+                                            $("#loadingSpinner").hide()
                                         }
                                     },
                                     error: function (error) {

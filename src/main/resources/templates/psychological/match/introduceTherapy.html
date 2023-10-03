@@ -33,22 +33,13 @@
             <h2 style="">소개</h2>
             <img class="picture" src="/images/psychological/testpicture.jpg">
         </div>
+
       
 
-        <input th:name="therapistId" th:value="${userId}" hidden/>
+        <div th:name="therapistId" th:value="${userId}"></div>
         <h3 th:text="${therapistInfo.name.name}"></h3>
-        <button class="roundbutton" id="reservationButton">상담 예약</button>
+        <li style="list-style-type: none;"><a th:href="@{/booking/reservation/(userId=${therapistInfo.userId})}" class="roundbutton" id="reservationButton">상담 예약</a></li>
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            const userId = /*[[${userId}]]*/ '';
-            /*]]>*/
-            $(document).ready(function () {
-                $("#reservationButton").click(function () {
-                    window.location.href = '/booking/reservation?therapistId=' + userId;
-                });
-            });
-        </script>
 
         <br><br>
         연락처<br>
@@ -56,7 +47,7 @@
     </div>
     <div class="careerbox">
         <div class="career-section">
-            <!-- 경력 사항 1 -->
+            <!-- 경력 사항 1 -->/
             <div class="career-subsection">
                 <!-- 경력 사항 1 - 섹션 1 -->
                 경력<br>
