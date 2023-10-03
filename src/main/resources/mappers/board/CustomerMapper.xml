@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.metavirtual.bloom.board.model.dao.CustomerMapper">
+
+    <resultMap id="customerResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.AdminCommentDTO">
+        <id property="commentNumber" column="COMMENT_NUMBER"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="deleteDate" column="DELETE_DATE"/>
+        <result property="commentContent" column="COMMENT_CONTENT"/>
+        <result property="boardCode" column="BOARD_CODE"/>
+        <result property="userId" column="USER_ID"/>
+    </resultMap>
+
+    <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
+        SELECT COUNT(*)
+        FROM ADMIN_COMMENT
+    </select>
+
+    <select id="findAllCustomerList" resultMap="customerResultMap">
+        SELECT COMMENT_NUMBER
+        ,POSTED_DATE
+        ,DELETE_DATE
+        ,COMMENT_CONTENT
+        ,BOARD_CODE
+        ,USER_ID
+        FROM ADMIN_COMMENT
+        WHERE DELETE_DATE IS NULL
+        ORDER BY POSTED_DATE DESC
+        LIMIT #{ startRow }, 10
+    </select>
+
+    <select id="customerSelectOne" resultMap="customerResultMap">
+        SELECT A.COMMENT_NUMBER
+        ,A.POSTED_DATE
+        ,A.DELETE_DATE
+        ,A.COMMENT_CONTENT
+        ,A.BOARD_CODE
+        ,B.USER_ID
+        FROM ADMIN_COMMENT A
+        JOIN USER B ON (A.USER_ID = B.USER_ID)
+        WHERE A.BOARD_CODE = #{ boardCode }
+    </select>
+
+    <insert id="customerNewInsert">
+        INSERT INTO ADMIN_COMMENT(
+        ,POSTED_DATE
+        ,COMMENT_CONTENT
+        ,BOARD_CODE
+        ,USER_ID
+        )
+        VALUES(NOW(), #{ commentContent }, #{ boardCode }, #{ userId })
+    </insert>
+</mapper>

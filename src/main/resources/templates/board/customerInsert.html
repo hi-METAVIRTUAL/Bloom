@@ -1,39 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>고객센터문의</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
-</head>
-<body>
-<div th:with="loggedIn=false, reservationMade=false">
-    <div class="header" th:if="${loggedIn && reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection2=true, includeSection1=false"></div>
-    <div class="header" th:if="${loggedIn && !reservationMade}" th:include="components/postLoginHeader.html" th:with="includeSection1=true, includeSection2=false"></div>
-    <div class="header" th:unless="${loggedIn}" th:include="components/Header.html" th:with="includeSection1=false"></div>
-</div>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" th:href="@{ /css/communityboard/communityboard.css}">
+
+    <th:block th:include="components/Header.html"></th:block>
+
+    <div style="margin: auto; width: 850px;">
+        <h2 style="text-align: left">문의글 작성</h2>
+    </div>
+    <div class="table">
+        <form name="InsertForm" th:action="@{/customer/customerInsert}" method="post">
+            <table>
+                <tr>
+                    <th colspan="2">문의내용</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <textarea id="commentContent" name="commentContents" rows="22" cols="120" placeholder="글을 작성해주세요." style="resize: none"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <!-- USER_ID 정보 가져오기 -->
+            <div>
+                <input type="hidden" id="boardCode" name="boardCode">
+                <input type="hidden" id="userId" name="userId" th:value="${ #authentication.getPrincipal().getUserId() }">
+            </div>
+
+            <div>
+                <button id="btnInsert" type="submit" class="buttons-board">등록하기</button>
+                <button type="button" class="buttons-board" onclick="location.href='/board/searchList'">돌아가기</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
 
 
-<h1 class="title">고객센터</h1>
-<div class="title-box">
-    <span class="title-insert">제목</span>
-    <input type="text" placeholder="글제목을 입력해 주세요." class="insert-input">
-</div>
-<div class="textarea-field">
-    <textarea rows="22" cols="115" placeholder="글을 작성해주세요.">
-    </textarea>
-</div>
-<div>
-    <button type="submit" class="insert-button" onclick="">
-        <span>등록하기</span>
-    </button>
-    <button type="submit" class="insert-button" onclick="location.href='/board/customerCenter'">
-        <span>돌아가기</span>
-    </button>
-</div>
+        $(document).ready(function () {
+            $("#btnInsert").click(function () {
+                document.InsertForm.submit();
+            });
+        });
+    </script>
+</html>
 
-
-<th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
-
-</body>
 </html>
