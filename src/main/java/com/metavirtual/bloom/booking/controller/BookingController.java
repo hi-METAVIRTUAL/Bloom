@@ -78,9 +78,9 @@ public class BookingController {
                                             ,@RequestParam("therapistId") String therapistId, Model model) {
 
         System.out.println("makeReservation controller");
-        System.out.println(therapistId);
         String userId = authenticatedUser.getUsername();
         model.addAttribute(therapistId);
+        System.out.println(userId +"11");
 
         System.out.println("Received selectedDateTime : " + selectedDateTime + " member: " + userId + " therapist: " + therapistId);
 

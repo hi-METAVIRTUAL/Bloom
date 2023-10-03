@@ -8,15 +8,17 @@ public class TherapistList {
     private String userId;
     private String name;
     private String registDate;
+    private String unregistDate;
     private char confirmedStatus;
 
     public TherapistList() {
     }
 
-    public TherapistList(String userId, String name, String registDate, char confirmedStatus) {
+    public TherapistList(String userId, String name, String registDate, String unregistDate, char confirmedStatus) {
         this.userId = userId;
         this.name = name;
         this.registDate = registDate;
+        this.unregistDate = unregistDate;
         this.confirmedStatus = confirmedStatus;
     }
 
@@ -52,12 +54,21 @@ public class TherapistList {
         this.confirmedStatus = confirmedStatus;
     }
 
+    public String getUnregistDate() {
+        return unregistDate;
+    }
+
+    public void setUnregistDate(String unregistDate) {
+        this.unregistDate = unregistDate;
+    }
+
     @Override
     public String toString() {
         return "TherapistList{" +
                 "userId='" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", registDate='" + registDate + '\'' +
+                ", unregistDate='" + unregistDate + '\'' +
                 ", confirmedStatus=" + confirmedStatus +
                 '}';
     }
