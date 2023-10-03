@@ -455,7 +455,8 @@
         for(let i = 0; i<$sr.length; i++){
             $sr[i].onclick = function(){
                 const bookingCode = this.getAttribute("data-booking-code");
-                location.href = "/psychological/match/introduceTherapy?bookingCode=" + bookingCode;
+                // location.href = "/psychological/match/introduceTherapy?bookingCode=" + bookingCode;
+                location.href = "/booking/reviewmain";
             }
         }
     }

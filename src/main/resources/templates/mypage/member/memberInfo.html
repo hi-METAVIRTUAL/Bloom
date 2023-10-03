@@ -48,7 +48,7 @@
             <th>예약상태</th>
         </tr>
         <tr th:if="${ booking.getName() } != null" align="center">
-            <td id="therapist" th:text="${ booking.getName() }" class="selectTherapist" th:data-therapist-id="${ booking.getTherapistId()}"></td>
+            <td th:text="${ booking.getName() }" class="selectTherapist" th:data-therapist-id="${ booking.getTherapistId()}" id="therapist"></td>
             <td th:text="${ booking.getBookingDate() }"></td>
             <td th:text="${ booking.getPhone() }"></td>
             <td th:text="${ booking.getBookingStatus() }"></td>

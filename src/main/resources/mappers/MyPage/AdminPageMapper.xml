@@ -43,6 +43,49 @@
         <result property="commentContent" column="COMMENT_CONTENT"/>
     </resultMap>
 
+    <resultMap id="memberInfoMap" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo">
+        <result property="name" column="NAME"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="pwd" column="PWD"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="phone" column="PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="email" column="EMAIL"/>
+        <result property="registDate" column="REGIST_DATE"/>
+    </resultMap>
+
+    <resultMap id="PostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
+        <id property="boardCode" column="BOARD_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="boardCategory" column="BOARD_CATEGORY"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+    </resultMap>
+
+    <resultMap id="ReportResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.MemberReport">
+        <result property="reportCode" column="REPORT_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="reportedDate" column="REPORTED_DATE"/>
+        <result property="boardCode" column="BOARD_CODE"/>
+    </resultMap>
+
+    <resultMap id="therapistInfoMap" type="com.metavirtual.bloom.user.model.dto.UserDTO">
+        <id property="userId" column="USER_ID"/>
+        <id property="name" column="NAME"/>
+        <id property="registDate" column="REGIST_DATE"/>
+        <id property="unregistDate" column="UNREGIST_DATE"/>
+        <id property="gender" column="GENDER"/>
+        <id property="email" column="EMAIL"/>
+        <id property="phone" column="PHONE"/>
+    </resultMap>
+
+    <resultMap id="CommentResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistComment">
+        <result property="title" column="TITLE"/>
+        <result property="name" column="NAME"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="boardCode" column="BOARD_CODE"/>
+    </resultMap>
+
     <select id="selectCsCount" resultType="_int">
         SELECT COUNT(*)
         FROM BOARD
@@ -192,4 +235,90 @@
         WHERE UNREGIST_DATE IS NOT NULL
     </select>
 
+    <select id="memberInfo" resultMap="memberInfoMap" parameterType="java.lang.String">
+        SELECT
+        U.NAME
+            , U.USER_ID
+            , U.PWD
+            , M.NICKNAME
+            , U.PHONE
+            , U.GENDER
+            , U.EMAIL
+            , U.REGIST_DATE
+        FROM USER U
+        JOIN MEMBER M ON U.USER_ID = M.USER_ID
+        WHERE U.USER_ID = #{userId}
+    </select>
+
+    <select id="selectTotalReportCount" resultType="_int" parameterType="java.lang.String">
+        SELECT COUNT(*)
+        FROM BOARD_REPORT R
+        JOIN BOARD B ON R.BOARD_CODE = B.BOARD_CODE
+        WHERE B.USER_ID = #{ userId }
+    </select>
+
+    <select id="selectTotalPostCount" resultType="_int" parameterType="java.lang.String">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE USER_ID = #{ userId }
+    </select>
+
+    <select id="selectPostList" resultMap="PostResultMap">
+        SELECT
+            BOARD_CODE
+            , TITLE
+            , BOARD_CATEGORY
+            , POSTED_DATE
+        FROM BOARD
+        WHERE USER_ID = #{ userId }
+        ORDER BY POSTED_DATE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
+    </select>
+
+    <select id="selectReportList" resultMap="ReportResultMap">
+        SELECT
+            R.REPORT_CODE
+            , B.TITLE
+            , R.USER_ID
+            , R.REPORTED_DATE
+            , R.BOARD_CODE
+        FROM BOARD_REPORT R
+        JOIN BOARD B ON R.BOARD_CODE = B.BOARD_CODE
+        WHERE B.USER_ID = #{ userId }
+        ORDER BY R.REPORTED_DATE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
+    </select>
+
+    <select id="therapistInfo" resultMap="therapistInfoMap" parameterType="java.lang.String">
+        SELECT
+            USER_ID
+            , NAME
+            , REGIST_DATE
+            , UNREGIST_DATE
+            , GENDER
+            , EMAIL
+            , PHONE
+        FROM USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="selectTotalCommentCount" resultType="_int" parameterType="java.lang.String">
+        SELECT COUNT(*)
+        FROM THERAPIST_COMMENT
+        WHERE USER_ID = #{ userId }
+    </select>
+
+    <select id="selectCommentList" resultMap="CommentResultMap">
+        SELECT
+            B.TITLE
+            , C.POSTED_DATE
+            , C.BOARD_CODE
+            , U.NAME
+        FROM THERAPIST_COMMENT C
+        JOIN BOARD B ON C.BOARD_CODE = B.BOARD_CODE
+        JOIN USER U ON C.USER_ID = U.USER_ID
+        WHERE USER_ID = #{ userId }
+        ORDER BY C.POSTED_DATE DESC
+        LIMIT #{ selectCriteria.startRow }, 5
+    </select>
 </mapper>

@@ -1,11 +1,11 @@
 package com.metavirtual.bloom.myPage.adminPage.model.dao;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.common.paging.AdminCriteria;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.AdminCommentDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsDetailDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsListDTO;
+import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -34,4 +34,19 @@ public interface AdminPageMapper {
 
     List<UserDTO> selectunregistList(String userId);
 
+    MemberInfo memberInfo(String userId);
+
+    int selectTotalReportCount(String userId);
+
+    int selectTotalPostCount(String userId);
+
+    List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId);
+
+    List<MemberReport> selectReportList(SelectCriteria selectCriteria, String userId);
+
+    UserDTO therapistInfo(String userId);
+
+    int selectTotalCommentCount(String userId);
+
+    List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId);
 }

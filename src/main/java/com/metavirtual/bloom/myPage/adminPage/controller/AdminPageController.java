@@ -1,14 +1,15 @@
 package com.metavirtual.bloom.myPage.adminPage.controller;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.AdminCriteria;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.AdminCommentDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsDetailDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsListDTO;
+import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
 import com.metavirtual.bloom.myPage.adminPage.model.service.AdminPageServiceImpl;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import com.metavirtual.bloom.user.model.dto.UserImpl;
@@ -78,24 +79,81 @@ public class AdminPageController {
 
 
     @GetMapping("/editMemberInfo")
-    public String editMemberInfo(HttpServletRequest request, Model model) {
+    public ModelAndView editMemberInfo(HttpServletRequest request, ModelAndView mv, Model model,
+                                       @RequestParam(name = "currentPage", defaultValue = "1") int ppageNo,
+                                       @RequestParam(name = "currentPage", defaultValue = "1") int rpageNo) {
         log.info("");
         log.info("[AdminPageController] ========");
         String userId = request.getParameter("userId");
 
+        MemberInfo member = adminPageService.memberInfo(userId);
+        model.addAttribute("member", member);
 
-        return "mypage/admin/editMemberInfo";
+        int totalReportCount = adminPageService.selectTotalReportCount(userId);
+        model.addAttribute("count", totalReportCount);
+        int totalPostCount = adminPageService.selectTotalPostCount(userId);
+        log.info("[MemberPageController] totalReportCount : "+totalReportCount);
+        log.info("[MemberPageController] totalPostCount : "+totalPostCount);
+
+        int limitPerPage1 = 5;
+        int buttonAmount1 = 5;
+
+        int limitPerPage2 = 5;
+        int buttonAmount2 = 5;
+
+        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(ppageNo, totalReportCount, limitPerPage1, buttonAmount1);
+        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(rpageNo, totalPostCount, limitPerPage2, buttonAmount2);
+
+        log.info("[MemberPageController] selectCriteria1 : "+selectCriteria1);
+        log.info("[MemberPageController] selectCriteria2 : "+selectCriteria2);
+
+
+        List<BoardDTO> postList = adminPageService.selectPostList(selectCriteria1, userId);
+        List<MemberReport> reportList = adminPageService.selectReportList(selectCriteria2, userId);
+
+        log.info("[MemberPageController] postList : "+postList);
+        log.info("[MemberPageController] reportList : "+reportList);
+
+        mv.addObject("postList", postList);
+        mv.addObject("reportList", reportList);
+        mv.addObject("selectCriteria1", selectCriteria1);
+        mv.addObject("selectCriteria2", selectCriteria2);
+
+        mv.setViewName("mypage/admin/editMemberInfo");
+
+        return mv;
 
     }
 
     @GetMapping("/editTherapistInfo")
-    public String editTherapistInfo(HttpServletRequest request, Model model) {
-        log.info("");
+    public ModelAndView editTherapistInfo(HttpServletRequest request, ModelAndView mv, Model model,
+                                          @RequestParam(name = "currentPage", defaultValue = "1") int pageNo) {
         log.info("[AdminPageController] ========");
 
         String userId = request.getParameter("userId");
-        return "mypage/admin/editTherapistInfo";
 
+        UserDTO therapist = adminPageService.therapistInfo(userId);
+        model.addAttribute("therapist", therapist);
+
+        int totalCommentCount = adminPageService.selectTotalCommentCount(userId);
+        log.info("[MemberPageController] totalCommentCount : "+totalCommentCount);
+
+        int limitPerPage = 5;
+        int buttonAmount = 5;
+
+        SelectCriteria selectCriteria = Paging.getSelectCriteria(pageNo, totalCommentCount, limitPerPage, buttonAmount);
+
+        log.info("[MemberPageController] selectCriteria : "+selectCriteria);
+
+        List<TherapistComment> commentList = adminPageService.selectCommentList(selectCriteria, userId);
+
+        log.info("[MemberPageController] commentList : "+commentList);
+
+        mv.addObject("commentList", commentList);
+        mv.addObject("selectCriteria", selectCriteria);
+
+        mv.setViewName("mypage/admin/editTherapistInfo");
+        return mv;
     }
 
     @GetMapping("/csAnswer")
@@ -119,7 +177,6 @@ public class AdminPageController {
 
     @PostMapping("/csAnswer")
     public String csAnswer(@ModelAttribute AdminCommentDTO comment, RedirectAttributes rttr){
-        log.info("");
         log.info("[AdminPageController] ========");
         log.info("[AdminPageController] registComment Request : " + comment);
 

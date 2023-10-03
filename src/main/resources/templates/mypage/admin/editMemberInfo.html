@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <script language="javascript">
-        function showPopup() { window.open("report", "c", "width=420, height=600, left=350, top=210" ); }
-    </script>
+
     <style>
         .section1{
             display: flex;
@@ -126,41 +125,37 @@
 
 <!--임시로 보여지는 용-->
 
-<div class="section1">
+<!--<div class="section1">-->
 
-    <div class="infoBox1">
-        <h3>이름&emsp;<span th:text="${ 'hello' }"></span></h3>
-        <h3>닉네임&emsp;<span th:text="${'hello'}"></span></h3>
-        <h3>성별&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>
-    </div>
-    <div class="infoBox1">
-        <h3>아이디&emsp;<span th:text="${ 'hello' }"></span></h3>
-        <h3>이메일&emsp;<span th:text="${'hello'}"></span></h3>
-        <h3>전회번야&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>
-    </div>
+<!--    <div class="infoBox1">-->
+<!--        <h3>이름&emsp;<span th:text="${ 'hello' }"></span></h3>-->
+<!--        <h3>닉네임&emsp;<span th:text="${'hello'}"></span></h3>-->
+<!--        <h3>성별&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>-->
+<!--    </div>-->
+<!--    <div class="infoBox1">-->
+<!--        <h3>아이디&emsp;<span th:text="${ 'hello' }"></span></h3>-->
+<!--        <h3>이메일&emsp;<span th:text="${'hello'}"></span></h3>-->
+<!--        <h3>전회번호&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>-->
+<!--    </div>-->
 
-</div>
+<!--</div>-->
 <!--임시로 보여지는용-->
 
 
 <div class="section1">
     <div class="infoBox1">
-        <div th:if="${user}">
-            <div th:each="${ user }">
-                <h3>이름&emsp;<span th:text="${user.name ?: 'Default Name'}"></span></h3>
-                <h3>닉네임&emsp;<span th:text="${user.nickName ?: 'Default Name'}"></span></h3>
-                <h3>성별&emsp;<span th:text="${user.gender ?: 'Default Name'}"></span></h3>
-            </div>
+        <div th:if="${member}">
+                <h3>이름&emsp;<span th:text="${member.getName()}"></span></h3>
+                <h3>닉네임&emsp;<span th:text="${member.getNickname()}"></span></h3>
+                <h3>성별&emsp;<span th:text="${member.getGender()}"></span></h3>
         </div>
     </div>
 
     <div class="infoBox1">
         <div th:if="${user}">
-            <div th:each="${user}">
-                <h3>아이디<span th:text="${user.id ?: 'Default Name'}"></span></h3>
-                <h3>이메일<span th:text="${user.email ?: 'Default Name'}"></span></h3>
-                <h3>전화번호<span th:text="${user.phoneNumber ?: 'Default Name'}"></span></h3>
-            </div>
+                <h3>아이디<span th:text="${member.getUserId()}"></span></h3>
+                <h3>이메일<span th:text="${member.getEmail()}"></span></h3>
+                <h3>전화번호<span th:text="${member.getPhone()}"></span></h3>
         </div>
     </div>
 </div>
@@ -169,29 +164,18 @@
 <h2>기타</h2>
 
 <div class="box1">
-    <div class="lastLogin"><h3>최근접속일</h3>
-        <!--<div th:if="${user}">
-        <div th:each="${user}">
-            <div th:text="${user.lastLoginTime ?: 'Default Name'}"></div>
-        </div>-->
-    </div>
     <div class="registDate"><h3>회원가입일</h3>
-        <!--<div th:each="${user}">
-           <div th:text="${user.registDate ?: 'Default Name'}"></div>
-       </div>-->
+           <div th:text="${member.getRegistDate()}"></div>
     </div>
     <div class="reportedCount"><h3>누적 신고 건수</h3>
-        <!--<div th:if="${user}">
-       <div th:each="${user}">
-           <div th:text="${user.reportedCount ?: 'Default Name'}"></div>
-       </div>-->
+           <div th:text="${count}"></div>
     </div>
 </div>
 
 <!--section3-->
-<h2>게시물 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
+<h2>게시물 내역&emsp;&emsp;</h2>
 <div id="tableHeader">
-    <div><input type="checkbox">No</div>
+    <div>No</div>
     <div>제목</div>
     <div>작성자</div>
     <div>작성일</div>
@@ -200,46 +184,67 @@
     <table id="uploadedPosts">
         <tr>
             <td>
-                <input type="checkbox">
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostCode }"></div>
+                <div th:if="${ postList }">
+                    <div th:each="iterator : ${ postList }">
+                        <div th:text="${selectCriteria1.totalBoardCount - (((selectCriteria1.pageNo - 1) * selectCriteria1.limitPerPage) + iterator.index)}"></div>
                     </div>
                 </div>
             </td>
 
             <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostTitle }"></div>
+                <div th:if="${ postList }">
+                    <div th:each="post : ${ postList }">
+                        <div th:text="${ post.getTitle() }" class="boardCode1" th:attr="data-board-code=${post.getBoardCode()}"></div>
                     </div>
                 </div>
             </td>
             <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.nickName }"></div>
+                <div th:if="${ member }">
+                    <div th:each="${ member }">
+                        <div th:text="${ member.getNickname() }"></div>
                     </div>
                 </div>
             </td>
             <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostDate }"></div>
+                <div th:if="${ postList }">
+                    <div th:each="post : ${ postList }">
+                        <div th:text="${ post.getPostedDate() }"></div>
                     </div>
                 </div>
-            </td>
-
-            <td style="text-align: right">
-                <button onclick="location.href='viewPost'">보기</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">삭제</button>&emsp;&emsp;
             </td>
         </tr>
     </table>
+    <div align="center" class="paging">
+        <input type="hidden" name="currentPage" value="1">
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${ selectCriteria1.startPage }) + '&table=uploadedPosts\''"
+                th:disabled="${selectCriteria1.pageNo == 1}"
+        ><img src="../images/board/previousfirst.png"></button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${selectCriteria1.pageNo - 1}) + '&table=uploadedPosts\''"
+                th:disabled="${selectCriteria1.pageNo == 1}"
+        ><img src="../images/board/previous.png"></button>
+        <th:block th:each="page1 : ${#numbers.sequence(selectCriteria1.startPage, selectCriteria1.endPage)}">
+            <button class="pagebt"
+                    th:text="${ page1 }"
+                    th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${page1}) + '&table=uploadedPosts\''"
+                    th:disabled="${ selectCriteria1.pageNo eq page1 }">
+            </button>
+        </th:block>
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${selectCriteria1.pageNo + 1}) + '&table=uploadedPosts\''"
+                th:disabled="${selectCriteria1.pageNo==selectCriteria1.lastPage}"
+        ><img src="../images/board/next.png"></button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${selectCriteria1.lastPage}) + '&table=uploadedPosts\''"
+                th:disabled="${selectCriteria1.pageNo==selectCriteria1.lastPage}"
+        ><img src="../images/board/nextlist.png"></button><br>
+    </div>
 </div>
 <!--section3-->
-<h2>신고 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
+<h2>신고 내역&emsp;&emsp;</h2>
 <div id="tableHeader2">
-    <div><input type="checkbox">No</div>
+    <div>No</div>
     <div>제목</div>
     <div>신고회원</div>
     <div>신고일</div>
@@ -248,85 +253,88 @@
     <table id="uploadedPosts2">
         <tr>
             <td>
-                <input type="checkbox">
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostCode }"></div>
+                <div th:if="${ reportList }">
+                    <div th:each="iterator : ${ reportList }">
+                        <div th:text="${selectCriteria2.totalBoardCount - (((selectCriteria2.pageNo - 1) * selectCriteria2.limitPerPage) + iterator.index)}"></div>
                     </div>
                 </div>
             </td>
 
             <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostTitle }"></div>
+                <div th:if="${ reportList }">
+                    <div th:each="report : ${ reportList }">
+                        <div th:text="${ report.getTitle() }" class="boardCode2" th:attr="data-board-code=${report.getBoardCode()}"></div>
                     </div>
                 </div>
             </td>
             <td>
-                <div th:if="${ postReport }">
-                    <div th:each="${ postReport }">
-                        <div th:text="${ postReport.name }"></div>
+                <div th:if="${ reportList }">
+                    <div th:each="report : ${ reportList }">
+                        <div th:text="${ report.getUserId() }"></div>
                     </div>
                 </div>
             </td>
             <td>
-                <div th:if="${ postReport }">
-                    <div th:each="${ postReport }">
-                        <div th:text="${ postReport.reportedDate }"></div>
+                <div th:if="${ reportList }">
+                    <div th:each="report : ${ reportList }">
+                        <div th:text="${ report.getReportedDate() }"></div>
                     </div>
                 </div>
-            </td>
-
-
-            <td>
-                <button onclick="showPopup();">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">
-
-            </td>
-
-
-
-        </tr>
-        <tr>
-            <td>
-                <input type="checkbox">
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostCode }"></div>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div th:if="${ user }">
-                    <div th:each="${ user }">
-                        <div th:text="${ user.uploadedPostTitle }"></div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div th:if="${ postReport }">
-                    <div th:each="${ postReport }">
-                        <div th:text="${ postReport.name }"></div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div th:if="${ postReport }">
-                    <div th:each="${ postReport }">
-                        <div th:text="${ postReport.reportedDate }"></div>
-                    </div>
-                </div>
-            </td>
-
-
-            <td>
-                <button onclick="showPopup();">보기</button>&emsp;&emsp;<button onclick="location.href='deletePost'">삭제</button>확인</button>&emsp;&emsp;&emsp;&emsp;<button onclick="location.href='viewPost'">
-
             </td>
         </tr>
     </table>
+    <div align="center" class="paging">
+        <input type="hidden" name="currentPage" value="1">
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${ selectCriteria2.startPage }) + '&table=uploadedPosts2\''"
+                th:disabled="${selectCriteria2.pageNo == 1}"
+        ><img src="../images/board/previousfirst.png"></button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${selectCriteria2.pageNo - 1}) + '&table=uploadedPosts2\''"
+                th:disabled="${selectCriteria2.pageNo == 1}"
+        ><img src="../images/board/previous.png"></button>
+        <th:block th:each="page1 : ${#numbers.sequence(selectCriteria2.startPage, selectCriteria2.endPage)}">
+            <button class="pagebt"
+                    th:text="${ page1 }"
+                    th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${page1}) + '&table=uploadedPosts2\''"
+                    th:disabled="${ selectCriteria2.pageNo eq page1 }">
+            </button>
+        </th:block>
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${selectCriteria2.pageNo + 1}) + '&table=uploadedPosts2\''"
+                th:disabled="${selectCriteria2.pageNo==selectCriteria2.lastPage}"
+        ><img src="../images/board/next.png"></button>
+        <button class="pagebt"
+                th:onclick="'location.href=\'/admin/editMemberInfo?currentPage='+ (${selectCriteria2.lastPage}) + '&table=uploadedPosts2\''"
+                th:disabled="${selectCriteria2.pageNo==selectCriteria2.lastPage}"
+        ><img src="../images/board/nextlist.png"></button><br>
+    </div>
 </div>
+<footer>
+    <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
+</footer>
+
+<script th:inline="javascript">
+    if(document.querySelectorAll(".boardCode1")){
+        const $bc1 = document.querySelectorAll(".boardCode1");
+        for(let i = 0; i<$bc1.length; i++){
+            $bc1[i].onclick = function(){
+                const boardCode = this.innerText;
+                location.href = "/board/boardSelectOne?boardCode="+boardCode;
+            }
+        }
+    }
+
+    if(document.querySelectorAll(".boardCode2")){
+        const $bc2 = document.querySelectorAll(".boardCode2");
+        for(let i = 0; i<$bc2.length; i++){
+            $bc2[i].onclick = function(){
+                const boardCode = this.getAttribute('data-board-code');
+                location.href = "/board/boardSelectOne?boardCode="+boardCode;
+            }
+        }
+    }
+</script>
 </body>
 </html>
 

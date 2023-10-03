@@ -1,12 +1,12 @@
 package com.metavirtual.bloom.myPage.adminPage.model.service;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.AdminCriteria;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.AdminCommentDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsDetailDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsListDTO;
+import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
 import java.util.List;
@@ -31,5 +31,21 @@ public interface AdminPageService {
     public List<UserDTO> selectTherapistList(AdminCriteria adminCriteria);
 
     public List<UserDTO> unregistMember(UserDTO unregistMember) throws ModifyInfoException;
+
+    public MemberInfo memberInfo(String userId);
+
+    public int selectTotalReportCount(String userId);
+
+    public int selectTotalPostCount(String userId);
+
+    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId);
+
+    public List<MemberReport> selectReportList(SelectCriteria selectCriteria, String userId);
+
+    public UserDTO therapistInfo(String userId);
+
+    public int selectTotalCommentCount(String userId);
+
+    public List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId);
 
 }
