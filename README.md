@@ -46,13 +46,12 @@
 
 
 ## 전승재
-* Github : https://github.com/qkralsrl11
-* Role : Team Leader
+* Github : https://github.com/wjs960
+* Role : Team Member
 * Positon : Full-Stack
-* Stack : Node.js, TypeScript, MySQL, TypeORM, Express
+* Stack : java, spring, mySql, js, html, css
 * Works : <br>
-Post , Saved, Photo 구현, Multer를 사용하여 FORM-DATA(image) 처리, S3버킷을 이용한 이미지 저장,<br> OAuth를 사용하여 소셜 로그인 구현
-EC2, 로드밸런서, route53, ACM을 사용하여 https 인증, <br>RDS를 이용한 데이터 관리 (Mysql 사용), EC2, S3, CloudFront를 이용한 배포
+  심리테스트 구현, 상담사 추천 매칭 & 리스트 구현, 예약 
 
 
 ## 박지영
