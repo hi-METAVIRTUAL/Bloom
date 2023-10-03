@@ -39,11 +39,10 @@
 ## 이효진
 * Github : https://github.com/yksvSG
 * Role : Team Member
-* Positon : Fronte-End
-* Stack : axios, redux, ts, js,  Styled-Component, react-router, react-hooks, html
+* Positon : Back-End
+* Stack : js, html, spring, mysql
 * Works :<br>
- Wireframe 기획,컴포넌트 구조 기획,Redux 설계,로그인 페이지 구현,모달창 구현,<br>
-마이페이지 기능 구현(여행 일정, 찜한 일정),내 일정 만들기 기능 구현(CRUD)
+게시판 페이지 구현(CRUD)<br>
 
 
 ## 전승재
