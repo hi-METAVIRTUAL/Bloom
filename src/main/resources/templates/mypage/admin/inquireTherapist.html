@@ -17,217 +17,154 @@
 <div align="center">
     <div align="center" style="color: #C09A81; width: 400px;">
         <a style="float: left; cursor: pointer;" onclick="location.href='inquireMember'">회원 정보 조회</a>
-        <a style="float: right; text-decoration: underline; text-decoration-color: #C09A81; cursor: pointer;">상담사 정보 조회</a>
+        <a style="float: right; text-decoration: underline; text-decoration-color: #C09A81; cursor: pointer;" onclick="location.href='inquireTherapist'">상담사 정보 조회</a>
     </div>
     <br><br>
     <div class="search-bar" align="center">
-        <div class="searchBox1">
-            <select class="select-option">
-                <option value="전체">전체</option>
-                <option value="제목">아이디</option>
-                <option value="작성자">이름</option>
-                <option value="작성자">승인 여부</option>
+        <form id="searchForm" action="/admin/inquireTherapist" method="get">
+            <input type="hidden" name="currentPage" value="1">
+            <select id="searchSelect" name="searchSelect" style="width: 90px;">
+                <option value="allTherapist">전체</option>
+                <option value="memberId">아이디</option>
+                <option value="memberName">이름</option>
             </select>
-
-            <input type="search" style="width: 500px; border-color: #C09A81; border-style: solid;"/>
-
-            <button type="submit" style="background-color: #C09A81; color: white; border: 1px solid #C09A81; border-radius: 10px; width: 80px; height: 40px; text-align: center; line-height: 40px;" onclick="">
-                검색
-            </button>
-        </div>
+            <input style="width: 600px" type="search" id="searchValue" name="searchValue">
+            <button type="submit" style="background-color: #C09A81; color: white; border: 1px solid #C09A81; border-radius: 10px; width: 90px; height: 40px; text-align: center; line-height: 40px;" onclick="">검색</button>
+        </form>
     </div>
     <br>
-    <a style="color: red; font-size: 19px;">아이디 클릭 시 상담사 정보 조회 / 이름 클릭 시 상담사 프로필 조회</a>
     <br>
     <div>
-        <table align="center" style="border-collapse: collapse; width: 800px;">
+        <table id="theArea" align="center" style="border-collapse: collapse; width: 800px;">
+            <col style="width: 10%">
+            <col style="width: 18%">
+            <col style="width: 18%">
+            <col style="width: 18%">
+            <col style="width: 18%">
+            <col style="width: 18%">
             <tr style="border-radius: 10px; background-color: #C09A81; color: #FFFFFF; height: 40px;">
-                <th style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">&nbsp;No&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;아이디&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;이름&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;가입일&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;승인 여부&nbsp;&nbsp;</th>
-                <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;&nbsp;계정탈퇴&nbsp;&nbsp;</th>
+                <th style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">No</th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>가입일</th>
+                <th>승인 여부</th>
+                <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">계정탈퇴</th>
             </tr>
 
-            <tr style="color: #C09A81" align="center" th:each="therapist : ${ therapistList }" th:if="${therapistList} != null">
-                <td th:text="${index}"></td>
-                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'" th:text="${therapist.userId}"></td>
-                <td style="cursor: pointer;" onclick="location.href='therapistProfile'" th:text="${therapist.name}"></td>
+            <tr style="color: #C09A81; cursor: pointer;" align="center" th:each="therapist, iterator : ${ therapistList }" th:if="${therapistList} != null">
+                <td th:text="${adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index)}"></td>
+                <td style="cursor: pointer;" id="selectTherapist" th:text="${therapist.userId}"></td>
+                <td style="cursor: pointer;" id="therapistInfo" th:text="${therapist.name}"></td>
                 <td th:text="${therapist.registDate}"></td>
                 <td th:text="${therapist.confirmedStatus}"></td>
                 <td>
-                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick=""> <!--알림창 띄우기-->
+                    <input th:if="${#strings.isEmpty(therapist.unregistDate)}" type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" th:therapistId="${therapist.userId}" th:onclick="unregistMember(this.getAttribute('therapistId'))">
+                    <a th:unless="${#strings.isEmpty(therapist.unregistDate)}">탈퇴회원</a>
                 </td>
             </tr>
-
-<!--            <tr style="color: #C09A81" align="center">-->
-<!--                <td>1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick=""> &lt;!&ndash;알림창 띄우기&ndash;&gt;-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
-<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 대기</td>-->
-<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="color: #C09A81" align="center">-->
-<!--                <td>1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 대기</td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
-<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="color: #C09A81" align="center">-->
-<!--                <td>1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
-<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="color: #C09A81" align="center">-->
-<!--                <td>1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
-<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="color: #C09A81" align="center">-->
-<!--                <td>1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="background-color: #FFFFFF; border-radius: 10px; color: #C09A81;" align="center">-->
-<!--                <td style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">10</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'">apple</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'">김사과</td>-->
-<!--                <td>2023/04/24</td>-->
-<!--                <td>승인 완료</td>-->
-<!--                <td style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">-->
-<!--                    <input type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr style="color: #C09A81" align="center">-->
-<!--                <td>1</td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='editTherapistInfo'" th:text="${ therapistId }"></td>-->
-<!--                <td style="cursor: pointer;" onclick="location.href='therapistProfile'" th:text="${ therapistName }"></td>-->
-<!--                <td th:text="${ therapistRegistDate }"></td>-->
-<!--                <td th:text="${ approvalStatus }"></td>-->
-<!--                <td>-->
-<!--                    <input type="button" value="탈퇴" style="border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 40px; background: none;" onclick="">-->
-<!--                </td>-->
-<!--            </tr>-->
-
         </table>
-
         <br><br>
         <div class="pagingArea" align="center">
-            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.startPage}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == 1}">
+            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${adminCriteria.startPage}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == 1}">
                 <<
             </button>
-            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.pageNo - 1}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == 1}">
+            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${adminCriteria.pageNo - 1}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == 1}">
                 <
             </button>
-            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <th:block th:each="page : ${#numbers.sequence(adminCriteria.startPage, adminCriteria.endPage)}">
                 <button th:text="${ page }"
                         th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${page}}+'\''"
-                        th:disabled="${ selectCriteria.pageNo eq page }">
+                        th:disabled="${ adminCriteria.pageNo eq page }">
                 </button>
             </th:block>
-            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.pageNo = 1}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}">
+            <button th:onclick="'location.href=\'/admin/inquireTherapist?currentPage='+@{${adminCriteria.pageNo + 1}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == adminCriteria.lastPage}">
                 >
             </button>
-            <button th:onclick="'location.href\'/admin/inquireTherapist?currentPage='+@{${selectCriteria.lastPage}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}">
+            <button th:onclick="'location.href\'/admin/inquireTherapist?currentPage='+@{${adminCriteria.lastPage}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == adminCriteria.lastPage}">
                 >>
             </button>
             <br><br>
         </div>
-<!--        <table align="center" style="color: #C09A81;">-->
-<!--            <td style="cursor: pointer"><&nbsp;</td>-->
-<!--            <td>&nbsp;1&nbsp;</td>-->
-<!--            <td>&nbsp;2&nbsp;</td>-->
-<!--            <td>&nbsp;3&nbsp;</td>-->
-<!--            <td>&nbsp;4&nbsp;</td>-->
-<!--            <td>&nbsp;5&nbsp;</td>-->
-<!--            <td>&nbsp;6&nbsp;</td>-->
-<!--            <td>&nbsp;7&nbsp;</td>-->
-<!--            <td>&nbsp;8&nbsp;</td>-->
-<!--            <td>&nbsp;9&nbsp;</td>-->
-<!--            <td>&nbsp;10&nbsp;</td>-->
-<!--            <td style="cursor: pointer">&nbsp;></td>-->
-<!--        </table>-->
     </div>
 </div>
 <footer>
     <th:block th:include="components/Footer.html" th:with="textColor='#C09A81'"></th:block>
 </footer>
+
+<script th:inline="javascript">
+    function unregistMember(therapistId){
+
+        let currentDate = new Date();
+        let year = currentDate.getFullYear();
+        let month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        let day = String(currentDate.getDate()).padStart(2, '0');
+        const name = document.getElementById("therapistInfo").innerText;
+
+        let unregistDate = `${year}-${month}-${day}`;
+
+        confirm(`${name} 회원을 탈퇴 처리합니다.`);
+        fetch("/admin/unregistMember", {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(
+                {
+                    unregistDate:unregistDate,
+                    userId:therapistId
+                }
+            )
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.table(data);
+                alert(`${name} 회원이 탈퇴 처리되었습니다.`);
+
+                const $table = $("#memberResult");
+                $table.html("");
+
+                data.map((therapist) => {
+                    $tr = $("<tr>");
+                    $indexTd = $("<td>").text(adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index));
+                    $userIdTd = $("<td>").text(therapist.userId);
+                    $nameTd = $("<td>").text(therapist.name);
+                    $registDateTd = $("<td>").text(therapist.registDate);
+                    $updateTd = $("<td>").append("<input type='button' onclick='unregistMember("+therapist.userId+")'>");
+
+                    $tr.append($indexTd);
+                    $tr.append($userIdTd);
+                    $tr.append($nameTd);
+                    $tr.append($registDateTd);
+                    $tr.append($updateTd);
+
+                    $table.append($tr);
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("요청 처리 실패. 다시 시도해주세요.");
+            });
+    }
+
+    if(document.querySelectorAll("#theArea td")){
+        const $tds = document.querySelectorAll("#theArea td");
+        for(let i = 0; i < $tds.length; i++){
+            $tds[i].onclick = function (){
+                const userId = this.parentNode.children[1].innerText;
+                location.href = "/admin/editTherapistInfo?userId=" + userId;
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
