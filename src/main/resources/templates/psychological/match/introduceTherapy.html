@@ -33,17 +33,13 @@
             <h2 style="">소개</h2>
             <img class="picture" src="/images/psychological/testpicture.jpg">
         </div>
+
+      
+
+        <div th:name="therapistId" th:value="${userId}"></div>
         <h3 th:text="${therapistInfo.name.name}"></h3>
-        <input id="therapistId" name="therapistId" th:value="${therapistInfo.userId}" type="hidden"/>
-        <button class="roundbutton" id="reservationButton">상담 예약</button>
-        <script th:inline="javascript">
-            const userId = $("#therapistId").val()
-            $(document).ready(function () {
-                $("#reservationButton").click(function () {
-                    window.location.href = '/booking/reservation?therapistId=' + userId;
-                });
-            });
-        </script>
+        <li style="list-style-type: none;"><a th:href="@{/booking/reservation/(userId=${therapistInfo.userId})}" class="roundbutton" id="reservationButton">상담 예약</a></li>
+
 
         <br><br>
         연락처<br>

@@ -36,6 +36,7 @@ public class BookingService {
         }
     }
 
+
     public int selectTotalCount() {
 
         int result = bookingMapper.selectTotalCount();
@@ -53,10 +54,11 @@ public class BookingService {
     @Transactional
     public void newReviewPosting(ReviewDTO newReview) throws ReviewInsertException {
         int result = bookingMapper.newReviewPosting(newReview);
-        if(!(result > 0)) {
+        if (!(result > 0)) {
             throw new ReviewInsertException("후기 등록에 실패하였습니다.");
         }
     }
+
 
     /* 후기 삭제 */
     @Transactional
@@ -68,3 +70,4 @@ public class BookingService {
         }
     }
 }
+

@@ -247,6 +247,7 @@
                             console.log("verification Code send Failed")
 
                             alert("인증번호 발송 실패");
+
                         }
                     });
                 }
@@ -285,11 +286,15 @@
                                 } else {
                                     // Email is a duplicate, display an alert
                                     alert("중복된 이메일 주소입니다.");
+                                    $("#loadingSpinner").hide()
+                                    hideLoadingOverlay();
                                 }
                             },
                             error: function (error) {
                                 console.error('AJAX error:', error);
                                 // Handle the error as needed
+                                $("#loadingSpinner").hide()
+                                hideLoadingOverlay();
                             }
                         });
                     } else {

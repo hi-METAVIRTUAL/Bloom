@@ -45,18 +45,15 @@
     </update>
 
     <insert id="makeBooking">
-        INSERT INTO BOOKING(
+        INSERT INTO BOOKING (
         BOOKING_DATE,
-        BOOKING_STATUS,
         MEMBER_ID,
-        THERAPIST_ID )
-        VALUES(
+        THERAPIST_ID
+        )
+        VALUES (
         #{ selectedDateTime },
-        "예약 대기",
         #{ userId },
         #{ therapistId }
-        )
-
+        );
     </insert>
-
 </mapper>

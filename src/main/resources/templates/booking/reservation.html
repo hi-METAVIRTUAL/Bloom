@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <title>reservation</title>
     <link rel="stylesheet" type="text/css" href="/css/reservation/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        .selected-day {
+            background-color: #C09A81; /* Add your desired background color */
+            color: #fff; /* Text color for better visibility */
+        }
+    </style>
 </head>
 <body>
 <header class="header" th:include="components/Header.html"></header>
 <div class="fullbox">
     <p>예약하기</p>
     <div class="wrapper">
-        <span style="color: #C08181; font-size: 12px;">*상담자와 상의 후 예약 바랍니다*</span>
+        <span style="color: #C08181; font-size: 12px;">*당일 예약 불가하며 상담자와 상의 후 예약 바랍니다*</span>
         <h3 style="color: #C09A81;">상담 예약하기</h3>
 
-        <form action="/booking/makeReservation" th:action="@{/booking/makeReservation}" method="post">
-            <input type="text" name="therapistId" th:value="${param.therapistId}" hidden />
-            <p>Therapist ID: <span th:name="therapistId" th:text="${param.therapistId}"></span></p>
+
+        <form action="/booking/makeReservation" method="post">
+
+<!--        받아온 값을 Input필드로 넣고 hidden 처리하여 name을 Requestparam 이용해서 받아오기-->
+            <input type="text" name="therapistId" th:value="${therapistId}"/>
+
 
             <div class="calendarbox">
             <div class="nav">
@@ -82,9 +92,8 @@
                 <input type="radio" name="time" value="19">19시
                 <input type="radio" name="time" value="20">20시
             </div>
-            <button class="submitButton" type="submit">상담예약</button>
-
-        <button class="roundbutton" onclick="location.href='/psychological/match/introduceTherapy'">돌아가기</button>
+            <button class="submitButton" type="submit" style="width: 150px; height: 40px; text-align:center; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">상담예약</button>
+        <button class="roundbutton" onclick="location.href='/psychological/match/introduceTherapy'" style="width: 150px; height: 40px; margin-top:3px; text-align:center; background-color: #C09A81; color: #ffffff; border-color: #C09A81; border-radius: 20px; border-style: solid;">돌아가기</button>
         </form>
     </div>
     <br>
@@ -126,18 +135,30 @@
                 for (let i = 1; i <= numberOfDays; i++) {
                     const dayElement = document.createElement('li');
                     dayElement.textContent = i;
-                    dayElement.addEventListener('click', () => {
-                        // Remove the 'active' class from all date elements
-                        const activeElements = document.querySelectorAll('.days li.active');
-                        activeElements.forEach(element => element.classList.remove('active'));
 
-                        // Add the 'active' class to the clicked date element
-                        dayElement.classList.add('active');
+                    // Check if the date has passed
+                    const currentDate = new Date();
+                    const selectedDate = new Date(year, month, i);
 
-                        // Get the selected date
-                        const selectedDate = dayElement.textContent;
-                        console.log(selectedDate); // Output the selected date
-                    });
+                    if (selectedDate < currentDate) {
+                        // Disable past dates by preventing click events
+                        dayElement.style.pointerEvents = 'none';
+                        dayElement.classList.add('disabled');
+                    } else {
+                        dayElement.addEventListener('click', () => {
+                            // Remove the 'active' class from all date elements
+                            const activeElements = document.querySelectorAll('.days li.active');
+                            activeElements.forEach(element => element.classList.remove('active', 'selected-day'));
+
+                            // Add the 'active' class to the clicked date element
+                            dayElement.classList.add('active', 'selected-day');
+
+                            // Get the selected date
+                            const selectedDate = dayElement.textContent;
+                            console.log(selectedDate); // Output the selected date
+                        });
+                    }
+
                     daysList.appendChild(dayElement);
                 }
 
@@ -188,11 +209,11 @@
                     // Set the formatted date and time as the value of a hidden input field
                     const dateTimeInput = document.createElement('input');
                     dateTimeInput.type = 'hidden';
-                    dateTimeInput.name = 'selectedDateTime'; // Change this to your desired input field name
+                    dateTimeInput.name = 'selectedDateTime';
                     dateTimeInput.value = formattedDateTime;
                     reservation_btn.form.appendChild(dateTimeInput);
 
-                    // Now, submit the form
+
                     reservation_btn.form.submit();
 
                 } else {

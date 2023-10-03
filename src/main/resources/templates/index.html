@@ -232,7 +232,7 @@
                         // Request was successful, handle the response
                         const data = JSON.parse(xhr.responseText);
 
-                        if (data) {
+                        if (data ) {
                             // Data is available, update the content
                             bookingInfoContainer.style.display = 'block';
 
@@ -241,30 +241,43 @@
                             const therapistName = data.therapist.name;
                             const therapistPhone = data.therapist.phone;
                             const bookingDate = data.bookingDate;
+                            const bookingStatus = data.bookingStatus;
 
-                            // Update the content inside bookingInfoContainer
-                            bookingInfoContainer.innerHTML = `
+                            if(bookingStatus === "예약 확정") {
+                                // Update the content inside bookingInfoContainer
+                                bookingInfoContainer.innerHTML = `
                             <div class="text-container">
                                 <span>${therapistName} 상담사</span><br>
                                 <span>${therapistPhone}</span><br>
                                 <img id="clock_icon">📅&ensp;
                                 <span>${bookingDate}</span>
+                                <span>${bookingStatus}</span>
+
                             </div>
                         `;
-                        }
-                    } else {
-                            console.log("예약 내역 없음");
-                            bookingInfoContainer.style.display = 'block';
-                            bookingInfoContainer.innerHTML = `
+                            } else {
+                                console.log("예약 내역 없음");
+                                bookingInfoContainer.style.display = 'block';
+                                bookingInfoContainer.innerHTML = `
                             <div class="text-container">
                                 <p style="margin-top: 35px;">예약 내역이 없습니다.</p>
                             </div>
                             `;
-                        }
+                            }}
+
+                    } else {
+                        console.log("예약 내역 없음");
+                        bookingInfoContainer.style.display = 'block';
+                        bookingInfoContainer.innerHTML = `
+                            <div class="text-container">
+                                <p style="margin-top: 35px;">예약 내역이 없습니다.</p>
+                            </div>
+                            `;
                     }
+                }
                 // Send the request
                 xhr.send();
-                });
+            });
         });
     </script>
 
