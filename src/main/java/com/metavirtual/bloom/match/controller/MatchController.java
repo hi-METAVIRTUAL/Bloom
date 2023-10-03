@@ -87,11 +87,12 @@ public class MatchController {
     }
 
     @GetMapping("/introduceTherapy/{id}")
-    public String introduceTherapyPage(@PathVariable("id") String userId, Model model){
+    public String introduceTherapyPage(@PathVariable("id") String userId, Model model) {
         model.addAttribute("userId", userId);
 
         System.out.println("match controller : " + userId);
         return "psychological/match/introduceTherapy";
+    }
 
     @GetMapping("/introduceTherapy")
     public ModelAndView introduceTherapyPage(@RequestParam("userId") String userId, ModelAndView mv){

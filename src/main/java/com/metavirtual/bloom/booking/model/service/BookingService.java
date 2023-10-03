@@ -26,14 +26,15 @@ public class BookingService {
 
     public void makeBooking(String therapistId, String userId, String selectedDateTime) {
 
-       int makeBooking = bookingMapper.makeBooking(therapistId, userId, selectedDateTime);
+        int makeBooking = bookingMapper.makeBooking(therapistId, userId, selectedDateTime);
         System.out.println(therapistId + " " + userId + " " + selectedDateTime);
 
-       if(makeBooking > 0){
-           System.out.println("예약 성공!");
-       } else {
-           System.out.println("예약 실패");
-       }
+        if (makeBooking > 0) {
+            System.out.println("예약 성공!");
+        } else {
+            System.out.println("예약 실패");
+        }
+    }
 
     public int selectTotalCount() {
 

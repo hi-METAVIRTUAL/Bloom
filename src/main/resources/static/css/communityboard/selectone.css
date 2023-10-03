@@ -5,11 +5,12 @@ body {
 }
 
 .detailTitle-board {
-    text-align: center;
+    text-align: left;
     background-color: #C09A81;
     color: #FFFFFF;
-    font-size: 33px;
+    font-size: 25px;
     border-radius: 10px;
+    padding: 7px;
 }
 .detailsBox {
     border-radius: 5px;
@@ -75,6 +76,12 @@ body {
     background-color: #C09A81;
     color: #FFFFFF;
     border: none;
-    font-size: 20px;
+    font-size: 15px;
     height: 30px;
+    cursor: pointer;
+}
+.button-container {
+    margin: auto;
+    width: 1012px;
+    text-align: right;
 }

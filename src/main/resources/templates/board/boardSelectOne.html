@@ -9,10 +9,13 @@
     <th:block th:include="components/Header.html"></th:block>
 
     <div>
-        <h2 style="text-align: center">게시글</h2>
         <br>
         <div>
             <table style="margin: auto">
+                <tr>
+                    <td><h2 style="text-align: left">게시글</h2></td>
+
+                </tr>
                 <tr>
                     <td class="detailTitle-board" colspan="2" th:text="${ board.title }"></td>
                 </tr>
@@ -21,14 +24,21 @@
                     <td style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; text-align: right;">작성일 | <span th:text="${ board.postedDate }"></span></td>
                 </tr>
                 <tr>
-                    <th colspan="2" style="font-size: 23px">내용</th>
+                    <td colspan="2"><h3></h3></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 22px; text-align: left;">내용</td>
+                    <td style="text-align: right;">
+                        <th:block sec:authorize="isAuthenticated()">
+                            <button type="button" id="openModalBtn" class="button-open">신고하기</button>
+                        </th:block>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2"><textarea th:text="${ board.boardContent }" readonly class="detailsBox"></textarea></td>
                 </tr>
             </table>
 
-            <th:block sec:authorize="isAuthenticated()"><button type="button" id="openModalBtn" class="button-open">신고하기</button></th:block>
             <!--모달 창-->
             <div id="myModal" class="modal">
                 <div class="modal-content">
@@ -66,7 +76,7 @@
             </div>
 
             <br>
-            <div style="text-align: center">
+            <div class="button-container">
                 <th:div sec:authorize="isAuthenticated()"
                         th:if="${ #authentication.getPrincipal().getUserId() == board.refUserId }">
                         <button type="button" id="btnModify" class="buttons-board">수정하기</button>

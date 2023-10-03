@@ -6,7 +6,9 @@
 
     <th:block th:include="components/Header.html"></th:block>
 
-<h2 style="text-align: center">게시글 작성</h2>
+    <div style="margin: auto; width: 850px;">
+        <h2 style="text-align: left">게시글 작성</h2>
+    </div>
 <div class="table">
     <form name="boardPostingForm" th:action="@{/board/boardPosting}" method="post">
         <table>
