@@ -16,6 +16,7 @@
 온라인 상담 플랫폼을 제공합니다.
 <br>이를 통해 여러분이 경험하지 못한 '누군가의 스토리'에 영향을 받고, 여러분의 스토리도 또한 다시 누군가에게 영향을 주는 커뮤니티를 형성하시게 됩니다.
 <br>맞춤형 상담사 매칭으로 당신의 변화를 지원하여 `선택권의 폭을 넓혀, 다양한 상담사들과 매칭` 해드립니다.
+<br><br>
 
 ### 🖋 Team LOGIN
 
@@ -26,7 +27,7 @@
 
 
 
-## 박찬민
+## 이영현
 * Github : https://github.com/charmingpark
 * Role : Team Member
 * Positon : Fronte-End
@@ -35,7 +36,7 @@
 
 
 
-## 배상건
+## 이효진
 * Github : https://github.com/yksvSG
 * Role : Team Member
 * Positon : Fronte-End
@@ -45,7 +46,7 @@
 마이페이지 기능 구현(여행 일정, 찜한 일정),내 일정 만들기 기능 구현(CRUD)
 
 
-## 박지훈
+## 전승재
 * Github : https://github.com/qkralsrl11
 * Role : Team Leader
 * Positon : Back-End
@@ -55,7 +56,7 @@ Post , Saved, Photo 구현, Multer를 사용하여 FORM-DATA(image) 처리, S3�
 EC2, 로드밸런서, route53, ACM을 사용하여 https 인증, <br>RDS를 이용한 데이터 관리 (Mysql 사용), EC2, S3, CloudFront를 이용한 배포
 
 
-## 김정석
+## 박지영
 * Github : https://github.com/privetin
 * Role : Team Member
 * Positon : Back-End
@@ -65,10 +66,10 @@ EC2, 로드밸런서, route53, ACM을 사용하여 https 인증, <br>RDS를 이�
 
 <br>
 
-### 🖋 Skills
+### 🖋 development tools
 
 ***
-![스크린샷 2022-06-20 오후 10 21 22](https://user-images.githubusercontent.com/77973029/174611063-2ae73525-a027-45c8-9efd-e036254896a7.png)
+<p align="center"><img alt="dev-tools" src=".github/dev-tools.png"></p>
 
 
 ### 🖋 More Info
