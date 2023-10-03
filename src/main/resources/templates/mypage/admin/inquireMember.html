@@ -16,45 +16,41 @@
 <br><br>
 <div align="center">
     <div align="center" style="color: #C09A81; width: 400px;">
-        <a style="float: left; text-decoration: underline; text-decoration-color: #C09A81; cursor: pointer;">회원 정보 조회</a>
+        <a style="float: left; text-decoration: underline; text-decoration-color: #C09A81; cursor: pointer;" onclick="location.href='inquireMember'">회원 정보 조회</a>
         <a style="float: right; cursor: pointer;" onclick="location.href='inquireTherapist'">상담사 정보 조회</a>
     </div>
 <br><br>
     <div class="search-bar" align="center">
-        <div class="searchBox1">
-            <select id="selectOption" class="select-option">
-                <option value="전체">전체</option>
-                <option value="제목">아이디</option>
-                <option value="작성자">이름</option>
+        <form id="searchForm" action="/admin/inquireMember" method="get">
+            <input type="hidden" name="currentPage" value="1">
+            <select id="searchSelect" name="searchSelect" style="width: 90px;">
+                <option value="allMember">전체</option>
+                <option value="memberId">아이디</option>
+                <option value="memberName">이름</option>
             </select>
-
-            <input id="search" type="search" style="width: 500px; border-color: #C09A81; border-style: solid;"/>
-
-            <button type="submit" style="background-color: #C09A81; color: white; border: 1px solid #C09A81; border-radius: 10px; width: 80px; height: 40px; text-align: center; line-height: 40px;" onclick="">
-            검색
-            </button>
-        </div>
+            <input style="width: 600px" type="search" id="searchValue" name="searchValue">
+            <button type="submit" style="background-color: #C09A81; color: white; border: 1px solid #C09A81; border-radius: 10px; width: 90px; height: 40px; text-align: center; line-height: 40px;" onclick="">검색</button>
+        </form>
     </div>
     <br>
-    <a style="color: red; font-size: 19px;">아이디 클릭 시 회원 정보 조회 / 이름 클릭 시 예약 정보 조회</a>
     <br>
     <div>
-        <table align="center" style="border-collapse: collapse; width: 800px;">
+        <table id="memArea" align="center" style="border-collapse: collapse; width: 800px;">
             <col style="width: 12%">
             <col style="width: 22%">
             <col style="width: 22%">
             <col style="width: 22%">
             <col style="width: 22%">
             <tr style="border-radius: 10px; background-color: #C09A81; color: #FFFFFF; height: 40px;">
-                <th style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">&nbsp;No&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;아이디&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;이름&nbsp;&nbsp;</th>
-                <th>&nbsp;&nbsp;가입일/탈퇴일&nbsp;&nbsp;</th>
-                <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">&nbsp;&nbsp;계정탈퇴&nbsp;&nbsp;</th>
+                <th style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">No</th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>가입일/탈퇴일</th>
+                <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">계정탈퇴</th>
             </tr>
 
-            <tr style="color: #C09A81;" align="center" th:each="member, iterator : ${ memberList }" th:if="${memberList} != null">
-                <td th:text="${selectCriteria.totalBoardCount - (((selectCriteria.pageNo - 1) * selectCriteria.limitPerPage) + iterator.index)}"></td>
+            <tr style="color: #C09A81; cursor: pointer;" align="center" th:each="member, iterator : ${ memberList }" th:if="${memberList} != null">
+                <td th:text="${adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index)}"></td>
                 <td id="selectMember" style="cursor: pointer;" th:text="${member.userId}"></td>
                 <td id="bookingInfo" style="cursor: pointer;" th:text="${member.name}"></td>
                 <td>
@@ -66,48 +62,33 @@
                     <a th:unless="${#strings.isEmpty(member.unregistDate)}">탈퇴회원</a>
                 </td>
             </tr>
-
         </table>
 <br><br>
         <div class="pagingArea" align="center">
-            <button th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${selectCriteria.startPage}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == 1}">
+            <button th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${adminCriteria.startPage}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == 1}">
                 <<
             </button>
-            <button th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${selectCriteria.pageNo - 1}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == 1}">
+            <button th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${adminCriteria.pageNo - 1}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == 1}">
                 <
             </button>
-            <th:block th:each="page : ${#numbers.sequence(selectCriteria.startPage, selectCriteria.endPage)}">
+            <th:block th:each="page : ${#numbers.sequence(adminCriteria.startPage, adminCriteria.endPage)}">
                 <button th:text="${ page }"
                         th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${page}}+'\''"
-                        th:disabled="${ selectCriteria.pageNo eq page }">
+                        th:disabled="${ adminCriteria.pageNo eq page }">
                 </button>
             </th:block>
-            <button th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${selectCriteria.pageNo = 1}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}">
+            <button th:onclick="'location.href=\'/admin/inquireMember?currentPage='+@{${adminCriteria.pageNo + 1}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == adminCriteria.lastPage}">
                 >
             </button>
-            <button th:onclick="'location.href\'/admin/inquireMember?currentPage='+@{${selectCriteria.lastPage}}+'\''"
-                    th:disabled="${selectCriteria.pageNo == selectCriteria.lastPage}">
+            <button th:onclick="'location.href\'/admin/inquireMember?currentPage='+@{${adminCriteria.lastPage}}+'\''"
+                    th:disabled="${adminCriteria.pageNo == adminCriteria.lastPage}">
                 >>
             </button>
             <br><br>
         </div>
-<!--        <table align="center" style="color: #C09A81;">-->
-<!--            <td style="cursor: pointer"><&nbsp;</td>-->
-<!--            <td>&nbsp;1&nbsp;</td>-->
-<!--            <td>&nbsp;2&nbsp;</td>-->
-<!--            <td>&nbsp;3&nbsp;</td>-->
-<!--            <td>&nbsp;4&nbsp;</td>-->
-<!--            <td>&nbsp;5&nbsp;</td>-->
-<!--            <td>&nbsp;6&nbsp;</td>-->
-<!--            <td>&nbsp;7&nbsp;</td>-->
-<!--            <td>&nbsp;8&nbsp;</td>-->
-<!--            <td>&nbsp;9&nbsp;</td>-->
-<!--            <td>&nbsp;10&nbsp;</td>-->
-<!--            <td style="cursor: pointer">&nbsp;></td>-->
-<!--        </table>-->
     </div>
 </div>
 <footer>
@@ -122,9 +103,11 @@
         let year = currentDate.getFullYear();
         let month = String(currentDate.getMonth() + 1).padStart(2, '0');
         let day = String(currentDate.getDate()).padStart(2, '0');
+        const name = document.getElementById("bookingInfo").innerText;
 
         let unregistDate = `${year}-${month}-${day}`;
 
+        confirm(`${name} 회원을 탈퇴 처리합니다.`);
         fetch("/admin/unregistMember", {
             method: "PATCH",
             headers: {
@@ -145,13 +128,14 @@
             })
             .then(data => {
                 console.table(data);
+                alert(`${name} 회원이 탈퇴 처리되었습니다.`);
 
                 const $table = $("#memberResult");
                 $table.html("");
 
                 data.map((member) => {
                     $tr = $("<tr>");
-                    $indexTd = $("<td>").text(selectCriteria.totalBoardCount - (((selectCriteria.pageNo - 1) * selectCriteria.limitPerPage) + iterator.index));
+                    $indexTd = $("<td>").text(adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index));
                     $userIdTd = $("<td>").text(member.userId);
                     $nameTd = $("<td>").text(member.name);
                     $registDateTd = $("<td>").text(member.registDate);
@@ -168,25 +152,16 @@
             })
             .catch((error) => {
                 console.error(error);
+                alert("요청 처리 실패. 다시 시도해주세요.");
             });
     }
 
-    if(document.querySelectorAll("#selectMember")){
-        const $sm = document.querySelectorAll("#selectMember");
-        for(let i = 0; i<$sm.length; i++){
-            $sm[i].onclick = function(){
-                const userId = this.innerText;
-                location.href = "/admin/editMemberInfo?userId="+userId;
-            }
-        }
-    }
-
-    if(document.querySelectorAll("#bookingInfo")){
-        const $bi = document.querySelectorAll("#bookingInfo");
-        for(let i = 0; i<$bi.length; i++){
-            $bi[i].onclick = function (){
-                const userId = document.getElementById('selectMember').innerText;
-                window.open("reservePopup", "b", "width=420, height=600, left=350, top=210" );
+    if(document.querySelectorAll("#memArea td")){
+        const $tds = document.querySelectorAll("#memArea td");
+        for(let i = 0; i < $tds.length; i++){
+            $tds[i].onclick = function (){
+                const userId = this.parentNode.children[1].innerText;
+                location.href = "/admin/editMemberInfo?userId=" + userId;
             }
         }
     }

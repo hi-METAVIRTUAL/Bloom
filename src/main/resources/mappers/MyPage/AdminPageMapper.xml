@@ -15,8 +15,8 @@
         <id property="userId" column="USER_ID"/>
         <result property="name" column="Name"/>
         <result property="registDate" column="REGIST_DATE"/>
-
-        <association property="confirmedStatus" resultMap="resultMap"/>
+        <result property="unregistDate" column="UNREGIST_DATE"/>
+        <result property="confirmedStatus" column="CONFIRMED_STATUS"/>
     </resultMap>
 
     <resultMap id="unregistResultMap" type="com.metavirtual.bloom.user.model.dto.UserDTO">
@@ -26,10 +26,89 @@
         <result property="unregistDate" column="UNREGIST_DATE"/>
     </resultMap>
 
-    <select id="selectMemberCount" resultType="_int">
+    <resultMap id="csResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.CsListDTO">
+        <id property="boardCode" column="BOARD_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="commentNumber" column="COMMENT_NUMBER"/>
+    </resultMap>
+
+    <resultMap id="csDetailMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.CsDetailDTO">
+        <id property="boardCode" column="BOARD_CODE"/>
+        <result property="title" column="TITLE"/>
+        <result property="name" column="NAME"/>
+        <result property="postedDate" column="POSTED_DATE"/>
+        <result property="boardContent" column="BOARD_CONTENT"/>
+        <result property="commentContent" column="COMMENT_CONTENT"/>
+    </resultMap>
+
+    <select id="selectCsCount" resultType="_int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE BOARD_CATEGORY = "고객센터"
+    </select>
+
+    <select id="selectCsList" resultMap="csResultMap" parameterType="com.metavirtual.bloom.common.paging.SelectCriteria">
+        SELECT
+            B.BOARD_CODE
+            , B.TITLE
+            , B.POSTED_DATE
+            , B.USER_ID
+            , A.COMMENT_NUMBER
+        FROM BOARD B
+        LEFT JOIN ADMIN_COMMENT A ON B.BOARD_CODE = A.BOARD_CODE
+        WHERE B.BOARD_CATEGORY = "고객센터"
+        AND B.DELETE_DATE IS NULL
+        ORDER BY B.POSTED_DATE DESC
+        LIMIT #{ startRow }, 10
+    </select>
+
+    <select id="selectCsDetail" resultMap="csDetailMap">
+        SELECT
+            B.BOARD_CODE
+            , B.TITLE
+            , U.NAME
+            , B.POSTED_DATE
+            , B.BOARD_CONTENT
+            , A.COMMENT_CONTENT
+        FROM BOARD B
+        JOIN USER U ON B.USER_ID = U.USER_ID
+        LEFT JOIN ADMIN_COMMENT A ON B.BOARD_CODE = A.BOARD_CODE
+        WHERE B.BOARD_CODE = #{boardCode}
+    </select>
+
+    <insert id="registComment">
+        INSERT
+        INTO ADMIN_COMMENT (
+                            POSTED_DATE
+                            , COMMENT_CONTENT
+                            , BOARD_CODE
+                            , USER_ID
+                            )
+        VALUES (
+                NOW()
+                , #{commentContent}
+                , #{boardCode}
+                , #{userId}
+                )
+    </insert>
+
+    <select id="selectMemberCount" resultType="_int" parameterType="hashmap">
         SELECT COUNT(*)
         FROM USER
-        WHERE AUTHORITY_CODE = 1
+        <where>
+            <if test="searchSelect eq 'memberId'">
+                USER_ID LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'memberName'">
+                NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'allMember'">
+                (USER_ID LIKE CONCAT('%', #{ searchValue }, '%') OR NAME LIKE CONCAT('%', #{ searchValue }, '%'))
+            </if>
+            AND AUTHORITY_CODE = 1
+        </where>
     </select>
 
     <select id="selectMemberList" resultMap="memberResultMap">
@@ -39,14 +118,37 @@
             , REGIST_DATE
             , UNREGIST_DATE
         FROM USER
-        WHERE AUTHORITY_CODE = 1
+        <where>
+            <if test="searchSelect eq 'memberId'">
+                USER_ID LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'memberName'">
+                NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'allMember'">
+                (USER_ID LIKE CONCAT('%', #{ searchValue }, '%') OR NAME LIKE CONCAT('%', #{ searchValue }, '%'))
+            </if>
+            AND AUTHORITY_CODE = 1
+        </where>
         ORDER BY REGIST_DATE DESC
+        LIMIT #{ startRow }, 10
     </select>
 
     <select id="selectTherapistCount" resultType="_int">
         SELECT COUNT(*)
         FROM USER
-        WHERE AUTHORITY_CODE = 2
+        <where>
+            <if test="searchSelect eq 'memberId'">
+                USER_ID LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'memberName'">
+                NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'allTherapist'">
+                (USER_ID LIKE CONCAT('%', #{ searchValue }, '%') OR NAME LIKE CONCAT('%', #{ searchValue }, '%'))
+            </if>
+            AND AUTHORITY_CODE = 2
+        </where>
     </select>
 
     <select id="selectTherapistList" resultMap="therapistResultMap">
@@ -54,18 +156,30 @@
             U.USER_ID
             , U.NAME
             , U.REGIST_DATE
+            , U.UNREGIST_DATE
             , T.CONFIRMED_STATUS
         FROM USER U
         JOIN THERAPIST T ON U.USER_ID = T.USER_ID
-        WHERE AUTHORITY_CODE = 2
+        <where>
+            <if test="searchSelect eq 'memberId'">
+                U.USER_ID LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'memberName'">
+                NAME LIKE CONCAT('%', #{ searchValue }, '%')
+            </if>
+            <if test="searchSelect eq 'allTherapist'">
+                (U.USER_ID LIKE CONCAT('%', #{ searchValue }, '%') OR NAME LIKE CONCAT('%', #{ searchValue }, '%'))
+            </if>
+            AND AUTHORITY_CODE = 2
+        </where>
         ORDER BY U.REGIST_DATE DESC
+        LIMIT #{ startRow }, 10
     </select>
 
     <update id="unregistMember" parameterType="String">
         UPDATE USER
         SET UNREGIST_DATE = #{unregistDate}
         WHERE USER_ID = #{userId}
-        AND AUTHORITY_CODE = 1
     </update>
 
     <select id="selectunregistList" resultMap="unregistResultMap">
@@ -76,7 +190,6 @@
             , UNREGIST_DATE
         FROM USER
         WHERE UNREGIST_DATE IS NOT NULL
-        AND AUTHORITY_CODE = 1
     </select>
 
 </mapper>
