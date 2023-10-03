@@ -42,7 +42,7 @@
 * Positon : Full-Stack
 * Stack : js, html, spring, mysql
 * Works :<br>
-커뮤니티 게시판 페이지 구현(CRUD), 고객센터 게시판 페이지 구현(CRUD), 후기 리스트 출력 페이지<br>
+커뮤니티 게시판 페이지 구현(CRUD), 후기 리스트 출력 페이지<br>
 
 
 ## 전승재
