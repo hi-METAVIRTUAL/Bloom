@@ -89,10 +89,9 @@ public class PsychometryController {
         return "psychological/psychometry/lastTest";
     }
     @PostMapping("/loding")
-    public String matchingPage(MemberDTO member, RedirectAttributes rttr){
+    public String matchingPage(MemberDTO member){
 
         psychometryService.hopeTherapist(member);
-        //rttr.addFlashAttribute("successMessage", "신규 메뉴 등록에 성공 했습니다.");
 
         return "psychological/psychometry/lodingPage";
     }
