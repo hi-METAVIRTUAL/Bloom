@@ -13,8 +13,7 @@ import java.util.Map;
 
 @Service
 public class CustomerService {
-/*
-    private final CustomerMapper customerMapper;
+    /*private final CustomerMapper customerMapper;
 
     @Autowired
     private CustomerService (CustomerMapper customerMapper) {
@@ -35,21 +34,22 @@ public class CustomerService {
         return customerComment;
     }
 
+    public AdminCommentDTO customerSelectOne(int boardCode) {
+
+        AdminCommentDTO selectOne = null;
+
+        selectOne = customerMapper.customerSelectOne(boardCode);
+
+
+        return selectOne;
+    }
+
     @Transactional
     public void customerNewInsert(AdminCommentDTO newInsert) throws CustomerInsertException {
         int result = customerMapper.customerNewInsert(newInsert);
         if(!(result > 0)) {
             throw new CustomerInsertException("문의글 등록에 실패하였습니다.");
         }
-    }
-
-    public AdminCommentDTO customerSelectOne(int boardCode) {
-
-        AdminCommentDTO selectOne = null;
-
-            selectOne = customerMapper.customerSelectOne(boardCode);
-
-
-        return selectOne;
     }*/
+
 }

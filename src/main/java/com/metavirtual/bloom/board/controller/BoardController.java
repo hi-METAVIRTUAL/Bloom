@@ -1,16 +1,14 @@
 
 package com.metavirtual.bloom.board.controller;
 
-import com.metavirtual.bloom.board.model.dto.BoardDTO;
-import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
-import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
-import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
+import com.metavirtual.bloom.board.model.dto.*;
 import com.metavirtual.bloom.board.model.service.BoardService;
 import com.metavirtual.bloom.common.exception.board.*;
 import com.metavirtual.bloom.common.paging.Paging;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 
 
+import com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistCommentListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -218,5 +216,44 @@ public class BoardController {
         }
         return "redirect:/board/searchList";
     }
+
+/*
+
+    @GetMapping("/selectCounsel")
+    public String SelectCounsel (HttpServletRequest request, Model model) {
+
+
+        int boardCode = Integer.valueOf(request.getParameter("boardCode"));
+        TherapistCommentListDTO selectOne = boardService.searchTherapistList(boardCode);
+        */
+/*TherapistCommentDTO selectOne = boardService.searchTherapistComment(boardCode);*//*
+
+        System.out.println("디테일 가져오는지? : " + selectOne);
+
+        model.addAttribute("therapistComment", selectOne);
+
+        */
+/* 댓글 조회 *//*
+
+
+        List<TherapistCommentListDTO> therapistCommList = boardService.searchTherapistComment(boardCode);
+        model.addAttribute("therapistCommList", therapistCommList);
+        System.out.println("댓글리스트 가져오는지? : " + therapistCommList);
+
+
+        return "board/SelectCounsel";
+    }
+*/
+
+/*
+
+    @PostMapping("/therapistComment")
+    public ResponseEntity<List<TherapistCommentListDTO>> commentTherapist(@RequestBody TherapistCommentListDTO newTherapistComment) throws TherapistCommentException {
+        System.out.println("댓글 파라미터 값 ? : " + newTherapistComment);
+
+        List<TherapistCommentListDTO> therapistCommList = boardService.commentTherapist(newTherapistComment);
+
+        return ResponseEntity.ok(therapistCommList);
+    }*/
 }
 
