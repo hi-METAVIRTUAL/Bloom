@@ -231,3 +231,84 @@
 </footer>
 </body>
 </html>
+
+<!--
+document.addEventListener('DOMContentLoaded', function () {
+const bookingBtn = document.getElementById('booking_btn');
+const bookingInfoContainer = document.getElementById('bookingInfoContainer');
+const messageContainer = document.getElementById('messageContainer');
+
+bookingBtn.addEventListener('click', function (e) {
+e.preventDefault(); // Prevent the default link behavior
+
+// Create a new XMLHttpRequest object
+const xhr = new XMLHttpRequest();
+
+// Configure the request
+xhr.open('GET', '/user/bookingStat', true);
+
+// Set up the event handler for when the request is complete
+xhr.onload = function () {
+if (xhr.status === 200) {
+// Request was successful, handle the response
+const data = JSON.parse(xhr.responseText);
+
+if (data ) {
+// Data is available, update the content
+bookingInfoContainer.style.display = 'block';
+
+// Here, you can use 'data' to update the content dynamically
+// For example:
+const therapistName = data.therapist.name;
+const therapistPhone = data.therapist.phone;
+const bookingDate = data.bookingDate;
+const bookingStatus = data.bookingStatus;
+
+if (bookingStatus === "예약 확정") {
+// Update the content inside bookingInfoContainer
+bookingInfoContainer.innerHTML = `
+<div class="text-container">
+    <span>${therapistName} 상담사</span><br>
+    <span>${therapistPhone}</span><br>
+    <img id="clock_icon">📅&ensp;
+    <span>${bookingDate}</span>
+    <span>${bookingStatus}</span>
+
+</div>
+`;
+} if (bookingStatus === "예약 취소") {
+console.log("예약 취소 됨");
+bookingInfoContainer.style.display = 'block';
+bookingInfoContainer.innerHTML = `
+<div class="text-container">
+    <p style="margin-top: 35px;">예약 관련하여 24시간 안으로<br>담당 상담사님께서 개별 연락을 드립니다 :)</p>
+</div>
+`;
+} if (bookingStatus === "예약 대기") {
+// Update the content inside bookingInfoContainer
+bookingInfoContainer.innerHTML = `
+<div class="text-container">
+    <span>${therapistName} 상담사</span><br>
+    <span>${therapistPhone}</span><br>
+    <img id="clock_icon">📅&ensp;
+    <span>${bookingDate}</span>
+    &nbsp;<span>예약 대기 중</span>
+
+</div>
+`;
+} else {
+console.log("예약 내역 없음");
+bookingInfoContainer.style.display = 'block';
+bookingInfoContainer.innerHTML = `
+<div class="text-container">
+    <p style="margin-top: 35px;">예약 내역이 없습니다.</p>
+</div>
+`;
+}
+// Send the request
+xhr.send();
+}
+
+}}
+})})-->
+
