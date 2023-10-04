@@ -19,16 +19,24 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private final CustomerService customerService;
+    /*private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService){
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-/*
+    @GetMapping("/customerList")
+    public ModelAndView searchCustomerAllList(@RequestParam(value = "currentPage", defaultValue = "1") int pageNo,
+                                              ModelAndView)
+    */
 
-    @GetMapping(value = "/customerList")
+
+
+
+   /*
+
+    @GetMapping("/customerList")
     public ModelAndView searchAlCustomerComment(@RequestParam(value="currentPage", defaultValue = "1") int pageNo,
                                       ModelAndView mv) {
         int limitPerPage = 10;
@@ -88,7 +96,6 @@ public class CustomerController {
 
         return "redirect:/board/customerCenter";
     }
-
 */
 
 

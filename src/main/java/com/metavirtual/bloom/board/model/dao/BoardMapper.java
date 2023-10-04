@@ -1,10 +1,8 @@
 package com.metavirtual.bloom.board.model.dao;
 
-import com.metavirtual.bloom.board.model.dto.BoardDTO;
-import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
-import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
-import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
+import com.metavirtual.bloom.board.model.dto.*;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistCommentListDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -36,6 +34,12 @@ public interface BoardMapper {
     int viewCount(int boardCode);
 
     void reportCount(int boardCode);
+
+    List<TherapistCommentListDTO> searchTherapistComment(int boardCode);
+
+    int therapistComment(TherapistCommentListDTO newTherapistComment);
+
+    TherapistCommentListDTO counselSelectOne(int boardCode);
 }
 
 

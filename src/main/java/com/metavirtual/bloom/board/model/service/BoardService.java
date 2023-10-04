@@ -1,12 +1,10 @@
 package com.metavirtual.bloom.board.model.service;
 
 import com.metavirtual.bloom.board.model.dao.BoardMapper;
-import com.metavirtual.bloom.board.model.dto.BoardDTO;
-import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
-import com.metavirtual.bloom.board.model.dto.MemberBoardDTO;
-import com.metavirtual.bloom.board.model.dto.MemberCommentDTO;
+import com.metavirtual.bloom.board.model.dto.*;
 import com.metavirtual.bloom.common.exception.board.*;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
+import com.metavirtual.bloom.myPage.adminPage.model.dto.TherapistCommentListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,6 +138,44 @@ public class BoardService {
         }
 
     }
+
+    /*@Transactional
+    public TherapistCommentListDTO searchTherapistList(int boardCode) {
+        TherapistCommentListDTO selectOne = null;
+
+
+            selectOne = boardMapper.counselSelectOne(boardCode);
+            System.out.println("서비스확인2: " + selectOne);
+
+
+        return selectOne;
+    }*/
+/*
+    public List<TherapistCommentListDTO> searchTherapistComment(int boardCode) {
+        List<TherapistCommentListDTO> therapistCommList;
+
+        therapistCommList = boardMapper.searchTherapistComment(boardCode);
+
+
+        return therapistCommList;
+    }
+
+
+    @Transactional
+    public List<TherapistCommentListDTO> commentTherapist(TherapistCommentListDTO newTherapistComment) throws TherapistCommentException {
+        List<TherapistCommentListDTO> therapistCommList;
+
+        int result = boardMapper.therapistComment(newTherapistComment);
+
+        if(result > 0) {
+            therapistCommList = boardMapper.searchTherapistComment(newTherapistComment.getBoardCode());
+        } else {
+            throw new TherapistCommentException("답변 등록에 실패하였습니다.");
+        }
+
+        return therapistCommList;
+
+    }*/
 }
 
 
