@@ -203,22 +203,22 @@
         LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
-    <delete id="deleteMyPost">
+    <update id="deleteMyPost">
         UPDATE BOARD
         SET DELETE_DATE = NOW()
         WHERE BOARD_CODE = #{ boardCode }
-    </delete>
+    </update>
 
-    <delete id="deleteMyComment">
+    <update id="deleteMyComment">
         UPDATE MEMBER_COMMENT
         SET DELETE_DATE = NOW()
         WHERE COMMENT_CODE = #{ commentCode }
-    </delete>
+    </update>
 
-    <delete id="deleteMyReview">
+    <update id="deleteMyReview">
         UPDATE REVIEW
         SET DELETE_DATE = NOW()
         WHERE BOOKING_CODE = #{ bookingCode }
-    </delete>
+    </update>
 
 </mapper>

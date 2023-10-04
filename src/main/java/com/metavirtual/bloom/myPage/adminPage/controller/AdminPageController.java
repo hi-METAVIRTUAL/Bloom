@@ -101,15 +101,15 @@ public class AdminPageController {
         int limitPerPage2 = 5;
         int buttonAmount2 = 5;
 
-        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(ppageNo, totalReportCount, limitPerPage1, buttonAmount1);
-        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(rpageNo, totalPostCount, limitPerPage2, buttonAmount2);
+        SelectCriteria selectCriteria1 = Paging.getSelectCriteria(rpageNo, totalReportCount, limitPerPage1, buttonAmount1);
+        SelectCriteria selectCriteria2 = Paging.getSelectCriteria(ppageNo, totalPostCount, limitPerPage2, buttonAmount2);
 
         log.info("[MemberPageController] selectCriteria1 : "+selectCriteria1);
         log.info("[MemberPageController] selectCriteria2 : "+selectCriteria2);
 
 
-        List<BoardDTO> postList = adminPageService.selectPostList(selectCriteria1, userId);
-        List<MemberReport> reportList = adminPageService.selectReportList(selectCriteria2, userId);
+        List<PostResult> postList = adminPageService.selectPostList(selectCriteria2, userId);
+        List<MemberReport> reportList = adminPageService.selectReportList(selectCriteria1, userId);
 
         log.info("[MemberPageController] postList : "+postList);
         log.info("[MemberPageController] reportList : "+reportList);
@@ -295,6 +295,12 @@ public class AdminPageController {
     @GetMapping("/report")
     public String report(){
         return "mypage/admin/report";
+    }
+
+    @RequestMapping("/confirmTherapist")
+    @ResponseBody
+    public void confirmTherapist(@RequestParam("userId") String userId) throws ModifyInfoException{
+        adminPageService.confirmTherapist(userId);
     }
 }
 

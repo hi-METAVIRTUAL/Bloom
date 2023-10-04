@@ -103,8 +103,8 @@ public class AdminPageServiceImpl implements AdminPageService{
     }
 
     @Override
-    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId) {
-        List<BoardDTO> postList = mapper.selectPostList(selectCriteria, userId);
+    public List<PostResult> selectPostList(SelectCriteria selectCriteria, String userId) {
+        List<PostResult> postList = mapper.selectPostList(selectCriteria, userId);
         return postList;
     }
 
@@ -130,5 +130,14 @@ public class AdminPageServiceImpl implements AdminPageService{
     public List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId) {
         List<TherapistComment> commentList = mapper.selectCommentList(selectCriteria, userId);
         return commentList;
+    }
+
+    @Override
+    public void confirmTherapist(String userId) throws ModifyInfoException{
+        int result = mapper.confirmTherapist(userId);
+
+        if(!(result>0)){
+            throw new ModifyInfoException(("예약 거절 요청 실패"));
+        }
     }
 }

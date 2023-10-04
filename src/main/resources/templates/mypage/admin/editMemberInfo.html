@@ -123,39 +123,20 @@
 <h2>회원정보</h2>
 
 
-<!--임시로 보여지는 용-->
-
-<!--<div class="section1">-->
-
-<!--    <div class="infoBox1">-->
-<!--        <h3>이름&emsp;<span th:text="${ 'hello' }"></span></h3>-->
-<!--        <h3>닉네임&emsp;<span th:text="${'hello'}"></span></h3>-->
-<!--        <h3>성별&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>-->
-<!--    </div>-->
-<!--    <div class="infoBox1">-->
-<!--        <h3>아이디&emsp;<span th:text="${ 'hello' }"></span></h3>-->
-<!--        <h3>이메일&emsp;<span th:text="${'hello'}"></span></h3>-->
-<!--        <h3>전회번호&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>-->
-<!--    </div>-->
-
-<!--</div>-->
-<!--임시로 보여지는용-->
-
-
 <div class="section1">
     <div class="infoBox1">
         <div th:if="${member}">
                 <h3>이름&emsp;<span th:text="${member.getName()}"></span></h3>
                 <h3>닉네임&emsp;<span th:text="${member.getNickname()}"></span></h3>
-                <h3>성별&emsp;<span th:text="${member.getGender()}"></span></h3>
+                <h3>성별&emsp;<span th:if="${member.getGender()} == 'M'">남성</span><span th:if="${member.getGender()} == 'F'">여성</span></h3>
         </div>
     </div>
 
     <div class="infoBox1">
-        <div th:if="${user}">
-                <h3>아이디<span th:text="${member.getUserId()}"></span></h3>
-                <h3>이메일<span th:text="${member.getEmail()}"></span></h3>
-                <h3>전화번호<span th:text="${member.getPhone()}"></span></h3>
+        <div th:if="${member}">
+                <h3>아이디&emsp;<span th:text="${member.getUserId()}"></span></h3>
+                <h3>이메일&emsp;<span th:text="${member.getEmail()}"></span></h3>
+                <h3>전화번호&emsp;<span th:text="${member.getPhone()}"></span></h3>
         </div>
     </div>
 </div>
@@ -164,53 +145,35 @@
 <h2>기타</h2>
 
 <div class="box1">
-    <div class="registDate"><h3>회원가입일</h3>
-           <div th:text="${member.getRegistDate()}"></div>
+    <div class="registDate"><h3>회원가입일&emsp;&emsp; <span th:text="${member.getRegistDate()}"></span></h3>
     </div>
-    <div class="reportedCount"><h3>누적 신고 건수</h3>
-           <div th:text="${count}"></div>
+    <div class="reportedCount"><h3>누적 신고 건수&emsp;&emsp; <span th:text="${count}"></span></h3>
     </div>
 </div>
 
 <!--section3-->
 <h2>게시물 내역&emsp;&emsp;</h2>
-<div id="tableHeader">
-    <div>No</div>
-    <div>제목</div>
-    <div>작성자</div>
-    <div>작성일</div>
-</div>
 <div id="tableRow">
     <table id="uploadedPosts">
-        <tr>
+        <tr id="tableHeader">
+            <th>No</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        <tr th:if="${ postList }" th:each="post : ${ postList }" style="width: auto;">
             <td>
-                <div th:if="${ postList }">
-                    <div th:each="iterator : ${ postList }">
-                        <div th:text="${selectCriteria1.totalBoardCount - (((selectCriteria1.pageNo - 1) * selectCriteria1.limitPerPage) + iterator.index)}"></div>
-                    </div>
-                </div>
+                <div th:text="${ post.getBoardCode()}"></div>
             </td>
 
             <td>
-                <div th:if="${ postList }">
-                    <div th:each="post : ${ postList }">
-                        <div th:text="${ post.getTitle() }" class="boardCode1" th:attr="data-board-code=${post.getBoardCode()}"></div>
-                    </div>
-                </div>
+                <div th:text="${ post.getTitle() }" class="boardCode1" th:attr="data-board-code=${post.getBoardCode()}"></div>
             </td>
             <td>
-                <div th:if="${ member }">
-                    <div th:each="${ member }">
-                        <div th:text="${ member.getNickname() }"></div>
-                    </div>
-                </div>
+                <div th:text="${ post.getNickname() }"></div>
             </td>
             <td>
-                <div th:if="${ postList }">
-                    <div th:each="post : ${ postList }">
-                        <div th:text="${ post.getPostedDate() }"></div>
-                    </div>
-                </div>
+                <div th:text="${ post.getPostedDate() }"></div>
             </td>
         </tr>
     </table>
@@ -243,43 +206,27 @@
 </div>
 <!--section3-->
 <h2>신고 내역&emsp;&emsp;</h2>
-<div id="tableHeader2">
-    <div>No</div>
-    <div>제목</div>
-    <div>신고회원</div>
-    <div>신고일</div>
-</div>
 <div id="tableRow2">
     <table id="uploadedPosts2">
-        <tr>
+        <tr id="tableHeader2">
+            <th>No</th>
+            <th>제목</th>
+            <th>신고회원</th>
+            <th>신고일</th>
+        </tr>
+        <tr th:if="${ reportList }" th:each="report : ${ reportList }" style="width: auto;">
             <td>
-                <div th:if="${ reportList }">
-                    <div th:each="iterator : ${ reportList }">
-                        <div th:text="${selectCriteria2.totalBoardCount - (((selectCriteria2.pageNo - 1) * selectCriteria2.limitPerPage) + iterator.index)}"></div>
-                    </div>
-                </div>
+                <div th:text="${ report.getReportCode()}"></div>
             </td>
 
             <td>
-                <div th:if="${ reportList }">
-                    <div th:each="report : ${ reportList }">
-                        <div th:text="${ report.getTitle() }" class="boardCode2" th:attr="data-board-code=${report.getBoardCode()}"></div>
-                    </div>
-                </div>
+                <div th:text="${ report.getTitle() }" class="boardCode2" th:attr="data-board-code=${report.getBoardCode()}"></div>
             </td>
             <td>
-                <div th:if="${ reportList }">
-                    <div th:each="report : ${ reportList }">
-                        <div th:text="${ report.getUserId() }"></div>
-                    </div>
-                </div>
+                <div th:text="${ report.getUserId() }"></div>
             </td>
             <td>
-                <div th:if="${ reportList }">
-                    <div th:each="report : ${ reportList }">
-                        <div th:text="${ report.getReportedDate() }"></div>
-                    </div>
-                </div>
+                <div th:text="${ report.getReportedDate() }"></div>
             </td>
         </tr>
     </table>

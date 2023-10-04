@@ -54,11 +54,12 @@
         <result property="registDate" column="REGIST_DATE"/>
     </resultMap>
 
-    <resultMap id="PostResultMap" type="com.metavirtual.bloom.board.model.dto.BoardDTO">
+    <resultMap id="PostResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.PostResult">
         <id property="boardCode" column="BOARD_CODE"/>
         <result property="title" column="TITLE"/>
         <result property="boardCategory" column="BOARD_CATEGORY"/>
         <result property="postedDate" column="POSTED_DATE"/>
+        <result property="nickname" column="NICKNAME"/>
     </resultMap>
 
     <resultMap id="ReportResultMap" type="com.metavirtual.bloom.myPage.adminPage.model.dto.MemberReport">
@@ -265,13 +266,15 @@
 
     <select id="selectPostList" resultMap="PostResultMap">
         SELECT
-            BOARD_CODE
-            , TITLE
-            , BOARD_CATEGORY
-            , POSTED_DATE
-        FROM BOARD
-        WHERE USER_ID = #{ userId }
-        ORDER BY POSTED_DATE DESC
+            B.BOARD_CODE
+            , B.TITLE
+            , B.BOARD_CATEGORY
+            , B.POSTED_DATE
+            , M.NICKNAME
+        FROM BOARD B
+        JOIN MEMBER M ON B.USER_ID = M.USER_ID
+        WHERE B.USER_ID = #{ userId }
+        ORDER BY B.POSTED_DATE DESC
         LIMIT #{ selectCriteria.startRow }, 5
     </select>
 
@@ -317,8 +320,14 @@
         FROM THERAPIST_COMMENT C
         JOIN BOARD B ON C.BOARD_CODE = B.BOARD_CODE
         JOIN USER U ON C.USER_ID = U.USER_ID
-        WHERE USER_ID = #{ userId }
+        WHERE C.USER_ID = #{ userId }
         ORDER BY C.POSTED_DATE DESC
         LIMIT #{ selectCriteria.startRow }, 5
     </select>
+
+    <update id="confirmTherapist" parameterType="java.lang.String">
+        UPDATE THERAPIST
+        SET CONFIRMED_STATUS = "Y"
+        WHERE USER_ID = #{ userId }
+    </update>
 </mapper>

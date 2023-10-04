@@ -38,7 +38,7 @@ public interface AdminPageService {
 
     public int selectTotalPostCount(String userId);
 
-    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId);
+    public List<PostResult> selectPostList(SelectCriteria selectCriteria, String userId);
 
     public List<MemberReport> selectReportList(SelectCriteria selectCriteria, String userId);
 
@@ -47,5 +47,7 @@ public interface AdminPageService {
     public int selectTotalCommentCount(String userId);
 
     public List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId);
+
+    public void confirmTherapist(String userId) throws ModifyInfoException;
 
 }

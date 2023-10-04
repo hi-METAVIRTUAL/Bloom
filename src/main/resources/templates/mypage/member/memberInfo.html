@@ -76,7 +76,7 @@
         const $st = document.querySelector(".selectTherapist");
             $st.onclick = function(){
                 const therapistId = this.getAttribute("data-therapist-id");
-                location.href = "/psychological/match/introduceTherapy/" + therapistId;
+                location.href = "/psychological/match/introduceTherapy/?userId=" + therapistId;
             };
     }
 </script>

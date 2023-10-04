@@ -40,7 +40,7 @@ public interface AdminPageMapper {
 
     int selectTotalPostCount(String userId);
 
-    List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId);
+    List<PostResult> selectPostList(SelectCriteria selectCriteria, String userId);
 
     List<MemberReport> selectReportList(SelectCriteria selectCriteria, String userId);
 
@@ -49,4 +49,6 @@ public interface AdminPageMapper {
     int selectTotalCommentCount(String userId);
 
     List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId);
+
+    int confirmTherapist(String userId);
 }
