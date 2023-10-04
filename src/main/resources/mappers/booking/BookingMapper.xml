@@ -10,6 +10,11 @@
         <result property="reviewScore" column="REVIEW_SCORE"/>
         <result property="deleteDate" column="DELETE_DATE"/>
         <result property="reviewContent" column="REVIEW_CONTENT"/>
+        <collection property="therapistId" column="THERAPIST_ID" resultMap="idResult"/>
+    </resultMap>
+    <resultMap id="idResult" type="com.metavirtual.bloom.booking.model.dto.BookingDTO">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="therapistId" column="THERAPIST_ID"/>
     </resultMap>
 
     <select id="selectTotalCount" resultType="_int" parameterType="hashmap">
@@ -18,12 +23,14 @@
     </select>
 
     <select id="findAllReview" resultMap="reviewResultMap">
-        SELECT BOOKING_CODE
-            ,POSTED_DATE
-            ,REVIEW_SCORE
-            ,DELETE_DATE
-            ,REVIEW_CONTENT
-        FROM REVIEW
+        SELECT R.BOOKING_CODE
+        ,R.POSTED_DATE
+        ,R.REVIEW_SCORE
+        ,R.DELETE_DATE
+        ,R.REVIEW_CONTENT
+        ,B.THERAPIST_ID
+        FROM REVIEW R
+        LEFT JOIN BOOKING B ON (R.BOOKING_CODE = B.BOOKING_CODE)
         WHERE DELETE_DATE IS NULL
         ORDER BY POSTED_DATE DESC
         LIMIT #{ startRow }, 6
