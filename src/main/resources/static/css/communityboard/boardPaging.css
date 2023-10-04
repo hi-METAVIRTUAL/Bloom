@@ -4,6 +4,8 @@ body {
 .table {
     display: flex;
     flex-direction: column;
+    width: 1200px;
+    margin: auto;
 }
 .boardListBox {
     border-collapse: collapse;
@@ -21,6 +23,7 @@ body {
     height: 70px;
     color: #C09A81;
     cursor: pointer;
+    font-size: 20px;
 }
 
 
