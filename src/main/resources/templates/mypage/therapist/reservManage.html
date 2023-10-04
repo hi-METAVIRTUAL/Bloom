@@ -231,7 +231,7 @@
     function rejectReservation(){
         const name = document.getElementById("name").innerText;
         const bCode = document.getElementById("bCode").innerText;
-        var rChk = confirm(`${name}님의 상담 신청을 거절합니다.`);
+        var rChk = confirm(`${name}님의 상담 신청을 거절합니다. 매칭된 회원일 경우 개별 연락 후 거절 바랍니다.`);
         $.ajax({
             url: "/therapist/rejectReservation",
             type: "post",

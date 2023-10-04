@@ -146,29 +146,28 @@
 
 <div class="section1">
     <div class="infoBox1">
-                <h3>이름&emsp;&emsp;<span th:text="${therapist.getName()}"></span></h3>
-                <h3></h3>
-                <h3>성별&emsp;&emsp;<span th:text="${therapist.getGender()}"></span></h3>
+                <h3>이름&emsp;&emsp;<span th:text="${therapist.getName()}" id="userName"></span></h3>
+        <h3>성별&emsp;&emsp;<span th:if="${therapist.getGender()}=='M'" >남성</span><span th:if="${therapist.getGender()} == 'F'">여성</span></h3>
+        <h3><input type="button" onclick="confirmT()"value="상담 활동 승인" style="height: 30px; border-radius: 10px; background-color: #C09A81; color: white; border: none;"></h3>
     </div>
 
     <div class="infoBox1">
-                <h3>아이디&emsp;&emsp;<div th:text="${therapist.getUserId()}"></div></h3>
-                <h3>이메일&emsp;&emsp;<div th:text="${therapist.getEmail()}"></div></h3>
-                <h3>전회번호&emsp;&emsp;<div th:text="${therapist.getPhone()}"></div></h3>
+                <h3>아이디&emsp;&emsp;<span th:text="${therapist.getUserId()}" id="userId"></span></h3>
+                <h3>이메일&emsp;&emsp;<span th:text="${therapist.getEmail()}"></span></h3>
+                <h3>전회번호&emsp;&emsp;<span th:text="${therapist.getPhone()}"></span></h3>
     </div>
 </div>
 
 <!--section2-->
 <h2>기타</h2>
 
-<div class="box1">
-    <div class="registDate"><h3>회원가입일</h3>
-        <div th:text="${therapist.getRegistDate()}"></div>
+<div class="box1" align="center">
+    <div class="registDate"><h3>회원가입일&emsp;&emsp; <span th:text="${therapist.getRegistDate()}"></span></h3>
     </div>
 </div>
 
 <!--section3-->
-<h2>답변 내역&emsp;&emsp;<button onclick="location.href=''">선택삭제</button></h2>
+<h2>답변 내역&emsp;&emsp;
 <div id="tableHeader">
     <div>No</div>
     <div>제목</div>
@@ -194,7 +193,7 @@
                 </div>
             </td>
             <td>
-                <<div th:if="${ commentList }">
+                <div th:if="${ commentList }">
                 <div th:each="comment : ${ commentList }">
                     <div th:text="${ comment.getName() }"></div>
                 </div>
@@ -250,6 +249,26 @@
                 location.href = "/board/boardSelectOne?boardCode="+boardCode;
             }
         }
+    }
+
+    function confirmT(){
+        const userId = document.getElementById("userId").innerText;
+        const userName = document.getElementById("userName").innerText;
+        var chk = confirm(`${userName}회원의 상담사 활동을 승인하시겠습니까?`);
+        $.ajax({
+            url: "/admin/confirmTherapist",
+            type: "post",
+            data: {userId: userId},
+            success: function(data, textStatus, xhr){
+                alert(`${userName}님의 상담사 활동이 승인되었습니다.`);
+                console.log("상담사 승인 완료");
+                location.reload();
+            },
+            error: function(xhr, status, error){
+                alert("요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+                console.log(error + " : 상담사 승인 요청 실패");
+            }
+        });
     }
 </script>
 </body>
