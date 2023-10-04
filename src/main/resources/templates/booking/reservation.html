@@ -24,7 +24,7 @@
         <form action="/booking/makeReservation" method="post">
 
 <!--        받아온 값을 Input필드로 넣고 hidden 처리하여 name을 Requestparam 이용해서 받아오기-->
-            <input type="text" name="therapistId" th:value="${therapistId}"/>
+            <input type="text" name="therapistId" th:value="${therapistId}" hidden/>
 
 
             <div class="calendarbox">
