@@ -16,6 +16,7 @@
     <div th:each="review : ${ reviewList }" class="review-block">
         <p><img src="/images/review/yellowstar.png" style="width: 15px; height: 15px;"> <span th:text="${ review.reviewScore }"></span><br></p>
         <h3 th:text="${ review.reviewContent }"></h3>
+        <input type="hidden" id="therapistId" name="therapistId" th:value="${review.therapistId.therapistId}"/>
     </div>
 
 </div>
@@ -69,12 +70,11 @@
         for (let i = 0; i < $h3s.length; i++) {
 
             $h3s[i].onclick = function () {
-                const bookingCode = this.parentNode.children[0].innerText;
-                location.href = "/psychological/match/introduceTherapy?bookingCode=" + bookingCode;
+               // const bookingCode = this.parentNode.children[0].innerText;
+                const therapist = $("#therapistId").val();
+                location.href = "/psychological/match/introduceTherapy?userId=" + therapist;
             }
         }
     }
-
-
 </script>
 </html>

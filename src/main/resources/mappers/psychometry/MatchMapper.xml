@@ -237,6 +237,8 @@
         SELECT
         T. USER_ID
         , T.THERAPIST_Q1
+        , T.THERAPIST_Q2
+        , T.THERAPIST_Q3
         , T.ACTIVATION_STATUS
         , T.SESSION_VIDCALL_CK
         , T.DEPRESSION_CK
@@ -245,9 +247,13 @@
         , T.OCD_CK
         , T.RELATION_CK
         , U.USER_ID
+        , U.NAME
         , U.GENDER
+        , U.PHONE
         , P.FILE_PATH
         FROM (SELECT B.THERAPIST_Q1
+        , B.THERAPIST_Q2
+        , B.THERAPIST_Q3
         , B.ACTIVATION_STATUS
         , B.SESSION_VIDCALL_CK
         , B.DEPRESSION_CK
