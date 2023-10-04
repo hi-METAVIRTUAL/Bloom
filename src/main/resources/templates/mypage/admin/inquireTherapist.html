@@ -46,7 +46,7 @@
                 <th style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;">No</th>
                 <th>아이디</th>
                 <th>이름</th>
-                <th>가입일</th>
+                <th>가입일/탈퇴일</th>
                 <th>승인 여부</th>
                 <th style="border-top-right-radius: 15px; border-bottom-right-radius: 15px;">계정탈퇴</th>
             </tr>
@@ -55,7 +55,10 @@
                 <td th:text="${adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index)}"></td>
                 <td style="cursor: pointer;" id="selectTherapist" th:text="${therapist.userId}"></td>
                 <td style="cursor: pointer;" id="therapistInfo" th:text="${therapist.name}"></td>
-                <td th:text="${therapist.registDate}"></td>
+                <td>
+                    <p th:if="${therapist.unregistDate == null}" th:text="${therapist.registDate}"></p>
+                    <p th:unless="${therapist.unregistDate == null}" th:text="${therapist.unregistDate}"></p>
+                </td>
                 <td th:text="${therapist.confirmedStatus}"></td>
                 <td>
                     <input th:if="${#strings.isEmpty(therapist.unregistDate)}" type="button" value="탈퇴" style="text-align: center; font-weight: bold; border: 2px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 30px; background: none;" th:therapistId="${therapist.userId}" th:onclick="unregistMember(this.getAttribute('therapistId'))">
@@ -155,12 +158,22 @@
             });
     }
 
-    if(document.querySelectorAll("#theArea td")){
-        const $tds = document.querySelectorAll("#theArea td");
-        for(let i = 0; i < $tds.length; i++){
-            $tds[i].onclick = function (){
-                const userId = this.parentNode.children[1].innerText;
-                location.href = "/admin/editTherapistInfo?userId=" + userId;
+    if(document.querySelectorAll("#selectTherapist")){
+        const $st = document.querySelectorAll("#selectTherapist");
+        for(let i = 0; i<$st.length; i++){
+            $st[i].onclick = function(){
+                const userId = this.innerText;
+                location.href = "/admin/editTherapistInfo?userId="+userId;
+            }
+        }
+    }
+
+    if(document.querySelectorAll("#therapistInfo")){
+        const $ti = document.querySelectorAll("#therapistInfo");
+        for(let i = 0; i<$ti.length; i++){
+            $ti[i].onclick = function (){
+                const userId = document.getElementById('selectTherapist').innerText;
+                location.href = "/admin/editTherapistInfo?userId="+userId;
             }
         }
     }

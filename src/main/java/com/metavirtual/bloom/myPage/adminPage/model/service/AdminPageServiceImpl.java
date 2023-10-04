@@ -1,13 +1,13 @@
 package com.metavirtual.bloom.myPage.adminPage.model.service;
 
 import com.metavirtual.bloom.board.model.dto.BoardDTO;
+import com.metavirtual.bloom.board.model.dto.BoardReportDTO;
 import com.metavirtual.bloom.common.exception.myPage.ModifyInfoException;
 import com.metavirtual.bloom.common.paging.AdminCriteria;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.adminPage.model.dao.AdminPageMapper;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.AdminCommentDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsDetailDTO;
-import com.metavirtual.bloom.myPage.adminPage.model.dto.CsListDTO;
+import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
+import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,5 +82,53 @@ public class AdminPageServiceImpl implements AdminPageService{
             unregistList = mapper.selectunregistList(unregistMember.getUserId());
         }
         return unregistList;
+    }
+
+    @Override
+    public MemberInfo memberInfo(String userId) {
+        MemberInfo Info = mapper.memberInfo(userId);
+        return Info;
+    }
+
+    @Override
+    public int selectTotalReportCount(String userId) {
+        int result = mapper.selectTotalReportCount(userId);
+        return result;
+    }
+
+    @Override
+    public int selectTotalPostCount(String userId) {
+        int result = mapper.selectTotalPostCount(userId);
+        return result;
+    }
+
+    @Override
+    public List<BoardDTO> selectPostList(SelectCriteria selectCriteria, String userId) {
+        List<BoardDTO> postList = mapper.selectPostList(selectCriteria, userId);
+        return postList;
+    }
+
+    @Override
+    public List<MemberReport> selectReportList(SelectCriteria selectCriteria, String userId) {
+        List<MemberReport> reportList = mapper.selectReportList(selectCriteria, userId);
+        return reportList;
+    }
+
+    @Override
+    public UserDTO therapistInfo(String userId) {
+        UserDTO Info = mapper.therapistInfo(userId);
+        return Info;
+    }
+
+    @Override
+    public int selectTotalCommentCount(String userId) {
+        int result = mapper.selectTotalCommentCount(userId);
+        return result;
+    }
+
+    @Override
+    public List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId) {
+        List<TherapistComment> commentList = mapper.selectCommentList(selectCriteria, userId);
+        return commentList;
     }
 }

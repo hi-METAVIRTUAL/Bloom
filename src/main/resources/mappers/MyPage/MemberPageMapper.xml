@@ -55,6 +55,7 @@
         <result property="phone" column="PHONE"/>
         <result property="gender" column="GENDER"/>
         <result property="email" column="EMAIL"/>
+        <result property="registDate" column="REGIST_DATE"/>
     </resultMap>
 
 <!--    <resultMap id="memberBoard" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBoard">-->
@@ -102,6 +103,7 @@
             , U.PHONE
             , U.GENDER
             , U.EMAIL
+            , U.REGIST_DATE
         FROM USER U
         JOIN MEMBER M ON U.USER_ID = M.USER_ID
         WHERE U.USER_ID = #{name}
