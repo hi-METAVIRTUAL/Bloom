@@ -1,5 +1,7 @@
 package com.metavirtual.bloom.myPage.therapistPage.model.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class BookInfo {
     private int bookingCode;
     private String bookingDate;

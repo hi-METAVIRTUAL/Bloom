@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/communityboard/boardPaging.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         .section1{
@@ -34,76 +35,39 @@
             padding-left: 10px;
         }
 
-        /*#uploadedPosts {
-            background-color: #FFFFFF;
-            width: auto;
-            height: 70px;
-            margin: 0 auto;
-            border-radius: 5px;
-            border: 2px solid #C09A81;
-            display: flex;
-            justify-content: flex-start;
-            gap: 350px;
-            padding-left: 10px;
-        }
-
-        #uploadedPosts th {
-
-        }*/
-
         #tableHeader {
             background-color: #C09A81;
             color: #FFFFFF;
-            width: auto;
             border-radius: 5px;
-            display: flex;
             justify-content: flex-start;
-            gap: 350px;
             padding: 15px 20px;
+            text-align: center;
+            height: 50px;
         }
 
         #uploadedPosts tr:nth-child(even){background-color: #ffffff;}
 
-        #uploadedPosts tr:hover {background-color: #ddd;}
-
-        #tableRow {
-            width: 100%;
-            overflow-x: auto; /* Add horizontal scrolling if necessary */
-        }
-
         #uploadedPosts {
             width: 100%;
             border-collapse: collapse; /* Optional: collapse table borders */
-
-        }
-
-        #tableHeader2 {
-            background-color: #C09A81;
-            color: #FFFFFF;
-            width: auto;
             border-radius: 5px;
-            display: flex;
-            justify-content: flex-start;
-            gap: 350px;
-            padding: 15px 20px;
         }
 
         #uploadedPosts2 tr:nth-child(even){background-color: #ffffff;}
 
-        #uploadedPosts2 tr:hover {background-color: #ddd;}
-
-
-        #tableRow2 {
-            width: 100%;
-            overflow-x: auto; /* Add horizontal scrolling if necessary */
+        .tdleft {
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
         }
 
-        #uploadedPosts2 {
-            width: 100%;
-            border-collapse: collapse; /* Optional: collapse table borders */
-
+        .tdright {
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
         }
 
+        td {
+            height: 30px;
+        }
     </style>
 </head>
 
@@ -111,38 +75,6 @@
 <header class="header" th:include="components/Header.html"></header>
 
 <h2>상담사 정보</h2>
-
-<!--&lt;!&ndash;임시로 보여지는용&ndash;&gt;-->
-<!--<div class="section1">-->
-<!--    <div class="infoBox1">-->
-<!--        <h3 class="info1-1">이름</h3>-->
-<!--        <h3 class="info1-3">성별&nbsp; &nbsp; &nbsp; &nbsp;남<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;여<input type="checkbox"></h3>-->
-<!--        <h3 class="info1-3">선택한강점분야&nbsp; &nbsp; &nbsp; &nbsp;우울<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;불안<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;양극성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;강박성<input type="checkbox">&nbsp; &nbsp; &nbsp; &nbsp;대인관계<input type="checkbox"></h3>-->
-<!--    </div>-->
-<!--    <div class="infoBox2">-->
-<!--        <h3 class="info2-1">아이디</h3>-->
-<!--        <h3 class="info2-2">이메일</h3>-->
-<!--        <h3 class="info2-3">전화번호</h3>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
-<!--임시로 보여지는 용-->
-<!--<div class="section1">-->
-<!--    <div class="infoBox1">-->
-<!--        <h3>이름&emsp;<span th:text="${ 'hello' }"></span></h3>-->
-<!--        <h3>성별&emsp;<span th:text="${'hello'}"></span></h3>-->
-<!--        <h3>선택 강점 분야&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>-->
-<!--    </div>-->
-<!--    <div class="infoBox1">-->
-<!--        <h3>아이디&emsp;<span th:text="${ 'hello' }"></span></h3>-->
-<!--        <h3>이메일&emsp;<span th:text="${'hello'}"></span></h3>-->
-<!--        <h3>전회번야&emsp;<span th:text="${'hiiiiiiiiiiiiiiiiiii'}"></span></h3>-->
-<!--    </div>-->
-<!--</div>-->
-<!--임시로 보여지는용-->
-
 
 <div class="section1">
     <div class="infoBox1">
@@ -168,44 +100,19 @@
 
 <!--section3-->
 <h2>답변 내역&emsp;&emsp;
-<div id="tableHeader">
-    <div>No</div>
-    <div>제목</div>
-    <div>작성자</div>
-    <div>작성일</div>
-</div>
-<div id="tableRow">
+<div>
     <table id="uploadedPosts">
-        <tr>
-            <td>
-                <div th:if="${ commentList }">
-                    <div th:each="iterator : ${ commentList }">
-                        <div th:text="${selectCriteria.totalBoardCount - (((selectCriteria.pageNo - 1) * selectCriteria.limitPerPage) + iterator.index)}"></div>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <div th:if="${ commentList }">
-                    <div th:each="comment : ${ commentList }">
-                        <div th:text="${ comment.getTitle() }" class="title" th:attr="data-board-code=${comment.getBoardCode()}"></div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div th:if="${ commentList }">
-                <div th:each="comment : ${ commentList }">
-                    <div th:text="${ comment.getName() }"></div>
-                </div>
-            </div>
-            </td>
-            <td>
-                <div th:if="${ commentList }">
-                    <div th:each="comment : ${ commentList }">
-                        <div th:text="${ comment.getPostedDate() }"></div>
-                    </div>
-                </div>
-            </td>
+        <tr id="tableHeader">
+            <th scope="col" class="tdleft">No</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col" class="tdright">작성일</th>
+        </tr>
+        <tr th:if="${ commentList }" th:each="comment : ${ commentList }" style="width: 100%;">
+            <td class="tdleft" th:text="${ comment.getBoardCode() }"></td>
+            <td th:text="${ comment.getTitle() }" class="title" th:attr="data-board-code=${comment.getBoardCode()}"></td>
+            <td th:text="${ comment.getName() }"></td>
+            <td class="tdright" th:text="${ comment.getPostedDate() }"></td>
         </tr>
     </table>
     <div align="center" class="paging">
@@ -255,20 +162,22 @@
         const userId = document.getElementById("userId").innerText;
         const userName = document.getElementById("userName").innerText;
         var chk = confirm(`${userName}회원의 상담사 활동을 승인하시겠습니까?`);
-        $.ajax({
-            url: "/admin/confirmTherapist",
-            type: "post",
-            data: {userId: userId},
-            success: function(data, textStatus, xhr){
-                alert(`${userName}님의 상담사 활동이 승인되었습니다.`);
-                console.log("상담사 승인 완료");
-                location.reload();
-            },
-            error: function(xhr, status, error){
-                alert("요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
-                console.log(error + " : 상담사 승인 요청 실패");
-            }
-        });
+        if(chk){
+            $.ajax({
+                url: "/admin/confirmTherapist",
+                type: "post",
+                data: {userId: userId},
+                success: function(data, textStatus, xhr){
+                    alert(`${userName}님의 상담사 활동이 승인되었습니다.`);
+                    console.log("상담사 승인 완료");
+                    location.reload();
+                },
+                error: function(xhr, status, error){
+                    alert("요청 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+                    console.log(error + " : 상담사 승인 요청 실패");
+                }
+            });
+        }
     }
 </script>
 </body>

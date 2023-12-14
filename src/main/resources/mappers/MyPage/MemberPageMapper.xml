@@ -34,8 +34,9 @@
     <resultMap id="ReviewResultMap" type="com.metavirtual.bloom.myPage.memberPage.model.dto.ReviewListDTO">
         <id property="bookingCode" column="BOOKING_CODE"/>
         <result property="name" column="NAME"/>
-        <result property="reviewScore" column="REVIEW_SCORE"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
         <result property="reviewContent" column="REVIEW_CONTENT"/>
+        <result property="therapistId" column="THERAPIST_ID"/>
     </resultMap>
 
     <resultMap id="bookingInfo" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBookingInfo">
@@ -56,6 +57,7 @@
         <result property="gender" column="GENDER"/>
         <result property="email" column="EMAIL"/>
         <result property="registDate" column="REGIST_DATE"/>
+        <result property="testStatus" column="TEST_STATUS"/>
     </resultMap>
 
 <!--    <resultMap id="memberBoard" type="com.metavirtual.bloom.myPage.memberPage.model.dto.MemberBoard">-->
@@ -92,6 +94,8 @@
         JOIN USER U ON B.THERAPIST_ID = U.USER_ID
         JOIN MEMBER M ON B.MEMBER_ID = M.USER_ID
         WHERE B.MEMBER_ID = #{name}
+        ORDER BY B.BOOKING_DATE DESC
+        LIMIT 1;
     </select>
 
     <select id="memberInfo" resultMap="memberInfo" parameterType="java.lang.String">
@@ -104,6 +108,7 @@
             , U.GENDER
             , U.EMAIL
             , U.REGIST_DATE
+            , M.TEST_STATUS
         FROM USER U
         JOIN MEMBER M ON U.USER_ID = M.USER_ID
         WHERE U.USER_ID = #{name}
@@ -191,14 +196,15 @@
 
     <select id="selectReviewList" resultMap="ReviewResultMap">
         SELECT
-            R.BOOKING_CODE
-            , U.NAME
-            , R.REVIEW_SCORE
+            B.BOOKING_CODE
+            , B.BOOKING_DATE
+            , B.THERAPIST_ID
             , R.REVIEW_CONTENT
-        FROM REVIEW R
-        JOIN BOOKING B ON R.BOOKING_CODE = B.BOOKING_CODE
+            , U.NAME
+        FROM BOOKING B
+        JOIN REVIEW R ON B.BOOKING_CODE = R.BOOKING_CODE
         JOIN USER U ON B.THERAPIST_ID = U.USER_ID
-        WHERE U.USER_ID = #{ userId }
+        WHERE B.MEMBER_ID = #{ userId }
         ORDER BY R.POSTED_DATE DESC
         LIMIT #{ selectCriteria.startRow }, 5
     </select>

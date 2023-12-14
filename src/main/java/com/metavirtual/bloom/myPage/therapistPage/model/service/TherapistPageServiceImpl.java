@@ -124,8 +124,8 @@ public class TherapistPageServiceImpl implements TherapistPageService{
     }
 
     @Override
-    public BookInfo bookInfo(String memberId){
-        BookInfo bookInfo = mapper.bookInfo(memberId);
+    public BookInfo bookInfo(int bookingCode){
+        BookInfo bookInfo = mapper.bookInfo(bookingCode);
         return bookInfo;
     }
 }

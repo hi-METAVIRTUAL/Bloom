@@ -55,6 +55,9 @@ public class MemberPageController {
             UserDTO user = memberPageService.userInfo(authentication.getName());
             model.addAttribute("user", user);
 
+            MemberInfo member = memberPageService.memberInfo(authentication.getName());
+            model.addAttribute("member", member);
+
             MemberBookingInfo booking = memberPageService.memberBookingInfo(authentication.getName());
             model.addAttribute("booking", booking);
         }

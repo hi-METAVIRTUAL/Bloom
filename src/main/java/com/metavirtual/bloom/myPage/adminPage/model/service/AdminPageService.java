@@ -7,6 +7,7 @@ import com.metavirtual.bloom.common.paging.AdminCriteria;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 
 import java.util.List;
@@ -50,4 +51,5 @@ public interface AdminPageService {
 
     public void confirmTherapist(String userId) throws ModifyInfoException;
 
+    public BookInfo bookInfo(String userId);
 }

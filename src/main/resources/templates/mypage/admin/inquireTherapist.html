@@ -32,9 +32,8 @@
             <button type="submit" style="background-color: #C09A81; color: white; border: 1px solid #C09A81; border-radius: 10px; width: 90px; height: 40px; text-align: center; line-height: 40px;" onclick="">검색</button>
         </form>
     </div>
-    <br>
-    <br>
     <div>
+        <h5 style="color: #C09A81">아이디를 누르면 상세 조회로 이동합니다.</h5>
         <table id="theArea" align="center" style="border-collapse: collapse; width: 800px;">
             <col style="width: 10%">
             <col style="width: 18%">
@@ -54,7 +53,7 @@
             <tr style="color: #C09A81; cursor: pointer;" align="center" th:each="therapist, iterator : ${ therapistList }" th:if="${therapistList} != null">
                 <td th:text="${adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index)}"></td>
                 <td style="cursor: pointer;" id="selectTherapist" th:text="${therapist.userId}"></td>
-                <td style="cursor: pointer;" id="therapistInfo" th:text="${therapist.name}"></td>
+                <td style="cursor: pointer;" th:text="${therapist.name}"></td>
                 <td>
                     <p th:if="${therapist.unregistDate == null}" th:text="${therapist.registDate}"></p>
                     <p th:unless="${therapist.unregistDate == null}" th:text="${therapist.unregistDate}"></p>
@@ -109,53 +108,55 @@
 
         let unregistDate = `${year}-${month}-${day}`;
 
-        confirm(`${name} 회원을 탈퇴 처리합니다.`);
-        fetch("/admin/unregistMember", {
-            method: "PATCH",
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(
-                {
-                    unregistDate:unregistDate,
-                    userId:therapistId
-                }
-            )
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+        var check2 = confirm(`${name} 회원을 탈퇴 처리합니다.`);
+        if(check2){
+            fetch("/admin/unregistMember", {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify(
+                    {
+                        unregistDate:unregistDate,
+                        userId:therapistId
+                    }
+                )
             })
-            .then(data => {
-                console.table(data);
-                alert(`${name} 회원이 탈퇴 처리되었습니다.`);
-
-                const $table = $("#memberResult");
-                $table.html("");
-
-                data.map((therapist) => {
-                    $tr = $("<tr>");
-                    $indexTd = $("<td>").text(adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index));
-                    $userIdTd = $("<td>").text(therapist.userId);
-                    $nameTd = $("<td>").text(therapist.name);
-                    $registDateTd = $("<td>").text(therapist.registDate);
-                    $updateTd = $("<td>").append("<input type='button' onclick='unregistMember("+therapist.userId+")'>");
-
-                    $tr.append($indexTd);
-                    $tr.append($userIdTd);
-                    $tr.append($nameTd);
-                    $tr.append($registDateTd);
-                    $tr.append($updateTd);
-
-                    $table.append($tr);
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
                 })
-            })
-            .catch((error) => {
-                console.error(error);
-                alert("요청 처리 실패. 다시 시도해주세요.");
-            });
+                .then(data => {
+                    console.table(data);
+                    alert(`${name} 회원이 탈퇴 처리되었습니다.`);
+
+                    const $table = $("#memberResult");
+                    $table.html("");
+
+                    data.map((therapist) => {
+                        $tr = $("<tr>");
+                        $indexTd = $("<td>").text(adminCriteria.totalBoardCount - (((adminCriteria.pageNo - 1) * adminCriteria.limitPerPage) + iterator.index));
+                        $userIdTd = $("<td>").text(therapist.userId);
+                        $nameTd = $("<td>").text(therapist.name);
+                        $registDateTd = $("<td>").text(therapist.registDate);
+                        $updateTd = $("<td>").append("<input type='button' onclick='unregistMember("+therapist.userId+")'>");
+
+                        $tr.append($indexTd);
+                        $tr.append($userIdTd);
+                        $tr.append($nameTd);
+                        $tr.append($registDateTd);
+                        $tr.append($updateTd);
+
+                        $table.append($tr);
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert("요청 처리 실패. 다시 시도해주세요.");
+                });
+        }
     }
 
     if(document.querySelectorAll("#selectTherapist")){
@@ -163,16 +164,6 @@
         for(let i = 0; i<$st.length; i++){
             $st[i].onclick = function(){
                 const userId = this.innerText;
-                location.href = "/admin/editTherapistInfo?userId="+userId;
-            }
-        }
-    }
-
-    if(document.querySelectorAll("#therapistInfo")){
-        const $ti = document.querySelectorAll("#therapistInfo");
-        for(let i = 0; i<$ti.length; i++){
-            $ti[i].onclick = function (){
-                const userId = document.getElementById('selectTherapist').innerText;
                 location.href = "/admin/editTherapistInfo?userId="+userId;
             }
         }

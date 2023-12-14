@@ -260,8 +260,8 @@ public class TherapistPageController {
     }
 
     @GetMapping("/reservPopup")
-    public String reservPopup(@RequestParam(name = "memberId") String memberId, Model model) {
-        BookInfo bookInfo = therapistPageService.bookInfo(memberId);
+    public String reservPopup(@RequestParam(name = "bookingCode") int bookingCode, Model model) {
+        BookInfo bookInfo = therapistPageService.bookInfo(bookingCode);
         model.addAttribute("bookInfo", bookInfo);
         return "mypage/therapist/reservPopup";
     }

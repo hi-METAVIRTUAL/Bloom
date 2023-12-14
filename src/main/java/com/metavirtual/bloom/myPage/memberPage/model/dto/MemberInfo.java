@@ -9,11 +9,12 @@ public class MemberInfo {
     private String gender;
     private String email;
     private String registDate;
+    private char testStatus;
 
     public MemberInfo() {
     }
 
-    public MemberInfo(String name, String userId, String pwd, String nickname, String phone, String gender, String email, String registDate) {
+    public MemberInfo(String name, String userId, String pwd, String nickname, String phone, String gender, String email, String registDate, char testStatus) {
         this.name = name;
         this.userId = userId;
         this.pwd = pwd;
@@ -22,6 +23,7 @@ public class MemberInfo {
         this.gender = gender;
         this.email = email;
         this.registDate = registDate;
+        this.testStatus = testStatus;
     }
 
     public String getName() {
@@ -88,6 +90,14 @@ public class MemberInfo {
         this.registDate = registDate;
     }
 
+    public char getTestStatus() {
+        return testStatus;
+    }
+
+    public void setTestStatus(char testStatus) {
+        this.testStatus = testStatus;
+    }
+
     @Override
     public String toString() {
         return "MemberInfo{" +
@@ -99,6 +109,7 @@ public class MemberInfo {
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
                 ", registDate='" + registDate + '\'' +
+                ", testStatus='" + testStatus + '\'' +
                 '}';
     }
 }
