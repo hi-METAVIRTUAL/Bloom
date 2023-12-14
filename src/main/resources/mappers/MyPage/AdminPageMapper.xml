@@ -87,6 +87,20 @@
         <result property="boardCode" column="BOARD_CODE"/>
     </resultMap>
 
+    <resultMap id="bookInfo" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo">
+        <id property="bookingCode" column="BOOKING_CODE"/>
+        <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="name" column="NAME"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="phone" column="PHONE"/>
+        <result property="depressionTotalScore" column="DEPRESSION_TOTAL_SCORE"/>
+        <result property="anxietyTotalScore" column="ANXIETY_TOTAL_SCORE"/>
+        <result property="bipolarTotalScore" column="BIPOLAR_TOTAL_SCORE"/>
+        <result property="ocdTotalScore" column="OCD_TOTAL_SCORE"/>
+        <result property="etcContent" column="ETC_CONTENT"/>
+        <result property="relationCK" column="RELATION_CK"/>
+    </resultMap>
+
     <select id="selectCsCount" resultType="_int">
         SELECT COUNT(*)
         FROM BOARD
@@ -330,4 +344,33 @@
         SET CONFIRMED_STATUS = "Y"
         WHERE USER_ID = #{ userId }
     </update>
+
+    <select id="bookInfo" parameterType="java.lang.String" resultMap="bookInfo">
+        SELECT
+            B.BOOKING_CODE
+            , B.BOOKING_DATE
+            , U.NAME
+            , B.MEMBER_ID
+            , U.PHONE
+            , R.DEPRESSION_TOTAL_SCORE
+            , R.ANXIETY_TOTAL_SCORE
+            , R.BIPOLAR_TOTAL_SCORE
+            , R.OCD_TOTAL_SCORE
+            , M.ETC_CONTENT
+            , M.RELATION_CK
+        FROM BOOKING B
+        JOIN USER U ON B.MEMBER_ID = U.USER_ID
+        JOIN MEMBER_TEST_RESULT R ON U.USER_ID = R.USER_ID
+        JOIN MEMBER M ON U.USER_ID = M.USER_ID
+        WHERE B.MEMBER_ID = #{userId}
+        AND (
+            R.TEST_DATE = (
+                SELECT MAX(TEST_DATE)
+                FROM MEMBER_TEST_RESULT
+                WHERE USER_ID = U.USER_ID
+            )
+        )
+        ORDER BY B.BOOKING_DATE DESC
+        LIMIT 1;
+    </select>
 </mapper>

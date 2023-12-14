@@ -12,13 +12,16 @@ public class BookDTO {
 
     private String memberName;
 
+    private int bookingCode;
+
     public BookDTO() {
     }
 
-    public BookDTO(String bookingDate, String memberId, String memberName) {
+    public BookDTO(String bookingDate, String memberId, String memberName, int bookingCode) {
         this.bookingDate = bookingDate;
         this.memberId = memberId;
         this.memberName = memberName;
+        this.bookingCode = bookingCode;
     }
 
     public String getBookingDate() {
@@ -45,12 +48,21 @@ public class BookDTO {
         this.memberName = memberName;
     }
 
+    public int getBookingCode() {
+        return bookingCode;
+    }
+
+    public void setBookingCode(int bookingCode) {
+        this.bookingCode = bookingCode;
+    }
+
     @Override
     public String toString() {
         return "BookDTO{" +
                 "bookingDate='" + bookingDate + '\'' +
                 ", memberId='" + memberId + '\'' +
                 ", memberName='" + memberName + '\'' +
+                ", bookingCode='" + bookingCode +
                 '}';
     }
 }

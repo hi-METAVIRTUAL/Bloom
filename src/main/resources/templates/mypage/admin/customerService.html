@@ -44,8 +44,8 @@
             <td th:text="${cs.getPostedDate()}"></td>
             <td th:text="${cs.getUserId()}"></td>
             <td>
-                <a th:if="${cs.getCommentNumber() != null && cs.getCommentNumber() != ''}">답변 완료</a>
-                <a th:if="${cs.getCommentNumber() == null || cs.getCommentNumber() == ''}">답변 대기</a>
+                <a th:if="${cs.getCommentNumber() != 0}">답변 완료</a>
+                <a th:unless="${cs.getCommentNumber() != 0}">답변 대기</a>
             </td>
         </tr>
     </table>

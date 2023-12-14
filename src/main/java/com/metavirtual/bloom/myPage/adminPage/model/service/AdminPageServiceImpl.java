@@ -8,6 +8,7 @@ import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.adminPage.model.dao.AdminPageMapper;
 import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,5 +140,11 @@ public class AdminPageServiceImpl implements AdminPageService{
         if(!(result>0)){
             throw new ModifyInfoException(("예약 거절 요청 실패"));
         }
+    }
+
+    @Override
+    public BookInfo bookInfo(String userId){
+        BookInfo bookInfo = mapper.bookInfo(userId);
+        return bookInfo;
     }
 }

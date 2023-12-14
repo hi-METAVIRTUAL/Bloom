@@ -35,7 +35,7 @@
     <input th:value="${bookInfo.getBookingCode()}" type="hidden" id="bCode">
 
     <h4>예약일자</h4>
-    <p th:text="${bookInfo.getBookingDate()}"/>
+    <p th:text="${bookInfo.getBookingDate()}" id="bookingDate"/>
 
     <h4>이름</h4>
     <p th:text="${bookInfo.getName()}" id="name"/>
@@ -55,30 +55,55 @@
     </div>
     <br>
     <p>예약 취소는 내담자와 연락 후 진행해 주세요</p>
-    <input type="button" value="예약취소" onclick="rejectReservation()">
+    <input type="button" value="예약취소" onclick="checkDateFirst()">
     <input type="button" value="닫   기" onclick="self.close();">
     <br><br>
 </div>
+<div align="center" style="color: #C09A81;" th:unless="${bookInfo != null}">
+    <h3>현재 예약 내역이 없습니다.</h3>
+</div>
 
 <script>
+    function parseDateString(dateString) {
+        const [datePart, timePart] = dateString.split(' ');
+        const [year, month, day] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
+
+        return new Date(year, month - 1, day, hour, minute);
+    }
+
+    function checkDateFirst(){
+        const bookingDateStr = document.getElementById("bookingDate").innerText;
+        const bookingDate = parseDateString(bookingDateStr);
+        const currentDate = new Date();
+
+        if(bookingDate > currentDate){
+            rejectReservation();
+        } else {
+            alert("예약 시간이 지나 취소할 수 없습니다.");
+        }
+    }
+
     function rejectReservation(){
         const name = document.getElementById("name").innerText;
         const bCode =document.getElementById("bCode").value;
         var rChk = confirm(`${name}님의 상담 예약을 취소합니다.`);
-        $.ajax({
-            url: "/therapist/rejectReservation",
-            type: "post",
-            data: {bookingCode: bCode},
-            success: function(data, textStatus, xhr){
-                alert(`${name}님의 예약이 취소되었습니다.`);
-                console.log("예약 거부 요청 성공");
-                self.close();
-            },
-            error: function(xhr, status, error){
-                alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
-                console.log(error + " : 예약 거부 요청 실패");
-            }
-        });
+        if(rChk){
+            $.ajax({
+                url: "/therapist/rejectReservation",
+                type: "post",
+                data: {bookingCode: bCode},
+                success: function(data, textStatus, xhr){
+                    alert(`${name}님의 예약이 취소되었습니다.`);
+                    console.log("예약 거부 요청 성공");
+                    self.close();
+                },
+                error: function(xhr, status, error){
+                    alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                    console.log(error + " : 예약 거부 요청 실패");
+                }
+            });
+        }
     }
 </script>
 

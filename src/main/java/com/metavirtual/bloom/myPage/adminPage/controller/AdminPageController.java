@@ -10,6 +10,7 @@ import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
 import com.metavirtual.bloom.myPage.adminPage.model.service.AdminPageServiceImpl;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.CommentListDTO;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.myPage.therapistPage.model.dto.ReservationDTO;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import com.metavirtual.bloom.user.model.dto.UserImpl;
@@ -186,7 +187,7 @@ public class AdminPageController {
         } catch(ModifyInfoException e) {
             rttr.addFlashAttribute("cErrorMessage", "답변 등록에 실패했습니다. 다시 시도해주세요.");
         }
-        return "redirecr:/admin/customerService";
+        return "redirect:/admin/customerService";
     }
 
     @GetMapping("/inquireMember")
@@ -301,6 +302,13 @@ public class AdminPageController {
     @ResponseBody
     public void confirmTherapist(@RequestParam("userId") String userId) throws ModifyInfoException{
         adminPageService.confirmTherapist(userId);
+    }
+
+    @GetMapping("/reservPopup")
+    public String reservPopup(@RequestParam(name = "userId") String userId, Model model) {
+        BookInfo bookInfo = adminPageService.bookInfo(userId);
+        model.addAttribute("bookInfo", bookInfo);
+        return "mypage/therapist/reservPopup";
     }
 }
 

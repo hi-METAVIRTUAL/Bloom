@@ -6,6 +6,7 @@ import com.metavirtual.bloom.common.paging.AdminCriteria;
 import com.metavirtual.bloom.common.paging.SelectCriteria;
 import com.metavirtual.bloom.myPage.adminPage.model.dto.*;
 import com.metavirtual.bloom.myPage.memberPage.model.dto.MemberInfo;
+import com.metavirtual.bloom.myPage.therapistPage.model.dto.BookInfo;
 import com.metavirtual.bloom.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -51,4 +52,6 @@ public interface AdminPageMapper {
     List<TherapistComment> selectCommentList(SelectCriteria selectCriteria, String userId);
 
     int confirmTherapist(String userId);
+
+    BookInfo bookInfo(String userId);
 }

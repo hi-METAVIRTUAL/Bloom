@@ -37,5 +37,5 @@ public interface TherapistPageService {
 
     public List<BookDTO> bookingList(String userId) throws Exception;
 
-    public BookInfo bookInfo(String memberId);
+    public BookInfo bookInfo(int bookingCode);
 }

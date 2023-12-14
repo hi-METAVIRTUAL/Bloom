@@ -87,8 +87,8 @@
                     </tr>
                     <tr th:each="booking, iterator : ${reservationList}">
                         <td th:text="${selectCriteria.totalBoardCount - (((selectCriteria.pageNo - 1) * selectCriteria.limitPerPage) + iterator.index)}"></td>
-                        <td th:text="${ booking.getBookingCode() }" id="bCode"></td>
-                        <td th:text="${ booking.getMemberName() }" id="name"></td>
+                        <td th:text="${ booking.getBookingCode() }"></td>
+                        <td th:text="${ booking.getMemberName() }"></td>
                         <td>
                             <div th:if="${ booking.getMemberGender() } == 'F'">여성</div>
                             <div th:if="${ booking.getMemberGender() } == 'M'">남성</div>
@@ -96,8 +96,8 @@
                         <td th:text="${ booking.getBookingDate() }"></td>
                         <td th:text="${ booking.getMemberPhone() }"></td>
                         <td>
-                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" onclick="acceptReservation()">
-                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" onclick="rejectReservation()">
+                            <input type="button" value="승인" style="background: #C09A81; border: 1px solid #C09A81; border-radius: 10px; color: #FFFFFF; width: 40px; height: 29px;" onclick="acceptReservation(this)">
+                            <input type="button" value="거부" style="background: #FFFFFF; border: 1px solid #C09A81; border-radius: 10px; color: #C09A81; width: 40px; height: 29px;" onclick="rejectReservation(this)">
                         </td>
                     </tr>
                 </table>
@@ -188,7 +188,7 @@
                                     title: response[i]['memberName'],
                                     start: response[i]['bookingDate'],
                                     extendedProps: {
-                                        memberId: response[i]['memberId']
+                                        bookingCode: response[i]['bookingCode']
                                     },
                                     color: 'red'
                                 });
@@ -200,52 +200,58 @@
                 })
             ],
             eventClick: function showPopup(info) {
-                const memberId = info.event.extendedProps.memberId;
-                window.open("reservPopup?memberId=" + memberId, "a", "width=450, height=550, left=350, top=210" ); }
+                const bookingCode = info.event.extendedProps.bookingCode;
+                window.open("reservPopup?bookingCode=" + bookingCode, "a", "width=500, height=600, left=350, top=210" ); }
         });
         calendar.render();
     });
 </script><script>
 
-    function acceptReservation(){
-        const name = document.getElementById("name").innerText;
-        const bCode = document.getElementById("bCode").innerText;
+    function acceptReservation(button){
+        const row = button.closest('tr');
+        const name = row.querySelector('td:nth-child(3)').innerText;
+        const bCode = row.querySelector('td:nth-child(2)').innerText;
         var aChk = confirm(`${name}님의 상담 신청을 수락합니다.`);
-        $.ajax({
-            url: "/therapist/acceptReservation",
-            type: "post",
-            data: {bookingCode: bCode},
-            success: function(data, textStatus, xhr){
-                alert(`${name}님의 예약이 확정되었습니다.`);
-                console.log("예약 승인 요청 성공");
-                location.reload();
-            },
-            error: function(xhr, status, error){
-                alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
-                console.log(error + " : 예약 승인 요청 실패");
-            }
-        });
+        if(aChk){
+            $.ajax({
+                url: "/therapist/acceptReservation",
+                type: "post",
+                data: {bookingCode: bCode},
+                success: function(data, textStatus, xhr){
+                    alert(`${name}님의 예약이 확정되었습니다.`);
+                    console.log("예약 승인 요청 성공");
+                    location.reload();
+                },
+                error: function(xhr, status, error){
+                    alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                    console.log(error + " : 예약 승인 요청 실패");
+                }
+            });
+        }
     }
 
 
-    function rejectReservation(){
-        const name = document.getElementById("name").innerText;
-        const bCode = document.getElementById("bCode").innerText;
+    function rejectReservation(button){
+        const row = button.closest('tr');
+        const name = row.querySelector('td:nth-child(3)').innerText;
+        const bCode = row.querySelector('td:nth-child(2)').innerText;
         var rChk = confirm(`${name}님의 상담 신청을 거절합니다. 매칭된 회원일 경우 개별 연락 후 거절 바랍니다.`);
-        $.ajax({
-            url: "/therapist/rejectReservation",
-            type: "post",
-            data: {bookingCode: bCode},
-            success: function(data, textStatus, xhr){
-                alert(`${name}님의 예약이 취소되었습니다.`);
-                console.log("예약 거부 요청 성공");
-                location.reload();
-            },
-            error: function(xhr, status, error){
-                alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
-                console.log(error + " : 예약 거부 요청 실패");
-            }
-        });
+        if(rChk){
+            $.ajax({
+                url: "/therapist/rejectReservation",
+                type: "post",
+                data: {bookingCode: bCode},
+                success: function(data, textStatus, xhr){
+                    alert(`${name}님의 예약이 취소되었습니다.`);
+                    console.log("예약 거부 요청 성공");
+                    location.reload();
+                },
+                error: function(xhr, status, error){
+                    alert("요청 처리 중 오류가 발생했습니다. 문제가 계속되는 경우 고객센터로 문의 바랍니다.");
+                    console.log(error + " : 예약 거부 요청 실패");
+                }
+            });
+        }
     }
 
 </script>

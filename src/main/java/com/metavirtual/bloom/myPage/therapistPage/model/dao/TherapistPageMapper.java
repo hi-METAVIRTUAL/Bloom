@@ -40,5 +40,5 @@ public interface TherapistPageMapper {
 
     List<BookDTO> bookingList(String userId);
 
-    BookInfo bookInfo(String memberId);
+    BookInfo bookInfo(int bookingCode);
 }

@@ -54,6 +54,7 @@
     <resultMap id="book" type="com.metavirtual.bloom.myPage.therapistPage.model.dto.BookDTO">
         <result property="memberName" column="NAME"/>
         <result property="bookingDate" column="BOOKING_DATE"/>
+        <result property="bookingCode" column="BOOKING_CODE"/>
         <result property="memberId" column="MEMBER_ID"/>
     </resultMap>
 
@@ -232,6 +233,7 @@
         SELECT
             B.BOOKING_DATE
             , B.MEMBER_ID
+            , B.BOOKING_CODE
             , U.NAME
         FROM BOOKING B
         JOIN USER U ON B.MEMBER_ID = U.USER_ID
@@ -239,7 +241,7 @@
         AND B.BOOKING_STATUS = "예약 확정"
     </select>
 
-    <select id="bookInfo" resultMap="bookInfo" parameterType="java.lang.String">
+    <select id="bookInfo" resultMap="bookInfo" parameterType="java.lang.Integer">
         SELECT
             B.BOOKING_CODE
             , B.BOOKING_DATE
@@ -256,7 +258,7 @@
         JOIN USER U ON B.MEMBER_ID = U.USER_ID
         JOIN MEMBER_TEST_RESULT R ON U.USER_ID = R.USER_ID
         JOIN MEMBER M ON U.USER_ID = M.USER_ID
-        WHERE B.MEMBER_ID = #{ memberId }
+        WHERE B.BOOKING_CODE = #{ bookingCode }
         AND (
             R.TEST_DATE = (
                 SELECT MAX(TEST_DATE)
