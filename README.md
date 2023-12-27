@@ -70,22 +70,5 @@
 <p align="center"><img alt="dev-tools" src=".github/dev-tools.png"></p>
 
 
-### 🖋 More Info
 
-***
-[✈ Pointrip URL](https://pointrip.net)<br>
-
-[👾 Wiki](https://github.com/hi-METAVIRTUAL/Bloom/wiki)
-
-[🗓 회의록](https://github.com/codestates/Pointrip/projects/4)
-
-[🐬 DB schema](https://github.com/codestates/Pointrip/wiki/DB-Schema)
-
-[🐳 API 문서](https://github.com/codestates/Pointrip/wiki/API)
-
-[📐 Wireframe](https://github.com/codestates/Pointrip/wiki/WireFrame)
-
-[🎨 UI-Design](https://github.com/codestates/Pointrip/wiki/UI-Design)
-
-[🛼 Work-Flow](https://github.com/codestates/Pointrip/wiki/WORK-FLOW)
 
